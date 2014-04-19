@@ -37,7 +37,7 @@
 %   <-> s*[.9]pcrr8t
 %}{}
 
-\title{Titel der Arbeit}
+\title{Hardware/Software Codesign}
 \author{Julian-Benedikt Scholle}
 \supervisor{Dr. Ing. Sebastian Zug\\
   Dipl.-Inform Christoph Steup}
@@ -404,6 +404,28 @@ liefen. Da die Abstimmung nach Butterworth jedoch den Anforderungen bereits gen�
 \caption{Ripple des Tschebyscheff-Filters}%
 \label{fig:plott_ripple-ts}
 \end{figure}
+
+
+\subsubsection{Finaler Entwurf}
+Übertragungsfunktion eines Sallen-key Teifpasses
+\begin{align*}
+A(P)&=\frac{A_0}{1+\omega_g (R_2 C_2 + R_1 C_2 + R_1 C_2(1-A_0))P + \omega_g^2R_1 R_2 C_1C_2P^2}
+\end{align*}
+
+mit
+\begin{align*}
+A_0=\frac{R_6}{R_5}-1
+\end{align*}
+
+
+Die Bauteilwerte erhält man durch einen Koeffizientenvergleich mit der entnormierten
+Übertragungsfunktion eines Tiefpasses zweiter Ordnung:
+
+\begin{align*}
+A(P)&=\frac{A_0}{1+\frac{1}{\omega_g\Omega_PQ_P}s+\frac{1}{\omega_g^2\Omega_P^2}s^2}
+\end{align*}
+
+
 
 \bibliography{BIB}{}
 \bibliographystyle{plain}

@@ -16,3 +16,4 @@
 \contentsline {subsubsection}{Bestimmung der Grenzfreqeunz}{16}{section*.4}
 \contentsline {subsubsection}{Filterentwurf}{16}{section*.5}
 \contentsline {subsubsection}{Simulation}{17}{section*.6}
+\contentsline {subsubsection}{Finaler Entwurf}{18}{section*.7}
