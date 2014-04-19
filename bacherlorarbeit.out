@@ -1,0 +1,13 @@
+\BOOKMARK [0][-]{chapter.1}{ Einleitung}{}% 1
+\BOOKMARK [0][-]{chapter.2}{ Anforderungsanalyse}{}% 2
+\BOOKMARK [0][-]{chapter.3}{ Stand der Technik}{}% 3
+\BOOKMARK [0][-]{chapter.4}{ Motorstrommessung am Shunt}{}% 4
+\BOOKMARK [1][-]{section.4.1}{ Problem}{chapter.4}% 5
+\BOOKMARK [1][-]{section.4.2}{ Prinzip der Strommessung}{chapter.4}% 6
+\BOOKMARK [1][-]{section.4.3}{ Anforderungen}{chapter.4}% 7
+\BOOKMARK [1][-]{section.4.4}{ Dimensionierung des Verst\344rkers}{chapter.4}% 8
+\BOOKMARK [1][-]{section.4.5}{ Anforderungen an den Filter}{chapter.4}% 9
+\BOOKMARK [1][-]{section.4.6}{ Dimensionierung des Filters}{chapter.4}% 10
+\BOOKMARK [2][-]{subsection.4.6.1}{Butterworth}{section.4.6}% 11
+\BOOKMARK [2][-]{subsection.4.6.2}{Bestimmung der Grenzfreqeunz}{section.4.6}% 12
+\BOOKMARK [2][-]{subsection.4.6.3}{Tschebyscheff}{section.4.6}% 13

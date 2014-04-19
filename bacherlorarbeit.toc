@@ -1,0 +1,18 @@
+\contentsline {chapter}{\numberline {1} Einleitung}{5}{chapter.1}
+\contentsline {chapter}{\numberline {2} Anforderungsanalyse}{7}{chapter.2}
+\contentsline {chapter}{\numberline {3} Stand der Technik}{9}{chapter.3}
+\contentsline {chapter}{\numberline {4} Motorstrommessung am Shunt}{11}{chapter.4}
+\contentsline {section}{\numberline {4.1} Problem}{11}{section.4.1}
+\contentsline {section}{\numberline {4.2} Prinzip der Strommessung}{11}{section.4.2}
+\contentsline {section}{\numberline {4.3} Anforderungen}{11}{section.4.3}
+\contentsline {section}{\numberline {4.4} Dimensionierung des Verst\IeC {\"a}rkers}{12}{section.4.4}
+\contentsline {section}{\numberline {4.5} Anforderungen an den Filter}{12}{section.4.5}
+\contentsline {section}{\numberline {4.6} Dimensionierung des Filters}{13}{section.4.6}
+\contentsline {subsection}{\numberline {4.6.1}Butterworth}{13}{subsection.4.6.1}
+\contentsline {subsection}{\numberline {4.6.2}Bestimmung der Grenzfreqeunz}{13}{subsection.4.6.2}
+\contentsline {subsubsection}{Filterentwurf}{14}{section*.2}
+\contentsline {subsubsection}{Simulation}{15}{section*.3}
+\contentsline {subsection}{\numberline {4.6.3}Tschebyscheff}{16}{subsection.4.6.3}
+\contentsline {subsubsection}{Bestimmung der Grenzfreqeunz}{16}{section*.4}
+\contentsline {subsubsection}{Filterentwurf}{16}{section*.5}
+\contentsline {subsubsection}{Simulation}{17}{section*.6}

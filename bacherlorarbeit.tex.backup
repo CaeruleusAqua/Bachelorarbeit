@@ -1,0 +1,46 @@
+\documentclass[11pt,twoside,openright]{mpreport}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{mathptmx}
+\usepackage[scaled=0.85]{helvet}
+\usepackage{courier}           % if you really want to use Courier
+% \usepackage{amsmath}         % if you need additional math symbols
+\usepackage{hyperref}
+\usepackage{ngerman}
+\usepackage{wdok-title}
+
+% Examples for the definition of convenience commands
+\newcommand{\package}[1]{\texttt{#1}}
+\newcommand{\foreign}[1]{\emph{#1}}
+\newcommand{\q}[1]{»#1«}
+
+% Scale Courier by 0.9
+% cf. <http://groups.google.de/groups?selm=yfid76obspu.fsf@triumf.ca>
+%\DeclareFontFamily{T1}{pcr}{}
+%\DeclareFontShape{T1}{pcr}{m}{n}{
+%   <-> s*[.9]pcrr8t
+%}{}
+
+\title{Titel der Arbeit}
+\author{Julian-Benedikt Scholle}
+\supervisor{Dr. Ing. Sebastian Zug\\
+  Dipl.-Inform Christoph Steup}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{Einleitung}
+
+\chapter{Anforderungsanalyse}
+
+\chapter{Stand der Technik}
+
+\chapter{Konzept}
+
+
+
+
+
+\end{document}
