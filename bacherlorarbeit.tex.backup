@@ -55,7 +55,31 @@
 
 \chapter{Einleitung}
 
-\chapter{Anforderungsanalyse}
+\chapter{Anforderungsanalyse} Anforderungsanalyse
+\subsection{Anforderungen an die Platine}
+Laut Regelwerk sind alle Teams zur verwendung eines elektrischen Antriebs verpflichtet.
+Die Anzahl der angetriebenen Räder ist nicht vorgeschrieben
+des weiteren muss das Auto durch Akkus mit Strom versorgt werden.
+Die Übertragung von Daten ist während der Dauer der Disziplinen nicht gestattet
+
+\subsubsection{RC-Modus}
+In Notsituationen muss es möglich sein das Fahrzeug mit Hilfe einer Funkfernbedienung anzuhalten und manuell zu steuern. Eine solche Notsituation tritt ein, wenn
+das Auto seine Aufgabe aufgrund eines Fahrfehlers oder anderem Fehlverhalten nicht mehr autonom fortführen kann.
+Der RC-Modus muss per Fernbedienung eingeschaltet und ausgeschaltet werden, bei Aktivierung des RC-Modus muss das Fahrzeug unverzüglich angehalten werden.
+Während des Wettbewerbs darf die Geschwindigkeit des Autos $0,3\frac{m}{s}$ nicht überschreiten.
+Da das 2,4-GHz Band bereits durch die Vorort genutzte Kameratechink belegt ist können diese Frequenzen nicht für den RC-Modus genutzt werden.
+Der RC-Modus muss durch eine blau blickende leuchte an der höchsten stelle des Fahrzeuges angezeigt werden
+
+\subsubsection{Signalleuchten}
+Durch die Anlehnung des Wettbewerbes an den realen Straßenverkehr muss das Auto über alle in echten Auto vorhandene Signalleuchten besitzen. 
+Dazu gehören 3 Bremslichter am Heck des Autos sowie jeweils 2 Blinker Rechts und Links am Fahrzeug. 
+
+\subsubsection{Verkleidung}
+Um eine schnelle Wartung und Überprüfung zu ermöglichen muss die Fahrzeug Abdeckung jederzeit schnell und einfach entfernt werden können. Des Weiterem muss die dem 
+Schutzgrad IP 11 entsprechen.
+
+
+
 
 \chapter{Stand der Technik}
 
@@ -142,8 +166,16 @@ Statt eine fixe Grenzfreqeunz festzulegen und die benötigte Filterordnung zu be
 
 \subsection{Bestimmung des Filtertyps}
 
-Des Filtertyp muss in Zweierlei hinsicht bestimmt werden. Einmal im hinblich auf die Schaltung und seinem Frequenzgang.
-Im groben gibt es 2 mögliche Filterschaltungen, den Sallen
+Des Filtertyp muss in Zweierlei hinblich bestimmt werden. Einmal im hinblich auf die Schaltung und seinem Frequenzgang.
+Im groben gibt es 2 mögliche Tiefpassfilterschaltungen, den Sallen-Key Teifpass mit nicht invertierendem OPV und dem aktiven Tiefpass mit Mehrfachgegenkopplung 
+(invertierender OPV). Der aktive Tiefpass mit Mehrfachgegenkopplung benotigt allerdings negative Spannungsniveaus die auf der Treiberplatine nicht zur
+verfügung stehen, desshalb wird an dieser Stelle nur der Sallen-Key Teifpass behandelt.
+Was den Frequenzgang angeht gibt es viele Filtercharakteristiken, eine Auswahl an haufig verwendeten Charakteristiken wird hier verglichen.
+
+\begin{tabular}{p{0.2\textwidth}p{0.2\textwidth}p{0.2\textwidth}p{0.2\textwidth}}
+ Filtercharakteristik & Eigenschaften & Vorteile & Nachteile \\
+Butterworth-Filter & Maximal flacher Verlauf des Betragsfrequenzganges im Durchlassbereich, Dämpfung im Sperrbereich monoton verlaufend& Gutes Amplitudenverhalten im Durchlass- und Sperrbereich & Geringe Flankensteilheit im Übergangsbereich 
+\end{tabular}
 
 
 

@@ -1,12 +1,11 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.9)  20 APR 2014 03:48
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.5.4)  20 MAY 2014 00:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **bacherlorarbeit.tex
 (./bacherlorarbeit.tex
 LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ng
-erman, german, swissgerman, ngerman-x-2012-05-30, german-x-2012-05-30, loaded.
+Babel <3.9h> and hyphenation patterns for 78 languages loaded.
 (./mpreport.cls
 Document Class: mpreport 1999/06/04 A variant report class
 (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
@@ -288,18 +287,19 @@ Now handling font encoding U ...
    defining Unicode char U+2423 (decimal 9251)
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2008/07/08 v3.8m The Babel package
+Package: babel 2013/12/03 3.9h The Babel package
 
-(/usr/share/texlive/texmf-dist/tex/generic/babel/ngermanb.ldf
-Language: ngermanb 2008/07/06 v2.6n new German support from the babel system
+(/usr/share/texlive/texmf-dist/tex/generic/babel-german/ngermanb.ldf
+Language: ngermanb 2013/12/13 v2.7 German support for babel (new orthography)
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2008/07/08 v3.8m Babel common definitions
+File: babel.def 2013/12/03 3.9h Babel common definitions
 \babel@savecnt=\count89
 \U@D=\dimen105
 )
 \l@naustrian = a dialect from \language\l@ngerman 
-Package babel Info: Making " an active character on input line 92.
+\l@nswissgerman = a dialect from \language\l@ngerman 
+Package babel Info: Making " an active character on input line 88.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/helvet.sty
 Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
@@ -329,7 +329,7 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \TX@ftn=\toks18
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2000/07/18 v2.13 AMS math features
+Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip52
 
 For additional information on amsmath, use the `?' option.
@@ -349,20 +349,20 @@ Package: amsbsy 1999/11/29 v1.2d
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count91
-LaTeX Info: Redefining \frac on input line 211.
+LaTeX Info: Redefining \frac on input line 210.
 \uproot@=\count92
 \leftroot@=\count93
-LaTeX Info: Redefining \overline on input line 307.
+LaTeX Info: Redefining \overline on input line 306.
 \classnum@=\count94
 \DOTSCASE@=\count95
-LaTeX Info: Redefining \ldots on input line 379.
-LaTeX Info: Redefining \dots on input line 382.
-LaTeX Info: Redefining \cdots on input line 467.
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
 \Mathstrutbox@=\box26
 \strutbox@=\box27
 \big@size=\dimen115
-LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \macc@depth=\count96
 \c@MaxMatrixCols=\count97
 \dotsspace@=\muskip10
@@ -383,21 +383,21 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 \multlinegap=\skip53
 \multlinetaggap=\skip54
 \mathdisplay@stack=\toks23
-LaTeX Info: Redefining \[ on input line 2666.
-LaTeX Info: Redefining \] on input line 2667.
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
-Package: amssymb 2009/06/22 v3.00
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
-Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
-(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2012/05/13 v6.82q Hypertext links for LaTeX
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
 Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
@@ -447,6 +447,9 @@ Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
@@ -455,7 +458,7 @@ Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 \Hy@pagecounter=\count104
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2012/05/13 v6.82q Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
@@ -464,33 +467,34 @@ Now handling font encoding PD1 ...
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 3941.
-Package hyperref Info: Hyper figures OFF on input line 4062.
-Package hyperref Info: Link nesting OFF on input line 4067.
-Package hyperref Info: Hyper index ON on input line 4070.
-Package hyperref Info: Plain pages OFF on input line 4077.
-Package hyperref Info: Backreferencing OFF on input line 4082.
+Package hyperref Info: Option `colorlinks' set `true' on input line 4319.
+Package hyperref Info: Hyper figures OFF on input line 4443.
+Package hyperref Info: Link nesting OFF on input line 4448.
+Package hyperref Info: Hyper index ON on input line 4451.
+Package hyperref Info: Plain pages OFF on input line 4458.
+Package hyperref Info: Backreferencing OFF on input line 4463.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4300.
+Package hyperref Info: Bookmarks ON on input line 4688.
 \c@Hy@tempcnt=\count106
 
 (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
-Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4653.
+LaTeX Info: Redefining \url on input line 5041.
+\XeTeXLinkMargin=\dimen123
 \Fld@menulength=\count107
-\Field@Width=\dimen123
-\Fld@charsize=\dimen124
-Package hyperref Info: Hyper figures OFF on input line 5773.
-Package hyperref Info: Link nesting OFF on input line 5778.
-Package hyperref Info: Hyper index ON on input line 5781.
-Package hyperref Info: backreferencing OFF on input line 5788.
-Package hyperref Info: Link coloring ON on input line 5791.
-Package hyperref Info: Link coloring with OCG OFF on input line 5798.
-Package hyperref Info: PDF/A mode OFF on input line 5803.
-LaTeX Info: Redefining \ref on input line 5843.
-LaTeX Info: Redefining \pageref on input line 5847.
+\Field@Width=\dimen124
+\Fld@charsize=\dimen125
+Package hyperref Info: Hyper figures OFF on input line 6295.
+Package hyperref Info: Link nesting OFF on input line 6300.
+Package hyperref Info: Hyper index ON on input line 6303.
+Package hyperref Info: backreferencing OFF on input line 6310.
+Package hyperref Info: Link coloring ON on input line 6313.
+Package hyperref Info: Link coloring with OCG OFF on input line 6320.
+Package hyperref Info: PDF/A mode OFF on input line 6325.
+LaTeX Info: Redefining \ref on input line 6365.
+LaTeX Info: Redefining \pageref on input line 6369.
 \Hy@abspage=\count108
 \c@Item=\count109
 \c@Hfootnote=\count110
@@ -499,7 +503,7 @@ LaTeX Info: Redefining \pageref on input line 5847.
 Package hyperref Message: Driver (autodetected): hpdftex.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2012/05/13 v6.82q Hyperref driver for pdfTeX
+File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
 \Fld@listcount=\count111
 \c@bookmark@seq@number=\count112
 
@@ -512,14 +516,13 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 (/usr/share/texlive/texmf-dist/tex/generic/german/ngerman.sty v2.5e 1998-07-08
 Package: ngerman 1998/07/08 v2.5e Support for writing german texts (br)
-\grmnU@D=\dimen125
+\grmnU@D=\dimen126
 LaTeX Info: Redefining \glqq on input line 255.
 LaTeX Info: Redefining \glq on input line 268.
 LaTeX Info: Redefining \flqq on input line 281.
 LaTeX Info: Redefining \frqq on input line 289.
 LaTeX Info: Redefining \flq on input line 297.
 LaTeX Info: Redefining \frq on input line 304.
-ngerman -- \language number for French undefined, default 255 used.
 ) (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
@@ -706,14 +709,14 @@ Package: pgfsys 2010/06/30 v2.10 (rcs-revision 1.37)
 (/usr/share/texmf/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
 \pgfkeys@tmptoks=\toks27
 ))
-\pgf@x=\dimen126
-\pgf@y=\dimen127
-\pgf@xa=\dimen128
-\pgf@ya=\dimen129
-\pgf@xb=\dimen130
-\pgf@yb=\dimen131
-\pgf@xc=\dimen132
-\pgf@yc=\dimen133
+\pgf@x=\dimen127
+\pgf@y=\dimen128
+\pgf@xa=\dimen129
+\pgf@ya=\dimen130
+\pgf@xb=\dimen131
+\pgf@yb=\dimen132
+\pgf@xc=\dimen133
+\pgf@yc=\dimen134
 \w@pgf@writea=\write3
 \r@pgf@reada=\read1
 \c@pgf@counta=\count113
@@ -764,7 +767,7 @@ Package: pgfcore 2010/04/11 v2.10 (rcs-revision 1.7)
 (/usr/share/texmf/tex/generic/pgf/math/pgfmathcalc.code.tex
 (/usr/share/texmf/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/share/texmf/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen134
+\pgfmath@dimen=\dimen135
 \pgfmath@count=\count119
 \pgfmath@box=\box29
 \pgfmath@toks=\toks28
@@ -784,30 +787,30 @@ Package: pgfcore 2010/04/11 v2.10 (rcs-revision 1.7)
 ))
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2010/04/09  (rcs-revision 1.20)
-\pgf@picminx=\dimen135
-\pgf@picmaxx=\dimen136
-\pgf@picminy=\dimen137
-\pgf@picmaxy=\dimen138
-\pgf@pathminx=\dimen139
-\pgf@pathmaxx=\dimen140
-\pgf@pathminy=\dimen141
-\pgf@pathmaxy=\dimen142
-\pgf@xx=\dimen143
-\pgf@xy=\dimen144
-\pgf@yx=\dimen145
-\pgf@yy=\dimen146
-\pgf@zx=\dimen147
-\pgf@zy=\dimen148
+\pgf@picminx=\dimen136
+\pgf@picmaxx=\dimen137
+\pgf@picminy=\dimen138
+\pgf@picmaxy=\dimen139
+\pgf@pathminx=\dimen140
+\pgf@pathmaxx=\dimen141
+\pgf@pathminy=\dimen142
+\pgf@pathmaxy=\dimen143
+\pgf@xx=\dimen144
+\pgf@xy=\dimen145
+\pgf@yx=\dimen146
+\pgf@yy=\dimen147
+\pgf@zx=\dimen148
+\pgf@zy=\dimen149
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2010/08/03  (rcs-revision 1.24)
-\pgf@path@lastx=\dimen149
-\pgf@path@lasty=\dimen150
+\pgf@path@lastx=\dimen150
+\pgf@path@lasty=\dimen151
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
 File: pgfcorepathusage.code.tex 2008/04/22  (rcs-revision 1.12)
-\pgf@shorten@end@additional=\dimen151
-\pgf@shorten@start@additional=\dimen152
+\pgf@shorten@end@additional=\dimen152
+\pgf@shorten@start@additional=\dimen153
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2010/09/08  (rcs-revision 1.34)
@@ -818,13 +821,13 @@ File: pgfcorescopes.code.tex 2010/09/08  (rcs-revision 1.34)
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2008/04/22  (rcs-revision 1.9)
-\pgflinewidth=\dimen153
+\pgflinewidth=\dimen154
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
 File: pgfcoretransformations.code.tex 2009/06/10  (rcs-revision 1.11)
-\pgf@pt@x=\dimen154
-\pgf@pt@y=\dimen155
-\pgf@pt@temp=\dimen156
+\pgf@pt@x=\dimen155
+\pgf@pt@y=\dimen156
+\pgf@pt@temp=\dimen157
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2008/10/09  (rcs-revision 1.3)
@@ -840,7 +843,7 @@ File: pgfcorearrows.code.tex 2008/04/23  (rcs-revision 1.11)
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2008/11/23  (rcs-revision 1.13)
-\pgf@max=\dimen157
+\pgf@max=\dimen158
 \pgf@sys@shading@range@num=\count122
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
@@ -868,8 +871,8 @@ File: pgfmoduleplot.code.tex 2010/10/22  (rcs-revision 1.8)
 )
 (/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2007/07/03 v2.10 (rcs-revision 1.7)
-\pgf@nodesepstart=\dimen158
-\pgf@nodesepend=\dimen159
+\pgf@nodesepstart=\dimen159
+\pgf@nodesepend=\dimen160
 )
 (/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
@@ -879,8 +882,8 @@ Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
 (/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex))
 (/usr/share/texmf/tex/generic/pgf/utilities/pgffor.code.tex
 Package: pgffor 2010/03/23 v2.10 (rcs-revision 1.18)
-\pgffor@iter=\dimen160
-\pgffor@skip=\dimen161
+\pgffor@iter=\dimen161
+\pgffor@skip=\dimen162
 \pgffor@stack=\toks31
 \pgffor@toks=\toks32
 ))
@@ -890,14 +893,14 @@ Package: tikz 2010/10/13 v2.10 (rcs-revision 1.76)
 (/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2010/05/31 v2.10 (rcs-revision 1.15)
 \pgf@plot@mark@count=\count123
-\pgfplotmarksize=\dimen162
+\pgfplotmarksize=\dimen163
 )
-\tikz@lastx=\dimen163
-\tikz@lasty=\dimen164
-\tikz@lastxsaved=\dimen165
-\tikz@lastysaved=\dimen166
-\tikzleveldistance=\dimen167
-\tikzsiblingdistance=\dimen168
+\tikz@lastx=\dimen164
+\tikz@lasty=\dimen165
+\tikz@lastxsaved=\dimen166
+\tikz@lastysaved=\dimen167
+\tikzleveldistance=\dimen168
+\tikzsiblingdistance=\dimen169
 \tikz@figbox=\box35
 \tikz@tempbox=\box36
 \tikztreelevel=\count124
@@ -918,14 +921,14 @@ hs.code.tex
 File: tikzlibrarytopaths.code.tex 2008/06/17 v2.10 (rcs-revision 1.2)
 ))) (/usr/share/texlive/texmf-dist/tex/latex/pgfplots/pgfplots.sty
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
-Package: pgfplots 2011/12/29 v1.5.1 (git show 1.5.1-4-g53e640f )
+Package: pgfplots 2013/10/03 v1.9 Data Visualization (1.9)
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
 \t@pgfplots@toka=\toks33
 \t@pgfplots@tokb=\toks34
 \t@pgfplots@tokc=\toks35
-\pgfplots@tmpa=\dimen169
+\pgfplots@tmpa=\dimen170
 \c@pgfplots@coordindex=\count132
 \c@pgfplots@scanlineindex=\count133
 
@@ -954,12 +957,24 @@ gfsupp_pgfmathfloat.code.tex
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
 gfsupp_pgflibraryplothandlers.code.tex
-File: pgflibraryplothandlers.code.tex 2011/12/28 v2.10 (rcs-revision 1.16)
+File: pgflibraryplothandlers.code.tex 2012/09/11 v2.10 (rcs-revision 1.17)
 \pgf@plot@mark@count=\count135
-\pgfplotmarksize=\dimen170
+\pgfplotmarksize=\dimen171
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
-gfsupp_pgflibraryfpu.code.tex))
+gfsupp_pgflibraryfpu.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
+gfsupp_pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2012/11/30  (rcs-revision 1.38)
+\pgfpic=\box37
+\pgf@hbox=\box38
+\pgf@layerbox@main=\box39
+\pgf@picture@serial@count=\count136
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldp
+gfsupp_pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2012/11/07  (rcs-revision 1.5)
+))
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotslists
 tructure.code.tex)
@@ -967,52 +982,59 @@ tructure.code.tex)
 tructureext.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray
 .code.tex
-\c@pgfplotsarray@tmp=\count136
+\c@pgfplotsarray@tmp=\count137
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatri
 x.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshare
 d.code.tex
-\c@pgfplotstable@counta=\count137
+\c@pgfplotstable@counta=\count138
 \t@pgfplotstable@a=\toks39
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque
 .code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.te
-x)
+x
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.co
+de.tex))
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code
 .tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.sur
 fshading.code.tex
-\c@pgfplotslibrarysurf@no=\count138
+\c@pgfplotslibrarysurf@no=\count139
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surf
 shading.pgfsys-pdftex.def)))
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.
-tex)
+tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex
+))
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.t
 ex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.t
 ex
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.cod
 e.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.cod
 e.tex)
-(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex
+) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex
+) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex)
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecor
 ations.code.tex
 (/usr/share/texmf/tex/generic/pgf/modules/pgfmoduledecorations.code.tex
-\pgfdecoratedcompleteddistance=\dimen171
-\pgfdecoratedremainingdistance=\dimen172
-\pgfdecoratedinputsegmentcompleteddistance=\dimen173
-\pgfdecoratedinputsegmentremainingdistance=\dimen174
-\pgf@decorate@distancetomove=\dimen175
-\pgf@decorate@repeatstate=\count139
-\pgfdecorationsegmentamplitude=\dimen176
-\pgfdecorationsegmentlength=\dimen177
+\pgfdecoratedcompleteddistance=\dimen172
+\pgfdecoratedremainingdistance=\dimen173
+\pgfdecoratedinputsegmentcompleteddistance=\dimen174
+\pgfdecoratedinputsegmentremainingdistance=\dimen175
+\pgf@decorate@distancetomove=\dimen176
+\pgf@decorate@repeatstate=\count140
+\pgfdecorationsegmentamplitude=\dimen177
+\pgfdecorationsegmentlength=\dimen178
 )
-\tikz@lib@dec@box=\box37
+\tikz@lib@dec@box=\box40
 )
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecor
 ations.pathmorphing.code.tex
@@ -1022,13 +1044,13 @@ athmorphing.code.tex))
 ations.pathreplacing.code.tex
 (/usr/share/texmf/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.p
 athreplacing.code.tex))
-\pgfplots@numplots=\count140
-\pgfplots@xmin@reg=\dimen178
-\pgfplots@xmax@reg=\dimen179
-\pgfplots@ymin@reg=\dimen180
-\pgfplots@ymax@reg=\dimen181
-\pgfplots@zmin@reg=\dimen182
-\pgfplots@zmax@reg=\dimen183
+\pgfplots@numplots=\count141
+\pgfplots@xmin@reg=\dimen179
+\pgfplots@xmax@reg=\dimen180
+\pgfplots@ymin@reg=\dimen181
+\pgfplots@ymax@reg=\dimen182
+\pgfplots@zmin@reg=\dimen183
+\pgfplots@zmax@reg=\dimen184
 )
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryplotm
 arks.code.tex
@@ -1043,11 +1065,11 @@ Package: placeins 2005/04/18  v 2.2
 (/usr/share/texlive/texmf-dist/tex/latex/here/here.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count141
+\c@float@type=\count142
 \float@exts=\toks40
-\float@box=\box38
+\float@box=\box41
 \@float@everytoks=\toks41
-\@floatcapt=\box39
+\@floatcapt=\box42
 )
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatte
 rns.code.tex
@@ -1083,16 +1105,16 @@ File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    ... okay on input line 52.
  (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count142
-\scratchdimen=\dimen184
-\scratchbox=\box40
-\nofMPsegments=\count143
-\nofMParguments=\count144
+\scratchcounter=\count143
+\scratchdimen=\dimen185
+\scratchbox=\box43
+\nofMPsegments=\count144
+\nofMParguments=\count145
 \everyMPshowfont=\toks42
-\MPscratchCnt=\count145
-\MPscratchDim=\dimen185
-\MPnumerator=\count146
-\makeMPintoPDFobject=\count147
+\MPscratchCnt=\count146
+\MPscratchDim=\dimen186
+\MPnumerator=\count147
+\makeMPintoPDFobject=\count148
 \everyMPtoPDFconversion=\toks43
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -1109,16 +1131,16 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\AtBeginShipoutBox=\box41
+\AtBeginShipoutBox=\box44
 Package hyperref Info: Link coloring ON on input line 52.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
-Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count148
+\c@section@level=\count149
 )
 LaTeX Info: Redefining \ref on input line 52.
 LaTeX Info: Redefining \pageref on input line 52.
@@ -1130,12 +1152,17 @@ LaTeX Info: Redefining \nameref on input line 52.
 
 
 ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 53.
 
+Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
+ick labels; missing features). Consider writing \pgfplotsset{compat=1.9} into y
+our preamble.
+ on input line 52.
+
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 53.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
-<ovgu-siegel.pdf, id=59, 541.02126pt x 558.6471pt>
+<ovgu-siegel.pdf, id=67, 541.02126pt x 558.6471pt>
 File: ovgu-siegel.pdf Graphic file (type pdf)
  <use ovgu-siegel.pdf>
 Package pdftex.def Info: ovgu-siegel.pdf used on input line 53.
@@ -1170,15 +1197,15 @@ LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
 (Font)              scaled to size 21.14815pt on input line 54.
 
 (./bacherlorarbeit.toc
-LaTeX Font Info:    Try loading font information for U+msa on input line 5.
+LaTeX Font Info:    Try loading font information for U+msa on input line 3.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 5.
+LaTeX Font Info:    Try loading font information for U+msb on input line 3.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ))
 \tf@toc=\write5
 \openout5 = `bacherlorarbeit.toc'.
@@ -1190,127 +1217,140 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ]
 [6
 
-] [7
+]
 
-] [8
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 59.
 
-] [9
+
+Underfull \vbox (badness 1248) has occurred while \output is active []
+
+ [7
+
+]
+Overfull \hbox (7.78105pt too wide) in paragraph at lines 85--87
+\OT1/cmr/m/n/10.95 Fahr-zeug Ab-de-ckung je-der-zeit schnell und ein-fach ent-f
+ernt wer-den k[]onnen.
+ []
+
+[8] [9
+
 
 ] [10
 
 ]
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 65.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 101.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 10.20007pt on input line 65.
+(Font)              scaled to size 10.20007pt on input line 101.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [11
 
 ]
-<oszi.png, id=132, 1473.25406pt x 1046.40938pt>
+<oszi.png, id=147, 1473.25406pt x 1046.40938pt>
 File: oszi.png Graphic file (type png)
  <use oszi.png>
-Package pdftex.def Info: oszi.png used on input line 118.
+Package pdftex.def Info: oszi.png used on input line 154.
 (pdftex.def)             Requested size: 273.14748pt x 193.99783pt.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 9.30756pt on input line 119.
+(Font)              scaled to size 9.30756pt on input line 155.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 8.50006pt on input line 119.
+(Font)              scaled to size 8.50006pt on input line 155.
  [12pdfTeX warning (ext4): destination with the same identifier (name{figure.4.
 1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.125 \begin{align}
+l.161 \begin{align}
                     <./oszi.png>]
-Overfull \hbox (23.87709pt too wide) in paragraph at lines 152--152
+Overfull \hbox (23.87709pt too wide) in paragraph at lines 188--188
 []|\OT1/cmr/m/n/10.95 Filtercharakteristik| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 []|\OT1/cmr/m/n/10.95 Butterworth-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 []|\OT1/cmr/m/n/10.95 Maximal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 fla-cher Ver-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 lauf des
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 Be-trags-fre-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 quenz-gan-ges
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 im Durch-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 lass-be-reich,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 D[]amp-fung
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 im Sperr-be-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 []|\OT1/cmr/m/n/10.95 Gutes Am-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 pli-tu-den-ver-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 hal-ten im
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 Durchlass-
  []
 
 
-Underfull \hbox (badness 2828) in paragraph at lines 153--153
+Underfull \hbox (badness 2828) in paragraph at lines 189--189
 \OT1/cmr/m/n/10.95 und Sperr-be-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--154
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
 \OT1/cmr/m/n/10.95 kens-teil-heit
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--154
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
 \OT1/cmr/m/n/10.95 im []Uber-
  []
 
@@ -1319,29 +1359,29 @@ e.4.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.246 \end{tikzpicture}
+l.282 \end{tikzpicture}
                        ] [15] (./bacherlorarbeit.bbl [16])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 324.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 360.
  [17
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 324.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 360.
 
 (./bacherlorarbeit.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 324.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 324.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 360.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 360.
 Package rerunfilecheck Info: File `bacherlorarbeit.out' has not changed.
-(rerunfilecheck)             Checksum: 225A59AD7B9518B2A924EE1C17C59144;843.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 324.
+(rerunfilecheck)             Checksum: 271A3B2A28178C9170EE0AE6E6A94F77;1012.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 360.
  ) 
 Here is how much of TeX's memory you used:
- 22282 strings out of 495007
- 472914 string characters out of 3179690
- 620912 words of memory out of 3000000
- 24961 multiletter control sequences out of 15000+200000
- 23692 words of font info for 52 fonts, out of 3000000 for 9000
- 14 hyphenation exceptions out of 8191
- 56i,13n,74p,667b,615s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 23474 strings out of 493304
+ 513223 string characters out of 6139872
+ 698308 words of memory out of 5000000
+ 26378 multiletter control sequences out of 15000+600000
+ 23692 words of font info for 52 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 56i,13n,74p,741b,615s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist
@@ -1357,10 +1397,10 @@ xlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/ti
 mes/utmr8a.pfb>
-Output written on bacherlorarbeit.pdf (17 pages, 299468 bytes).
+Output written on bacherlorarbeit.pdf (17 pages, 302778 bytes).
 PDF statistics:
- 252 PDF objects out of 1000 (max. 8388607)
- 210 compressed objects within 3 object streams
- 44 named destinations out of 1000 (max. 500000)
- 131 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 267 PDF objects out of 1000 (max. 8388607)
+ 225 compressed objects within 3 object streams
+ 50 named destinations out of 1000 (max. 500000)
+ 147 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,5 +1,11 @@
 \contentsline {chapter}{\numberline {1} Einleitung}{5}{chapter.1}
 \contentsline {chapter}{\numberline {2} Anforderungsanalyse}{7}{chapter.2}
+\contentsline {subsection}{\numberline {2.0.1}Anforderungen an die Platine}{7}{subsection.2.0.1}
+\contentsline {subsubsection}{Fahrzeugabmessungen}{7}{section*.2}
+\contentsline {subsubsection}{RC-Modus}{7}{section*.3}
+\contentsline {subsubsection}{Signalleuchten}{8}{section*.4}
+\contentsline {subsubsection}{Verkleidung}{8}{section*.5}
+\contentsline {subsection}{\numberline {2.0.2}Resultat aus den Anforderungen}{8}{subsection.2.0.2}
 \contentsline {chapter}{\numberline {3} Stand der Technik}{9}{chapter.3}
 \contentsline {chapter}{\numberline {4} Motorstrommessung am Shunt}{11}{chapter.4}
 \contentsline {section}{\numberline {4.1} Problem}{11}{section.4.1}
@@ -11,5 +17,5 @@
 \contentsline {subsection}{\numberline {4.6.1}Bestimmung des Filtertyps}{13}{subsection.4.6.1}
 \contentsline {subsection}{\numberline {4.6.2}Butterworth}{14}{subsection.4.6.2}
 \contentsline {subsection}{\numberline {4.6.3}Bestimmung der Grenzfreqeunz}{14}{subsection.4.6.3}
-\contentsline {subsubsection}{Filterentwurf}{14}{section*.2}
-\contentsline {subsubsection}{Finaler Entwurf}{15}{section*.3}
+\contentsline {subsubsection}{Filterentwurf}{14}{section*.6}
+\contentsline {subsubsection}{Finaler Entwurf}{15}{section*.7}
