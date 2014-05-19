@@ -7,13 +7,9 @@
 \contentsline {section}{\numberline {4.3} Anforderungen}{11}{section.4.3}
 \contentsline {section}{\numberline {4.4} Dimensionierung des Verst\IeC {\"a}rkers}{12}{section.4.4}
 \contentsline {section}{\numberline {4.5} Anforderungen an den Filter}{12}{section.4.5}
-\contentsline {section}{\numberline {4.6} Dimensionierung des Filters}{13}{section.4.6}
-\contentsline {subsection}{\numberline {4.6.1}Butterworth}{13}{subsection.4.6.1}
-\contentsline {subsection}{\numberline {4.6.2}Bestimmung der Grenzfreqeunz}{13}{subsection.4.6.2}
+\contentsline {section}{\numberline {4.6} Filterentwurf}{13}{section.4.6}
+\contentsline {subsection}{\numberline {4.6.1}Bestimmung des Filtertyps}{13}{subsection.4.6.1}
+\contentsline {subsection}{\numberline {4.6.2}Butterworth}{14}{subsection.4.6.2}
+\contentsline {subsection}{\numberline {4.6.3}Bestimmung der Grenzfreqeunz}{14}{subsection.4.6.3}
 \contentsline {subsubsection}{Filterentwurf}{14}{section*.2}
-\contentsline {subsubsection}{Simulation}{15}{section*.3}
-\contentsline {subsection}{\numberline {4.6.3}Tschebyscheff}{16}{subsection.4.6.3}
-\contentsline {subsubsection}{Bestimmung der Grenzfreqeunz}{16}{section*.4}
-\contentsline {subsubsection}{Filterentwurf}{16}{section*.5}
-\contentsline {subsubsection}{Simulation}{17}{section*.6}
-\contentsline {subsubsection}{Finaler Entwurf}{18}{section*.7}
+\contentsline {subsubsection}{Finaler Entwurf}{15}{section*.3}
