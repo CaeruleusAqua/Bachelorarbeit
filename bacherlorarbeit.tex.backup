@@ -101,6 +101,8 @@ existiert \cite{Mabuchi}
 
 
 
+
+
 \chapter{Stand der Technik}
 
 \chapter{Motorstrommessung am Shunt}
@@ -137,6 +139,26 @@ Aus einem möglichst kleinem Ripple resultiert eine möglichst hohe Filterordnun
 Allerdings soll $U_{DC}$ einer Änderung des Mittelwertes, also einer Änderung des Tastverhältnisses, möglichst
 schnell folgen. Diese Anforderung widerspricht der Voherigen so das ein Kompromiss gefunden werden muss.
 
+\section{Bestimmung des Filtertyps}
+Aufgrund des sehr nidrigen Spannungpegels am Shunt,ist es nötig das Signal zu verstärken. Da zum verstärken des Signals aktive elektronische elemente notwendig sind,
+z.B. ein Operationsverstärker, wird an dieser Stelle gleich ein aktiver Filter verwedet. Dieser gibt uns die Möglichkeit des Messignal zu verstärken und gleichzeitig zu
+Filtern. Da wir als unser Signal im optimalen Fall eine Gleichspannung darstellt müssen wir die Hochfrequenten anteile unseres Signales herausfiltern, dies geschieht 
+mit Hilfe eines Tiefpasses. Es gibt im Grunde 2 übliche aktive Tiefpässe, den Tiefpass mit Mehrfachgegenkopplung und den Sallen-Key Filter. Ersterer verwendet
+einen invertierenden Verstärker, dieser invertiert das Messsignal. Da der µController jedoch nur mit Postitiven Spannungen umgehen kann müsste mann hier mit einer 
+negativen Referenzspannung Arbeiten, was den Schaltungsaufwand unnötig vergrößern würde. Der Sallen-Key Tiefpass benutzt einen nicht invertierenden Verstärker, welcher diesen
+Nachteil nicht hat. So das ab dieser Stelle ein Sallen-Key Tiefpass entwurfen wird.
+
+
+\section{Die Filterschaltung}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{filter_schaltung.png}\\
+\caption{Spannung am Shunt + PWM}%
+\label{fig:pwm+i}
+\end{figure}
+
+
+
 \section{Dimensionierung des Verstärkers}
 
 In bisherigen Rechnungen wurde ein maximaler Spannungsabfall von 100mV am Shunt errechnet. Da der Messbereich des voll ADC ausgenutzt werden soll,
@@ -172,14 +194,14 @@ A_1 = K\cdot \frac{1}{\pi}[\sin(\pi p)-\sin(2\pi(1-\frac{p}{2}))]
 \end{align}
 Wobei p dem Tastverhältnis und K der maximale Amplitude des Ursprungsingals entspricht \cite{Alter2008}. K entspricht den erechneten 100mV multipliziert mit dem Verstärkungsfaktor 48, also 4,8V und p wird zu 0,5
 angenommen. Mit (\ref{eq:ripple}) ergibt sich für die Amplitude der Grundschwingung $ A_1 = K\cdot \frac{2}{\pi} = 3,056V$. $A_1$ soll auf $ < 4,88mV$ gedämpft werden.
-Als Sperrfrequenz $\Omega_s $ wir hier die PWM Frequenz angesetzt für $H(\omega=2\pi f_{PWM})$ gilt also:
+Als Sperrfrequenz $\Omega_s $ wird hier die PWM Frequenz angesetzt für $H(\omega=2\pi f_{PWM})$ gilt also:
 
 \begin{align}
 H(\omega=2\pi f_{PWM}) \le \frac{4,88mV}{3,056V} \mathop{\hat{=}} 20\cdot\log(\frac{4,88mV}{3,056V})= -55,9 dB
 \label{eq:daempfung}
 \end{align}
 
-Da des Projekt mölicht kostensparend durchgeführt werden soll, also Bauteilsparend, wird an dieser Stelle von den üblichen Konventionen zur dimensionierung von Filtern abgewichen.
+Da das Projekt möglicht kostensparend durchgeführt werden soll, also auch Bauteilsparend, wird an dieser Stelle von den üblichen Konventionen zur dimensionierung von Filtern abgewichen.
 Statt eine fixe Grenzfreqeunz festzulegen und die benötigte Filterordnung zu bestimmen, wird die Filterordnung vorgegeben und die Grenzfrequenz variert.
 
 \section{Filterentwurf}
@@ -291,7 +313,7 @@ Betrachetn wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. O
 
 Charakteristisch für den Butterworthfilter ist das sich die Polstellen auf einer Kreisbahn befinden. Auf die Grenzfreqeunz normiert hat dieser beim Butterworthfilter den Radius
 eins. Bei einem Butterworth 2. Ordnung befinden sie sich genau bei $\delta=45^\circ$. Das Interessante am Polstellen-Nullstellendiagramm ist, dass sich Polfrequenz $\Omega_P$ und 
-Polgüte $Q_P$ einfach ablesen lassen. Die Polfrequenz $\Omega_P$ ist der Betrag der normierten Polstelle, welche beim Butterworth immer eins ist (sie entspricht der Grenzfrequenz).
+Polgüte $Q_P$ einfach ablesen lassen. Die Polfrequenz $\Omega_P$ ist der Betrag der normierten Polstelle, welche beim Butterworth immer eins ist.
 Die Polgüte ist abhängig von $\delta$ und ergibt sich zu: $Q_P=\frac{1}{2\cos{\delta}}$. Für unseren Butterworthfilter ergeben sich also $Q_P=0,707$ und $\Omega_P=1$
 
 

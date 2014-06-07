@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.5.4)  20 MAY 2014 03:23
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.5.4)  3 JUN 2014 20:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1080,7 +1080,11 @@ File: pgflibrarypatterns.code.tex 2008/03/03 v2.10 (rcs-revision 1.13)
 ))
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfpu.c
 ode.tex (/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryfpu.code.tex))
-(./bacherlorarbeit.aux)
+(./bacherlorarbeit.aux
+
+LaTeX Warning: Label `fig:pwm+i' multiply defined.
+
+)
 \openout1 = `bacherlorarbeit.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
@@ -1103,7 +1107,8 @@ LaTeX Font Info:    Try loading font information for TS1+cmr on input line 52.
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 52.
- (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count143
 \scratchdimen=\dimen185
@@ -1162,7 +1167,7 @@ LaTeX Font Info:    Try loading font information for OT1+ptm on input line 53.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
-<ovgu-siegel.pdf, id=67, 541.02126pt x 558.6471pt>
+<ovgu-siegel.pdf, id=75, 541.02126pt x 558.6471pt>
 File: ovgu-siegel.pdf Graphic file (type pdf)
  <use ovgu-siegel.pdf>
 Package pdftex.def Info: ovgu-siegel.pdf used on input line 53.
@@ -1240,173 +1245,195 @@ ernt wer-den k[]onnen.
 
 ]
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 109.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 111.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 10.20007pt on input line 109.
+(Font)              scaled to size 10.20007pt on input line 111.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [11
 
 ]
-<oszi.png, id=149, 1473.25406pt x 1046.40938pt>
-File: oszi.png Graphic file (type png)
- <use oszi.png>
-Package pdftex.def Info: oszi.png used on input line 162.
-(pdftex.def)             Requested size: 273.14748pt x 193.99783pt.
+<filter_schaltung.png, id=160, 401.21895pt x 256.0767pt>
+File: filter_schaltung.png Graphic file (type png)
+
+<use filter_schaltung.png>
+Package pdftex.def Info: filter_schaltung.png used on input line 155.
+(pdftex.def)             Requested size: 273.14748pt x 174.34866pt.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 9.30756pt on input line 163.
+(Font)              scaled to size 9.30756pt on input line 156.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 8.50006pt on input line 163.
+(Font)              scaled to size 8.50006pt on input line 156.
+
+Underfull \vbox (badness 2521) has occurred while \output is active []
+
  [12pdfTeX warning (ext4): destination with the same identifier (name{figure.4.
 1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.169 \begin{align}
-                    <./oszi.png>]
-Overfull \hbox (23.87709pt too wide) in paragraph at lines 196--196
+l.164 I
+       n bisherigen Rechnungen wurde ein maximaler Spannungsabfall von 100mV...
+ <./filter_schaltung.png>] <oszi.png, id=172, 1473.25406pt x 1046.40938pt>
+File: oszi.png Graphic file (type png)
+
+<use oszi.png>
+Package pdftex.def Info: oszi.png used on input line 184.
+(pdftex.def)             Requested size: 273.14748pt x 193.99783pt.
+ [13pdfTeX warning (ext4): destination with the same identifier (name{figure.4.
+2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.198 
+       <./oszi.png>]
+Overfull \hbox (23.87709pt too wide) in paragraph at lines 218--218
 []|\OT1/cmr/m/n/10.95 Filtercharakteristik| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 []|\OT1/cmr/m/n/10.95 Butterworth-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 []|\OT1/cmr/m/n/10.95 Maximal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 fla-cher Ver-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 lauf des
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 Be-trags-fre-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 quenz-gan-ges
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 im Durch-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 lass-be-reich,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 D[]amp-fung
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 im Sperr-be-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 []|\OT1/cmr/m/n/10.95 Gutes Am-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 pli-tu-den-ver-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 hal-ten im
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--197
+Underfull \hbox (badness 10000) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 Durchlass-
  []
 
 
-Underfull \hbox (badness 2828) in paragraph at lines 197--197
+Underfull \hbox (badness 2828) in paragraph at lines 219--219
 \OT1/cmr/m/n/10.95 und Sperr-be-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--198
+Underfull \hbox (badness 10000) in paragraph at lines 219--220
 \OT1/cmr/m/n/10.95 kens-teil-heit
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--198
+Underfull \hbox (badness 10000) in paragraph at lines 219--220
 \OT1/cmr/m/n/10.95 im []Uber-
  []
 
-[13] [14pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.4.2}) has been already used, duplicate ignored
+[14pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3
+}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.290 \end{tikzpicture}
-                       ] [15] (./bacherlorarbeit.bbl [16]
+l.248 
+      ] [15] [16] (./bacherlorarbeit.bbl [17] [18
+
+]
 Underfull \hbox (badness 3009) in paragraph at lines 10--16
 \OT1/cmtt/m/n/10.95 cgi-[]bin / catalog / e _ catalog . cgi ? CAT _ ID = rs _ 5
 40sh$[][]\OT1/cmr/m/n/10.95 , Mai 2014.
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 368.
- [17
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 368.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 390.
+ [19]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 390.
  (./bacherlorarbeit.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 368.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 368.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 390.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 390.
 Package rerunfilecheck Info: File `bacherlorarbeit.out' has not changed.
-(rerunfilecheck)             Checksum: 271A3B2A28178C9170EE0AE6E6A94F77;1012.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 368.
+(rerunfilecheck)             Checksum: EBCAD55E72BC173C31A75FB5FEFDF516;1152.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 390.
  ) 
 Here is how much of TeX's memory you used:
- 23478 strings out of 493304
- 513268 string characters out of 6139872
- 698308 words of memory out of 5000000
- 26380 multiletter control sequences out of 15000+600000
- 23860 words of font info for 53 fonts, out of 8000000 for 9000
+ 23493 strings out of 493304
+ 513494 string characters out of 6139872
+ 697309 words of memory out of 5000000
+ 26388 multiletter control sequences out of 15000+600000
+ 24201 words of font info for 54 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  56i,13n,74p,741b,615s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
-rw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/ut
-mr8a.pfb>
-Output written on bacherlorarbeit.pdf (17 pages, 317830 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texmf/
+fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf/fonts/type1/public/cm
+-super/sfrm1095.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhv
+b8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
+Output written on bacherlorarbeit.pdf (19 pages, 568317 bytes).
 PDF statistics:
- 275 PDF objects out of 1000 (max. 8388607)
- 232 compressed objects within 3 object streams
- 51 named destinations out of 1000 (max. 500000)
- 147 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 303 PDF objects out of 1000 (max. 8388607)
+ 255 compressed objects within 3 object streams
+ 56 named destinations out of 1000 (max. 500000)
+ 168 words of extra memory for PDF output out of 10000 (max. 10000000)
 
