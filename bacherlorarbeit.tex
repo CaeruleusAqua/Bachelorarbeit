@@ -1,4 +1,4 @@
-\documentclass[11pt,twoside,a4paper,openright]{mpreport}
+\documentclass[11pt,twoside,a4paper]{mpreport}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 %\usepackage{a4wide}
@@ -23,6 +23,7 @@
 \usepackage{wdok-title}
 \usepackage{tikz,pgfplots}
 \usepackage[section]{placeins} 
+\usepackage{gnuplottex}
 \usepackage{here} 
 \usetikzlibrary{patterns}
 \usetikzlibrary{fpu}
@@ -113,9 +114,10 @@ existiert \cite{Mabuchi}
 
 \include{Strommessung}
 
+\include{Software}
 
 
-
+\listoffigures
 
 \bibliography{BIB}{}
 \bibliographystyle{plain}

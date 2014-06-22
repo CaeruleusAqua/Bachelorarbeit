@@ -1,0 +1,25 @@
+\chapter{Software}
+
+\section{Übertragungsprotokoll}
+Da die Übertragung der Daten via ROS-Serial im ersten Prototypen zu vielen Problemen geführt hat, wurde ien neues Übertragungsprotokoll entwickelt.
+Dabei wurde auf Fehlertolleranz niedrigen Ressourcenverbrauch geachtet. Der Datendurchsatz muss hier legendlich ausreichend sein, also alle Daten mit 50Hz
+übertragen können.
+
+Der Grundlegende Ablauf der Datenübertragung ist in den Abbildungen [\ref{fig:uC_read}] und [\ref{fig:uC_write}] zu sehen.
+
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[page=1,width=.8\textwidth]{graph/read.pdf} 
+\caption{Lese Daten}
+\label{fig:uC_read}
+\end{figure}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[page=1,width=.8\textwidth]{graph/write.pdf} 
+\caption{Schreibe Daten}
+\label{fig:uC_write}
+\end{figure}

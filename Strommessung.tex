@@ -26,7 +26,7 @@ Die maximale Auflösung des Mikrocontrollers soll ausgenutzt werden. Der ADC des
 Referenzspannung von 5V. Um die Auflösung des ADC auszunutzen muss das Signal, aufgrund unseres Spannungsabfalls verstärkt werden.
 
 Als Anforderung ergibt sich außerdem, dass der maximale Ripple des Endsignals kleiner ist als der Quantisierungsfehler des ADC.
-So ist es möglich aufeine zusätzliche Digitale Filterung weitgehend zu verzichten.
+So ist es möglich aufeine zusätzliche digitale Filterung weitgehend zu verzichten.
 Die kleinst mögliche zu erfassende Spannung des ADC beträgt $\frac{5}{2^{10}}=4,88mV$.
 Diesen wert sollte der Ripple des Endsignales nicht überschreiten.
 Aus einem möglichst kleinem Ripple resultiert eine möglichst hohe Filterordnung bzw. eine niedrige Grenzfrequenz.
@@ -40,15 +40,18 @@ Filtern. Da wir als unser Signal im optimalen Fall eine Gleichspannung darstellt
 mit Hilfe eines Tiefpasses. Es gibt im Grunde 2 übliche aktive Tiefpässe, den Tiefpass mit Mehrfachgegenkopplung und den Sallen-Key Filter. Ersterer verwendet
 einen invertierenden Verstärker, dieser invertiert das Messsignal. Da der µController jedoch nur mit positiven Spannungen umgehen kann müsste man hier mit einer 
 negativen Referenzspannung Arbeiten, was den Schaltungsaufwand unnötig vergrößern würde. Der Sallen-Key Tiefpass benutzt einen nicht invertierenden Verstärker, welcher diesen
-Nachteil nicht hat. So das ab dieser Stelle ein Sallen-Key Tiefpass entwurfen wird.
+Nachteil nicht hat. So dass ab dieser Stelle ein Sallen-Key Tiefpass entwurfen wird.
 
 
 \section{Die Filterschaltung}
+
+wie im vorherigen Abschnitt diskutiert wird hier ein Sallen-Key Tiefpass entwurfen. Zum Entwurf der Schaltung wurde Eagle genutzt.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{filter_schaltung.png}\\
-\caption{Spannung am Shunt + PWM}%
-\label{fig:pwm+i}
+\caption{Salle-Key Tiefpass mit Shunt}%
+\label{fig:fschalt}
 \end{figure}
 
 
@@ -62,12 +65,12 @@ ist es nötig das Messsignal zu verstärken. Hierzu wir ein Nichtinvertierender 
 Für einem Nichtinvertierenden Verstärker ergibt sich dann:
 
 \begin{align*}
-v &= 1 + \frac{R_2}{R_1}\\
-50 &= 1 + \frac{R_2}{R_1}\\
-49\cdot R_1 &= R_2
+v &= 1 + \frac{R_{F3}}{R_{F4}}\\
+50 &= 1 + \frac{R_{F3}}{R_{F4}}\\
+49\cdot R_{F4} &= R_{F3}
 \end{align*}
 \\
-Wobei $R_1 = 47 k\Omega$ und $R_2 = 1 k\Omega$  gewählt werden, was eine Verstärkung von 48 ergibt.
+Wobei $R_{F4} = 47 k\Omega$ und $R_{F3} = 1 k\Omega$  gewählt werden, was eine Verstärkung von 48 ergibt.
 
 
 
@@ -173,20 +176,25 @@ Damit ergibt sich für $a_{min}=55,9 dB\cdot \frac{\ln{10}}{20}=6,45Np$ und für
 Die Grenzfreqeunz $f_g$ ergibt sich jetzt aus:
 
 \begin{align}
-\frac{f_s}{\Omega_s} \le \frac{3,9kHz}{25,19} = 154,8Hz
+\frac{f_s}{\Omega_s} \le \frac{3,9kHz}{35,8} = 108,9Hz
 \end{align}
 
 \subsubsection{Filterentwurf}
-Im voherigen Abschnitt wurde berechnet das die Grenzfreqeunz der Filters kleiner als 154,8Hz sein muss.
-Im Folgenden wird nun ein Sallen-Key Filter 2. Ordnung mit einer Grenzfrequenz von 150Hz entwurfen.
+Im voherigen Abschnitt wurde berechnet das die Grenzfreqeunz der Filters kleiner als 108,9Hz sein muss.
+Im Folgenden wird nun ein Sallen-Key Filter 2. Ordnung mit einer Grenzfrequenz von 100Hz entwurfen.
+Die genaue Wahl der Grenzfreqeunz ist hier nicht relevant da die realen Bauteile nicht in  allen Größen 
+verfügbar sind und daher am Schluss variiert werden müssen, wodurch sich die Grenzfrequen des Filters leicht ändert.
 
 
 \subsubsection{Finaler Entwurf}
 
 
 
-Betrachetn wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. Ordnung.
+Betrachetn wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. Ordnung, wie in Abbildung [\ref{fig:filter_polnul}]
 
+
+\begin{figure}[H]
+\centering
 \begin{tikzpicture}
 	\draw[->,thick] (-3,0) -- (3,0) node[right] {$\text{Re}$};
 	\draw[->,thick] (0,-3) -- (0,3) node[above] {$\text{Im}$};
@@ -208,74 +216,146 @@ Betrachetn wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. O
 	\draw (0,0) (135:1cm) arc (135:180:1cm);
 	\draw (-0.6,0.3)node {$\delta$};
 \end{tikzpicture}
+\caption{Polstellen-Nullstellendiagramm, Butterworth 2. Ordnung}
+\label{fig:filter_polnul}
+\end{figure}
+
+
 
 Charakteristisch für den Butterworthfilter ist das sich die Polstellen auf einer Kreisbahn befinden. Auf die Grenzfreqeunz normiert hat dieser beim Butterworthfilter den Radius
 eins. Bei einem Butterworth 2. Ordnung befinden sie sich genau bei $\delta=45^\circ$. Das Interessante am Polstellen-Nullstellendiagramm ist, dass sich Polfrequenz $\Omega_P$ und 
-Polgüte $Q_P$ einfach ablesen lassen. Die Polfrequenz $\Omega_P$ ist der Betrag der normierten Polstelle, welche beim Butterworth immer eins ist.
+Polgüte $Q_P$ einfach ablesen lassen. Die Polfrequenz $\Omega_P$ ist der Betrag der normierten Polstelle, welcher beim Butterworth-Filter immer eins ist.
 Die Polgüte ist abhängig von $\delta$ und ergibt sich zu: $Q_P=\frac{1}{2\cos{\delta}}$. Für unseren Butterworthfilter ergeben sich also $Q_P=0,707$ und $\Omega_P=1$
 
 
-Übertragungsfunktion eines Sallen-key Tiefpasses
+
+Bet
+
+Betrachten wir deie Übertragungsfunktion eines Sallen-key Tiefpasses 2. Ordnung:
+
 \begin{align*}
 A(P)&=\frac{A_0}{1+\omega_g (R_2 C_2 + R_1 C_2 + R_1 C_2(1-A_0))P + \omega_g^2R_1 R_2 C_1C_2P^2}
 \end{align*}
 
 mit
 \begin{align*}
-A_0=\frac{R_6}{R_5}-1
+A_0=1+\frac{R_6}{R_5}
 \end{align*}
 
 
 Die Bauteilwerte erhält man durch einen Koeffizientenvergleich mit der entnormierten
-Übertragungsfunktion eines Tiefpasses zweiter Ordnung:
+Übertragungsfunktion ($P=\frac{s}{\omega}$) eines Tiefpasses zweiter Ordnung:
 
 \begin{align*}
 A(P)&=\frac{A_0}{1+\frac{1}{\omega_g\Omega_PQ_P}s+\frac{1}{\omega_g^2\Omega_P^2}s^2}
 \end{align*}
 
-nach den Koeffizientenvergleich ergibt sich
+Die Auflösung des Vergleiches ist mit vielen Mathematischen umformungen verbunden, deswegen wird hier auf eine
+externe Quelle verwiesen \cite[Seite: 102]{Krucker2000}.
+Nach dem Koeffizientenvergleich ergibt sich
 
 \begin{align*}
-C_1<\frac{C_2*(1+4Q^2_P(A_0-1))}{4Q^2_P}
+C_1&<\frac{C_2\cdot(1+4Q^2_P(A_0-1))}{4Q^2_P}\\
+R_1&=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2\pm\sqrt{C_2^2-4Q^2_PC_2(C_1+C2(1-A_0))}}{C_2(C_1-C_2(1-A_0))}   \\
+R_2&=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2\pm\sqrt{C_2^2-4Q^2_PC_2(C_1+C2(1-A_0))}}{C_1C_2}  \\
+Q_p&=\frac{\sqrt{R_1R_2C_1C_2}}{C1(R_1+R_2)+R_1C_2(1-A_0)}\\
+\Omega_p&=\frac{1}{\omega_g\sqrt{R_1R_2C_1C_2}}
 \end{align*}
+
+Dabei sind immernur die positiven, reellen Lösungen zu verwenden. Schließlich git es in der Realität keinen negativen Wiederstand, leider.
+
+
+\subsubsection{Bestimmung der Bauteilwerte}
+
+
+$Q_P=0,707$ und $\Omega_P=1$, $A_0=48$, $\omega_g = 100Hz$
+$A_0$ ist die Gleichspannungsverstärkung, sie beschreibt den gewünchten Verstärkungsfaktor der Bereits in einem voherigen
+Abschnitt mit 48 bestimmt wurde. Die Berechnungen wurden mit Hilfe eines Python-Scriptes ausgeführt, dabei wurden verschiedenne
+Konfigurationen durchgerechnet. Hautpsächlich wurde dabei darauf geachtet, dass sich der Filter mit den vor Ort vorhandennen SMD-Bauteilen
+aufgebaut werden kann.
+
+In den Berechnungen viel auf, dass bei steigender größe der Kondensatoren die Größe der Wiederstände sinkt. Da Wiederstände auch in großen Größen vorhanden waren,
+Wurde für den frei wählbaren $C_2$ ein kleiner Wert von 82nF gewählt.
 
 \begin{align*}
-R_1=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2+\sqrt{C_2^2-4Q^2_PC_2(C_1+C2(1-A_0))}}{C_2(C_1-C_2(A-0_1))}           
+C_1&<\frac{C_2\cdot(1+4\cdot0.707^2_P(48-1))}{4\cdot0.707^2}\\
+C_1&<3.90µF\\
+\end{align*}
+
+$C_1$ soll nur kleiner sein als 3.90µF und wird ebenfalls auf 82nF gesetzt.
+
+\begin{align*}
+R_1&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot \frac{82nF\pm\sqrt{82nF^2-4\cdot0.707^2\cdot82nF(82nF+82nF(1-48))}}{82nF(82nF-82nF(1-48))}\\
+R_1&=[-3176\Omega,2579\Omega]
 \end{align*}
 
 
 \begin{align*}
-R_2=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2+\sqrt{C_2^2-4Q^2_PC_2(C_1+C2(1-A_0))}}{C_1C_2}           
+R_2&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot \frac{82nF\pm\sqrt{82nF^2-4\cdot0.707^2\cdot82nF(82nF+82nF(1-48))}}{82nF^2}\\
+R_2&=[146079\Omega,-118626\Omega]
 \end{align*}
 
-
+Da natürlich nur positive Werte genutzt werden können, hat ergeben sich die Bauteilwerte nun zu:
 \begin{align*}
-Q_p=\frac{\sqrt{R_1R_2C_1C_2}}{C1(R_1+R_2)+R_1C_2(1-A_0)}
+C_1&=82nF\\
+C_2&=82nF\\
+R_1&=2579\Omega\\
+R_2&=146079\Omega
 \end{align*}
 
-\begin{align*}
-\Omega_p=\frac{1}{\omega_g\sqrt{R_1R_2C_1C_2}}
-\end{align*}
+%%Verstärkung: 33,6dB gewünscht:
+%%20*log(1/48)=-33,6
+
+%%dämpfung bei 3,9Khz = 30,7dB
+%% 33,6+30,1 =63,7 gewüncht: 55,9
+%% Grenzfreqeunz = 100Hz (-3db)
+\begin{gnuplot}[terminal=pdf]
+  set nokey 
+  set xrange [10:3900]
+  set xlabel 'Frequenz in [Hz]'
+  set ylabel 'Verstärkung in [dB]'
+  set logscale x 10
+  plot 'Simulation/Filter_original_frequenzgang.csv' with line
+\end{gnuplot}
 
 
-\begin{tikzpicture}
-	\draw[->,thick] (-3,0) -- (3,0) node[right] {$\text{Re}$};
-	\draw[->,thick] (0,-3) -- (0,3) node[above] {$\text{Im}$};
-	\draw[dashed,red,very thin] (-3,2) -- (3,2);
-	\draw[dashed,red,very thin] (-3,-2) -- (3,-2);
-	\draw[dashed,red,very thin] (2,-3) -- (2,3);
-	\draw[dashed,red,very thin] (-2,-3) -- (-2,3);
-	\draw[dashed,blue,very thin] (0,0) circle (2);
-	\coordinate (x) at (225:2); 
-	\coordinate (y) at (135:2);
-	\draw[very thin] (0,0) -- (y);
-	\draw[red,thick] (x) -- +(0.1,0.1)  (x) -- +(-0.1,-0.1) (x) -- +(0.1,-0.1) (x) -- +(-0.1,0.1);
-	\draw[red,thick] (y) -- +(0.1,0.1)  (y) -- +(-0.1,-0.1) (y) -- +(0.1,-0.1) (y) -- +(-0.1,0.1);
-	\draw (2,0)node[below] {$1$};
-	\draw (-2,0)node[below] {$-1$};
-	\draw (0,2)node[left] {$1$};
-	\draw (0,-2)node[left] {$-1$};
-	\draw (0,-2)node[left] {$-1$};
-	\draw (0,0) (135:1cm) arc (135:180:1cm);
-	\draw (-0.6,0.3)node {$\delta$};
-\end{tikzpicture}
+
+
+
+
+%%Verstärkung: 33,6dB gewünscht:
+%%20*log(1/48)=-33,6
+
+%%dämpfung bei 3,9Khz = 30,7dB
+%% 33,6+30,7 =64,3 gewüncht: 55,9
+%% Grenzfreqeunz = 104Hz (-3db)
+\begin{gnuplot}[terminal=pdf]
+  set nokey 
+  set xrange [10:3900]
+  set xlabel 'Frequenz in [Hz]'
+  set ylabel 'Verstärkung in [dB]'
+  set logscale x 10
+  plot 'Simulation/Filter_real_frequenzgang.csv' with line
+\end{gnuplot}
+
+
+
+\begin{gnuplot}[terminal=pdf]
+  set nokey 
+  set yrange [0:3]
+  set xlabel 'Zeit in [s]'
+  set ylabel 'Spannung in [V]'
+  plot 'Simulation/Filter_real_time.csv' with line
+\end{gnuplot}
+
+
+%% Ripple: 0,003358
+%% zu hoher Spannungswert durch Steig und Fallzeiten im low bereich des Rechtecksignals
+\begin{gnuplot}[terminal=pdf]
+  set nokey 
+  set xrange [0.03:0.04]
+  set yrange [2.62:2.66]
+  set xlabel 'Zeit in [s]'
+  set ylabel 'Spannung in [V]'
+  plot 'Simulation/Filter_real_time.csv' with line
+\end{gnuplot}
