@@ -1,0 +1,56 @@
+\chapter{Auslegung der Stromversorgung}
+
+\section{Servomotor}
+Stromverbrauch des Servomotors ist schwer zu ermitteln, da kein dauerbetrieb möglich ist und die Belastu ng nur schwer nachzustellen ist.,
+darum suche nach Quelle. Quelle gefunden \cite{website-servo}
+\url{http://www.flyheli.de/rxversorgung.htm}
+Im Artikel ähnlich starker Servomotor, aber anderer Hersteller.
+laut Artikel immer gleicher Stromverbrauch, allerdings in Intervallen, bei dauerbelastungdauerhafter Stromfluss.
+Bei ähnlichem Modell 1,2A
+
+
+
+Daten Servo:
+
+%%Betriebsspannung: 4,8-6,0V
+%%Stellzeit(60°): 0,13s (4,8V) / 0,16s (6,0V)
+%%Stellmoment: 92Ncm (4,8V) / 78Ncm (6,0V)
+%%Gewicht: 66,4g
+%%Abmessungen: 40,6x20x37,5mm
+
+%Stormverbrauch Servomotor:
+
+%http://www.flyheli.de/rxversorgung.htm
+
+
+\section{Pandaboard ES}
+
+Keine angabe zum Stromverbrauch aufseiten des Herstellers.
+Empfohlendes Netzteil mit 4A, aber betrieb auch an USB möglich (mit Y-Kabel) also max 2x500mA (5W).
+\url{http://omappedia.org/wiki/PandaBoard_FAQ#What_are_the_specs_of_the_Power_supply_I_should_use_with_a_PandaBoard.3F} \cite{website-panda-supply}
+
+daten für das ``normale" Pandaboard:
+\url{http://omappedia.org/wiki/Panda_Test_Data} \cite{website-panda-power}
+Der maximal gemessene Stromverbrauch des board nach [quelle einfügen] liegt mit 100 Prozent CPU, wlan an, und HDMI an. bei 800mA.
+Der Verbrauchdes Pandaboard ES dürfte durch de Schnelleren Prozessor minimal darüber liegen. Sodas hier ein Stromverbrauch von 1A veranschalgt wird.
+
+\section{Led Beleuchtung}
+Datenblatt:
+\url{http://www.adafruit.com/datasheets/WS2812.pdf} \cite{ds-WS2812}
+20mA pro led,also 3x20mA
+Insgesammt werden 2x front 2x heck 4x Blinker und 1x RC-Mode LEDs verbaut also 9Leds = 9*60mA = 540mA
+
+\section{Microkontroller}
+Der maximale Stromverbrauch des AVRs liegt laut Datenblatt\cite{ds-at90can} bei 200mA (Wenn IO-Pins belastet werden),
+der uC selber braucht jedoch  bei 5V und 16MHz nur 29mA
+
+\section{Sharp Sensoren}
+Stromverbrauch laut Datenbaltt max 50mA, es werden 2 Sensoren vorgesehen also 100mA.\cite{ds-sharp-GP2D120}
+
+\section{Sonstige Peripherie}
+Da der Stromverbrauch der restliche Komponenten minimal ist werden hier pauschal 100mA veranschalgt.
+
+\section{Gesammtstomverbrauch}
+1200mA + 1000mA + 540mA +200mA + 100mA +100mA = 3140mA
+
+\section{Auswahl des Reglers}

@@ -84,35 +84,35 @@ Wobei $R_{F4} = 47 k\Omega$ und $R_{F3} = 1 k\Omega$  gewählt werden, was eine 
 \end{figure}
 
 Da dem Messsignal wie in Abbildung \ref{fig:pwm+i} zu erkennen, die PWM Frequenz zu Grunde liegt wird sich bei der Dimensionierung des Filters einer Idee nach \cite{Alter2008} bedient, nach der die maximale Amplitude des Ripple der Grundschwingung bei einem
-Tastverhältnis von 0,5 entspricht. Die Amplitude der Grundschwingung ergibt sich aus dem ersten Koeffizienten der Fouerreihe einer Rechteckschwingung.
+Tastverhältnis von 0,5 entspricht. Die Amplitude der Grundschwingung ergibt sich aus dem ersten Koeffizienten der Fourierreihe einer Rechteckschwingung.
 \begin{align}
 A_1 = K\cdot \frac{1}{\pi}[\sin(\pi p)-\sin(2\pi(1-\frac{p}{2}))]
 \label{eq:ripple}
 \end{align}
-Wobei p dem Tastverhältnis und K der maximale Amplitude des Ursprungsingals entspricht \cite{Alter2008}. K entspricht den errechneten 100mV multipliziert mit dem Verstärkungsfaktor 48, also 4,8V. p wird zu 0,5
+Wobei $p$ dem Tastverhältnis und $K$ der maximale Amplitude des Ursprungsingals entspricht \cite{Alter2008}. $K$ entspricht den errechneten 100mV multipliziert mit dem Verstärkungsfaktor 48, also 4,8V. Das Tastverhältnis $p$ wird zu 0,5
 angenommen. Mit (\ref{eq:ripple}) ergibt sich für die Amplitude der Grundschwingung $ A_1 = K\cdot \frac{2}{\pi} = 3,056V$. $A_1$ soll auf $ < 4,88mV$ gedämpft werden.
-Als Sperrfrequenz $\Omega_s $ wird hier die PWM Frequenz angesetzt für $H(\omega=2\pi f_{PWM})$ gilt also:
+Als Sperrfrequenz $\Omega_s $ wird hier die PWM Frequenz angesetzt. Für $H(\omega=2\pi f_{PWM})$ gilt also:
 
 \begin{align}
 H(\omega=2\pi f_{PWM}) \le \frac{4,88mV}{3,056V} \mathop{\hat{=}} 20\cdot\log(\frac{4,88mV}{3,056V})= -55,9 dB
 \label{eq:daempfung}
 \end{align}
 
-Da das Projekt möglichst kostensparend durchgeführt werden soll, also auch Bauteilsparend, wird an dieser Stelle von den üblichen Konventionen zur dimensionierung von Filtern abgewichen.
+Da das Projekt möglichst kostensparend durchgeführt werden soll, also auch Bauteilsparend, wird im Folgenden von den üblichen Konventionen zur dimensionierung von Filtern abgewichen.
 Statt eine fixe Grenzfreqeunz festzulegen und die benötigte Filterordnung zu bestimmen, wird die Filterordnung vorgegeben und die Grenzfrequenz variiert.
 
 \section{Filterentwurf}
 
 \subsection{Bestimmung des Filtertyps}
 
-Des Filtertyp muss in Zweierlei hinblick bestimmt werden. Einmal im hinblick auf die Schaltung und seinem Frequenzgang.
-Im groben gibt es 2 mögliche Tiefpassfilterschaltungen, den Sallen-Key Teifpass mit nicht invertierendem OPV und dem aktiven Tiefpass mit Mehrfachgegenkopplung 
+Des Filtertyp muss in zweierlei Hinblick bestimmt werden. Einmal im hinblick auf die Schaltung und seinem Frequenzgang.
+Im groben gibt es 2 mögliche aktive Tiefpassfilterschaltungen, den Sallen-Key Teifpass mit nicht invertierendem OPV und dem aktiven Tiefpass mit Mehrfachgegenkopplung 
 (invertierender OPV). Der aktive Tiefpass mit Mehrfachgegenkopplung benötigt allerdings negative Spannungsniveaus die auf der Treiberplatine nicht zur
-verfügung stehen, deshalb wird an dieser Stelle nur der Sallen-Key Teifpass behandelt.
+verfügung stehen, deshalb wird an dieser Stelle nur der Sallen-Key Teifpass betrachtet.
 Was den Frequenzgang angeht gibt es viele Filtercharakteristiken, eine Auswahl an haufig verwendeten Charakteristiken wird hier verglichen.
 
 Der \emph{Butterworth}-Filter besitzt einen maximal flachen Verlauf des Frequenzganges im Durchlassbereich und eine monoton verlaufende Dämpfung im Sperrbereich.
-Leider hat der Butterworth-Filter nur eine geringe Flankensteilheit im Sperrbereich. Ein Butterworth-Filter 1. Ordnung entspricht einen  einfachen RC-Filter.
+Leider hat der Butterworth-Filter nur eine geringe Flankensteilheit im Sperrbereich (20dB/Dekade pro Ordnung). Ein Butterworth-Filter 1. Ordnung entspricht einen  einfachen RC-Filter.
 
 Der \emph{Tschebyscheff}-Filter hat eine höhere Flankensteilheit als der Butterworth-Filter, allerdings entsteht beim Tschebyscheff-Filter Welligkeit im Durchlassbereich,
 welche mit höherer Ordnung zunimmt. Durch die Welligkeit im Duchlassbereich würde ein zusätzlicher Ripple im Signal entstehen, weshalb der Tschebyscheff-Filter nicht
@@ -251,7 +251,7 @@ A(P)&=\frac{A_0}{1+\frac{1}{\omega_g\Omega_PQ_P}s+\frac{1}{\omega_g^2\Omega_P^2}
 \end{align*}
 
 Die Auflösung des Vergleiches ist mit vielen Mathematischen umformungen verbunden, deswegen wird hier auf eine
-externe Quelle verwiesen \cite[Seite: 102]{Krucker2000}.
+externe Quelle verwiesen \cite[S. 102]{Krucker2000}.
 Nach dem Koeffizientenvergleich ergibt sich
 
 \begin{align*}
@@ -279,7 +279,7 @@ Wurde für den frei wählbaren $C_2$ ein kleiner Wert von 82nF gewählt.
 
 \begin{align*}
 C_1&<\frac{C_2\cdot(1+4\cdot0.707^2_P(48-1))}{4\cdot0.707^2}\\
-C_1&<3.90µF\\
+C_1&<3.90\mu F
 \end{align*}
 
 $C_1$ soll nur kleiner sein als 3.90µF und wird ebenfalls auf 82nF gesetzt.
@@ -295,7 +295,7 @@ R_2&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot \frac{82nF\pm\sqrt{82nF^2-4\cdot0.707
 R_2&=[146079\Omega,-118626\Omega]
 \end{align*}
 
-Da natürlich nur positive Werte genutzt werden können, hat ergeben sich die Bauteilwerte nun zu:
+Da nur positive Werte genutzt werden, ergeben sich die Bauteilwerte nun zu:
 \begin{align*}
 C_1&=82nF\\
 C_2&=82nF\\
@@ -303,12 +303,24 @@ R_1&=2579\Omega\\
 R_2&=146079\Omega
 \end{align*}
 
+In der Folgenden Abbildung ist das Ergebniss der Simulation zu sehen. An der Abbildung leider nicht gut zu erkennen,
+liegt der -3dB Punkt genau bei 100Hz. Die Frequenzachse des Diagrammes geht genau bis 3,9kHz. 
+Es ist eine Verstärkung von 48 des Ursprungssignals gewünscht. Diese Verstärkung wird mit 33,6 dB bei 10Hz, erreicht.
+\begin{align*}
+20\cdot\log{48}=-33,6dB
+\end{align*}
+
+Bei 3,9kHz erreicht der Filter eine Dämpfung von -30,1dB zusammen mit der Verstärkng von 33,6dB unseres Eingangssignals,
+wird das Bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren hier 55,9dB, so das der Filter den gerforderten wert übersteigt, wass an der niedrigeren Grenzfreqeunz vonn 100Hz statt 108,9Hz liegt.
+
 %%Verstärkung: 33,6dB gewünscht:
 %%20*log(1/48)=-33,6
 
 %%dämpfung bei 3,9Khz = 30,7dB
 %% 33,6+30,1 =63,7 gewüncht: 55,9
 %% Grenzfreqeunz = 100Hz (-3db)
+\begin{figure}[H]
+\centering
 \begin{gnuplot}[terminal=pdf]
   set nokey 
   set xrange [10:3900]
@@ -317,18 +329,23 @@ R_2&=146079\Omega
   set logscale x 10
   plot 'Simulation/Filter_original_frequenzgang.csv' with line
 \end{gnuplot}
+\caption{Frequenzgang des berechneten Filters}
+\label{plott:filter_freq}
+\end{figure}
+
+Leider kann ein solcher Filter nur mit erheblichen Aufwändungen gebaut werden, da es keine fertigen Wiederstände in den Größen $2579\Omega\\$ und $146079\Omega$ gibt. Da jedoch alle Wiederstände der E12 Reihe vor Ort vorhanden sind, werden die realen Werte wiefolgt gewählt: $R_1=2,7k\Omega\\ R_2=150k\Omega$, da sie den nächsten Größen in der E12 Reihe entsprechen.
 
 
-
-
-
-
+In der Folgenden Abbildung sit die Simulation des Filters mit den Realenbauteilwerten zu sehen.
+Die Grenzfrequenz des Filters (-3dB) liegt diesmal mit 104Hz etwas über den ursprünglichen 100Hz. da wir die Werte von $R_5$ und $R_6$ nicht verändert haben liegt die Verstärkung bei 10Hz immernoch bei exakt 33,6dB. Bei 3,9 kHz im Diagramm gut zu erkennen wird trotz der höheren eine höhere Dämpfung als vorher erreicht. Diese liegt bei 33,7dB, daran kan mann erkennen das es sich nicht mehr um einen idealen Butterworthfilter handelt. 
 %%Verstärkung: 33,6dB gewünscht:
 %%20*log(1/48)=-33,6
 
 %%dämpfung bei 3,9Khz = 30,7dB
 %% 33,6+30,7 =64,3 gewüncht: 55,9
 %% Grenzfreqeunz = 104Hz (-3db)
+\begin{figure}[H]
+\centering
 \begin{gnuplot}[terminal=pdf]
   set nokey 
   set xrange [10:3900]
@@ -337,9 +354,14 @@ R_2&=146079\Omega
   set logscale x 10
   plot 'Simulation/Filter_real_frequenzgang.csv' with line
 \end{gnuplot}
+\caption{Frequenzgang des berechneten Filters mit finalen Bauteilwerten}
+\label{plott:filter_freq_real}
+\end{figure}
 
 
-
+Im der folgenden Abbildung [\ref{plott:filter_sprungantwort}] ist die Antwort des Filters auf ein Rechtecksignal mit 3,9kHz, einem Tastverhältnisvon 0,5 und einer Amplitude von 50mV .Das Überschwingen im Bereich von 7ms ist charakteristisch für den Butterworthfiter und wirks sich negativ auf die Messung des Stromes aus. Allerdings werden solch große Sprünge in der Praxis nicht auftreten werden, da der Strom duch die große Induktivität des Motors nur langsam ansteigt.
+\begin{figure}[H]
+\centering
 \begin{gnuplot}[terminal=pdf]
   set nokey 
   set yrange [0:3]
@@ -347,10 +369,17 @@ R_2&=146079\Omega
   set ylabel 'Spannung in [V]'
   plot 'Simulation/Filter_real_time.csv' with line
 \end{gnuplot}
+\caption{Sprungantwort des Filters}
+\label{plott:filter_sprungantwort}
+\end{figure}
 
 
+Die in Abbildung [\ref{plott:ripple}] gut zu Restwellgkeit (Ripple) beträgt 3,36mV,und liegt damit deutlich unter den gerforderten 4,88mV. Als Eingangssignal dient hier ein Rechtecksignal mit 3,9kHz  und einem Tastverhältnisvon 0,5, die Amplitude liegt bei 50mV. Die Tatsache dass das Signal 240mV über den rechnerischen 2,40V  ($0.5V \cdot 48 $) liegt rührt daher dass LT-Spice die steig und fall Zeiten in den low-Bereich des Rechteck signals legt, woduruch der Mittelwert des Signals bei 2,64V liegt.
+ 
 %% Ripple: 0,003358
 %% zu hoher Spannungswert durch Steig und Fallzeiten im low bereich des Rechtecksignals
+\begin{figure}[H]
+\centering
 \begin{gnuplot}[terminal=pdf]
   set nokey 
   set xrange [0.03:0.04]
@@ -359,3 +388,8 @@ R_2&=146079\Omega
   set ylabel 'Spannung in [V]'
   plot 'Simulation/Filter_real_time.csv' with line
 \end{gnuplot}
+\caption{Restwellgkeit des Filters}
+\label{plott:ripple}
+\end{figure}
+
+
