@@ -38,10 +38,11 @@ Aufgrund des sehr niedrigen Spannungspegels am Shunt,ist es nötig das Signal zu
 z.B. ein Operationsverstärker, wird an dieser Stelle gleich ein aktiver Filter verwendet. Dieser gibt uns die Möglichkeit des Messignal zu verstärken und gleichzeitig zu
 Filtern. Da wir als unser Signal im optimalen Fall eine Gleichspannung darstellt müssen wir die Hochfrequenten Anteile unseres Signales herausfiltern, dies geschieht 
 mit Hilfe eines Tiefpasses. Es gibt im Grunde 2 übliche aktive Tiefpässe, den Tiefpass mit Mehrfachgegenkopplung und den Sallen-Key Filter. Ersterer verwendet
-einen invertierenden Verstärker, dieser invertiert das Messsignal. Da der µController jedoch nur mit positiven Spannungen umgehen kann müsste man hier mit einer 
+einen invertierenden Verstärker, dieser invertiert das Messsignal. Da der \textmu Controller jedoch nur mit positiven Spannungen umgehen kann müsste man hier mit einer 
 negativen Referenzspannung Arbeiten, was den Schaltungsaufwand unnötig vergrößern würde. Der Sallen-Key Tiefpass benutzt einen nicht invertierenden Verstärker, welcher diesen
 Nachteil nicht hat. So dass ab dieser Stelle ein Sallen-Key Tiefpass entwurfen wird.
 
+%%TODO Quellen (verweise auf übliche Filtertypem)
 
 \section{Die Filterschaltung}
 
@@ -72,7 +73,7 @@ v &= 1 + \frac{R_{F3}}{R_{F4}}\\
 \\
 Wobei $R_{F4} = 47 k\Omega$ und $R_{F3} = 1 k\Omega$  gewählt werden, was eine Verstärkung von 48 ergibt.
 
-
+%%TODO Warum werde widerstände so gewählt
 
 \section{Anforderungen an den Filter}
 
@@ -190,7 +191,7 @@ verfügbar sind und daher am Schluss variiert werden müssen, wodurch sich die G
 
 
 
-Betrachetn wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. Ordnung, wie in Abbildung [\ref{fig:filter_polnul}]
+Betrachten wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. Ordnung, wie in Abbildung [\ref{fig:filter_polnul}]
 
 
 \begin{figure}[H]
@@ -227,9 +228,6 @@ eins. Bei einem Butterworth 2. Ordnung befinden sie sich genau bei $\delta=45^\c
 Polgüte $Q_P$ einfach ablesen lassen. Die Polfrequenz $\Omega_P$ ist der Betrag der normierten Polstelle, welcher beim Butterworth-Filter immer eins ist.
 Die Polgüte ist abhängig von $\delta$ und ergibt sich zu: $Q_P=\frac{1}{2\cos{\delta}}$. Für unseren Butterworthfilter ergeben sich also $Q_P=0,707$ und $\Omega_P=1$
 
-
-
-Bet
 
 Betrachten wir deie Übertragungsfunktion eines Sallen-key Tiefpasses 2. Ordnung:
 
@@ -282,7 +280,7 @@ C_1&<\frac{C_2\cdot(1+4\cdot0.707^2_P(48-1))}{4\cdot0.707^2}\\
 C_1&<3.90\mu F
 \end{align*}
 
-$C_1$ soll nur kleiner sein als 3.90µF und wird ebenfalls auf 82nF gesetzt.
+$C_1$ soll nur kleiner sein als 3.90\textmu F und wird ebenfalls auf 82nF gesetzt.
 
 \begin{align*}
 R_1&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot \frac{82nF\pm\sqrt{82nF^2-4\cdot0.707^2\cdot82nF(82nF+82nF(1-48))}}{82nF(82nF-82nF(1-48))}\\
@@ -311,7 +309,7 @@ Es ist eine Verstärkung von 48 des Ursprungssignals gewünscht. Diese Verstärk
 \end{align*}
 
 Bei 3,9kHz erreicht der Filter eine Dämpfung von -30,1dB zusammen mit der Verstärkng von 33,6dB unseres Eingangssignals,
-wird das Bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren hier 55,9dB, so das der Filter den gerforderten wert übersteigt, wass an der niedrigeren Grenzfreqeunz vonn 100Hz statt 108,9Hz liegt.
+wird das Bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren hier 55,9dB, so das der Filter den gerforderten wert übersteigt, wass an der niedrigeren Grenzfreqeunz von 100Hz statt 108,9Hz liegt.
 
 %%Verstärkung: 33,6dB gewünscht:
 %%20*log(1/48)=-33,6
@@ -327,7 +325,7 @@ wird das Bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren h
   set xlabel 'Frequenz in [Hz]'
   set ylabel 'Verstärkung in [dB]'
   set logscale x 10
-  plot 'Simulation/Filter_original_frequenzgang.csv' with line
+  plot 'Simulation/Filter_original_frequenzgang.csv' with line, 'Simulation/Filter_real_frequenzgang.csv' with line
 \end{gnuplot}
 \caption{Frequenzgang des berechneten Filters}
 \label{plott:filter_freq}

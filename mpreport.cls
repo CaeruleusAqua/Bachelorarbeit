@@ -193,7 +193,7 @@
      {\parbox[b]{.9\mp@margwd}{\raggedleft\sffamily\slshape\small#1: #2}}%
      \hspace{-\mp@margwd}%
      \vspace{-\mp@capht}%
-     \parbox[t]{.9\mp@margwd}{\raggedleft\sffamily\slshape\small#1: #2}
+     \parbox[t]{.9\mp@margwd}{\vspace{-5cm}\raggedleft\sffamily\slshape\small#1: #2}
      }
    
    \renewcommand{\figure}{%

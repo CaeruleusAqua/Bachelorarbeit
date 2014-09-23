@@ -1,9 +1,26 @@
 \chapter{Software}
 
+Die Software besteht im Grunde aus zwei Teilen, zum einem der Firmware auf dem \textmu Controller zum anderem aus der Software auf dem NUC, welche die Daten vom \textmu Controller ausließt und über ROS publisht.
+In den Folgenden Abschnitten werden Erst die Beiden Softwareteile erläutert, dann wird das Übertragungsprotokoll veranschaulicht.
+
+
+\section{Software auf dem \textmu Controller}
+Die Software auf dem \textmu Controller ist vollständig in C++ geschrieben. Eine volständige Dokumentation der Software ist als Doxygen Dokument verfügbar.
+
+
+\section{Client Programm auf der Recheneinheit}
+Das Client Programm im folgenden SerialNode genannt 
+Im erten Schritt wurde hier ein Python Programm genutzt, welches jedoch einen Nachteil mit sich bringt. Da das ansprechen der seriellen Schnitstelle unter pyserial sehr hohe CPU-Last mit sich bringt.
+Da die so verschwendete Rechenleistung für andere Aufgaben benötigt wird und auch energieeffizienz ein wichtiges Kriterium ist, Wurde das Programm erneut in C++ implementiert. Unter verwendung der Systemaufrufe von 
+Poll konnte das abfragen der seriellen Schnitstelle auf Systemebene ausgeführt werden, was die effizeinz stark verbessert. Während die Python Implementierung einen CPU-Kern zu 100\%
+auslastete liegt die C++ Implementierung im unteren einstelligen Bereich.
+
+
 \section{Übertragungsprotokoll}
 Da die Übertragung der Daten via ROS-Serial im ersten Prototypen zu vielen Problemen geführt hat, wurde ien neues Übertragungsprotokoll entwickelt.
-Dabei wurde auf Fehlertolleranz niedrigen Ressourcenverbrauch geachtet. Der Datendurchsatz muss hier legendlich ausreichend sein, also alle Daten mit 50Hz
-übertragen können.
+Dabei wurde auf Fehlertolleranz niedrigen Ressourcenverbrauch geachtet. Der Datendurchsatz muss hier ausreichend sein um alle Daten stabil mit 100Hz
+übertragen zu können.
+
 
 Der Grundlegende Ablauf der Datenübertragung ist in den Abbildungen [\ref{fig:uC_read}] und [\ref{fig:uC_write}] zu sehen.
 
@@ -23,3 +40,4 @@ Der Grundlegende Ablauf der Datenübertragung ist in den Abbildungen [\ref{fig:u
 \caption{Schreibe Daten}
 \label{fig:uC_write}
 \end{figure}
+

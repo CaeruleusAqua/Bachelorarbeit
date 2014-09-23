@@ -24,7 +24,7 @@
 \usepackage{tikz,pgfplots}
 \usepackage[section]{placeins} 
 \usepackage{gnuplottex}
-\usepackage{here} 
+\usepackage{here} 	
 \usetikzlibrary{patterns}
 \usetikzlibrary{fpu}
 %%\usepackage[pdf]{pstricks}
@@ -54,20 +54,27 @@
 \maketitle
 \tableofcontents
 
-\chapter{Einleitung}
+\include{Einleitung}
 
+\include{Konzept}
 
-\include{Auto}
-
-\include{Anforderungsanalyse}
-
-\chapter{Stand der Technik}
+\include{Komponenten}
 
 \include{Stromversorgung}
 
+
+\chapter{Änderung der Anforderungen}
+Nach der erfolgreichen Teilnahme am ``Carolo-Cup Junior'' im Febuar 2014, begann die Weiterentwicklung des Konzepts, während der Entwicklung kamen
+einige Flaschenhalse zum vorschein. Sodas in der Projektphase die Hardwareplatform geändert werden musste. Die Rechenleistung der Pandaboards stellte sich
+als unzureichend heraus und es wurden mehr Distanzsensoren gewünscht. Die Pandaboards wurden nach der Absprache mit dem Team duch ein Intel NUC vom Typ
+D34010WYB erstezt. Laut Datenblatt \cite{datasheet-nuc} besitzt der NUC einen Weitbereichseingang zur Spannungsversorgung, dieser ist für 12-24 Volt zugelassen.
+Sodas sich die ursprünglische Wahl der Akkus als Vorteil herausstellt. Die Spannung von 14,4 Volt der 4 Zellen LiPo Akkus passt genau in diesen Bereich, daher
+kann der NUC direckt an die Akkus angeschossen werden.
 \include{Motortreiber}
 
 \include{Strommessung}
+
+
 
 \include{Software}
 
@@ -76,6 +83,8 @@
 \include{Fazit}
 
 \include{Ausblick}
+
+\include{Erklaerung}
 
 
 \listoffigures
