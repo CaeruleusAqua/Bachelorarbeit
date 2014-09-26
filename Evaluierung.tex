@@ -1,10 +1,31 @@
 \chapter{Evaluierung}
 
+\section{Stormmessung}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{filter_eingang.png}\\
+\caption{Spannung am Shunt}%
+\label{fig:filter_eingang}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{filter_ausgang.png}\\
+\caption{Spannung nach dem Filter}%
+\label{fig:filter_ausgang}
+\end{figure}
+
+
+
+
 \section{Stromverbrauch}
 
 Der Stromverbrauch des Autos ist ein wichtiges Kriterium in den statischen Disziplinen. Um den Stromverbrauch im laufenden Betrieb messen zu können, wird hier ein Versuchsaufbau verwendet welcher der Messung des
 Motorstomes ähnelt. Die Schaltung besteht dabei aus einem Shuntwiderstand, einer aktiven Filterschaltung und einem Arduino, welcher die Daten zum NUC weiterleitet. Der Vorteil dieser Methode ist, dass die Daten
-unter realen Bedingungen in Echtzeit aufgezeichtet werden können. Abbildung [\ref{fig:Strom}] zeit den Verlauf des Stromes währed folgendem Szenario: Bis ca 25s steht das Auto, sämmtliche Software ist dabei auf 
+unter realen Bedingungen in Echtzeit aufgezeichtet werden können. \cref{fig:Strom} zeigt den Verlauf des Stromes währed folgendem Szenario: Bis ca 25s steht das Auto, sämmtliche Software ist dabei auf 
 dem Auto aktiv. Ab 25s beschleunigt das Auto auf $1,3\frac{m}{s}$ und verahrt dort bis ca. Sekunde 57, in welcher es gegen eine Wand fährt. Der grüne Graph stellt dabei den Strom durch den Motor dar, während
 der blaue Graph den Gesammtverbrauch des Autos darstellt. Die roten Linien Stellen einen gleitenden Mittelwert aus den letzten 200 Messwerten dar. Gut zu erkenn ist, das der Stromverbrauch des Autos im Stand unter 
 10 Watt liegt. Der Mittelwert des Verbrauches im Stand beträgt 7,9 Watt, während das Auto in der dar fahrt knapp 13 Watt an Leistung aufnimmt. Nur während das Auto beschleunigt benötigt es für die Dauer

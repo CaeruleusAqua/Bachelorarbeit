@@ -8,3 +8,5 @@
 *.bbl
 *.lof
 *.blg
+/raw_pic/
+/bags/

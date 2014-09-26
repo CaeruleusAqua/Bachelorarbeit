@@ -1,13 +1,8 @@
 \documentclass[11pt,twoside,a4paper]{mpreport}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
-%\usepackage{a4wide}
-%\usepackage[T1]{fontenc}
-%\usepackage{textcomp}
-%\usepackage{mathptmx}
 \usepackage[scaled=0.85]{helvet}
-%\usepackage{courier}           % if you really want to use Courier
-%\usepackage{url}
+
 \usepackage{cite}
 \usepackage{tabularx}
 \usepackage{amsmath}
@@ -22,6 +17,8 @@
 \usepackage{textcomp}
 \usepackage{wdok-title}
 \usepackage{tikz,pgfplots}
+\usepackage{todonotes}
+\usepackage[german]{cleveref}
 \usepackage[section]{placeins} 
 \usepackage{gnuplottex}
 \usepackage{here} 	
@@ -38,13 +35,6 @@
 \newcommand{\foreign}[1]{\emph{#1}}
 \newcommand{\q}[1]{»#1«}
 
-% Scale Courier by 0.9
-% cf. <http://groups.google.de/groups?selm=yfid76obspu.fsf@triumf.ca>
-%\DeclareFontFamily{T1}{pcr}{}
-%\DeclareFontShape{T1}{pcr}{m}{n}{
-%   <-> s*[.9]pcrr8t
-%}{}
-
 \title{Hardware/Software Codesign}
 \author{Julian-Benedikt Scholle}
 \supervisor{Dr. Ing. Sebastian Zug\\
@@ -52,31 +42,17 @@
 
 \begin{document}
 \maketitle
+\newpage
+\newpage
 \tableofcontents
 
 \include{Einleitung}
 
+\include{Anforderungsanalyse}
+
 \include{Konzept}
 
-\include{Komponenten}
-
-\include{Stromversorgung}
-
-
-\chapter{Änderung der Anforderungen}
-Nach der erfolgreichen Teilnahme am ``Carolo-Cup Junior'' im Febuar 2014, begann die Weiterentwicklung des Konzepts, während der Entwicklung kamen
-einige Flaschenhalse zum vorschein. Sodas in der Projektphase die Hardwareplatform geändert werden musste. Die Rechenleistung der Pandaboards stellte sich
-als unzureichend heraus und es wurden mehr Distanzsensoren gewünscht. Die Pandaboards wurden nach der Absprache mit dem Team duch ein Intel NUC vom Typ
-D34010WYB erstezt. Laut Datenblatt \cite{datasheet-nuc} besitzt der NUC einen Weitbereichseingang zur Spannungsversorgung, dieser ist für 12-24 Volt zugelassen.
-Sodas sich die ursprünglische Wahl der Akkus als Vorteil herausstellt. Die Spannung von 14,4 Volt der 4 Zellen LiPo Akkus passt genau in diesen Bereich, daher
-kann der NUC direckt an die Akkus angeschossen werden.
-\include{Motortreiber}
-
-\include{Strommessung}
-
-
-
-\include{Software}
+\include{Umsetzung}
 
 \include{Evaluierung}
 
@@ -84,12 +60,12 @@ kann der NUC direckt an die Akkus angeschossen werden.
 
 \include{Ausblick}
 
-\include{Erklaerung}
-
-
 \listoffigures
 
 \bibliography{BIB}{}
 \bibliographystyle{alpha}
+
+\include{Erklaerung}
+
 
 \end{document}

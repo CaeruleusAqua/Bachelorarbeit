@@ -14,134 +14,14 @@ Abbildung [\ref{fig:konzept}] zu sehen.
 \label{fig:konzept}
 \end{figure}
 
-Im folgenden soll geklärt werden wie es zur zu diem Konzept kahm und warum wleche Komponenten gewählt wurden.
 
-
-\section{Anforderungsanalyse}
-
-\subsection{Anforderungen laut Regelwerk}
-Um am „Carolo-Cup“ Teilnemen zu können ist ein Regelkonformes Fahrzeug notig, darum wird nun ein Auszug aus den Anforderungen an das Auto kurz aufgelistet und ausgewertet.
-Alle Anforderungen können im Regelwerk des „Carolo-Cup“ nachgelesen werden \cite{website-carolo-cup-regelwerk}
-
-
-\subsubsection{Fahrzeugantrieb und Energieversorgung}
-Laut Regelwerk sind alle Teams zur verwendung eines elektrischen Antriebs verpflichtet.
-Die Anzahl der angetriebenen Räder ist nicht vorgeschrieben
-des weiteren muss das Auto durch Akkus mit Strom versorgt werden.
-Die Übertragung von Daten ist während der Dauer der Disziplinen nicht gestattet
-
-\subsubsection{Fahrzeugantrieb und Energieversorgung}
-Es ist eine Zweiradlenkung der Vorderachse vorzusehen. Die übrige Gestaltung des Fahrwerks bleibt den Teams überlassen. Als
-technische Ausprägung ist ausschließlich die Achsschenkellenkung zugelassen.
-
-\subsubsection{RC-Modus}
-In Notsituationen muss es möglich sein das Fahrzeug mit Hilfe einer Funkfernbedienung anzuhalten und manuell zu steuern. Eine solche Notsituation tritt ein, wenn
-das Auto seine Aufgabe aufgrund eines Fahrfehlers oder anderem Fehlverhalten nicht mehr autonom fortführen kann.
-Der RC-Modus muss per Fernbedienung eingeschaltet und ausgeschaltet werden, bei Aktivierung des RC-Modus muss das Fahrzeug unverzüglich angehalten werden.
-Während des Wettbewerbs darf die Geschwindigkeit des Autos $0,3\frac{m}{s}$ nicht überschreiten.
-Da das 2,4-GHz Band bereits durch die Vorort genutzte Kameratechnik belegt ist können diese Frequenzen nicht für den RC-Modus genutzt werden.
-Der RC-Modus muss durch eine blaue Leuchte an der höchsten stelle des Fahrzeuges angezeigt werden, welche mit einer Frequenz von 1-Hz blinkt.
-
-\subsubsection{Signalleuchten}
-Durch die Anlehnung des Wettbewerbes an den realen Straßenverkehr muss das Auto über alle in echten Auto vorhandene Signalleuchten besitzen. 
-Dazu gehören 3 rote Bremslichter am Heck des Autos sowie jeweils 2 gelbe Blinker Rechts und Links am Fahrzeug.  Die Blinkfrequenz der Blinker muss
-1-Hz betragen.
-
-\subsection{Anforderungen durch Bewertungskriterien}
-Weiter Anorderungen ergeben sich aus den Bewertungskriterien. Während dern statischen Disziplinen muss das Team ihr Gesamtkonzept präsentieren. Schwerpunkte dabei sind,
-Hardware und Software Architektur sowie Energiebedarf und Herstellungskosten \cite{website-carolo-cup-regelwerk}. Daraus entstehen weitere Anforderungen: Energieeffizienz
-und Herstellungskosten. 
-
-In den dynamischen Disziplinen soll das Fahrzeug eine Stecke völlig autonom abfahren. Solch eine wie in Abbildung [\ref{fig:Rundkurs}] ausehen.Das Fahzeug darf seine
-Fahrspur dabei nie mit mehr als einem Rad verlassen. Um die Fahrbahn zu erkenn wird vom Team eine auf dem Auto montierte Kamera verwendet. Da laut Regelwerk keine
-Daten vom oder zum Auto übertragen werden dürfen, muss die Verarbeitung der Bilder auf dem Auto stattfinden. Daher ist auf dem Auto eine leistungsfähige Recheneinheit
-von nöten. Hierzu wurden vom Lehrstuhl boards des Types ``Pandaboard ES'' zur verfügung gestellt. 
-
-Innerhalb des parallelen Einparkens ist es nötig die Größe der Parklücke zu erkennen, bzw Abstände zu Objekten zumessen.
-
-\subsection{Anforderungen durch Teammitglieder}
-Inertialsensorik..
-
-
-\subsection{Auswertung der Anforderungen}
-Da ein elektrischer Antrieb vorgesehen ist, muss die nötige Elektronik zur Steuerung des Motors in die Platine integriert werden.
-Der Einfachheit halber wird die Lenkung von einem Servomotor übernommen.
-Damit das Auto die im RC-Modus nötigen Funksignale auswerten kann muss ein Empfänger integriert werden.
-Desweiteren muss das Auto mit den nötigen Signalleuchten ausgestattet sein, dazu gehören Blinker rechts und links jeweils vorne und hinten.
-Sowie 3 Bremsleuchten an der Rückseite und eine weitere Leuchte welche din RC-Modus anzeigt. Der vollständigkeit halber kommt hier noch die
-Frontbeleuchtung hinzu
-
-Zum bestimmen von Entferneungen zu andern Autos oder Hindernissen werden Distanzsensoren benötigt
-
-Da Energiebedarf eine Anforderung ist sollte bei der Auswahl der Komponenten auf Energieeffizienz geachtet werden.
-
-Zusammenfassend hier eine Liste mit den benötigten Komponenten.
-
-\begin{itemize}
- \item Elektonik zur Motoransteuerung
- \item Servomotor zur Lenkung
- \item Funk Empfänger für den RC-Modus
- \item Beleuchtung
- \item Distanzsensoren
- \item Interialsensorik
-\end{itemize}
-
-
-
-
-
-
-
-% Das Team setzt ein Fahrzeug vom Typ TT-01 Type E des Herstellers Tamiya ein. Dabei handelst es sich um ein modellbau Auto. Dieses Modell wird bereits mit
-% Motor und Fahrtenregler ausgeliefertund entspricht den vorgaben im Regelwerk. Da am Lehrstuhl bereits größere Mengen an LiPo-Akkus mit einer Nennspannung von 14,4V vorhanden sind, sollen diese verwendent
-% werden. Da der dem Auto beiliegende Fahrtenregler nicht für eine derart hohe Spannung ausgelegt ist, ist hier ein Ersatz notwendig. 
-% 
-
-% 
-% Im folgenden wird geklärt wie das Fahrzeug vom Team geplant und umgestetzt wird. Das Fahrzeug basiert auf einem Modellbauauto vom Typ TT-01 Type E des Herstellers Tamiya. 
-% Das Auto besteht dabei aus folgenden Komponenten: einem Elektromotor zur Fortbewegung, einem Servomotor zur Lenkung, einer Kamera welche die Fahrbahn aufzeichnet, einer Recheneinheit welche
-% die Bildverabreitung und Regelung des Fahrzeuges übernimmt und einer Treiberplatine. 
-% 
-% 
-% \subsection{Die Treiberplatine}
-% Die Treiberplatine hat hat die Aufgabe die Sensorik und Aktorik mit der Recheneinheit zu verbinden. Zusätzlich befinden sich auf ihr eine Spannungsversorgung, ein Motortrieber und
-% diverste Anschlüsse fürdie Sensorik. Die Platine wurde in 2 Versionen erstellt. Da für die 1. Platinenversion eine Ansteuerung durch GPIO-Pins des Pandaboards geplant war. Durch den
-% späteren Wechsel zum Intel NUC, welcher nicht über GPIO-Pins verfügt, musste eine überarbeite Version der Platine entwickelt werden. Welche ien einfachen Anschluss an den NUC gewährleistet.
-% Die 
-% 
-% Die Treiberplatine wurde 
-% 
-% In Abbildung [\ref{fig:platine_rv3}] ist das Board der überarbeiteten Platinenversion zu sehen.
-% 
-% \begin{figure}[H]
-% \centering
-% \includegraphics[width=.8\textwidth]{platine_rv3.png}\\
-% \caption{Korrigierte Platinenversion}
-% \label{fig:platine_rv3}
-% \end{figure}
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\section{Änderung der Anforderungen}
+Nach der erfolgreichen Teilnahme am ``Carolo-Cup Junior'' im Febuar 2014, begann die Weiterentwicklung des Konzepts, während der Entwicklung kamen
+einige Flaschenhalse zum vorschein. Sodas in der Projektphase die Hardwareplatform geändert werden musste. Die Rechenleistung der Pandaboards stellte sich
+als unzureichend heraus und es wurden mehr Distanzsensoren gewünscht. Die Pandaboards wurden nach der Absprache mit dem Team duch ein Intel NUC vom Typ
+D34010WYB erstezt. Laut Datenblatt \cite{datasheet-nuc} besitzt der NUC einen Weitbereichseingang zur Spannungsversorgung, dieser ist für 12-24 Volt zugelassen.
+Sodas sich die ursprünglische Wahl der Akkus als Vorteil herausstellt. Die Spannung von 14,4 Volt der 4 Zellen LiPo Akkus passt genau in diesen Bereich, daher
+kann der NUC direckt an die Akkus angeschossen werden.
 
 
 
