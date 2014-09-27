@@ -29,45 +29,46 @@ Durch die Anlehnung des Wettbewerbes an den realen Straßenverkehr muss das Auto
 Dazu gehören 3 rote Bremslichter am Heck des Autos sowie jeweils 2 gelbe Blinker Rechts und Links am Fahrzeug.  Die Blinkfrequenz der Blinker muss
 1-Hz betragen.
 
-\section{Anforderungen durch Bewertungskriterien}
-Weiter Anorderungen ergeben sich aus den Bewertungskriterien. Während dern statischen Disziplinen muss das Team ihr Gesamtkonzept präsentieren. Schwerpunkte dabei sind,
-Hardware und Software Architektur sowie Energiebedarf und Herstellungskosten \cite{website-carolo-cup-regelwerk}. Daraus entstehen weitere Anforderungen: Energieeffizienz
-und Herstellungskosten. 
-
-In den dynamischen Disziplinen soll das Fahrzeug eine Stecke völlig autonom abfahren. Solch eine wie in Abbildung [\ref{fig:Rundkurs}] ausehen.Das Fahzeug darf seine
-Fahrspur dabei nie mit mehr als einem Rad verlassen. Um die Fahrbahn zu erkenn wird vom Team eine auf dem Auto montierte Kamera verwendet. Da laut Regelwerk keine
-Daten vom oder zum Auto übertragen werden dürfen, muss die Verarbeitung der Bilder auf dem Auto stattfinden. Daher ist auf dem Auto eine leistungsfähige Recheneinheit
-von nöten. Hierzu wurden vom Lehrstuhl boards des Types ``Pandaboard ES'' zur verfügung gestellt. 
-
-Innerhalb des parallelen Einparkens ist es nötig die Größe der Parklücke zu erkennen, bzw Abstände zu Objekten zumessen.
-
-\section{Anforderungen durch Teammitglieder}
-
-Inertialsensorik..
-
-
-\section{Auswertung der Anforderungen}
+\section{Auswertung des Regelwerks}
 Da ein elektrischer Antrieb vorgesehen ist, muss die nötige Elektronik zur Steuerung des Motors in die Platine integriert werden.
-Der Einfachheit halber wird die Lenkung von einem Servomotor übernommen.
-Damit das Auto die im RC-Modus nötigen Funksignale auswerten kann muss ein Empfänger integriert werden.
+Die Lenkung des Autos kann von einen einfachen Servomotor vorgenommen werden. 
+Damit das Auto die im RC-Modus nötigen Funksignale auswerten kann, muss ein Empfänger integriert werden. Dieser wird jedoch über USB zur Verfügung gestellt, und ist deswegen nicht Teil dieser Arbeit.
 Desweiteren muss das Auto mit den nötigen Signalleuchten ausgestattet sein, dazu gehören Blinker rechts und links jeweils vorne und hinten.
-Sowie 3 Bremsleuchten an der Rückseite und eine weitere Leuchte welche din RC-Modus anzeigt. Der vollständigkeit halber kommt hier noch die
+Sowie 3 Bremsleuchten an der Rückseite und eine weitere Leuchte welche din RC-Modus anzeigt. Der Vollständigkeit halber kommt hier noch die
 Frontbeleuchtung hinzu
 
-Zum bestimmen von Entferneungen zu andern Autos oder Hindernissen werden Distanzsensoren benötigt
 
-Da Energiebedarf eine Anforderung ist sollte bei der Auswahl der Komponenten auf Energieeffizienz geachtet werden.
+\section{Andere Anforderungen}
+\subsection{Anforderungen durch Bewertungskriterien}
+Abseits des Regelwerkes ergeben sich weitere Anforderungen duch die Bewertungskriterien des Wettbewerbes. Dabei handelt es sich um nichtfunktionale Anforderungen.
+So muss das Team während der statischen Disziplinen muss das Team ihr Gesamtkonzept präsentieren. Schwerpunkte dabei sind, Hardware und Software Architektur sowie Energiebedarf und 
+Herstellungskosten \cite{website-carolo-cup-regelwerk}. Daraus entstehen weitere Anforderungen: Energieeffizienz und Herstellungskosten. \\
 
-Zusammenfassend hier eine Liste mit den benötigten Komponenten.
+Woraus sich Energieeffizienz und Herstellungskosten als Anforderungen ergeben.
+
+\subsection{externe Anforderungen}
+Folgende Anforderungen werden durch das TEam an die Platine gestellt.
+\begin{itemize}
+ \item Integration einer Inertialsensorik (Sparkfun SEN-10724)
+ \item Anschlüsse für bis zu 6 Infarotsensoren vom Typ Sharp GP2D
+ \item Integration einer Odometrie
+ \item Stromversorgung eines ``Pandaboard ES'' 
+\end{itemize}
+
+\section{Zusammenfassung}
+
+Zusammengefasst werden folgende Komponenten in der Platine benötigt:
 
 \begin{itemize}
- \item Elektonik zur Motoransteuerung
- \item Servomotor zur Lenkung
- \item Funk Empfänger für den RC-Modus
- \item Beleuchtung
- \item Distanzsensoren
- \item Interialsensorik
+ \item nötige Elektonik zur Motoransteuerung (vor und Rückwärts)
+ \item Anschluss und Steuerung für einen Servomotor
+ \item Anschlusse und Steuerung für die nötige Beleuchtung
+ \item Anschlüsse für die Sharp GP2D Sensorn
+ \item Integration des Sparkfun Inertialsensors
+ \item Leistungsfähige Stromversorgung
 \end{itemize}
+
+
 
 
 

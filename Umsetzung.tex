@@ -1,15 +1,23 @@
 \chapter{Umsetzung}
 
+In diesem Kapitel werden die Technischen Hintergründe der einzelnen komponenten erläutert und ihre Umsetzung beschrieben.
+....
+
 
 \section{Motoransteuerung}
 
+Eine Motorsteuerung ist nötig um die Geschwindigkeit eines Motors einstellen zu können. Dem Auto liegt ab Werk bereits ein Motortrieber bei,
+welcher genau diese Funktion überhenmen kann. Im folgenden Abschnitt wird beschrieben, warum dieser nicht genutzt werden kann und wie die Lösung aussieht.
+
 \subsection{Treiberbausteine}
-Da die gewählten Akkus eine Spannung von 14,4V aufweisen, kann der orgiginal Motortreib erleider nicht verwendet werden.
+Da die gewählten Akkus eine Spannung von 14,4V aufweisen, kann der original Motortreiber leider nicht verwendet werden.
 Denn dieser benötig eine Spannung von 7,4V. Da der AVR Mikrokontroller mit 5V betrieben wird, wird ein Motorteiber benötig der
-mit den 5V Pegeln arbeiten kann. In vielen Mikrocontroller Projekten und in unserem ersten Prototyp wird der L298 DUAL FULL-BRIDGE DRIVER
-verwendet. Dieser ist leider auch bei der Benutzung beider Kanäle auf 4 Ampere begrenzt \cite{L298}, was beim Prototy zu einer Permanenten
-überlastung des Treibers führt. Leider sind keine vollintegrierten Motortreiber mit der benötigten Belastbarkeit verfügbar.
-Um die bentötigte Belastbarkeit zu erreichen wird der zur Ansteuerung benötigte Vierquadrantensteller aus diskreten Mosfets aufgebaut.
+mit den 5V Pegeln arbeiten kann. In vielen Mikrocontrolle-Projekten und in unserem ersten Prototyp wird der ``L298 DUAL FULL-BRIDGE DRIVER''
+verwendet. Dieser ist leider auch bei der Benutzung beider Kanäle auf 4 Ampere begrenzt \cite{L298}, was beim Prototyp zu einer permanenten
+Überlastung des Treibers führt. Die benötigte maximale Belastbarkeit des Motortreibers wurde in einem Kurzen expriment ermittelt 
+und beträgt 20 A. Leider sind keine vollintegrierten Motortreiber mit der benötigten Belastbarkeit verfügbar. 
+Eine möglichkeit dieses Problem zu umgehen, und unseren Anforderungen wie Vor und Rückwärtsbetrieb zu genügen  
+wird ein Vierquadrantensteller aus diskreten Mosfets aufgebaut.
 
 \subsubsection{Vierquadrantensteller}
 Definition nach Wikipedia\cite{vierquadrantensteller}:\\
@@ -26,35 +34,35 @@ in der Energietechnik können auch Wechselspannungen unterschiedlicher Frequenze
 \end{figure}
 
 
-Auf Grund der hohen Belastbarkeit werden meißt Mosfets als Halbleiterschalter genutzt. Um die beiden oberen Mosfets (T1/T3) durchzuschalten
+Auf Grund der hohen Belastbarkeit und leistungslosen Ansteuerung werden meißt Mosfets als Halbleiterschalter genutzt. Um die beiden oberen Mosfets (T1/T3) durchzuschalten
 ist auf Grund des fehlenden Massepotentials eine Gatespannung oberhalb der Betriebsspannung nötig. Diese wird meist mittels Bootstrapping zur
-Verfügung gestellt. Da das simultane Durchschalten der Übereinander liegenden Mosfets zu einem Kurzschluss führen würde, muss dies durch
-eine Schutzschalung verhindert werden. Um all diese Funktionen zur verfügung zu stellen gibt es bereits fertige Mosfettreiber,
-was das Schaltungsdesign enorm vereinfacht.
+Verfügung gestellt. Da das simultane Durchschalten der übereinander liegenden Mosfets zu einem Kurzschluss führen würde, muss dies durch
+eine Schutzschalung verhindert werden. Um all diese Funktionen zur Verfügung zu stellen gibt es bereits fertige Mosfettreiber,
+welche das Schaltungsdesign enorm vereinfachen.
 
 \subsection{Mosfettreiber}
 \subsubsection{Verfügbarkeit}
 
-Mosfettreiber gint es in vielenAusführungen, unter anderem als ``Single Channel High Side Driver``, ``Half Bridge Driver'', ``Full Bridge Driver''
-und ``3 Phase Driver''. Da für den Verbauten DC-Motor eine Vollbrücke nötig ist, um den Motro in alle Richtungen zu betreiben, Werden an dieser Stelle
+Mosfettreiber gibt es in vielen Ausführungen, unter anderem als ``Single Channel High Side Driver``, ``Half Bridge Driver'', ``Full Bridge Driver''
+und ``3 Phase Driver''. Da für den Verbauten DC-Motor eine Vollbrücke nötig ist, um den Motor in alle Richtungen zu betreiben, Werden an dieser Stelle
 ausschließlich ``Full Bridge Driver'' untersucht.
 
 Eine Tabelle auf Mikrocontroller.net\cite{FET_D_TABLE} zeigt eine Auswahl an verfügbaren Mosfettreibern. Dort sind zwei
 ``Full Bridge Driver'' aufgeführt, welche für dieses Projekt passend sind. Allerdings fällt die Entscheidung auf einen anderen Treiber,
 dem Allegro A3941.
 \subsubsection{Allegro A3941}
-Der Allegro A3941 ist f+r Betriebsspannungen von 5,5V bis 50V geeignet und liegt damit in der Spezifikation des Projekts.
+Der Allegro A3941 ist für Betriebsspannungen von 5,5V bis 50V geeignet und liegt damit in der Spezifikation des Projekts.
 Des weiteren verfügt der Motor über eine integrierten 5V Regulator und kann somit ohne Spannungsregulator am Akku betrieben werden.
-Über zwei Ausgänge der Treibers können diverse Fehler ausgelesen werden.
+Über zwei Ausgänge der Treibers können diverse Fehler ausgelesen werden. Auch sind alle gängigen Schutztschaltungen wie z.B. ein Kurzschlussschutz enthalten.
 
 
-Der Treiber lässt sich in verscjiedennenModi betreiben:
+Der Treiber lässt sich in verschiedennen Modi betreiben:
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{3941_1.png}\\
 \caption{Slow decay, diode recirculation, high-side PWM}%
-\label{fig:3941_1}
+\label{fig:39411}
 \end{figure}
 
 Konfiguration: PWML=1, PHASE=1, SR=0 und PWM an PWMH (high-side PWM)\\
@@ -68,7 +76,7 @@ die interne Diode von GLA, der Motor wird dadurch gebremst.
 \centering
 \includegraphics[width=.8\textwidth]{3941_2.png}\\
 \caption{Slow decay, SR active, high-side PWM}%
-\label{fig:3941_2}
+\label{fig:39412}
 \end{figure}
 
 Konfiguration: PWML=1, PHASE=1, SR=1 und PWM an PWMH (high-side PWM)\\
@@ -77,7 +85,7 @@ dann über den GLB-Mosfet. in diesem Modus wird der Motor angetrieben.
 Wenn PWML deaktiviert ist zirkuliert der vom Motor induziert Strom durch 
 GLB und durch GLA, der Motor wird durch den niedrigeren Innenwiederstand des Mosfest 
 stärker gebremst als in der Voherigen Konfiguration. Dabei ist darauf zu achten, dass
-beinahe die gesamte induzierte Spannung über den beiden Mosfets (GLA/GLB) abfällt.
+beinahe die gesamte vom Motor induzierte Spannung über den beiden Mosfets (GLA/GLB) abfällt.
 Was zu einer starken Hitzeentwicklung führen kann.
 
 
@@ -86,7 +94,7 @@ Was zu einer starken Hitzeentwicklung führen kann.
 \centering
 \includegraphics[width=.8\textwidth]{3941_3.png}\\
 \caption{Slow decay, SR active, low-side PWM}%
-\label{fig:3941_3}
+\label{fig:39413}
 \end{figure}
 
 Konfiguration: PWMH=1, PHASE=1, SR=1 und PWM an PWML (low-side PWM)\\
@@ -101,7 +109,7 @@ die internen Dioden genutzt werden (SR=0) oder nicht (SR=1)
 \centering
 \includegraphics[width=.8\textwidth]{3941_4.png}\\
 \caption{Fast decay, diode recirculation}%
-\label{fig:3941_4}
+\label{fig:39414}
 \end{figure}
 
 
@@ -110,34 +118,95 @@ in dieser Konfiguration werden die oberen und unteren Mosfets gleich geschaltet.
 ``Bremsmodus'' führt das dazu das der induzierte Motorstrom nicht über die Mosfets
 zirkulieren kann. Der Strom fließt stattdessen zurück in die Spannungsquelle, was
 abhängig von der Spannungsquelle zu Schäden führen kann. Wird die Schaltung jedoch an
-einem Akku betrieben ist es so möglich die Energie zu nutzen und damit den Akku
+einem Akku betrieben ist es so möglich die Energie zu nutzen und damit z.B. den Akku
 zu laden.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{3941_5.png}\\
 \caption{Fast decay, SR active, full four-quadrant control}%
-\label{fig:3941_5}
+\label{fig:39415}
 \end{figure}
 
 Diese Konfiguration zeigt den Einfluss des PHASE-Pins. Liegt am PHASE-Pin 1 ein an
 fließt der Strom von links nach rechts. Liegt 0 an fließt er von rechts nach links.
 Mithilfe des PHASE-Pins wird also die Polung des Motors festgelegt.
 
-\section{Funk Empfänger}
-Da die für die Funkkomunikationdas 2,4-GHz Frequenzband nicht genutzt werden darf können naheliegende Techniken wie W-Lan oder Bluetooth nicht genutzt
-werden. 
+
+\subsubsection{Schaltpan}
+
+In Folgenden wird geklärt wie sich die Beschaltung des Allegro A3941 bestimmen lässt. Die Schaltung in \cref{fig:schalt:allegro} entspicht dabei den Vorgaben im Datenblatt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.9\textwidth]{motortreiber.png}\\
+\caption{Schaltplan Allegro A3941}%
+\label{fig:schalt:allegro}
+\end{figure}
+
+$R_{\text{DEAD}}$ legt die Totzeit zwischen den Mosfetumschalungen fest. Wird es zu niedrig gewählt können in jeder PWM-Periode Kurzschlüsse auftreten. Wird es zu hoch
+gewählt beschrängt man das Tastverhältnis unnötig, was die Motorleistung reduziert. Da wir ``Low Gate Charge'' Mosfets nutzen, und die einschalt bzw Ausschaltzeit
+der Mosfets hauptsächlich von dieser Größe abhäng, ist diese Zeit sehr klein. Da jedoch eine genaue Bestimmung dieser Zeit für unseren Einsatz nicht nötig ist,
+wird hier ein mittlerer Wert von $100k\Omega$ gewählt. Da sich dieser laut Datenblatt zwischen 3 und $240k\Omega$ befinden sollte.\\
+
+
+%(ca 50ns).
+%
+% 
+% Die Totzeit t\textsubscript{DEAT} bestimmt sich folgender Maßen (für 3-240k$\Omega$)
+% 
+% \begin{align*}
+% t_{\text{DEAD}}=50+\frac{7200}{1.2+200/R_{\text{DEAD}}} %100k
+% \end{align*}
+% 
+% Ein Widerstand von 3k$\Omega$ resultiert in einer Totzeit von 106ns was einen guten Wert darstellt.
+
+
+% $R_{\text{DEAD}}$ legt die Totzeit zwischen den Mosfetumschalungen fest. Wird es zu niedrig gewählt können in jeder PWM-Periode Kurzschlüsse auftreten. Wird es zu hoch
+% gewählt beschrängt man das Tastverhältnis unnötig, was die Motorleistung reduziert. Um die Ideale Totzeit festzulegen muss die lade bzw entlade Dauer der 
+% Mosfetgates bestimmt werden. Die Gateladung der Mosfets beträgt 13nC bei 5V. Da die Mosffets über $V_{REG}$ geladen werden beträgt die
+% Gatekapazität $C_{\text{GATE}}=\frac{13nC}{13V}=1\text{nF}$. Die Entladedauer für für einen nF beträgt laut Datenblatt 20ns. Die Ladedauer 35ns. Allerdings ist
+
+Als nächstes werden die größen der Bootstrapkondensatoren C\textsubscript{BOOTA} und C\textsubscript{BOOTB} bestimmt. Diese sind für eine ordnungsgemäße
+Funktion der Schaltung reichtig zu wählen. Zu kleine Kondensatoren verhindern ein durchschalten der Oberen Mosfest, was zu einer nicht funktionsfähigen Schaltung
+führt. Zu große Werte hingegen verringern das Maximale Tastverhältnis des PWM Signals, da die Aufladung der Kondensatoren Zeit in anspruch nimmt.
+Laut Datenblatt hat sich folgende Faustformel gut bewährt:
+
+\begin{align*}
+C_{\text{BOOT}}=\frac{Q_{\text{GATE}}\cdot20}{V_{\text{BOOT}}}
+\end{align*}
+
+
+V\textsubscript{BOOT} entspricht dabei in etwa V\textsubscript{REG} welche laut Datenblatt 13V beträgt.
+Die Gateladung Q\textsubscript{GATE} der FDD6690A Mosfets beträgt typischer weise 13nC. Damit ergibt sich für C\textsubscript{BOOT}=20nF es werden demnach
+die nächst größeren 22nF als Bootstrapkondensatoren genutzt.\\
+
+Die Spannung V\textsubscript{DSTH} am VDSTH-Eingang soll der Spannung entsprechen die maximal über jeden Mosfet abfallen darf, bevor der Treiber einen Kurzschuss detektiert 
+und Abschaltet. Da der maximale Strom durch unseren Motor 20Ampere beträgt, lässt sich diese Spannung, einfach berechnen. Der Wiederstand der Mosfest im Einschaltzustand beträgt
+in unseren Fall (13V\textsubscript{GS}) etwas weniger als $12m\Omega$  bei einem Strom von 20A ergibt sich damit eine Spannung von $12m\Omega \cdot 20A = 0,24V$
+Da wir den Motor über sein gesammtes Leistungsspektrum nutzen wollen muss diese Spannung etwas darüber gewählt werden.
+
+Da der Strom in VDSTH nur minimal ist (ca 10\textmu A) kann diese Spannung über einen einfachen Spannungsteiler zur Verfügung gestellt werden. Ein Spannungsteiler mit 
+Widerständen zu $2k\Omega$ und $32k\Omega$ erzeugt uns zusammen mit den 5V aus dem V5 Ausgang eine Spannung von $\frac{2k\Omega}{2k\Omega+32k\Omega}\cdot 5V =0,294 V$.\\
+
+
+Die Größe des C\textsubscript{REG} Kondensators hängt direkt mit der Größe der Bootstrapkondensatoren zusammen. Er soll ca 20 mal größer als
+C\textsubscript{BOOTA} bzw C\textsubscript{BOOTB} gewählt werden, So das hier ein 470nF Kondensator gewählt wird.
+Alle restlichen Größen werden direkt dem Datenblatt entnommen.
 
 
 \section{Beleuchtung}
 Die einfachste Möglichkeit eine Beleuchtung am Auto zu realisieren sind Leuchtdioden, diese sind in allen erdenklichen Farben zu bekommen. Weiter Vorteile
 sind das Leuchtdioden sehr Energieeffizient sind, außerdem sind sie zugünstigen Preisen zu bekommen. LEDs stellen keine großen Anforderugen an die 
-Energieversorgung. Das Hauptproblem bei der Integration von vielen LEDs ist die Verkabelung. Eine große erleichterung bei der Integration sind 
+Energieversorgung.
+
+Das Hauptproblem bei der Integration von vielen LEDs ist die Verkabelung. Eine große erleichterung bei der Integration sind 
 LED-Streifen. Diese LED-Streifen gibt es in vielen Ausführungen. Für diese Arbeit interessant sind Allerdings nur jene Vertreter welche die Ansteuerung
 jeder einzelnen LED zulassen. Die Ledstrips mit Chips von ``Worldsemi'' sind hierbei die prominentesten Vertreter. Zu erwähnen währen hierbei die Modelle
 WS2801, WS2811 und WS2812. Der WS2812 ist dabei nahezu identisch mit dem WS2811 mit dem Unterschied, dass der WS2812 bereits in eine RGB-LED integriert ist.
-Im unterschied zum WS2801 werden die beiden duche eine einzige Siganleitung mit fixem Takt angesteuert, so dass hier eine Seperate Taktleitung entfällt. Der Nachteil
-an dieser Methode ist, dass die Timings genau eingehalten werden müssen um die Daten korrekt zu übertragen. Wie In Abbildung \ref{fig:led_cascade}werden die 
+Im unterschied zum WS2801 werden die beiden duche eine einzige Siganleitung mit fixem Takt angesteuert, so dass hier eine Seperate Taktleitung entfällt.
+
+Der Nachteil an dieser Methode ist, dass die Timings genau eingehalten werden müssen um die Daten korrekt zu übertragen. Wie In Abbildung \ref{fig:led_cascade}werden die 
 LEDs kaskadiert.Die Daten werden dann durch die LEDs geschoben.
 
 \begin{figure}[H]
@@ -147,10 +216,14 @@ LEDs kaskadiert.Die Daten werden dann durch die LEDs geschoben.
 \label{fig:led_cascade}
 \end{figure}
 
-Um die beleichtung am Auto zu realisieren werden LEDs mit WS2812 genutzt. Die LEDs können an einem beliebigen
-Eingang des AVR-Microcontrollers engeschlossen werden. Da die Timings exakt eingehalten werden müssen, ist die Software zur ansteuern in Assember geschrieben.
-Jede LED wird mit einem 24Bit Datenwort angesprochen, dieses enthät die Helligkeitsstufen für jede der drei Grundfarben. Die Daten werden dabei
-ohne Pause gesendet, bis alle LEDs im Strang die nötigen Daten erhalten haben. Nach jeder Übertragung muss eine Pause von mindestens 50\textmu s eingehalten
+Um die beleichtung am Auto zu realisieren werden LEDs mit WS2812 genutzt. Da die LEDs an einem beliebigen
+Eingang des AVR-Microcontrollers engeschlossen werden können, werden an Pin PA5 angeschlossen. Da die Timings 
+exakt eingehalten werden müssen, ist die Software zur ansteuern in Assember geschrieben.
+
+Die LEDS werden wiefolgt angesteuert:\\
+Jede LED wird mit einem 24Bit Datenwort angesprochen, dieses enthät die Helligkeitsstufen für jede der drei Grundfarben. 
+Die Rreihenfolge der Daten ist dabei grün, rot und dann blau. Das Höchstwertige Bit wird zuerst übertragen.
+Die Daten werden ohne Pause gesendet, bis alle LEDs im Strang die nötigen Daten erhalten haben. Nach jeder Übertragung muss eine Pause von mindestens 50\textmu s eingehalten
 werden, damit die LEDs die Daten übernehmen. Die einzenen Bits der Übertragung sind dabei folgendermaßen codiert:
 
 \begin{figure}[H]
@@ -160,15 +233,24 @@ werden, damit die LEDs die Daten übernehmen. Die einzenen Bits der Übertragung
 \label{fig:led_timing}
 \end{figure}
 
-\begin{tabularx}{\textwidth}{|r|X|r|r|}
-\hline
-  Abschnitt & Beschreibung & Dauer & Abweichung \\ \hline
-  T0H & 0 Code, high Zeit & $0.35\mu s$ & \textpm 150ns\\ \hline
-  T1H & 1 Code, high Zeit & $0.7\mu s$ & \textpm 150ns\\ \hline
-  T0L & 0 Code, low Zeit & $0.8\mu s$ & \textpm 150ns\\ \hline
-  T1L & 0 Code, low Zeit & $0.6\mu s$ & \textpm 150ns\\ \hline
-  RES & Reset Code, low Zeit & über $50\mu s$ & \\ \hline
-\end{tabularx}
+Die genauen Signallängen können \cref{tab:led_timing} entnommen werden.
+
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\textwidth}{|r|X|r|r|}
+    \hline
+    Abschnitt & Beschreibung & Dauer & Abweichung \\ \hline
+    T0H & 0 Code, high Zeit & $0.35\mu s$ & \textpm 150ns\\ \hline
+    T1H & 1 Code, high Zeit & $0.7\mu s$ & \textpm 150ns\\ \hline
+    T0L & 0 Code, low Zeit & $0.8\mu s$ & \textpm 150ns\\ \hline
+    T1L & 0 Code, low Zeit & $0.6\mu s$ & \textpm 150ns\\ \hline
+    RES & Reset Code, low Zeit & über $50\mu s$ & \\ \hline
+  \end{tabularx}
+  \caption{Signallängen}%
+  \label{tab:led_timing}
+\end{table}
+
+
 
 
 \section{Distanzsensoren}
@@ -254,11 +336,10 @@ Mittelwert des Sensorsignals, erzeugt durch einen Tiefpass, genutzt.
 \label{fig:schmitt}
 \end{figure}
 
-Leider führt dieses Vorgehen nicht zum Erfolg, da die Megnetfeldstärke stark von der Drehrichtung des Motors abhängt. Es war ist möglich
+Leider führt dieses Vorgehen nicht zum Erfolg, da die Magnetfeldstärke stark von der Drehrichtung des Motors abhängt. Es war ist möglich
 den Schmitt-Trigger so auszulegen, das er in beide Drehrichtungen zuverlässig funktioniert. Alternativ zu diesem vorgehen gibt es
 andere Lösung. Eine Speziell für diesen Motor angefertigte Achsverlängerung wird eine Inkrementalgeberscheibe befestigt. Diese wird durch einen
 Sharp GP1A30R Sensor ausgewertet und liefert ein Drehszahlsignal an den externen Takteingang des Timer 1 vom AVR Microcontroller.
-
 
   
 \section{Motorstrommessung am Shunt}
@@ -304,11 +385,11 @@ einen invertierenden Verstärker, dieser invertiert das Messsignal. Da der \text
 negativen Referenzspannung Arbeiten, was den Schaltungsaufwand unnötig vergrößern würde. Der Sallen-Key Tiefpass benutzt einen nicht invertierenden Verstärker, welcher diesen
 Nachteil nicht hat. So dass ab dieser Stelle ein Sallen-Key Tiefpass entwurfen wird.
 
-%%TODO Quellen (verweise auf übliche Filtertypem)
+\todo{Quellen (verweise auf übliche Filtertypem)}
 
 \subsection{Die Filterschaltung}
 
-wie im vorherigen Abschnitt diskutiert wird hier ein Sallen-Key Tiefpass entwurfen. Zum Entwurf der Schaltung wurde Eagle genutzt.
+Wie im vorherigen Abschnitt diskutiert wird hier ein Sallen-Key Tiefpass entwurfen. Zum Entwurf der Schaltung wurde Eagle genutzt.
 
 \begin{figure}[H]
 \centering

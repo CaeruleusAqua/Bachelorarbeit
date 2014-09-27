@@ -19,6 +19,31 @@
 \end{figure}
 
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{5V_supply.png}\\
+\caption{Störungen im 5V Netz}%
+\label{fig:5V Supply}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{VCC_SUPPLY.png}\\
+\caption{Störungen der Betriebsspannung mit Netzteil}%
+\label{fig:power_supply}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{VCC_AKKU.png}\\
+\caption{Störungen der Betriebsspannung mit Akku}%
+\label{fig:accu_supply}
+\end{figure}
+
+
+
 
 
 \section{Stromverbrauch}
@@ -87,7 +112,7 @@ Bytedauer = 11Bit (1Start+8Daten+2Stopp) 500000Baud --> 22us Bytdauer -> Preambl
   set xlabel "x"
   set ylabel "Frequency"
   #count and plot
-  plot "MessData/VoltageCurrent.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
+  plot "MessData/VoltageCurrent.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"grey" notitle
 \end{gnuplot}
 
 \subsection{Distance}

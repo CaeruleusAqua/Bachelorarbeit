@@ -15,13 +15,17 @@ Abbildung [\ref{fig:konzept}] zu sehen.
 \end{figure}
 
 
+Die fertig entwickelte Platine soll als Prototyp gefertigt werden, deshalb wird darauf geachtet, dass alle verwendeten Bauteile mit Hand bestückt werden können,
+Die minimale größe aller SMD Bausteine wird deswegen auf 0805 beschränkt.
+
+
 \section{Änderung der Anforderungen}
-Nach der erfolgreichen Teilnahme am ``Carolo-Cup Junior'' im Febuar 2014, begann die Weiterentwicklung des Konzepts, während der Entwicklung kamen
-einige Flaschenhalse zum vorschein. Sodas in der Projektphase die Hardwareplatform geändert werden musste. Die Rechenleistung der Pandaboards stellte sich
+Nach der erfolgreichen Teilnahme am ``Carolo-Cup Junior'' im Febuar 2014, begann die Weiterentwicklung des Konzepts. Während der Entwicklung kamen jedoch
+einige Flaschenhalse zum vorschein, so dass in der Projektphase die Hardwareplatform geändert werden musste. Die Rechenleistung der Pandaboards stellte sich
 als unzureichend heraus und es wurden mehr Distanzsensoren gewünscht. Die Pandaboards wurden nach der Absprache mit dem Team duch ein Intel NUC vom Typ
 D34010WYB erstezt. Laut Datenblatt \cite{datasheet-nuc} besitzt der NUC einen Weitbereichseingang zur Spannungsversorgung, dieser ist für 12-24 Volt zugelassen.
-Sodas sich die ursprünglische Wahl der Akkus als Vorteil herausstellt. Die Spannung von 14,4 Volt der 4 Zellen LiPo Akkus passt genau in diesen Bereich, daher
-kann der NUC direckt an die Akkus angeschossen werden.
+Sodas der NUC direckt an den 14,4V der Akkus betrieben werden kann.  Um Verwirrungen zu vermeiden wird im Folgenden legendlich von Recheneinheit gesprochen, wenn
+es nicht relevant ist ob es sich um NUC oder Pandaboard handelt.
 
 
 
