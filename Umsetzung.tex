@@ -40,6 +40,13 @@ Verfügung gestellt. Da das simultane Durchschalten der übereinander liegenden 
 eine Schutzschalung verhindert werden. Um all diese Funktionen zur Verfügung zu stellen gibt es bereits fertige Mosfettreiber,
 welche das Schaltungsdesign enorm vereinfachen.
 
+
+\subsection{Mosfets}
+Als geeignete Mosfets wurden die FDD6690A von Fairchild Semiconductor ausgewählt. Dies sind zugelassen bis zu einer Drain-Source-Spannung von 30V und einer Maximalen dauerbelastung
+von 46A, eine gute Kühlung vorausgesetzt. Desweiteren verfügen sie über einen sehr niedrigen Drain-Source-Widerstand von $R_{\text{DS(ON)}}= 12 m$, was zu einer niedrigen Verlustleistung führt. Durch ihre niedrige 
+Gate Ladung von 13nC eigen sie sich gut für hohe Schaltfrequenzen. Auf Grund dieser Eigenschaften sind sie Hervorragend für einen Motortreiber geeignet.
+
+
 \subsection{Mosfettreiber}
 \subsubsection{Verfügbarkeit}
 
@@ -118,7 +125,7 @@ in dieser Konfiguration werden die oberen und unteren Mosfets gleich geschaltet.
 ``Bremsmodus'' führt das dazu das der induzierte Motorstrom nicht über die Mosfets
 zirkulieren kann. Der Strom fließt stattdessen zurück in die Spannungsquelle, was
 abhängig von der Spannungsquelle zu Schäden führen kann. Wird die Schaltung jedoch an
-einem Akku betrieben ist es so möglich die Energie zu nutzen und damit z.B. den Akku
+einem geeigneten Akku betrieben ist es so möglich die Energie zu nutzen und damit den Akku
 zu laden.
 
 \begin{figure}[H]
@@ -194,6 +201,444 @@ Die Größe des C\textsubscript{REG} Kondensators hängt direkt mit der Größe 
 C\textsubscript{BOOTA} bzw C\textsubscript{BOOTB} gewählt werden, So das hier ein 470nF Kondensator gewählt wird.
 Alle restlichen Größen werden direkt dem Datenblatt entnommen.
 
+Da der verwendete AVR Microcontroller nur über begrenzte PWM fähige Anschlüsse zu verfügung stellt, wird legendlich der PWM-Kanal für die Oberen Mosfets (PWMH) an einen PWM Ausgang des AVR angeschlossen.
+Durch diese Entscheidung werden Betriebsmodi, welche ein Gleichschalten der Mosfets erfordern erschwert und könn nur duch ein Software PWM realisiert werden. Der Vorteil es Betriebsmodus ``Fast decay, diode recirculation''
+ist das es möglich ist Bremsenergie des Fahrzeugs zurück in den Akku zu speisen. Da die Akkus jedoch mit einer Integrierten Ladeelektronik ausgestattet sind, liegt die vermutung nahe, dass ein Laden des Akkus so nicht möglich ist.
+Darum wird der Betriebsmodus im Rahmen dieser Arbeit nicht untersucht.
+
+Alle weiteren Anschlüsse des Allegros werden direkt an pins von PORTA am Microcontroller angeschlossen. Da die Fehlerausgänge als Open-Collector aus geführt sind, werden die Internen Pullup-Widerstände des Microcontrollers genutzt.
+
+\section{Motorstrommessung am Shunt}
+
+Da innerhalb ders Wettbewerbes Energieeffizienz wichtig ist, ist es notwendig den aktuellen Stromverbrauch zu kennen. Es wird davon ausgegangen das der Stromverbrauch der Recheneinheit und Sensoren
+konstant ist, bzw. sich mit der fertigen Software über die Zeit nicht wesentlich ändert. Da der Motor einen großen zu erwartenden Verbrauch hat, ist es wichtig seinen Verbrauch zu bestimmen. Mithilfe dieser
+Informationen ist es möglich verschiedenne Fahrregler Auslegungen im Aspekt des Verbrauches zu Vergleichen. Um den Verbrauch zu bestimmen ist es notwendig die anliegende Spannung und des Stom durch den
+Motor zu messen. Die H-Brücke wird dabei als Teil des Motors betrachtet, daher entspricht Spannung über den Motor der Akkuspannung. Diese lässt sich einfach über einen Spannungsteiler an den ADC des Mikrocontrollers
+anschließen. Als Werte für den Spannungsteiler werden \SI{1,8}{\kohm} und \SI{10}{\kohm} gewählt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{spannungsteiler.png}\\
+\caption{Spannungsteiler zur Akkuspannungsmessung}%
+\label{fig:Spannungsteiler}
+\end{figure}
+
+Da der Innenwiederstand des ADC sehr groß ist (\SI{100}{\mohm}) kann der Spannungsteiler als unbelastet betrachtet werden. Damit ergibt sich das Teilungsverhältnis zu $\frac{R_{STL}}{R_{STH}+R_{STL}}=0,153$.
+Die maximal messbare Akkuspannung beträgt darurch $\frac{\SI{5}{\V}}{0,152}=\SI{32,7}{\V}$. Die Messung des Stromes gestaltet sich wesentlich aufwändiger und wird im folgenen erläutert.
+
+%TODO
+\todo{Maximale Betiebsspannung ermitteln!!}
+
+
+\subsection{Problem}
+
+Die Messung des Motorstromes ist mit einem Problem behaftet, da der Motor über eine Pulsweitenmodulation angesteuert wird. Der verlauf des Stomes ist pulsierend, abhängig von
+der Frequenz der Pulsweitenmodulation. In \cref{fig:pwm+i_0} zu erkennen ist der Verlauf des PWM Signals (obere Kurve) und des Stomes, welcher nach einer $1-e^t$ Funktion ansteigt.
+Ohne weitere Filterung des Signals währe eine extrem hohe abtastfequent des ADC nötig um den genauen Stromfluss zumessen. Da für eine Verbrachsmessung 
+der Mittelwert des Stomes interessiert ist, kann dieser mit hilfe eines Tiefpasses erzeugt werden.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{oszi.png}\\
+\caption{Spannung am Shunt + PWM}%
+\label{fig:pwm+i_0}
+\end{figure}
+
+Ein kostengünstige Variante den Strom zu messen ist den Spannungsabfall über einen Shuntwiderstand zu bestimmen. Die Größe des Shuntwiderstandes sollte so klein wienötig gewählt werden.
+Ein zu kleiner Shuntwiderstand benötigt einen starken Messverstärker um das Signal auswerten zu können. Die Quaität und Genauigkeit dieses Signals nimmt allerdings mit steigender Verstärkung ab.
+
+Nach kurzer Recherche wurde die Größe des Shuntwiderstands auf R2512(ca \SI{6,35}{\mm} x \SI{3,00}{\mm}) begrenzt. Messshunts in dieser Größe gibt es problemlos bis zu einer Belastbarkeit von 2 Watt. 
+Bei einem maximalen Motorstrom von 20A ergibt sich somit ein maximaler Spannungsabfall von \SI{100}{\mV}. Nach dem Ohmschen Gesetz erbib sich so eine Shuntgröße von
+$\frac{\SI{0,1}{\V}}{\SI{20}{A}}=\SI{0,005}{\ohm}$. Shuntwiederstände in der Größe sind problemlos zu bekommen.
+Da es sich hier um eine Worst Case Rechnung handelt, wird der zusätzliche Widerstand des Shuntwiederstandes und der damit verringerte Strom bewusst ignoriert.
+
+Der Shunt wird direkt unter der H-Brücke des Motortreibers gegen Ground geschaltet. So kann wird eine Messung gegen Ground durchgeführt. Die so über den Shuntwiederstand gemessene Spannung könnte 
+dann über den ADC Eingang des Mikrocontrollers eingelesen werden. Vorher jedoch muss das Signal gefiltert und verstärkt werden.
+
+\subsection{Anforderungen}
+Die maximale Auflösung des Mikrocontrollers soll ausgenutzt werden. Der ADC des Mikrocontrollers arbeitet mit einer Auflösung von 10 Bit und einer 
+Referenzspannung von 5V. Um die Auflösung des ADC auszunutzen muss das Signal, aufgrund des geringen Spannungsabfalls verstärkt werden.
+
+Als Anforderung ergibt sich außerdem, dass der maximale Ripple des Endsignals kleiner ist als der Quantisierungsfehler des ADC.
+So ist es möglich aufeine zusätzliche digitale Filterung weitgehend zu verzichten.
+Die kleinst mögliche zu erfassende Spannung des ADC beträgt $\frac{5}{2^{10}}=4,88mV$.
+Diesen wert sollte der Ripple des Endsignales nicht überschreiten.
+Aus einem möglichst kleinem Ripple resultiert eine möglichst hohe Filterordnung bzw. eine niedrige Grenzfrequenz.
+Allerdings soll $U_{DC}$ einer Änderung des Mittelwertes, also einer Änderung des Tastverhältnisses, möglichst
+schnell folgen. Diese Anforderung widerspricht der Vorherigen, so das ein Kompromiss gefunden werden muss.
+
+\subsection{Bestimmung des Filtertyps}
+Da zum verstärken des Signals aktive elektronische Elemente notwendig sind, z.B. ein Operationsverstärker, wird an dieser Stelle gleich ein aktiver Filter verwendet. 
+Dieser gibt uns die Möglichkeit des Messignal zu verstärken und gleichzeitig zu
+filtern. Da das Signal im optimalen Fall eine Gleichspannung darstellt müssen die Hochfrequenten Anteile des Signales herausfiltern, dies geschieht 
+mit Hilfe eines Tiefpasses. Es gibt im Grunde 2 übliche aktive Tiefpässe, den Tiefpass mit Mehrfachgegenkopplung und den Sallen-Key Filter. Ersterer verwendet
+einen invertierenden Verstärker, dieser invertiert das Messsignal. Da der \textmu Controller jedoch nur mit positiven Spannungen umgehen kann müsste man hier mit einer 
+negativen Referenzspannung Arbeiten, was den Schaltungsaufwand unnötig vergrößern würde. Der Sallen-Key Tiefpass benutzt einen nicht invertierenden Verstärker, welcher diesen
+Nachteil nicht hat. So dass ab dieser Stelle ein Sallen-Key Tiefpass entwurfen wird.
+
+%TODO
+\todo{Quellen (verweise auf übliche Filtertypem)}
+
+\subsection{Die Filterschaltung}
+
+Wie im vorherigen Abschnitt diskutiert wird hier ein Sallen-Key Tiefpass entwurfen. Zum Entwurf der Schaltung [\ref{fig:fschalt}] wurde Eagle genutzt.
+\todo{Welcher OPV wird genutzt und warum}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{filter_schaltung.png}\\
+\caption{Salle-Key Tiefpass mit Shunt}%
+\label{fig:fschalt}
+\end{figure}
+
+
+
+\subsection{Dimensionierung des Verstärkers}
+
+In bisherigen Rechnungen wurde ein maximaler Spannungsabfall von 100mV am Shunt errechnet. Da der Messbereich des voll ADC ausgenutzt werden soll,
+ist es nötig das Messsignal zu verstärken. Hierzu wir ein Nichtinvertierender Verstärker benutzt. Da der Messbereich des ADC bis 5V reicht, wird hier eine 
+50 fache Verstärkung angestrebt.
+
+Die Beschaltung, welche den Verstärkungsfaktor des Sallen-Key Tiefpass festlegt, entspricht der eines Nichtinvertierenden Verstärkers:
+
+\begin{align*}
+v &= 1 + \frac{R_{F3}}{R_{F4}}\\
+50 &= 1 + \frac{R_{F3}}{R_{F4}}\\
+49\cdot R_{F4} &= R_{F3}
+\end{align*}
+\\
+Wobei $R_{F4} = 47 k\Omega$ und $R_{F3} = 1 k\Omega$  gewählt werden, was eine Verstärkung von 48 ergibt.
+
+%TODO
+\todo{warum werde widerstände so gewählt}
+
+\subsection{Anforderungen an den Filter}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{oszi.png}\\
+\caption{Spannung am Shunt + PWM}%
+\label{fig:pwm+i}
+\end{figure}
+
+Da dem Messsignal wie in Abbildung \ref{fig:pwm+i} zu erkennen, die PWM Frequenz zu Grunde liegt wird sich bei der Dimensionierung des Filters einer Idee nach \cite{Alter2008} bedient, nach der die maximale Amplitude des Ripple der Grundschwingung bei einem
+Tastverhältnis von 0,5 entspricht. Die Amplitude der Grundschwingung ergibt sich aus dem ersten Koeffizienten der Fourierreihe einer Rechteckschwingung.
+\begin{align}
+A_1 = K\cdot \frac{1}{\pi}[\sin(\pi p)-\sin(2\pi(1-\frac{p}{2}))]
+\label{eq:ripple}
+\end{align}
+Wobei $p$ dem Tastverhältnis und $K$ der maximale Amplitude des Ursprungsingals entspricht \cite{Alter2008}. $K$ entspricht den errechneten 100mV multipliziert mit dem Verstärkungsfaktor 48, also 4,8V. Das Tastverhältnis $p$ wird zu 0,5
+angenommen. Mit (\ref{eq:ripple}) ergibt sich für die Amplitude der Grundschwingung $ A_1 = K\cdot \frac{2}{\pi} = 3,056V$. $A_1$ soll auf $ < 4,88mV$ gedämpft werden.
+Als Sperrfrequenz $\Omega_s $ wird hier die PWM Frequenz angesetzt. Für $H(\omega=2\pi f_{PWM})$ gilt also:
+
+\begin{align}
+H(\omega=2\pi f_{PWM}) \le \frac{4,88mV}{3,056V} \mathop{\hat{=}} 20\cdot\log(\frac{4,88mV}{3,056V})= -55,9 dB
+\label{eq:daempfung}
+\end{align}
+
+Um die Komplexität der Schaltung gering zu halten, wird im Folgenden von den üblichen Konventionen zur dimensionierung von Filtern abgewichen.
+Statt eine fixe Grenzfreqeunz festzulegen und die benötigte Filterordnung zu bestimmen, wird die Filterordnung vorgegeben und die Grenzfrequenz variiert.
+
+\subsection{Filterentwurf}
+
+\subsubsection{Bestimmung des Filtertyps}
+
+Des Filtertyp muss in zweierlei Hinblick bestimmt werden. Einmal im hinblick auf die Schaltung und seinem Frequenzgang.
+Im groben gibt es 2 mögliche aktive Tiefpassfilterschaltungen, den Sallen-Key Teifpass mit nicht invertierendem OPV und dem aktiven Tiefpass mit Mehrfachgegenkopplung 
+(invertierender OPV). Der aktive Tiefpass mit Mehrfachgegenkopplung benötigt allerdings negative Spannungsniveaus die auf der Treiberplatine nicht zur
+verfügung stehen, deshalb wird an dieser Stelle nur der Sallen-Key Teifpass betrachtet.
+Was den Frequenzgang angeht gibt es viele Filtercharakteristiken, eine Auswahl an haufig verwendeten Charakteristiken wird hier verglichen.
+
+Der \emph{Butterworth}-Filter besitzt einen maximal flachen Verlauf des Frequenzganges im Durchlassbereich und eine monoton verlaufende Dämpfung im Sperrbereich.
+Leider hat der Butterworth-Filter nur eine geringe Flankensteilheit im Sperrbereich (20dB/Dekade pro Ordnung). Ein Butterworth-Filter 1. Ordnung entspricht einen  einfachen RC-Filter.
+
+Der \emph{Tschebyscheff}-Filter hat eine höhere Flankensteilheit als der Butterworth-Filter, allerdings entsteht beim Tschebyscheff-Filter Welligkeit im Durchlassbereich,
+welche mit höherer Ordnung zunimmt. Durch die Welligkeit im Duchlassbereich würde ein zusätzlicher Ripple im Signal entstehen, weshalb der Tschebyscheff-Filter nicht
+für den geforderten Filter geeignet ist 
+
+Der \emph{Bessel-Filter} hat den Vorteil einer konstanten Gruppenlaufzeit, hat dafür aber eine noch geringere Flankensteilheit als der Butterworth-Filter.
+Da eine konstante Gruppenlaufzeit für den geforderten Filter nicht von Vorteil ist, da das Endsignals einer Gleichspannung entsprechen sollte, ist der Butterworth-Filter
+die bessere Wahl.
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+	\draw[->,thick] (0,0) -- (7.5,0) node[right] {$f[\text{Hz}]$};
+	\draw[->,thick] (0,0) -- (0,3.3) node[above] {$a[\text{dB}]$};
+	\draw (0,2.5)node[left] {$a_{\text{min}}$} (-0.1,2.5)--(2.9,2.5);
+	\draw (0,1)node[left] {$a_{\text{max}}$};
+	\def \bsp{(0,1)--(1,1)--(1,2.4)--(1,2.4)--(0,2.4)}
+	\draw (-0.1,1)--(1,1)--(1,2.4) (1,0)node[below] {$f_g$};
+	\pattern[pattern=north east lines] \bsp;
+	\draw[dashed] (1,1) -- (1,-0.1);
+	\def \bsd{(3,0) -- (3,2.5) -- (7,2.5) -- (7,0)}
+	\pattern[pattern=north east lines] \bsd;
+	\draw (3,0)node[below] {$f_s$} -- (3,2.5) -- (7,2.5);
+
+\end{tikzpicture}
+\caption{Tiefpass Toleranzfeld}%
+\label{fig:analog}
+\end{figure}
+
+
+
+Für unsere Schaltung wird ein Sallen Key Tiefpass 2. Ordnung nach Butterworth entwurfen. Die PWM-Frequenz $f_{PWM}$ beträt 3,9kHz.
+%TODO
+\todo{PWM Frequenz muss noch festgelegt werden, hier sonst erste erwähnung....}
+Die Sperrfrequenz entspreicht der PWM Frequenz, also der Frequenz unserer Grundschwingung. $\Omega$ entspricht der mit der Grenzfreqeunz 
+normierten Frequenz $\Omega=\frac{f}{f_g}$. Nach (\ref{eq:daempfung}) ergibt sich für Abbildung \ref{fig:analog}
+$f_s=f_{PWM}=3,9 kHz$, $a_{min}=55,9 dB$ und $a_{max}$ wird auf 3dB festgelegt.
+
+
+
+
+
+
+\subsubsection{Bestimmung der Grenzfreqeunz}
+\begin{align}
+n \ge \frac{\log{\sqrt{\frac{e^{2a_{min}}-1}{e^{2a_{max}}-1}}}}{\log{\Omega_s}}
+\label{eq:butterworth}
+\end{align}
+Die Filterordnung nach Butterworth wird nach (\ref{eq:butterworth}) bestimmt. Umgestellt nach $\Omega_s$ ergibt sich:
+
+\begin{align}
+\Omega_s \le  \left(\frac{e^{2a_{min}}-1}{e^{2a_{max}}-1}\right)^{\frac{1}{2n}}
+\end{align}
+
+
+
+Für die Berechnung der Sperrfrequenz $\Omega_s$ müssen  $a_{min}$ und $a_{max}$ in Neper umgrechnet werden. Wobei:
+\begin{align*}
+1 \text{dB} =  \frac{\ln{10}}{20}\text{Np} = 0,115129255 \text{Np}   
+\end{align*}
+
+Damit ergibt sich für $a_{min}=55,9 dB\cdot \frac{\ln{10}}{20}=6,45Np$ und für  $a_{max}=3 dB\cdot \frac{\ln{10}}{20}=0,345Np$. Die Filterordnung wird auf 2 festgelegt.
+\begin{align}
+\Omega_s \le  \left(\frac{e^{2\cdot6,45N }-1}{e^{2\cdot 0,345Np}-1}\right)^{\frac{1}{2n}}  = 35,8
+\end{align}
+
+Die Grenzfreqeunz $f_g$ ergibt sich jetzt aus:
+
+\begin{align}
+\frac{f_s}{\Omega_s} \le \frac{3,9kHz}{35,8} = 108,9Hz
+\end{align}
+
+\subsubsection{Filterentwurf}
+Im voherigen Abschnitt wurde berechnet das die Grenzfreqeunz der Filters kleiner als 108,9Hz sein muss.
+Im Folgenden wird nun ein Sallen-Key Filter 2. Ordnung mit einer Grenzfrequenz von 100Hz entwurfen.
+Die genaue Wahl der Grenzfreqeunz ist hier nicht relevant da die realen Bauteile nicht in  allen Größen 
+verfügbar sind und daher am Schluss variiert werden müssen, wodurch sich die Grenzfrequen des Filters leicht ändert.
+
+
+\subsubsection{Finaler Entwurf}
+
+
+
+Betrachten wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. Ordnung, wie in Abbildung [\ref{fig:filter_polnul}]
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+	\draw[->,thick] (-3,0) -- (3,0) node[right] {$\text{Re}$};
+	\draw[->,thick] (0,-3) -- (0,3) node[above] {$\text{Im}$};
+	\draw[dashed,red,very thin] (-3,2) -- (3,2);
+	\draw[dashed,red,very thin] (-3,-2) -- (3,-2);
+	\draw[dashed,red,very thin] (2,-3) -- (2,3);
+	\draw[dashed,red,very thin] (-2,-3) -- (-2,3);
+	\draw[dashed,blue,very thin] (0,0) circle (2);
+	\coordinate (x) at (225:2); 
+	\coordinate (y) at (135:2);
+	\draw[very thin] (0,0) -- (y);
+	\draw[red,thick] (x) -- +(0.1,0.1)  (x) -- +(-0.1,-0.1) (x) -- +(0.1,-0.1) (x) -- +(-0.1,0.1);
+	\draw[red,thick] (y) -- +(0.1,0.1)  (y) -- +(-0.1,-0.1) (y) -- +(0.1,-0.1) (y) -- +(-0.1,0.1);
+	\draw (2,0)node[below] {$1$};
+	\draw (-2,0)node[below] {$-1$};
+	\draw (0,2)node[left] {$1$};
+	\draw (0,-2)node[left] {$-1$};
+	\draw (0,-2)node[left] {$-1$};
+	\draw (0,0) (135:1cm) arc (135:180:1cm);
+	\draw (-0.6,0.3)node {$\delta$};
+\end{tikzpicture}
+\caption{Polstellen-Nullstellendiagramm, Butterworth 2. Ordnung}
+\label{fig:filter_polnul}
+\end{figure}
+
+
+
+Charakteristisch für den Butterworthfilter ist das sich die Polstellen auf einer Kreisbahn befinden. Auf die Grenzfreqeunz normiert hat dieser beim Butterworthfilter den Radius
+eins. Bei einem Butterworth 2. Ordnung befinden sie sich genau bei $\delta=45^\circ$. Das Interessante am Polstellen-Nullstellendiagramm ist, dass sich Polfrequenz $\Omega_P$ und 
+Polgüte $Q_P$ einfach ablesen lassen. Die Polfrequenz $\Omega_P$ ist der Betrag der normierten Polstelle, welcher beim Butterworth-Filter immer eins ist.
+Die Polgüte ist abhängig von $\delta$ und ergibt sich zu: $Q_P=\frac{1}{2\cos{\delta}}$. Für unseren Butterworthfilter ergeben sich also $Q_P=0,707$ und $\Omega_P=1$
+
+%TODO
+\todo{Variablennamen auf Schaltplan anpassen}
+
+Betrachten wir die Übertragungsfunktion eines Sallen-key Tiefpasses 2. Ordnung:
+
+\begin{align*}
+A(P)&=\frac{A_0}{1+\omega_g (R_2 C_2 + R_1 C_2 + R_1 C_2(1-A_0))P + \omega_g^2R_1 R_2 C_1C_2P^2}
+\end{align*}
+
+mit
+\begin{align*}
+A_0=1+\frac{R_6}{R_5}
+\end{align*}
+
+
+Die Bauteilwerte erhält man durch einen Koeffizientenvergleich mit der entnormierten
+Übertragungsfunktion ($P=\frac{s}{\omega}$) eines Tiefpasses zweiter Ordnung:
+
+\begin{align*}
+A(P)&=\frac{A_0}{1+\frac{1}{\omega_g\Omega_PQ_P}s+\frac{1}{\omega_g^2\Omega_P^2}s^2}
+\end{align*}
+
+Die Auflösung des Vergleiches ist mit vielen Mathematischen umformungen verbunden, deswegen wird hier auf eine
+externe Quelle verwiesen \cite[S. 102]{Krucker2000}.
+Nach dem Koeffizientenvergleich ergibt sich
+
+\begin{align*}
+C_1&<\frac{C_2\cdot(1+4Q^2_P(A_0-1))}{4Q^2_P}\\
+R_1&=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2\pm\sqrt{C_2^2-4Q^2_PC_2(C_1+C2(1-A_0))}}{C_2(C_1-C_2(1-A_0))}   \\
+R_2&=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2\pm\sqrt{C_2^2-4Q^2_PC_2(C_1+C2(1-A_0))}}{C_1C_2}  \\
+Q_p&=\frac{\sqrt{R_1R_2C_1C_2}}{C1(R_1+R_2)+R_1C_2(1-A_0)}\\
+\Omega_p&=\frac{1}{\omega_g\sqrt{R_1R_2C_1C_2}}
+\end{align*}
+
+Dabei sind immernur die positiven, reellen Lösungen zu verwenden.
+
+
+\subsubsection{Bestimmung der Bauteilwerte}
+
+Um die Übersich zu wahren wird die Berechnung der Bauteilwerte hier nicht aufgeführt. Zur Erinnerung
+die gegebenen Werte sind $Q_P=0,707$, $\Omega_P=1$, $A_0=48$ und $\omega_g = 2 \cdot \pi 100Hz$.
+$A_0$ ist die Gleichspannungsverstärkung, sie beschreibt den gewünchten Verstärkungsfaktor der Bereits in einem voherigen
+Abschnitt mit 48 bestimmt wurde. Die Berechnungen wurden mit Hilfe eines Python-Scriptes ausgeführt, dabei wurden verschiedenne
+Konfigurationen durchgerechnet. Hautpsächlich wurde dabei darauf geachtet, dass sich der Filter mit den vor Ort vorhandennen SMD-Bauteilen
+aufgebaut werden kann.
+
+In den Berechnungen viel auf, dass bei steigender größe der Kondensatoren die Größe der Wiederstände sinkt. Da Wiederstände auch in großen Größen vorhanden waren,
+Wurde für den frei wählbaren $C_2$ ein kleiner Wert von 82nF gewählt.
+
+\begin{align*}
+C_1&<\frac{C_2\cdot(1+4\cdot0.707^2_P(48-1))}{4\cdot0.707^2}\\
+C_1&<3.90\mu F
+\end{align*}
+
+$C_1$ soll nur kleiner sein als 3.90\textmu F und wird ebenfalls auf 82nF gesetzt.
+
+\begin{align*}
+R_1&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot \frac{82nF\pm\sqrt{82nF^2-4\cdot0.707^2\cdot82nF(82nF+82nF(1-48))}}{82nF(82nF-82nF(1-48))}\\
+R_1&=[-3176\Omega,2579\Omega]
+\end{align*}
+
+
+\begin{align*}
+R_2&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot \frac{82nF\pm\sqrt{82nF^2-4\cdot0.707^2\cdot82nF(82nF+82nF(1-48))}}{82nF^2}\\
+R_2&=[146079\Omega,-118626\Omega]
+\end{align*}
+
+Da nur positive Werte genutzt werden, ergeben sich die Bauteilwerte nun zu:
+\begin{align*}
+C_1&=82nF\\
+C_2&=82nF\\
+R_1&=2579\Omega\\
+R_2&=146079\Omega
+\end{align*}
+
+In der Folgenden Abbildung ist das Ergebniss der Simulation zu sehen. An der Abbildung leider nicht gut zu erkennen,
+liegt der -3dB Punkt genau bei 100Hz. Die Frequenzachse des Diagrammes geht genau bis 3,9kHz. 
+Es ist eine Verstärkung von 48 des Ursprungssignals gewünscht. Diese Verstärkung wird mit 33,6 dB bei 10Hz, erreicht.
+\begin{align*}
+20\cdot\log{48}=-33,6dB
+\end{align*}
+
+Bei 3,9kHz erreicht der Filter eine Dämpfung von -30,1dB zusammen mit der Verstärkng von 33,6dB unseres Eingangssignals,
+wird das Bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren hier 55,9dB, so das der Filter den gerforderten wert übersteigt, wass an der niedrigeren Grenzfreqeunz von 100Hz statt 108,9Hz liegt.
+
+%%Verstärkung: 33,6dB gewünscht:
+%%20*log(1/48)=-33,6
+
+%%dämpfung bei 3,9Khz = 30,7dB
+%% 33,6+30,1 =63,7 gewüncht: 55,9
+%% Grenzfreqeunz = 100Hz (-3db)
+\begin{figure}[H]
+\centering
+\begin{gnuplot}[terminal=pdf]
+  set nokey 
+  set xrange [10:3900]
+  set xlabel 'Frequenz in [Hz]'
+  set ylabel 'Verstärkung in [dB]'
+  set logscale x 10
+  plot 'Simulation/Filter_original_frequenzgang.csv' with line
+\end{gnuplot}
+\caption{Frequenzgang des berechneten Filters}
+\label{plott:filter_freq}
+\end{figure}
+
+Leider kann ein solcher Filter nur mit erheblichen Aufwändungen gebaut werden, da es keine fertigen Wiederstände in den Größen $2579\Omega\\$ und $146079\Omega$ gibt. Da jedoch alle Wiederstände der E12 Reihe vor Ort vorhanden sind, werden die realen Werte wiefolgt gewählt: $R_1=2,7k\Omega\\ R_2=150k\Omega$, da sie den nächsten Größen in der E12 Reihe entsprechen.
+
+
+In der Folgenden Abbildung ist die Simulation des Filters mit den Realenbauteilwerten(grün) im vergleich zum Idealen Filter(rot) zu sehen.
+Die Grenzfrequenz des Filters (-3dB) liegt diesmal mit 104Hz etwas über den ursprünglichen 100Hz. da wir die Werte von $R_5$ und $R_6$ nicht verändert haben liegt die Verstärkung bei 10Hz immernoch bei exakt 33,6dB. Bei 3,9 kHz im Diagramm gut zu erkennen wird trotz der höheren eine höhere Dämpfung als vorher erreicht. Diese liegt bei 33,7dB, daran kan man erkennen das es sich nicht mehr um einen idealen Butterworthfilter handelt. 
+%%Verstärkung: 33,6dB gewünscht:
+%%20*log(1/48)=-33,6
+
+%%dämpfung bei 3,9Khz = 30,7dB
+%% 33,6+30,7 =64,3 gewüncht: 55,9
+%% Grenzfreqeunz = 104Hz (-3db)
+\begin{figure}[H]
+\centering
+\begin{gnuplot}[terminal=pdf]
+  set nokey 
+  set xrange [10:3900]
+  set xlabel 'Frequenz in [Hz]'
+  set ylabel 'Verstärkung in [dB]'
+  set logscale x 10
+  
+  plot 'Simulation/Filter_original_frequenzgang.csv' with line linecolor rgb "red", 'Simulation/Filter_real_frequenzgang.csv' with line linecolor rgb "green"
+\end{gnuplot}
+\caption{Frequenzgang des berechneten Filters mit finalen Bauteilwerten}
+\label{plott:filter_freq_real}
+\end{figure}
+
+
+Im der folgenden Abbildung [\ref{plott:filter_sprungantwort}] ist die Antwort des Filters auf ein Rechtecksignal mit 3,9kHz, einem Tastverhältnisvon 0,5 und einer Amplitude von 50mV .Das Überschwingen im Bereich von 7ms ist charakteristisch für den Butterworthfiter und wirks sich negativ auf die Messung des Stromes aus. Allerdings werden solch große Sprünge in der Praxis nicht auftreten werden, da der Strom duch die große Induktivität des Motors nur langsam ansteigt.
+\begin{figure}[H]
+\centering
+\begin{gnuplot}[terminal=pdf]
+  set nokey 
+  set yrange [0:3]
+  set xlabel 'Zeit in [s]'
+  set ylabel 'Spannung in [V]'
+  plot 'Simulation/Filter_real_time.csv' with line
+\end{gnuplot}
+\caption{Sprungantwort des Filters}
+\label{plott:filter_sprungantwort}
+\end{figure}
+
+
+Die in Abbildung [\ref{plott:ripple}] gut zu Restwellgkeit (Ripple) beträgt 3,36mV,und liegt damit deutlich unter den gerforderten 4,88mV. Als Eingangssignal dient hier ein Rechtecksignal mit 3,9kHz  und einem Tastverhältnisvon 0,5, die Amplitude liegt bei 50mV. Die Tatsache dass das Signal 240mV über den rechnerischen 2,40V  ($0.5V \cdot 48 $) liegt, rührt daher dass LT-Spice die steig und fall Zeiten in den low-Bereich des Rechtecksignals legt, woduruch der Mittelwert des Signals bei 2,64V liegt.
+ 
+%% Ripple: 0,003358
+%% zu hoher Spannungswert durch Steig und Fallzeiten im low bereich des Rechtecksignals
+\begin{figure}[H]
+\centering
+\begin{gnuplot}[terminal=pdf]
+  set nokey 
+  set xrange [0.03:0.04]
+  set yrange [2.62:2.66]
+  set xlabel 'Zeit in [s]'
+  set ylabel 'Spannung in [V]'
+  plot 'Simulation/Filter_real_time.csv' with line
+\end{gnuplot}
+\caption{Restwellgkeit des Filters}
+\label{plott:ripple}
+\end{figure}
+
+Da der berechnete Filter den Anforderungen bestens genügt wird dieser in die Schaltung übernommen.
 
 \section{Beleuchtung}
 Die einfachste Möglichkeit eine Beleuchtung am Auto zu realisieren sind Leuchtdioden, diese sind in allen erdenklichen Farben zu bekommen. Weiter Vorteile
@@ -275,7 +720,7 @@ Außerdem besitzen Sensoren nach diesem Prinzip einen kleinen Messfleck.
 
 Nachteile:
 Die Messung ist stark von der Oberläche des der Messobjktes abhängig, spiegelnde Oberflächen stellen ein großes Problem dar.
-In Staubigen oder Nebligen Umgebungen wird das Lichtmöglicherweise zu früh reflektiert.
+In Staubigen oder Nebligen Umgebungen wird das Lichtmöglicherweise zu stark gestreut so das eine Korrekte Messung nicht möglich ist.
 
 \subsection{Probleme der GP2D Sensoren}
 Die Sensoren verfügen über einen analogen Ausgang. Bei analogen Signalen ist generell mit Störungen zu rechnen. Die GP2D Sensoren scheinen
@@ -289,7 +734,7 @@ entstehen, wie in Abbildung \ref{fig:IR_spikes} zu sehen.
 \label{fig:IR_spikes}
 \end{figure}
 
-Nach der Entstörung mit einem 82nF Kondensator direckt am Sensor zwiechen VCC und GND sind die Störungen bereits stark vermindert.
+Nach der Entstörung mit einem 82nF Kondensator direkt am Sensor zwiechen VCC und GND sind die Störungen bereits stark vermindert.
 
 \begin{figure}[H]
 \centering
@@ -299,26 +744,28 @@ Nach der Entstörung mit einem 82nF Kondensator direckt am Sensor zwiechen VCC u
 \end{figure}
 
 \subsection{Auswertung des Messignales}
-Das Messignal vom Sensor wird über einen ADC-Eingang des AVR Microcontrollers ausgelesen.
+Das Messignal vom Sensor wird über einen ADC-Eingang des AVR Microcontrollers ausgelesen. Angeschlossen werden die Sensoren über die PH-Connector Reihe des Herstellers JST, welche auch an den Sensoren verbaut sind.
 
 
 
-\section{Motor Derehzahlmessung}
-Da Auto bentigt in unterschiedlichen Situationen unterschiedlich viel Leistung um seine Geschwidgkeit zu halten.
+\section{Odometrie}
+Da Auto benötigt in unterschiedlichen Situationen unterschiedlich viel Leistung um seine Geschwindigkeit zu halten.
 Besonders in Kurven ist durch die eröhte Reibung mehr Motorleistung nötig. Über den Motortreiber lässt sich jedoch nur
-die Leistung am Motor verändern, deshalb ist es nötig diese zu Regeln. Dafür ist jedoch eine Rückführung der Geschwindigkeit
-des Autos nötig. Eine Aufintegrierung der beschleunigungs Daten der Interialsensorik führt auf dauer leider zu erheblichen
+die mittlere Spannung am Motor verändern, deshalb ist es nötig diese zu Regeln. Dafür ist jedoch eine Rückführung der Geschwindigkeit
+des Autos nötig. Eine Aufintegrierung der beschleunigungs Daten der Interialsensorik führt auf Dauer leider zu erheblichen
 Abweichungen und ist daher für eine Regelung nicht geeignet. Leider ist auch eine Odometrie an den Rädern des Autos
 aus mechanischen Gründen schwer zu realisieren. 
-\subsection{Hallsensor}
-Duch die feste Übersetzung des Getriebes bietet die Messung der Motordehzahl
-eine gute Nährung für die aktuelle Geschwindigkeit. Eine Moglichkeit die Motordrehzahl zu messen ist es das Magnetfeld des
+
+Duch die feste Übersetzung des Getriebes bietet die Messung der Motordehzahl an. Damit lasst sich eine gute Nährung für die aktuelle Geschwindigkeit erreichen. 
+
+\subsection{Hall-Sensor}
+Eine Moglichkeit die Motordrehzahl zu messen ist es das Magnetfeld des
 Motorankers auszuwerten. Dazu sehen wir uns den Aufabu eines Gleichstommotors an.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.5\textwidth]{motor.png}\\
 \caption{Aufbau eines Gleichstommotors}%
-\label{fig:lasertriangulation}
+\label{fig:aufbau_motor}
 \end{figure}
 Ein Gleichstommotor besteht aus Zwei Grundsätzlichen Teilen, einem unbeweglichen Teil, den Stator und einem beweglichen Teil, dem Anker.
 Der Stator besteht aus sich gegenüberliegenden Permanentmagneten welche Zwei entgegengesetzt gepolte Magnetfelder erzeugen.
@@ -337,411 +784,34 @@ Mittelwert des Sensorsignals, erzeugt durch einen Tiefpass, genutzt.
 \end{figure}
 
 Leider führt dieses Vorgehen nicht zum Erfolg, da die Magnetfeldstärke stark von der Drehrichtung des Motors abhängt. Es war ist möglich
-den Schmitt-Trigger so auszulegen, das er in beide Drehrichtungen zuverlässig funktioniert. Alternativ zu diesem vorgehen gibt es
-andere Lösung. Eine Speziell für diesen Motor angefertigte Achsverlängerung wird eine Inkrementalgeberscheibe befestigt. Diese wird durch einen
-Sharp GP1A30R Sensor ausgewertet und liefert ein Drehszahlsignal an den externen Takteingang des Timer 1 vom AVR Microcontroller.
+den Schmitt-Trigger so auszulegen, das er in beide Drehrichtungen zuverlässig funktioniert.
 
-  
-\section{Motorstrommessung am Shunt}
+\subsection{Gabellichtschranke}
 
-
-\subsection{Problem}
-
-An einem mit PWM angesteuertem DC-Motor soll eine Strommessung mit Hilfe eines Shuntwiederstandes
-durchgeführt werden. Aufgrund der PWM Ansteuerung muss der DC-Anteil aus dem Signal herausgefiltert werden!
-
-
-\subsection{Prinzip der Strommessung}
-
-Die Messspannung wird über einen Shuntwiederstand zur Masse gemessen! Aufgrund nicht vorhandener Datenblätter des Motors
-wird von einem expirimentel Ermittelten maximalen Strom des Motors ausgegangen. Dieser beträgt bei einer Betriebsspannung von 20V ca. 20A.
-Da einen Shunt mit einer maximalen Belastbarkeit von 2 Watt eingesetzt wird, darf der maximale Spannungsabfall am Shunt 100mV nicht überschreiten.
-Nach dem Ohmschen Gesetz ergibt sich dadurch ein Widerstand von $0,005 \Omega$  für den Shunt. Shuntwiederstände in der Größe sind problemlos zu bekommen.
-Da es sich hier um eine Worst Case Rechnung handelt, wird der zusätzliche Widerstand des Shuntwiederstandes und der damit verringerte Strom bewusst ignoriert.
-
-Die über den Shuntwiederstand gemessene Spannung soll über den ADC Eingang des Mikrocontrollers eingelesen werden. Vorher jedoch muss das Signal gefiltert werden, da der Strom
-durch die Ansteuerung mittels der Pulsweitenmodulation nicht konstant ist!
-
-
-
-\subsection{Anforderungen}
-Die maximale Auflösung des Mikrocontrollers soll ausgenutzt werden. Der ADC des Mikrocontrollers arbeitet mit einer Auflösung von 10 Bit und einer 
-Referenzspannung von 5V. Um die Auflösung des ADC auszunutzen muss das Signal, aufgrund unseres Spannungsabfalls verstärkt werden.
-
-Als Anforderung ergibt sich außerdem, dass der maximale Ripple des Endsignals kleiner ist als der Quantisierungsfehler des ADC.
-So ist es möglich aufeine zusätzliche digitale Filterung weitgehend zu verzichten.
-Die kleinst mögliche zu erfassende Spannung des ADC beträgt $\frac{5}{2^{10}}=4,88mV$.
-Diesen wert sollte der Ripple des Endsignales nicht überschreiten.
-Aus einem möglichst kleinem Ripple resultiert eine möglichst hohe Filterordnung bzw. eine niedrige Grenzfrequenz.
-Allerdings soll $U_{DC}$ einer Änderung des Mittelwertes, also einer Änderung des Tastverhältnisses, möglichst
-schnell folgen. Diese Anforderung widerspricht der Vorherigen, so das ein Kompromiss gefunden werden muss.
-
-\subsection{Bestimmung des Filtertyps}
-Aufgrund des sehr niedrigen Spannungspegels am Shunt,ist es nötig das Signal zu verstärken. Da zum verstärken des Signals aktive elektronische Elemente notwendig sind,
-z.B. ein Operationsverstärker, wird an dieser Stelle gleich ein aktiver Filter verwendet. Dieser gibt uns die Möglichkeit des Messignal zu verstärken und gleichzeitig zu
-Filtern. Da wir als unser Signal im optimalen Fall eine Gleichspannung darstellt müssen wir die Hochfrequenten Anteile unseres Signales herausfiltern, dies geschieht 
-mit Hilfe eines Tiefpasses. Es gibt im Grunde 2 übliche aktive Tiefpässe, den Tiefpass mit Mehrfachgegenkopplung und den Sallen-Key Filter. Ersterer verwendet
-einen invertierenden Verstärker, dieser invertiert das Messsignal. Da der \textmu Controller jedoch nur mit positiven Spannungen umgehen kann müsste man hier mit einer 
-negativen Referenzspannung Arbeiten, was den Schaltungsaufwand unnötig vergrößern würde. Der Sallen-Key Tiefpass benutzt einen nicht invertierenden Verstärker, welcher diesen
-Nachteil nicht hat. So dass ab dieser Stelle ein Sallen-Key Tiefpass entwurfen wird.
-
-\todo{Quellen (verweise auf übliche Filtertypem)}
-
-\subsection{Die Filterschaltung}
-
-Wie im vorherigen Abschnitt diskutiert wird hier ein Sallen-Key Tiefpass entwurfen. Zum Entwurf der Schaltung wurde Eagle genutzt.
-
+Alternativ zum Vorgehen mit einem Hall-Sensor wurde es eine andere Lösung Implementiert. An eine Speziell für diesen Motor angefertigte Achsverlängerung wurde eine Inkrementalgeberscheibe befestigt, zusehen in \cref{fig:gabellichtschranke}. 
+Diese wird durch einen Sharp GP1A30R Sensor ausgewertet. Dieser liefert ein Drehszahlsignal an den externen Takteingang des Timer 1 vom AVR Microcontroller.
 \begin{figure}[H]
 \centering
-\includegraphics[width=.8\textwidth]{filter_schaltung.png}\\
-\caption{Salle-Key Tiefpass mit Shunt}%
-\label{fig:fschalt}
+\includegraphics[width=.8\textwidth]{odometrie.png}\\
+\caption{Motor mit Inkrementalgeber}%
+\label{fig:gabellichtschranke}
 \end{figure}
 
-
-
-\subsection{Dimensionierung des Verstärkers}
-
-In bisherigen Rechnungen wurde ein maximaler Spannungsabfall von 100mV am Shunt errechnet. Da der Messbereich des voll ADC ausgenutzt werden soll,
-ist es nötig das Messsignal zu verstärken. Hierzu wir ein Nichtinvertierender Verstärker benutzt. Da der Messbereich des ADC bis 5V reicht, wird hier eine 
-50 fache Verstärkung angestrebt.
-
-Für einem Nichtinvertierenden Verstärker ergibt sich dann:
-
-\begin{align*}
-v &= 1 + \frac{R_{F3}}{R_{F4}}\\
-50 &= 1 + \frac{R_{F3}}{R_{F4}}\\
-49\cdot R_{F4} &= R_{F3}
-\end{align*}
-\\
-Wobei $R_{F4} = 47 k\Omega$ und $R_{F3} = 1 k\Omega$  gewählt werden, was eine Verstärkung von 48 ergibt.
-
-%%TODO Warum werde widerstände so gewählt
-
-\subsection{Anforderungen an den Filter}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=.8\textwidth]{oszi.png}\\
-\caption{Spannung am Shunt + PWM}%
-\label{fig:pwm+i}
-\end{figure}
-
-Da dem Messsignal wie in Abbildung \ref{fig:pwm+i} zu erkennen, die PWM Frequenz zu Grunde liegt wird sich bei der Dimensionierung des Filters einer Idee nach \cite{Alter2008} bedient, nach der die maximale Amplitude des Ripple der Grundschwingung bei einem
-Tastverhältnis von 0,5 entspricht. Die Amplitude der Grundschwingung ergibt sich aus dem ersten Koeffizienten der Fourierreihe einer Rechteckschwingung.
-\begin{align}
-A_1 = K\cdot \frac{1}{\pi}[\sin(\pi p)-\sin(2\pi(1-\frac{p}{2}))]
-\label{eq:ripple}
-\end{align}
-Wobei $p$ dem Tastverhältnis und $K$ der maximale Amplitude des Ursprungsingals entspricht \cite{Alter2008}. $K$ entspricht den errechneten 100mV multipliziert mit dem Verstärkungsfaktor 48, also 4,8V. Das Tastverhältnis $p$ wird zu 0,5
-angenommen. Mit (\ref{eq:ripple}) ergibt sich für die Amplitude der Grundschwingung $ A_1 = K\cdot \frac{2}{\pi} = 3,056V$. $A_1$ soll auf $ < 4,88mV$ gedämpft werden.
-Als Sperrfrequenz $\Omega_s $ wird hier die PWM Frequenz angesetzt. Für $H(\omega=2\pi f_{PWM})$ gilt also:
+Die Scheibe ist dabei mit 120 Strichmakierungen versehen. Eine Motorumdrehung entspricht also 120 Impulsen, im folgenden Motorticks genannt. Über das Übersetzungsverhältnis des Getriebes und dem Radumfang kann dann 
+der zurück gelegte Weg berechnet werden. Das Übersetzungsverhältnis des Fahrzeugs ist abhängig von 3 Komponenten, dem Stirnrad und dem Motorritzel sowie einer festen internen Übersetzung. Das Verwendtete Stirnrad hat
+61 Zähne, das Motorrizel 19. Damit ergibt sich ein Verhältnis von 61:19 zusammen mit der internen Übersetzung von 2.6 \todo{Quelle raussuchen für interne Übersetzung}
+haben wir ein Übersetzungsverhältnis von 8,35. Der Radumfang beträgt ca. \SI{21}{\cm}.
 
 \begin{align}
-H(\omega=2\pi f_{PWM}) \le \frac{4,88mV}{3,056V} \mathop{\hat{=}} 20\cdot\log(\frac{4,88mV}{3,056V})= -55,9 dB
-\label{eq:daempfung}
+\frac{120*8,35}{0.21m}=\frac{ticks}{m}=4760
 \end{align}
 
-Da das Projekt möglichst kostensparend durchgeführt werden soll, also auch Bauteilsparend, wird im Folgenden von den üblichen Konventionen zur dimensionierung von Filtern abgewichen.
-Statt eine fixe Grenzfreqeunz festzulegen und die benötigte Filterordnung zu bestimmen, wird die Filterordnung vorgegeben und die Grenzfrequenz variiert.
-
-\subsection{Filterentwurf}
-
-\subsubsection{Bestimmung des Filtertyps}
-
-Des Filtertyp muss in zweierlei Hinblick bestimmt werden. Einmal im hinblick auf die Schaltung und seinem Frequenzgang.
-Im groben gibt es 2 mögliche aktive Tiefpassfilterschaltungen, den Sallen-Key Teifpass mit nicht invertierendem OPV und dem aktiven Tiefpass mit Mehrfachgegenkopplung 
-(invertierender OPV). Der aktive Tiefpass mit Mehrfachgegenkopplung benötigt allerdings negative Spannungsniveaus die auf der Treiberplatine nicht zur
-verfügung stehen, deshalb wird an dieser Stelle nur der Sallen-Key Teifpass betrachtet.
-Was den Frequenzgang angeht gibt es viele Filtercharakteristiken, eine Auswahl an haufig verwendeten Charakteristiken wird hier verglichen.
-
-Der \emph{Butterworth}-Filter besitzt einen maximal flachen Verlauf des Frequenzganges im Durchlassbereich und eine monoton verlaufende Dämpfung im Sperrbereich.
-Leider hat der Butterworth-Filter nur eine geringe Flankensteilheit im Sperrbereich (20dB/Dekade pro Ordnung). Ein Butterworth-Filter 1. Ordnung entspricht einen  einfachen RC-Filter.
-
-Der \emph{Tschebyscheff}-Filter hat eine höhere Flankensteilheit als der Butterworth-Filter, allerdings entsteht beim Tschebyscheff-Filter Welligkeit im Durchlassbereich,
-welche mit höherer Ordnung zunimmt. Durch die Welligkeit im Duchlassbereich würde ein zusätzlicher Ripple im Signal entstehen, weshalb der Tschebyscheff-Filter nicht
-für den geforderten Filter geeignet ist 
-
-Der \emph{Bessel-Filter} hat den Vorteil einer konstanten Gruppenlaufzeit, hat dafür aber eine noch geringere Flankensteilheit als der Butterworth-Filter.
-Da eine konstante Gruppenlaufzeit für den geforderten Filter nicht von Vorteil ist, da das Endsignals einer Gleichspannung entsprechen sollte, ist der Butterworth-Filter
-die bessere Wahl.
-
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-	\draw[->,thick] (0,0) -- (7.5,0) node[right] {$f[\text{Hz}]$};
-	\draw[->,thick] (0,0) -- (0,3.3) node[above] {$a[\text{dB}]$};
-	\draw (0,2.5)node[left] {$a_{\text{min}}$} (-0.1,2.5)--(2.9,2.5);
-	\draw (0,1)node[left] {$a_{\text{max}}$};
-	\def \bsp{(0,1)--(1,1)--(1,2.4)--(1,2.4)--(0,2.4)}
-	\draw (-0.1,1)--(1,1)--(1,2.4) (1,0)node[below] {$f_g$};
-	\pattern[pattern=north east lines] \bsp;
-	\draw[dashed] (1,1) -- (1,-0.1);
-	\def \bsd{(3,0) -- (3,2.5) -- (7,2.5) -- (7,0)}
-	\pattern[pattern=north east lines] \bsd;
-	\draw (3,0)node[below] {$f_s$} -- (3,2.5) -- (7,2.5);
-
-\end{tikzpicture}
-\caption{Tiefpass Toleranzfeld}%
-\label{fig:analog}
-\end{figure}
-Für unsere Schaltung wird ein Sallen Key Tiefpass 2. Ordnung entwurfen. Die PWM-Frequenz $f_{PWM}$ beträt 3,9kHz.
-Die Sperrfrequenz entspreicht der PWM Frequenz, also der Frequenz unserer Grundschwingung. $\Omega$ entspricht der mit der Grenzfreqeunz 
-normierten Frequenz $\Omega=\frac{f}{f_g}$. Nach (\ref{eq:daempfung}) ergibt sich für Abbildung \ref{fig:analog}
-$f_s=f_{PWM}=3,9 kHz$, $a_{min}=55,9 dB$ und $a_{max}$ wird auf 3dB festgelegt.
-
-
-
-\subsubsection{Butterworth}
-\subsubsection{Bestimmung der Grenzfreqeunz}
-\begin{align}
-n \ge \frac{\log{\sqrt{\frac{e^{2a_{min}}-1}{e^{2a_{max}}-1}}}}{\log{\Omega_s}}
-\label{eq:butterworth}
-\end{align}
-Die Filterordnung nach Butterworth wird nach (\ref{eq:butterworth}) bestimmt. Umgestellt nach $\Omega_s$ ergibt sich:
-
-\begin{align}
-\Omega_s \le  \left(\frac{e^{2a_{min}}-1}{e^{2a_{max}}-1}\right)^{\frac{1}{2n}}
-\end{align}
-
-
-
-Für die Berechnung der Sperrfrequenz $\Omega_s$ müssen  $a_{min}$ und $a_{max}$ in Neper umgrechnet werden. Wobei:
-\begin{align*}
-1 \text{dB} =  \frac{\ln{10}}{20}\text{Np} = 0,115129255 \text{Np}   
-\end{align*}
-
-Damit ergibt sich für $a_{min}=55,9 dB\cdot \frac{\ln{10}}{20}=6,45Np$ und für  $a_{max}=3 dB\cdot \frac{\ln{10}}{20}=0,345Np$. Die Filterordnung wird auf 2 festgelegt.
-\begin{align}
-\Omega_s \le  \left(\frac{e^{2\cdot6,45N }-1}{e^{2\cdot 0,345Np}-1}\right)^{\frac{1}{2n}}  = 35,8
-\end{align}
-
-Die Grenzfreqeunz $f_g$ ergibt sich jetzt aus:
-
-\begin{align}
-\frac{f_s}{\Omega_s} \le \frac{3,9kHz}{35,8} = 108,9Hz
-\end{align}
-
-\subsubsection{Filterentwurf}
-Im voherigen Abschnitt wurde berechnet das die Grenzfreqeunz der Filters kleiner als 108,9Hz sein muss.
-Im Folgenden wird nun ein Sallen-Key Filter 2. Ordnung mit einer Grenzfrequenz von 100Hz entwurfen.
-Die genaue Wahl der Grenzfreqeunz ist hier nicht relevant da die realen Bauteile nicht in  allen Größen 
-verfügbar sind und daher am Schluss variiert werden müssen, wodurch sich die Grenzfrequen des Filters leicht ändert.
-
-
-\subsubsection{Finaler Entwurf}
-
-
-
-Betrachten wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. Ordnung, wie in Abbildung [\ref{fig:filter_polnul}]
-
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-	\draw[->,thick] (-3,0) -- (3,0) node[right] {$\text{Re}$};
-	\draw[->,thick] (0,-3) -- (0,3) node[above] {$\text{Im}$};
-	\draw[dashed,red,very thin] (-3,2) -- (3,2);
-	\draw[dashed,red,very thin] (-3,-2) -- (3,-2);
-	\draw[dashed,red,very thin] (2,-3) -- (2,3);
-	\draw[dashed,red,very thin] (-2,-3) -- (-2,3);
-	\draw[dashed,blue,very thin] (0,0) circle (2);
-	\coordinate (x) at (225:2); 
-	\coordinate (y) at (135:2);
-	\draw[very thin] (0,0) -- (y);
-	\draw[red,thick] (x) -- +(0.1,0.1)  (x) -- +(-0.1,-0.1) (x) -- +(0.1,-0.1) (x) -- +(-0.1,0.1);
-	\draw[red,thick] (y) -- +(0.1,0.1)  (y) -- +(-0.1,-0.1) (y) -- +(0.1,-0.1) (y) -- +(-0.1,0.1);
-	\draw (2,0)node[below] {$1$};
-	\draw (-2,0)node[below] {$-1$};
-	\draw (0,2)node[left] {$1$};
-	\draw (0,-2)node[left] {$-1$};
-	\draw (0,-2)node[left] {$-1$};
-	\draw (0,0) (135:1cm) arc (135:180:1cm);
-	\draw (-0.6,0.3)node {$\delta$};
-\end{tikzpicture}
-\caption{Polstellen-Nullstellendiagramm, Butterworth 2. Ordnung}
-\label{fig:filter_polnul}
-\end{figure}
-
-
-
-Charakteristisch für den Butterworthfilter ist das sich die Polstellen auf einer Kreisbahn befinden. Auf die Grenzfreqeunz normiert hat dieser beim Butterworthfilter den Radius
-eins. Bei einem Butterworth 2. Ordnung befinden sie sich genau bei $\delta=45^\circ$. Das Interessante am Polstellen-Nullstellendiagramm ist, dass sich Polfrequenz $\Omega_P$ und 
-Polgüte $Q_P$ einfach ablesen lassen. Die Polfrequenz $\Omega_P$ ist der Betrag der normierten Polstelle, welcher beim Butterworth-Filter immer eins ist.
-Die Polgüte ist abhängig von $\delta$ und ergibt sich zu: $Q_P=\frac{1}{2\cos{\delta}}$. Für unseren Butterworthfilter ergeben sich also $Q_P=0,707$ und $\Omega_P=1$
-
-
-Betrachten wir deie Übertragungsfunktion eines Sallen-key Tiefpasses 2. Ordnung:
-
-\begin{align*}
-A(P)&=\frac{A_0}{1+\omega_g (R_2 C_2 + R_1 C_2 + R_1 C_2(1-A_0))P + \omega_g^2R_1 R_2 C_1C_2P^2}
-\end{align*}
-
-mit
-\begin{align*}
-A_0=1+\frac{R_6}{R_5}
-\end{align*}
-
-
-Die Bauteilwerte erhält man durch einen Koeffizientenvergleich mit der entnormierten
-Übertragungsfunktion ($P=\frac{s}{\omega}$) eines Tiefpasses zweiter Ordnung:
-
-\begin{align*}
-A(P)&=\frac{A_0}{1+\frac{1}{\omega_g\Omega_PQ_P}s+\frac{1}{\omega_g^2\Omega_P^2}s^2}
-\end{align*}
-
-Die Auflösung des Vergleiches ist mit vielen Mathematischen umformungen verbunden, deswegen wird hier auf eine
-externe Quelle verwiesen \cite[S. 102]{Krucker2000}.
-Nach dem Koeffizientenvergleich ergibt sich
-
-\begin{align*}
-C_1&<\frac{C_2\cdot(1+4Q^2_P(A_0-1))}{4Q^2_P}\\
-R_1&=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2\pm\sqrt{C_2^2-4Q^2_PC_2(C_1+C2(1-A_0))}}{C_2(C_1-C_2(1-A_0))}   \\
-R_2&=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2\pm\sqrt{C_2^2-4Q^2_PC_2(C_1+C2(1-A_0))}}{C_1C_2}  \\
-Q_p&=\frac{\sqrt{R_1R_2C_1C_2}}{C1(R_1+R_2)+R_1C_2(1-A_0)}\\
-\Omega_p&=\frac{1}{\omega_g\sqrt{R_1R_2C_1C_2}}
-\end{align*}
-
-Dabei sind immernur die positiven, reellen Lösungen zu verwenden. Schließlich git es in der Realität keinen negativen Wiederstand, leider.
-
-
-\subsubsection{Bestimmung der Bauteilwerte}
-
-
-$Q_P=0,707$ und $\Omega_P=1$, $A_0=48$, $\omega_g = 100Hz$
-$A_0$ ist die Gleichspannungsverstärkung, sie beschreibt den gewünchten Verstärkungsfaktor der Bereits in einem voherigen
-Abschnitt mit 48 bestimmt wurde. Die Berechnungen wurden mit Hilfe eines Python-Scriptes ausgeführt, dabei wurden verschiedenne
-Konfigurationen durchgerechnet. Hautpsächlich wurde dabei darauf geachtet, dass sich der Filter mit den vor Ort vorhandennen SMD-Bauteilen
-aufgebaut werden kann.
-
-In den Berechnungen viel auf, dass bei steigender größe der Kondensatoren die Größe der Wiederstände sinkt. Da Wiederstände auch in großen Größen vorhanden waren,
-Wurde für den frei wählbaren $C_2$ ein kleiner Wert von 82nF gewählt.
-
-\begin{align*}
-C_1&<\frac{C_2\cdot(1+4\cdot0.707^2_P(48-1))}{4\cdot0.707^2}\\
-C_1&<3.90\mu F
-\end{align*}
-
-$C_1$ soll nur kleiner sein als 3.90\textmu F und wird ebenfalls auf 82nF gesetzt.
-
-\begin{align*}
-R_1&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot \frac{82nF\pm\sqrt{82nF^2-4\cdot0.707^2\cdot82nF(82nF+82nF(1-48))}}{82nF(82nF-82nF(1-48))}\\
-R_1&=[-3176\Omega,2579\Omega]
-\end{align*}
-
-
-\begin{align*}
-R_2&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot \frac{82nF\pm\sqrt{82nF^2-4\cdot0.707^2\cdot82nF(82nF+82nF(1-48))}}{82nF^2}\\
-R_2&=[146079\Omega,-118626\Omega]
-\end{align*}
-
-Da nur positive Werte genutzt werden, ergeben sich die Bauteilwerte nun zu:
-\begin{align*}
-C_1&=82nF\\
-C_2&=82nF\\
-R_1&=2579\Omega\\
-R_2&=146079\Omega
-\end{align*}
-
-In der Folgenden Abbildung ist das Ergebniss der Simulation zu sehen. An der Abbildung leider nicht gut zu erkennen,
-liegt der -3dB Punkt genau bei 100Hz. Die Frequenzachse des Diagrammes geht genau bis 3,9kHz. 
-Es ist eine Verstärkung von 48 des Ursprungssignals gewünscht. Diese Verstärkung wird mit 33,6 dB bei 10Hz, erreicht.
-\begin{align*}
-20\cdot\log{48}=-33,6dB
-\end{align*}
-
-Bei 3,9kHz erreicht der Filter eine Dämpfung von -30,1dB zusammen mit der Verstärkng von 33,6dB unseres Eingangssignals,
-wird das Bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren hier 55,9dB, so das der Filter den gerforderten wert übersteigt, wass an der niedrigeren Grenzfreqeunz von 100Hz statt 108,9Hz liegt.
-
-%%Verstärkung: 33,6dB gewünscht:
-%%20*log(1/48)=-33,6
-
-%%dämpfung bei 3,9Khz = 30,7dB
-%% 33,6+30,1 =63,7 gewüncht: 55,9
-%% Grenzfreqeunz = 100Hz (-3db)
-\begin{figure}[H]
-\centering
-\begin{gnuplot}[terminal=pdf]
-  set nokey 
-  set xrange [10:3900]
-  set xlabel 'Frequenz in [Hz]'
-  set ylabel 'Verstärkung in [dB]'
-  set logscale x 10
-  plot 'Simulation/Filter_original_frequenzgang.csv' with line, 'Simulation/Filter_real_frequenzgang.csv' with line
-\end{gnuplot}
-\caption{Frequenzgang des berechneten Filters}
-\label{plott:filter_freq}
-\end{figure}
-
-Leider kann ein solcher Filter nur mit erheblichen Aufwändungen gebaut werden, da es keine fertigen Wiederstände in den Größen $2579\Omega\\$ und $146079\Omega$ gibt. Da jedoch alle Wiederstände der E12 Reihe vor Ort vorhanden sind, werden die realen Werte wiefolgt gewählt: $R_1=2,7k\Omega\\ R_2=150k\Omega$, da sie den nächsten Größen in der E12 Reihe entsprechen.
-
-
-In der Folgenden Abbildung sit die Simulation des Filters mit den Realenbauteilwerten zu sehen.
-Die Grenzfrequenz des Filters (-3dB) liegt diesmal mit 104Hz etwas über den ursprünglichen 100Hz. da wir die Werte von $R_5$ und $R_6$ nicht verändert haben liegt die Verstärkung bei 10Hz immernoch bei exakt 33,6dB. Bei 3,9 kHz im Diagramm gut zu erkennen wird trotz der höheren eine höhere Dämpfung als vorher erreicht. Diese liegt bei 33,7dB, daran kan mann erkennen das es sich nicht mehr um einen idealen Butterworthfilter handelt. 
-%%Verstärkung: 33,6dB gewünscht:
-%%20*log(1/48)=-33,6
-
-%%dämpfung bei 3,9Khz = 30,7dB
-%% 33,6+30,7 =64,3 gewüncht: 55,9
-%% Grenzfreqeunz = 104Hz (-3db)
-\begin{figure}[H]
-\centering
-\begin{gnuplot}[terminal=pdf]
-  set nokey 
-  set xrange [10:3900]
-  set xlabel 'Frequenz in [Hz]'
-  set ylabel 'Verstärkung in [dB]'
-  set logscale x 10
-  plot 'Simulation/Filter_real_frequenzgang.csv' with line
-\end{gnuplot}
-\caption{Frequenzgang des berechneten Filters mit finalen Bauteilwerten}
-\label{plott:filter_freq_real}
-\end{figure}
-
-
-Im der folgenden Abbildung [\ref{plott:filter_sprungantwort}] ist die Antwort des Filters auf ein Rechtecksignal mit 3,9kHz, einem Tastverhältnisvon 0,5 und einer Amplitude von 50mV .Das Überschwingen im Bereich von 7ms ist charakteristisch für den Butterworthfiter und wirks sich negativ auf die Messung des Stromes aus. Allerdings werden solch große Sprünge in der Praxis nicht auftreten werden, da der Strom duch die große Induktivität des Motors nur langsam ansteigt.
-\begin{figure}[H]
-\centering
-\begin{gnuplot}[terminal=pdf]
-  set nokey 
-  set yrange [0:3]
-  set xlabel 'Zeit in [s]'
-  set ylabel 'Spannung in [V]'
-  plot 'Simulation/Filter_real_time.csv' with line
-\end{gnuplot}
-\caption{Sprungantwort des Filters}
-\label{plott:filter_sprungantwort}
-\end{figure}
-
-
-Die in Abbildung [\ref{plott:ripple}] gut zu Restwellgkeit (Ripple) beträgt 3,36mV,und liegt damit deutlich unter den gerforderten 4,88mV. Als Eingangssignal dient hier ein Rechtecksignal mit 3,9kHz  und einem Tastverhältnisvon 0,5, die Amplitude liegt bei 50mV. Die Tatsache dass das Signal 240mV über den rechnerischen 2,40V  ($0.5V \cdot 48 $) liegt rührt daher dass LT-Spice die steig und fall Zeiten in den low-Bereich des Rechteck signals legt, woduruch der Mittelwert des Signals bei 2,64V liegt.
- 
-%% Ripple: 0,003358
-%% zu hoher Spannungswert durch Steig und Fallzeiten im low bereich des Rechtecksignals
-\begin{figure}[H]
-\centering
-\begin{gnuplot}[terminal=pdf]
-  set nokey 
-  set xrange [0.03:0.04]
-  set yrange [2.62:2.66]
-  set xlabel 'Zeit in [s]'
-  set ylabel 'Spannung in [V]'
-  plot 'Simulation/Filter_real_time.csv' with line
-\end{gnuplot}
-\caption{Restwellgkeit des Filters}
-\label{plott:ripple}
-\end{figure}
-
-
-
-
-
+Mit dieser Größe lassen sich die Motorticks einfach in Meter umrechnen. 
 
 \section{Auslegung der Stromversorgung}
 
 Um das Layout der Platine möglichst simpel zu halten und damit kostengünstig zu bleiben, wurden alle Komponenten so ausgewählt dass diese über eine einzige 5V Spannungsquelle mit Energie versorgt werden können.
-Es wichtig den Stromverbrauch aller Komponenten abzuschätzten, um die Spannungsversorgung sinnvoll Dimensionieren zu können. Eine zu schwache spannungsquelle kann zu instabilitäten führen,
+Es wichtig den Stromverbrauch aller Komponenten abzuschätzten, um die Spannungsversorgung sinnvoll Dimensionieren zu können. Eine zu schwache Spannungsquelle kann zu instabilitäten führen,
 während eine überdimmensionierte Geld verschenkt.
 
 \subsection{Stromverbrauch der Komponenten}
@@ -751,9 +821,12 @@ In diesem Abschnitt soll eine Abschätzung des Stromverbrauches vorgenommen werd
 Der Stromverbrauch des Servomotors ist schwer zu ermitteln, da es sich um einen Modellbauservomotor handelt 
 sind im Datenbatt hierzu leider keine Daten aufzufinden. Da ein Messaufbau für die Abschätzung des Stromverbrauches
 zu Aufwändig ist, werden hier Messwerte eines ähnlichen Servos aus einem Artikel \cite{website-servo} herangezogen.
-Laut diesem hat eine Servomotor keinen konstanten Stromverbrauch. Der Stomfluss wird immerwieder unterbrochen, so das es zu einem Intervallartigen Stromfluss kommt.
+Laut diesem hat eine Servomotor keinen konstanten Stromverbrauch. Der Stomfluss wird immer wieder unterbrochen, so das es zu einem Intervallartigen Stromfluss kommt.
 Nur wenn der Servomotor dauerhaft belastet wird kommt es zu einem konstanten Stromfluss.
-Im Artikel werden mehrere Servomotorn vermessen, der Motor der unserm am nächsten kommt ist der ``Graupner 4421'' mit folgenen Daten:
+Im Artikel werden mehrere Servomotorn vermessen, der Motor der dem Verwendeten am nächsten kommt ist der ``Graupner 4421'' mit folgenen Daten:
+
+%TODO
+\todo{Servo modell \cite{website-servo-dat} in Anforderungen mit aufnehmen}
 
 Technische Daten ``Graupner 4421'' \cite{website-servo-vergleich-dat}:
 \begin{itemize}
@@ -775,15 +848,19 @@ Dieser hat laut des Artikels eine maximale Stromaufnahme von 1,2A. Um noch Luft 
 
 \subsubsection{Pandaboard ES}
 Leider gibt es vom Hersteller des Pandaboards keine konkreten Angaben zum Stromverbrauch. Der Hersteller empfiehlt jedoch ein
-Netzteil mit 4A\cite{website-panda-supply}, wobei auch ein Betrieb an USB mit hilfe eines Y-Kabels möglich ist. Die USB-2.0 Spezifikation\cite{website-usb-spec} sieht eine maximale 
+Netzteil mit 4A\cite{website-panda-supply}, wobei auch ein Betrieb an USB mit Hilfe eines Y-Kabels möglich ist. Die USB-2.0 Spezifikation\cite{website-usb-spec} sieht eine maximale 
 Stromabgabe von 500mA vor.
 
 Der Stromvebrauch des normalen Pandaboards (ohne ES) beträgt ca. 800mA \cite{website-panda-power}.
-Nähere angaen zu Stromverbrauch des normalen Pandaboards (ohne ES) finden sich in \cite{website-panda-power}.
+Nähere Angaben zu Stromverbrauch des normalen Pandaboards (ohne ES) finden sich in \cite{website-panda-power}.
 Der Verbrauchdes Pandaboard ES dürfte durch de Schnelleren Prozessor minimal darüber liegen. 
 Durch anschluss von USB Geräten an dasBoard kann der Stomverbrauch jedoch noch steigen, Die USB-Spezifikation \cite{website-usb-spec}
 sieht pro Port eine maximale Stomentnahme von 500mA vor. Da das Pandaboard über 2 USB ports verfügt liegt der maximale zusätzliche Verbrauch bei 1A
 Sodas hier ein gesammt Verbrauch von 2A veranschalgt wird.
+
+\paragraph{Hinweis:}
+Das Pandaboard ES wurde im laufe des Projekts durch einen Intel NUC ersetzt, welcher jedoch nicht über die 5V Schiene versorgt wird.
+Daher entfällt der Verbrauch des Boards in den Messungen der Evaluierung
 
 \subsubsection{Led Beleuchtung}
 Auch wenn LEDs den Ruf haben besonders energieffizient zu sein ist der Stromerbrauch beieiner größeren anzahl nicht zu
@@ -795,8 +872,7 @@ Sowie eine leuchte welche din RC-Modus anzeigt. Zusätzlich zu denim Reglelwerk 
 Der maximale durch die LEDs verursachte Verbrauch liegt somit bei 540mA. 
 
 
-
-Bremslichter???
+\todo{Bremslichter???}
 
 
 \subsubsection{Microkontroller}
@@ -808,7 +884,7 @@ wird hier nur ein Verbrauch von 100mA veranschlagt.
 Die Sharp GP2D120 distanz Sensoren liegt laut Datenblatt \cite{ds-sharp-GP2D120} bei 50mA, da 2 dieser Sensoren verbaut werden ergeben sich 100mA.
 
 \subsubsection{Sonstige Peripherie}
-Da der Stromverbrauch der restliche Komponenten minimal ist werden hier pauschal 100mA veranschalgt.
+Da der Stromverbrauch der restlichen Komponenten minimal ist werden hier pauschal 100mA veranschalgt.
 
 \subsection{Auswahl des Reglers}
 Der Gesammtstromverbrauch der Komponenten beträgt 4.740mA. Ein Linearregler hier nicht mehr praktikabel, da dieser bei einer Akkuspannung von 14,4V und 3.740mA fast 45 Watt Leistung in Wärme umwandeln würde.
@@ -823,7 +899,31 @@ Eine Übersicht dazu findet sich in Abbildung [\ref{fig:vreg}].
 Ausgehend von ca. 24 Watt Leistungsaufnahme ($4,8A*5V$) und einem minimalen Wirkungsgrad von 80\%  ergibt sich damit eine überschauliche Verlustleistung von 6 Watt.
 
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{5vregler.png}\\
+\caption{Schaltplan des 5V Reglers}%
+\label{fig:vreg}
+\end{figure}
 
+
+\todo{LOW ESR erklären}
+LOW ESR Kondensatoren zeichen sich durch einen niedrigen Serienwiderstand ($R_{ESR}$) aus.
+Dieser liegt in reihe(serie) zum Idealen Kondensator.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{esr.png}\\
+\caption{Ersatzschaltbild eines Kondensators}%
+\label{fig:esr}
+\end{figure}
+
+Dieser verursacht Verluste innerhalb des Kondensators, was bei Belastung zur erwärmung des Kondensators führt und seine Lebensdauer verringert.
+
+
+
+Die Beschaltung erfolgt dabei nach dem Empfehlungen des Datenblattes. Die Verwendten \SI{180}{\uF} Kondensatoren sollen laut Datenblatt low ESR Kondensatoren sein.
+Die Verwendten Kondensatoren stammen aus Nichicons L8 Serie und haben einen Serieniderstand von nur \SI{12}{\mohm}.
 
 \section{Software}
 
@@ -832,7 +932,8 @@ In den Folgenden Abschnitten werden Erst die Beiden Softwareteile erläutert, da
 
 
 \subsection{Software auf dem \textmu Controller}
-Die Software auf dem \textmu Controller ist vollständig in C++ geschrieben. Eine volständige Dokumentation der Software ist als Doxygen Dokument verfügbar.
+Die Software auf dem \textmu Controller ist vollständig in C++ geschrieben. Eine volständige Dokumentation der Software ist als Doxygen Dokument verfügbar. 
+Die Software fungiert aud dem Controller als Service und wartet legendlich auf eine Anfrage von der Seriellen Schnitstelle, welche sie bearbeitet und bei Bedarf beantwortet. 
 
 
 \subsection{Client Programm auf der Recheneinheit}
@@ -847,11 +948,17 @@ auslastete liegt die C++ Implementierung im unteren einstelligen Bereich.
 Da die Übertragung der Daten via ROS-Serial im ersten Prototypen zu vielen Problemen geführt hat, wurde ien neues Übertragungsprotokoll entwickelt.
 Dabei wurde auf Fehlertolleranz niedrigen Ressourcenverbrauch geachtet. Der Datendurchsatz muss hier ausreichend sein um alle Daten stabil mit 100Hz
 übertragen zu können.
-
-
 Der Grundlegende Ablauf der Datenübertragung ist in den Abbildungen [\ref{fig:uC_read}] und [\ref{fig:uC_write}] zu sehen.
 
+\todo{in Bildern NUC duch recheneinheit ersetzten??}
 
+Während eines Lesevorganges wartet der Microcontroller auf ein fest definiertes Startsignal von der Recheneinheit. Nachdem das Startsignal empfangen wurde, wird auf eine weitere Preamble gewartet.
+Dies ist Notwendig um bei Asynchronitäten die Warscheinlichkeit eines zufälligen Startsignals zu verringern. Wurde die Preamble erfolgreich empfangen erwartet der Microcontroller eine gültige Topic ID.
+Wurde eine falsche Preamble empfangen wartet der Microcontroller erneut auf ein gültiges Startsignal. Abhängig von der Topic ID verfährt der Microcontroller dann im Programm fort und beantwortet
+die Anfrage entsprechend. Für manche Topics ist eine Bestätigung (Acknowledge) nötig, bekommt der Microcontroller keine Bestätigung sendet er die Daten erneut. Eine bestätigung wird nur gesendet,
+wenn die vom Client berechnete Checksumme mit der Mitgesendeten identisch ist. Dies ist besonders bei den Daten der Interialsensorik von nöten, da hier defekte Daten zu einem dauerhaften Fehler führen. 
+Die Anzahl dieser Retransmits ist begrenzt, und wird vom Client festgelegt. Wurde ein Acknowledge empfangen oder für den Topic ist keine Bestätigung
+nötig, wartet der Controller erneut auf ein Startsignal.
 
 \begin{figure}[ht]
 \centering
@@ -860,6 +967,13 @@ Der Grundlegende Ablauf der Datenübertragung ist in den Abbildungen [\ref{fig:u
 \label{fig:uC_read}
 \end{figure}
 
+Der Ablauf eines schriebvorganges auf dem Microcontroller ist ähnlich. Der Microcontroller wartet auf das Startsignal und eine Preamble sowie eine Topic ID.
+Nach dem empfang der TopicID erwartet er die nötigen Daten, sammt Checksumme. Diese ist nötig um die Daten zu verifizieren. Bei der Ansteuerung des Motors kann ein
+Bitfehler zu fatalen Folgen führen. Beispielsweise kann die Recheneinheit oder der Microcontroller abstürzen wenn die Motorleistung plötzlich stark erhöt wird.
+Daher werden die Daten nur übernommen, wenn die Checksumme erfolgreich verifiziert wurde. Sollte die Checksumme nicht verifiziert werden, springt der Microcontroller
+erneut in des Startzustand und wartet auf ein Startsignal, ohne die Daten zu übernehmen. Der Client bekommt davon nichts mit, wenige einzelne Fehler können durch die
+hohe interne Datenrate von 100Hz ignoriert werden. Haufige oder dauerhafte Fehlübertragungen, können durch die Reaktion des Autos leicht identifiziert werden.
+Haufige oder dauerhafte Fehlübertragungen würden duch das fortlaufende Lesen und Schreiben auf dem Microcontroller so oder so zu Fehlern in beiden Richtungen führen.
 
 \begin{figure}[ht]
 \centering
