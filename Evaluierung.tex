@@ -206,46 +206,237 @@ Sowohl beim Accelerometer als auch beim Gyroskop lässt sich anhand der Daten ke
 \end{table}
 
 Beim Magnetometer lässt sich jedoch erkennen, das die Streung der Daten mit zunehmender Motorlast ebenfals zunimmt. Da der Motor jedoch ein Magnetfeld
-erzeugt, welches mit zunehmender Belastung zunimmt, war ein Einfluss auf die Messwerte zu erwarten. Diese Störungen sollten bei der verwendung
+erzeugt, welches mit zunehmender Belastung zunimmt, war ein Einfluss auf die Messwerte zu erwarten. Diese Störungen sollten bei der Verwendung
 des Magnetometers beachtet werden.
 
 
-  %set xrange [0.03:0.04]
-  %set yrange [2.62:2.66]
-  %set xlabel 'Zeit in [s]'
-  %set ylabel 'Spannung in [V]'
+Weiter Störungen beim Magnetometer entstehen, wenn der Servomotor belastet wird (\cref{plott:ripple_mag}). Durch die Art und Weise wie der Stervomotor arbeitet treten strake Schwankungen im Stomverbrauch des Servomotors auf.
+Bei der Untersuchung des 5V-Netzes konnten allerdings keine Störungen in der Spannungsversorgung festgestellt werden.
 
+
+  
 \begin{figure}[H]
 \centering
 \begin{gnuplot}[terminal=pdf]
-  set nokey 
-
+  set nokey
+  set xlabel 'Zeit in [s]'
+  set ylabel 'Flussdichte in [T]'
+  set datafile separator ','
   plot 'MessData/Imu-servo/mit_stoerung.csv' with line
 \end{gnuplot}
-\caption{Restwelligkeit des Filters}
-\label{plott:ripple}
+\caption{Störungen des Magnetometers}
+\label{plott:ripple_mag}
 \end{figure}
+
+Nach auführlicher Untersuchung konnte der Fehler jedoch im Platinenlayout ausgemacht werden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{platine_imu.png}\\
+\caption{Platinelayout mit IMU und Spule}%
+\label{fig:plat_imu}
+\end{figure}
+
+Der Inertialsensor wurde bei der Entwickling des Layouts zu nahe an die Filterspule des Schaltreglers gelegt. Da das Magnetfeld einer Spule proportional zum durchfließenden Stom ist, treten die Störungen
+besonders bei starken Lastwechseln im 5V Volt Netz auf. Die konstante Belastung belget das Magnetometer nur mit einem Offset.
+
+Durch die Verschiebung des Inertialsensors, mit Hilfe einer Lochrasterplatine, konnten die Störungen jedoch stark verringert werden (\cref{plott:ripple_mag_new}).
 
 \begin{figure}[H]
 \centering
 \begin{gnuplot}[terminal=pdf]
   set nokey 
-
+  set xlabel 'Zeit in [s]'
+  set ylabel 'Flussdichte in [T]'
+  set datafile separator ','
   plot 'MessData/Imu-servo/ohne_stoerung.csv' with line
 \end{gnuplot}
-\caption{Restwelligkeit des Filters}
-\label{plott:ripple}
+\caption{Störungen des Magnetometers nach der Korrektur}
+\label{plott:ripple_mag_new}
+\end{figure}
+
+\todo{Verleich signal im ruhezustand??}
+
+\todo{Standartabweichung mit d geschrieben}
+
+\section{Infarotsensoren}
+Im Kapietel Umsetzung wurde bereits über hohen anforderungen der GP2D Sensoren berichtet. Da bei starker Motorlast kleine Störungen im 5V-Netz auftreten wird nun
+untersucht, wie groß der Einfluss der Störungen auf die Infarotsensoren ist. Die Werte urden dabei wieder in unterschietlichen Lastszenarien aufgezeichnet.
+
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\textwidth}{|X|r|r|}
+    \hline
+     Tastgrad & Erwartungswert [\SI{}{\V}] & Standardabweichung [\SI{}{\V}]  \\ \hline \hline
+     0 &  1.535 & 0.0243\\ \hline
+     30 & 1.533 & 0.0248\\ \hline
+     60 & 1.570 & 0.1185\\ \hline
+  \end{tabularx}
+  \caption{Infarotsensoren}%
+  \label{tab:ir}
+\end{table}
+
+Bis zu einem Tastgrad von 30:256 ist keine signifikante Verschechterung der Messwerte erkennbar, bei höheren Tastgraden ist jedoch mit einer Signifikatnen verschlechterung
+der Messwerte zu rechnen. Abbildung \ref{plott:IR_signal_30} und \ref{plott:IR_signal_60} zeigen den Verlauf des Signals.
+
+
+\begin{figure}[H]
+\centering
+\begin{gnuplot}[terminal=pdf]
+  set nokey
+  set datafile separator ','
+  set ylabel 'Spannung in [V]'
+  set xlabel 'Zeit in [s]'
+  plot 'MessData/Infrared/30.csv' with line
+\end{gnuplot}
+\caption{Störungen des Sensorsignals bei einem Tastgrad von 30:256}
+\label{plott:IR_signal_30}
 \end{figure}
 
 
+\begin{figure}[H]
+\centering
+\begin{gnuplot}[terminal=pdf]
+  set nokey 
+  set datafile separator ','
+  set ylabel 'Spannung in [V]'
+  set xlabel 'Zeit in [s]'
+  plot 'MessData/Infrared/60.csv' with line
+\end{gnuplot}
+\caption{Störungen des Sensorsignals bei einem Tastgrad von 60:256}
+\label{plott:IR_signal_60}
+\end{figure}
+
+
+%\begin{figure}[H]
+%\centering
+%\begin{gnuplot}[terminal=pdf]
+%  set nokey 
+%  set datafile separator ','
+%  plot 'MessData/Infrared/idle.csv' with line
+%\end{gnuplot}
+%\caption{Störungen des Magnetometers nach der Korrektur}
+%\label{plott:IR_signal_60}
+%\end{figure}
+
+Trotz der Störungen bei hohen Tastgraden befinden sich die Störungen im akzeptablen Bereich, da die Distanzsensoren ausschließlich während des Einparkvorganges
+genutzt werden. Dieser findet jedoch nur bei niedrigen Geschwindigkeiten statt, so das dort keine hohen Tastgrade vonnoten sind.
+
+
+\section{Odometrie}
+Zur Auswertung der Odometrie wird errechnete Verhältnis von Ticks zu Meter von 4760 validiert. Dazu wurden 10 Messungen durchgeführt, in denen das Fahrzeug
+eine Strecke von 10m möglichst gerade zurücklegen musste. Dabei wurden Start- sowie Endwert der vergangenden Motorticks aufgenommen und die Differenz berechnet
+
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\textwidth}{|X|r|r|r|}
+    \hline
+     Startwert & Endwert & Differenz  & pro Meter \\ \hline \hline
+    -1050	& 48839		& 49889	& 4988,9\\ \hline
+      919	& 50796		& 49877	& 4987,7\\ \hline
+    -3692	& 46145		& 49837	& 4983,7\\ \hline
+    78153	& 127970	& 49817	& 4981,7\\ \hline
+    73414	& 123348	& 49934	& 4993,4\\ \hline
+    118248	& 168199	& 49951	& 4995,1\\ \hline
+    195752	& 245667	& 49915	& 4991,5\\ \hline
+    255970	& 305846	& 49876	& 4987,6\\ \hline
+    349832	& 399721	& 49889	& 4988,9\\ \hline
+    418516	& 468432	& 49916	& 4991,6\\ \hline
+  \end{tabularx}
+  \caption{Magnetometer}%
+  \label{tab:odom}
+\end{table}
+
+Der Mittelwert über alle Messungen beträgt 4989,01 und weicht somit nach oben vom errechneten Wert ab. Diese Abweichung lässt sich durch den Schlupf erklären.
+Der Wert wurde ebenfalls dadurch vergrößert, dass das Fahrzeug, während der Messungen, nicht exakt gerade gefahren ist.
+
+Im Folgenden wurde die Vom Auto berechnete Geschwindigkeit mit einem kamerabasierendem Trackingsystem verglichen. Das Fahrzeugt fuhr dabei
+ einen Rundkurs (siehe \cref{fig:strasse}), ein Geschwindigkeitsregler hielt das Fahrzeug dabei anhand der Odometriedaten auf \SI{1}{\metre\per\second}.
+
+\begin{figure}[H]
+\centering
+\begin{gnuplot}[terminal=pdf]
+  set datafile separator ','
+  set ylabel 'Geschwindigkeit in [m/s]'
+  set xlabel 'Zeit in [s]'
+  plot 'MessData/odom/test.csv' using 1:2 with line title "Tracking" lt rgb "red", 'MessData/odom/test.csv' using 1:4 with line title "Odometrie" lt rgb "blue"
+\end{gnuplot}
+\caption{Vergleich Odmometrie mit Kameratracking}
+\label{plott:odom}
+\end{figure}
+
+Aufflällig ist, dass die Geschwindigkeit vom Trackiungsystems mit einer Sinusartigen Schwingung überlagert ist. Eine Erklärung zeigt ein Verleich der Geschwindigkeit
+mit der Orientierung des Fahrzeugs (\cref{plott:orientation}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{test.png}\\
+\caption{Orientierung und Geschwindigkeit}%
+\label{fig:orientation}
+\end{figure}
+
+
+%al type set to 'png'
+%Options are 'nocrop enhanced font "Helvetica,20" fontscale 1.0 size 2000,1500 '
+%gnuplot> set output "test.png"
+%gnuplot> plot 'MessData/odom/test.csv' using 1:2 with line title "Odometrie Geschwindigkeit" axes x1y1, 'MessData/odom/test.csv' using 1:3 with line axes x1y2
+%gnuplot> set terminal png size 1200,750 enhanced font "Helvetica,20"
+%Terminal type set to 'png'
+%Options are 'nocrop enhanced font "Helvetica,20" fontscale 1.0 size 1200,750 '
+%gnuplot> set output "test.png"
+%gnuplot> plot 'MessData/odom/test.csv' using 1:2 with line title "Odometrie Geschwindigkeit" axes x1y1, 'MessData/odom/test.csv' using 1:3 with line axes x1y2
+%gnuplot> set terminal png size 1250,750 enhanced font "Helvetica,20"
+%Terminal type set to 'png'
+%Options are 'nocrop enhanced font "Helvetica,20" fontscale 1.0 size 1250,750 '
+%gnuplot> set terminal png size 1250,750 enhanced font "Helvetica,22"
+%Terminal type set to 'png'
+%Options are 'nocrop enhanced font "Helvetica,22" fontscale 1.0 size 1250,750 '
+%gnuplot> set output "test.png"
+%gnuplot> plot 'MessData/odom/test.csv' using 1:2 with line title "Odometrie Geschwindigkeit" axes x1y1, 'MessData/odom/test.csv' using 1:3 with line axes x1y2
+%gnuplot> plot 'MessData/odom/test.csv' using 1:2 with line title "Odometrie Geschwindigkeit" axes x1y1 rgb "blue", 'MessData/odom/test.csv' using 1:3 with line axes x1y2 rgb "red"
+%
+%gnuplot> plot 'MessData/odom/test.csv' using 1:2 with line title "Odometrie Geschwindigkeit" axes x1y1 rgb "blue", 'MessData/odom/test.csv' using 1:3 with line axes x1y2 rgb "red"
+%                                                                                                       ^
+%         ';' expected%
+%
+%gnuplot> plot 'MessData/odom/test.csv' using 1:2 with line title "Odometrie Geschwindigkeit" axes x1y1 lt rgb "blue", 'MessData/odom/test.csv' using 1:3 with line axes x1y2 rgb "red"%%
+%
+%gnuplot> plot 'MessData/odom/test.csv' using 1:2 with line title "Odometrie Geschwindigkeit" axes x1y1 lt rgb "blue", 'MessData/odom/test.csv' using 1:3 with line axes x1y2 rgb "red"
+%                                                                                                                                                                             ^
+%%         ';' expected%
+%
+%gnuplot> plot 'MessData/odom/test.csv' using 1:2 with line title "Odometrie Geschwindigkeit" axes x1y1 lt rgb "blue", 'MessData/odom/test.csv' using 1:3 with line axes x1y2 lt rgb "red"
+%gnuplot> set output "test.png"
+%gnuplot> plot 'MessData/odom/test.csv' using 1:2 with line title "Odometrie" axes x1y1 lt rgb "blue", 'MessData/odom/test.csv' using 1:3 with line title "Tracking" axes x1y2 lt rgb "red"
+
+
+
+Während der Daten aufzeichung fuhr das Fahrzeug den OttoCar-Rundkurs ab, es startete  an der Position des Pfeils in dessen Richtung.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{Strasse_mono.png}\\
+\caption{OttoCar-Rundkurs}%
+\label{fig:strasse}
+\end{figure}
+
+Sobald das Auto beschleunigt hat fängt die Orientierung an sich zu ändern. Direkt nach dem 1. Sprung der Orientierung (von -Pi zu Pi)
+ beginnt sie ihre Orientierung zu ändern. Währenddessen durchfährt das Fahrzeug die S-Kurve des Rundkurses, Der Kurvenradius der S-Kurve ist sehr gering, daher färt das Fahrzeug
+ beinahe gerade. An dieser Stelle hat die Geschwindigkeit des Trackings ihr Maximum, das Fahrzeug fährt also in  Kurven bei gleicher drehzal langsammer zu fahren, was sich durch
+ den erhöten Schlupf in den Kurven erlären lässt. Die Abweichungen der Geschwindigkeit in den Kurven ist jedoch sehr gering, so das diese nur wenig ins Gewicht fallen.
+ Der Wert der Geschwindigkeit ist mit Hifle des Trackings nicht verifizierbar, da eine Kalibrierung dessen auf Grund des Entwicklungsstandes nicht erfolt ist.
+ Das Tracking ist somit als Referenzsystem nicht geeignet.
+ 
+ 
 \section{Stromverbrauch}
 
 Der Stromverbrauch des Fahrzeugs ist ein wichtiges Kriterium in den statischen Disziplinen. Um den Stromverbrauch im laufenden Betrieb messen zu können, wird hier ein Versuchsaufbau verwendet welcher der Messung des
 Motorstomes ähnelt. Die Schaltung besteht dabei aus einem Shuntwiderstand, einer aktiven Filterschaltung und einem Arduino, welcher die Daten zum NUC weiterleitet. Der Vorteil dieser Methode ist, dass die Daten
-unter realen Bedingungen in Echtzeit aufgezeichtet werden können. \cref{fig:Strom} zeigt den Verlauf des Stromes währed folgendem Szenario: Bis ca 25s steht das Auto, sämmtliche Software ist dabei auf 
-dem Fahrzeug aktiv. Ab 25s beschleunigt das Fahrzeug auf $1,3\frac{m}{s}$ und verhart dort bis ca. Sekunde 57, in welcher es gegen eine Wand fährt. Der grüne Graph stellt dabei den Strom durch den Motor dar, während
-der blaue Graph den Gesammtverbrauch des Fahrzeugs darstellt. Die roten Linien Stellen einen gleitenden Mittelwert aus den letzten 200 Messwerten dar. Gut zu erkenn ist, das der Stromverbrauch des Fahrzeugs im Stand unter 
-10 Watt liegt. Der Mittelwert des Verbrauches im Stand beträgt 7,9 Watt, während das Fahrzeug in der dar fahrt knapp 13 Watt an Leistung aufnimmt. Nur während das Fahrzeug beschleunigt benötigt es für die Dauer
+unter realen Bedingungen in Echtzeit aufgezeichtet werden können. \cref{fig:Strom_con} zeigt den Verlauf des Stromes währed folgendem Szenario: Bis ca 25s steht das Auto, sämmtliche Software ist dabei auf 
+dem Fahrzeug aktiv. Ab 25s beschleunigt das Fahrzeug auf \SI{1,3}{\metre\per\second} und verhart dort bis ca. Sekunde 57, in welcher es gegen eine Wand fährt. Der grüne Graph stellt dabei den Strom durch den Motor dar, während
+der blaue Graph den Gesammtverbrauch des Fahrzeugs darstellt. Die roten Linien Stellen einen gleitenden Mittelwert aus den letzten 200 Messwerten dar. Gut zu erkenn ist, dass der Stromverbrauch des Fahrzeugs im Stand unter 
+10 Watt liegt. Der Mittelwert des Verbrauches im Stand beträgt 7,9 Watt, während das Fahrzeug während der fahrt knapp 13 Watt an Leistung aufnimmt. Nur während das Fahrzeug beschleunigt benötigt es für die Dauer
 des Beschleunigungsvorganges mehr Leistung. Fährt das Fahrzeug gegen ein Hinderniss, sodas die Räder blockieren befindet sich der Motor im Kurzschlussbetrieb, dabei reduziert sich sein widerstand auf den Ohmschen widerstand
 Motors, was zu einem hohen Stromfluss durch den Motor führt. Dauerhaft kann das durch Überhitzung zur Zerstörung des Motors oder der Treiberplatine führen.
 
@@ -253,232 +444,12 @@ Motors, was zu einem hohen Stromfluss durch den Motor führt. Dauerhaft kann das
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{Strom/Power.png}\\
-\caption{Salle-Key Tiefpass mit Shunt}%
-\label{fig:Strom}
+\caption{Stomverbrauch des Fahrzeuges}%
+\label{fig:Power_con}
 \end{figure}
 
 
+Die starken Schwankungen der Messwerte werden durch die vor den Akku geschaltete Stommessung verursacht. Der Shuntwiderstand in dieser Schalung hat eine Größe von
+\SI{0,2}{\ohm} was den Innenwiderstand der Akkus stark erhöt und daurch die Spannungsschankungen der Betriebsspannung verstärkt. 
 
-
-
-
-\section{Infrarotsensoren}
-
-\section{Inertialsensor}
-
-\section{Zeitverhalten der seriellen Verbindung}
-
-Um eine Aussage über das Alter eines Messwertes zu machen. 
-
-\cite{ds-at90can}
-adc Wandlung=13Takte
-Prescaler=128 bei 16MHz=125000kHz =104uS pro Messung
-
-
-Bytedauer = 11Bit (1Start+8Daten+2Stopp) 500000Baud --> 22us Bytdauer -> Preamble=5Bytes (4x255+ID) = 110us
-
-
-
-\subsection{VoltageCurrent}
-25.0319430503
-718.591761425
-
-
-\begin{gnuplot}[terminal=pdf]
-
-  n=70 #number of intervals
-  max=872. #max value
-  min=596. #min value
-  width=(max-min)/n #interval width
-
-  hist(x,width)=width*floor(x/width)+width/2.0
-
-  set xrange [min:max]
-  set yrange [0:]
-
-  set offset graph 0.05,0.05,0.05,0.0
-  set xtics min,(max-min)/5,max
-  set boxwidth width*0.9
-  set style fill solid 0.5 #fillstyle
-  set tics out nomirror
-  set xlabel "x"
-  set ylabel "Frequency"
-  #count and plot
-  plot "MessData/VoltageCurrent.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"grey" notitle
-\end{gnuplot}
-
-\subsection{Distance}
-28.1616619788
-484.734158193
-
-
-\begin{gnuplot}[terminal=pdf]
-
-  n=70 #number of intervals
-  max=673. #max value
-  min=359. #min value
-  width=(max-min)/n #interval width
-
-  hist(x,width)=width*floor(x/width)+width/2.0
-
-  set xrange [min:max]
-  set yrange [0:]
-
-  set offset graph 0.05,0.05,0.05,0.0
-  set xtics min,(max-min)/5,max
-  set boxwidth width*0.9
-  set style fill solid 0.5 #fillstyle
-  set tics out nomirror
-  set xlabel "x"
-  set ylabel "Frequency"
-  #count and plot
-  plot "MessData/Distance.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
-\end{gnuplot}
-
-
-\subsection{Infrared}
-35.0709303606
-696.91743058
-
-
-
-\begin{gnuplot}[terminal=pdf]
-
-  n=70 #number of intervals
-  max=825. #max value
-  min=586. #min value
-  width=(max-min)/n #interval width
-
-  hist(x,width)=width*floor(x/width)+width/2.0
-
-  set xrange [min:max]
-  set yrange [0:]
-
-  set offset graph 0.05,0.05,0.05,0.0
-  set xtics min,(max-min)/5,max
-  set boxwidth width*0.9
-  set style fill solid 0.5 #fillstyle
-  set tics out nomirror
-  set xlabel "x"
-  set ylabel "Frequency"
-  #count and plot
-  plot "MessData/Infrared.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
-\end{gnuplot}
-
-
-\subsection{uCTime}
-31.2060346589
-477.761007865
-
-
-
-\begin{gnuplot}[terminal=pdf]
-
-  n=70 #number of intervals
-  max=685. #max value
-  min=366. #min value
-  width=(max-min)/n #interval width
-
-  hist(x,width)=width*floor(x/width)+width/2.0
-
-  set xrange [min:max]
-  set yrange [0:]
-
-  set offset graph 0.05,0.05,0.05,0.0
-  set xtics min,(max-min)/5,max
-  set boxwidth width*0.9
-  set style fill solid 0.5 #fillstyle
-  set tics out nomirror
-  set xlabel "x"
-  set ylabel "Frequency"
-  #count and plot
-  plot "MessData/ucTime.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
-\end{gnuplot}
-
-\subsection{Motor}
-38.0093527069
-391.111706657
-
-
-\begin{gnuplot}[terminal=pdf]
-
-  n=70 #number of intervals
-  max=534. #max value
-  min=287. #min value
-  width=(max-min)/n #interval width
-
-  hist(x,width)=width*floor(x/width)+width/2.0
-
-  set xrange [min:max]
-  set yrange [0:]
-
-  set offset graph 0.05,0.05,0.05,0.0
-  set xtics min,(max-min)/5,max
-  set boxwidth width*0.9
-  set style fill solid 0.5 #fillstyle
-  set tics out nomirror
-  set xlabel "x"
-  set ylabel "Frequency"
-  #count and plot
-  plot "MessData/motor.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
-\end{gnuplot}
-
-
-
-
-\subsection{IMU}
-40.8272894054
-3425.96398337
-
-
-\begin{gnuplot}[terminal=pdf]
-
-  n=70 #number of intervals
-  max=3605. #max value
-  min=3312. #min value
-  width=(max-min)/n #interval width
-
-  hist(x,width)=width*floor(x/width)+width/2.0
-
-  set xrange [min:max]
-  set yrange [0:]
-
-  set offset graph 0.05,0.05,0.05,0.0
-  set xtics min,(max-min)/5,max
-  set boxwidth width*0.9
-  set style fill solid 0.5 #fillstyle
-  set tics out nomirror
-  set xlabel "x"
-  set ylabel "Frequency"
-  #count and plot
-  plot "MessData/imu.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
-\end{gnuplot}
-
-
-\subsection{Gesammt}
-142.365993405
-6195.08004809
-
-
-\begin{gnuplot}[terminal=pdf]
-
-  n=70 #number of intervals
-  max=6522. #max value
-  min=5574. #min value
-  width=(max-min)/n #interval width
-
-  hist(x,width)=width*floor(x/width)+width/2.0
-
-  set xrange [min:max]
-  set yrange [0:]
-
-  set offset graph 0.05,0.05,0.05,0.0
-  set xtics min,(max-min)/5,max
-  set boxwidth width*0.9
-  set style fill solid 0.5 #fillstyle
-  set tics out nomirror
-  set xlabel "x"
-  set ylabel "Frequency"
-  #count and plot
-  plot "MessData/gesammt.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
-\end{gnuplot}
+\todo{Stommessung bei anderen Motormodi}

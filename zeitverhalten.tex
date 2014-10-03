@@ -1,0 +1,220 @@
+
+\section{Zeitverhalten der seriellen Verbindung}
+
+Um eine Aussage über das Alter eines Messwertes zu machen , wurde die Dauer von Anfrage bis zur Antwort des Microcontrollers gemessen.
+Um die Geanauigkeit der Messwerte zu erhöhen wurde jede nicht benötigete Software auf dem auto deaktiviert. Das Alter der einzelnen Messwerte unterscheidet sich 
+
+
+
+\cite{ds-at90can}
+adc Wandlung=13Takte
+Prescaler=128 bei 16MHz=125000kHz =104uS pro Messung
+
+
+Bytedauer = 11Bit (1Start+8Daten+2Stopp) 500000Baud --> 22us Bytdauer -> Preamble=5Bytes (4x255+ID) = 110us
+
+
+
+\subsection{VoltageCurrent}
+25.0319430503
+718.591761425
+
+
+\begin{gnuplot}[terminal=pdf]
+
+  n=70 #number of intervals
+  max=872. #max value
+  min=596. #min value
+  width=(max-min)/n #interval width
+
+  hist(x,width)=width*floor(x/width)+width/2.0
+
+  set xrange [min:max]
+  set yrange [0:]
+
+  set offset graph 0.05,0.05,0.05,0.0
+  set xtics min,(max-min)/5,max
+  set boxwidth width*0.9
+  set style fill solid 0.5 #fillstyle
+  set tics out nomirror
+  set xlabel "x"
+  set ylabel "Frequency"
+  #count and plot
+  plot "MessData/VoltageCurrent.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"grey" notitle
+\end{gnuplot}
+
+\subsection{Distance}
+28.1616619788
+484.734158193
+
+
+\begin{gnuplot}[terminal=pdf]
+
+  n=70 #number of intervals
+  max=673. #max value
+  min=359. #min value
+  width=(max-min)/n #interval width
+
+  hist(x,width)=width*floor(x/width)+width/2.0
+
+  set xrange [min:max]
+  set yrange [0:]
+
+  set offset graph 0.05,0.05,0.05,0.0
+  set xtics min,(max-min)/5,max
+  set boxwidth width*0.9
+  set style fill solid 0.5 #fillstyle
+  set tics out nomirror
+  set xlabel "x"
+  set ylabel "Frequency"
+  #count and plot
+  plot "MessData/Distance.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
+\end{gnuplot}
+
+
+\subsection{Infrared}
+35.0709303606
+696.91743058
+
+
+
+\begin{gnuplot}[terminal=pdf]
+
+  n=70 #number of intervals
+  max=825. #max value
+  min=586. #min value
+  width=(max-min)/n #interval width
+
+  hist(x,width)=width*floor(x/width)+width/2.0
+
+  set xrange [min:max]
+  set yrange [0:]
+
+  set offset graph 0.05,0.05,0.05,0.0
+  set xtics min,(max-min)/5,max
+  set boxwidth width*0.9
+  set style fill solid 0.5 #fillstyle
+  set tics out nomirror
+  set xlabel "x"
+  set ylabel "Frequency"
+  #count and plot
+  plot "MessData/Infrared.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
+\end{gnuplot}
+
+
+\subsection{uCTime}
+31.2060346589
+477.761007865
+
+
+
+\begin{gnuplot}[terminal=pdf]
+
+  n=70 #number of intervals
+  max=685. #max value
+  min=366. #min value
+  width=(max-min)/n #interval width
+
+  hist(x,width)=width*floor(x/width)+width/2.0
+
+  set xrange [min:max]
+  set yrange [0:]
+
+  set offset graph 0.05,0.05,0.05,0.0
+  set xtics min,(max-min)/5,max
+  set boxwidth width*0.9
+  set style fill solid 0.5 #fillstyle
+  set tics out nomirror
+  set xlabel "x"
+  set ylabel "Frequency"
+  #count and plot
+  plot "MessData/ucTime.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
+\end{gnuplot}
+
+\subsection{Motor}
+38.0093527069
+391.111706657
+
+
+\begin{gnuplot}[terminal=pdf]
+
+  n=70 #number of intervals
+  max=534. #max value
+  min=287. #min value
+  width=(max-min)/n #interval width
+
+  hist(x,width)=width*floor(x/width)+width/2.0
+
+  set xrange [min:max]
+  set yrange [0:]
+
+  set offset graph 0.05,0.05,0.05,0.0
+  set xtics min,(max-min)/5,max
+  set boxwidth width*0.9
+  set style fill solid 0.5 #fillstyle
+  set tics out nomirror
+  set xlabel "x"
+  set ylabel "Frequency"
+  #count and plot
+  plot "MessData/motor.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
+\end{gnuplot}
+
+
+
+
+\subsection{IMU}
+40.8272894054
+3425.96398337
+
+
+\begin{gnuplot}[terminal=pdf]
+
+  n=70 #number of intervals
+  max=3605. #max value
+  min=3312. #min value
+  width=(max-min)/n #interval width
+
+  hist(x,width)=width*floor(x/width)+width/2.0
+
+  set xrange [min:max]
+  set yrange [0:]
+
+  set offset graph 0.05,0.05,0.05,0.0
+  set xtics min,(max-min)/5,max
+  set boxwidth width*0.9
+  set style fill solid 0.5 #fillstyle
+  set tics out nomirror
+  set xlabel "x"
+  set ylabel "Frequency"
+  #count and plot
+  plot "MessData/imu.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
+\end{gnuplot}
+
+
+\subsection{Gesammt}
+142.365993405
+6195.08004809
+
+
+\begin{gnuplot}[terminal=pdf]
+
+  n=70 #number of intervals
+  max=6522. #max value
+  min=5574. #min value
+  width=(max-min)/n #interval width
+
+  hist(x,width)=width*floor(x/width)+width/2.0
+
+  set xrange [min:max]
+  set yrange [0:]
+
+  set offset graph 0.05,0.05,0.05,0.0
+  set xtics min,(max-min)/5,max
+  set boxwidth width*0.9
+  set style fill solid 0.5 #fillstyle
+  set tics out nomirror
+  set xlabel "x"
+  set ylabel "Frequency"
+  #count and plot
+  plot "MessData/gesammt.csv" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
+\end{gnuplot}

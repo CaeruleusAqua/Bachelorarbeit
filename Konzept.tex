@@ -1,8 +1,21 @@
 
 \chapter{Konzept}
 
-Die Treiberplatine ist der zentrale Punkt für das Einsammeln aller Messwerte und die ansteuerung der Aktorik. Dabei übernimmt sie sowohl die Energieversorgung der Komponenten als auch
-Kommunikation mit der darüber liegenden Recheneinheit. Herzstück der Platine ist dabei ein Atmel AT90CAN128 \textmu Controller an welchen über verschiedene Protokolle die Aktorik bzw. Sensorik
+\section{Ausgangssituation}
+Die Ausganspostion der Arbeit stell sich folgender maßen dar. Für das Fahrzeug wurde bereits eine Treiberplatine in form eines Prototyps aufgebaut.
+Diese verfügt über ein Crumb123 Mikrocontoller Modul, welches einen Motorteiber vom Typ ``L298 DUAL FULL-BRIDGE DRIVER'' ansteuert. Dieser Prototyp
+wurde aussließlich aus Bauteilen gefertigt die vor Ort vorhanden waren. Der Motorteiber ist jedoch nur für Ströme von bis zu \SI{4}{\A} ausgelegt.
+In einem Versuch wuden jedoch für den im Fahrzeug vorhandenen Motor Stöme von bis zu \SI{20}{\A} gemessen. Da der Vorhandenne Motor jedoch weiter
+verwendet werden soll, muss hier ein leistungsfähiger Ersatz entwickelt werden. Desweiteren fehlen dem Prototyp wichtige Anschlüsse für weitere Sensoren.
+
+Bei der Entwicklung der neuen Treiberplatine sollen, um kosten zu Sparen, möglichst viele Vorhandene Komponenten verwendet werden. Dazu gehören
+Microcontroller vom Typ ``Atmel AT90CAN128'' welche in großer Stückzahl vorhanden sind. Desweiteren sind Sortimente von SMD Widerständen und
+Kondensatoren in der Größe 805 vorhanden , sodass diese Bauform bei der Entwicklung der Platine bevorzugt wird.
+
+\section{Grunlegender Aufbau}
+
+Die Treiberplatine ist der zentrale Punkt für das Einsammeln aller Messwerte und die Ansteuerung der Aktorik. Dabei übernimmt sie sowohl die Energieversorgung der Komponenten als auch
+Kommunikation mit der darüber liegenden Recheneinheit. Herzstück der Platine ist dabei ein Atmel AT90CAN128 \textmu Controller, an welchen über diverse Schnittstellen die Aktorik bzw. Sensorik
 angeschlossen ist. Die Platine selber kommuniziert über USB mit der Recheneinheit und stellt dieser eine Schnittstelle zum auslesen der Messwerte und einstellen der Stellgrößen für die Aktorik
 zur Verfügung. Weitere Aufgaben der Platine sind die Überwachung von Zuständen wie z.B. der Akkuspannung und dem Motorstromes. Eine Übersicht über die Sensorik bzw Aktorik und ihre Anbinding ist in 
 Abbildung [\ref{fig:konzept}] zu sehen.
@@ -16,7 +29,10 @@ Abbildung [\ref{fig:konzept}] zu sehen.
 
 
 Die fertig entwickelte Platine soll als Prototyp gefertigt werden, deshalb wird darauf geachtet, dass alle verwendeten Bauteile mit Hand bestückt werden können,
-Die minimale größe aller SMD Bausteine wird deswegen auf 0805 beschränkt.
+Die größe aller SMD Bausteine wird aufgrund des vorhandenen Sortiments auf 0805 beschränkt.
+
+
+
 
 
 \section{Änderung der Anforderungen}
