@@ -29,7 +29,7 @@ in der Energietechnik können auch Wechselspannungen unterschiedlicher Frequenze
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{Vierquadrantensteller.png}\\
-\caption{Vierquadrantensteller}%
+\caption{Vierquadrantensteller \cite{vierquadrantensteller}}%
 \label{fig:Vierquadrantensteller}
 \end{figure}
 
@@ -68,7 +68,7 @@ Der Treiber lässt sich in verschiedennen Modi betreiben:
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{3941_1.png}\\
-\caption{Slow decay, diode recirculation, high-side PWM}%
+\caption{Slow decay, diode recirculation, high-side PWM \cite{ds-A3941}}%
 \label{fig:39411}
 \end{figure}
 
@@ -82,7 +82,7 @@ die interne Diode von GLA, der Motor wird dadurch gebremst.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{3941_2.png}\\
-\caption{Slow decay, SR active, high-side PWM}%
+\caption{Slow decay, SR active, high-side PWM \cite{ds-A3941}}%
 \label{fig:39412}
 \end{figure}
 
@@ -100,7 +100,7 @@ was zu einer starken Hitzeentwicklung führen kann.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{3941_3.png}\\
-\caption{Slow decay, SR active, low-side PWM}%
+\caption{Slow decay, SR active, low-side PWM \cite{ds-A3941}}%
 \label{fig:39413}
 \end{figure}
 
@@ -115,7 +115,7 @@ die internen Dioden genutzt werden (SR=0) oder nicht (SR=1).
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{3941_4.png}\\
-\caption{Fast decay, diode recirculation}%
+\caption{Fast decay, diode recirculation \cite{ds-A3941}}%
 \label{fig:39414}
 \end{figure}
 
@@ -131,7 +131,7 @@ zu laden.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{3941_5.png}\\
-\caption{Fast decay, SR active, full four-quadrant control}%
+\caption{Fast decay, SR active, full four-quadrant control \cite{ds-A3941}}%
 \label{fig:39415}
 \end{figure}
 
@@ -657,7 +657,7 @@ Der Nachteil an dieser Methode ist, dass das Timing genau eingehalten werden mus
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{led_cascade.png}\\
-\caption{Kaskadierung der LEDs}%
+\caption{Kaskadierung der LEDs \cite{ds-WS2812}}%
 \label{fig:led_cascade}
 \end{figure}
 
@@ -674,7 +674,7 @@ werden, damit die LEDs die Daten übernehmen. Die einzenen Bits der Übertragung
 \begin{figure}[H]
 \centering
 \includegraphics[width=.5\textwidth]{led_timing.png}\\
-\caption{Codierung des LED Signals}%
+\caption{Codierung des LED Signals \cite{ds-WS2812}}%
 \label{fig:led_timing}
 \end{figure}
 
@@ -710,7 +710,7 @@ dieses Prinzip veranschaulicht.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.5\textwidth]{lasertriangulation.png}\\
-\caption{Prinzip der Lasertriangulation}%
+\caption{Prinzip der Lasertriangulation \cite{lasertriangulation}}%
 \label{fig:lasertriangulation}
 \end{figure}
 
@@ -764,7 +764,7 @@ Motorankers auszuwerten. Dazu sehen wir uns den Aufabu eines Gleichstommotors an
 \begin{figure}[H]
 \centering
 \includegraphics[width=.5\textwidth]{motor.png}\\
-\caption{Aufbau eines Gleichstommotors}%
+\caption{Aufbau eines Gleichstommotors \cite{gs-motor}}%
 \label{fig:aufbau_motor}
 \end{figure}
 Ein Gleichstommotor besteht aus zwei grundsätzlichen Teilen, einem unbeweglichen Teil, den Stator und einem beweglichen Teil, dem Anker.
@@ -891,12 +891,12 @@ Der Gesamtstromverbrauch der Komponenten beträgt 4.740mA. Ein Linearregler ist 
 
 \todo{verbessern..}
 Eine gute Wahl für diesen Einsatzzweck ist der LM2678 von Texas Instruments, dieser kann dauerhaft einen Strom von 5A liefern und sein Wirkungsgrad liegt selbst bei Maximallast bei über 80\%.
-Eine Übersicht dazu findet sich in Abbildung [\ref{fig:vreg}].
+Eine Übersicht dazu findet sich in Abbildung [\ref{fig:vreg-eff}].
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{vreg.png}\\
-\caption{Regulator Wirkungsgrad}%
-\label{fig:vreg}
+\caption{Regulator Wirkungsgrad \cite{ds-ti}}%
+\label{fig:vreg-eff}
 \end{figure}
 Ausgehend von ca. 24 Watt Leistungsaufnahme ($4,8A*5V$) und einem minimalen Wirkungsgrad von 80\%  ergibt sich damit eine überschauliche Verlustleistung von 6 Watt.
 
@@ -908,20 +908,23 @@ Ausgehend von ca. 24 Watt Leistungsaufnahme ($4,8A*5V$) und einem minimalen Wirk
 \label{fig:vreg}
 \end{figure}
 
+\subsubsection{Low-ESR Kondensatoren}
 
-\todo{LOW ESR erklären}
-LOW ESR Kondensatoren zeichen sich durch einen niedrigen Serienwiderstand ($R_{ESR}$) aus.
-Dieser liegt in Reihe(Serie) zum idealen Kondensator.
+Low-ESR Kondensatoren zeichen sich durch einen niedrigen Serienwiderstand ($R_{ESR}$) aus.
+Dieser liegt in Reihe(Serie) zum idealen Kondensator (\cref{fig:esr}). 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.8\textwidth]{esr.png}\\
+\includegraphics[width=.5\textwidth]{esr.png}\\
 \caption{Ersatzschaltbild eines Kondensators}%
 \label{fig:esr}
 \end{figure}
 
-Dieser verursacht Verluste innerhalb des Kondensators, was bei Belastung zur erwärmung des Kondensators führt und seine Lebensdauer verringert.
-
+Dieser verursacht Verluste innerhalb des Kondensators, was bei Belastung zur erwärmung des Kondensators führt und
+seine Lebensdauer verringert. Desto kleiner der ESR desto niedriger die Verluste im Kondensator. Weiterhin
+kann ein Kondensator mit kleinem ESR schneller ge- und entladen werden, als ein herkömmlicher Kondensator.
+%Im entlade Fall kann man sich den Kondensator als Spannungsquelle vorstellen, der ESR stellt dann den Innenwiderstand der Spannungsquelle dar.
+Durch diese Eigenschaft ist ein ESR Kondensator hervorragend zur Störunterdrückung geeignet.
 
 
 Die Beschaltung erfolgt dabei nach den Empfehlungen des Datenblattes. Die verwendeten \SI{180}{\uF} Kondensatoren sollen laut Datenblatt low ESR Kondensatoren sein. Die verbauten Kondensatoren stammen aus Nichicons L8 Serie und haben einen Serienwiderstand von nur \SI{12}{\mohm}.
@@ -949,6 +952,45 @@ Im erten Schritt wurde hier ein Python Programm genutzt, welches jedoch einen Na
 Da die so verschwendete Rechenleistung für andere Aufgaben benötigt wird und auch energieeffizienz ein wichtiges Kriterium ist, Wurde das Programm erneut in C++ implementiert. Unter verwendung der Systemaufrufe von 
 Poll konnte das abfragen der seriellen Schnitstelle auf Systemebene ausgeführt werden, was die effizeinz stark verbessert. Während die Python Implementierung einen CPU-Kern zu 100\%
 auslastete liegt die C++ Implementierung im unteren einstelligen Bereich.
+
+
+ Das Programm stellt dann folgende Ros-Topics zur verfügung:\\
+ 
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\textwidth}{|X|l|X|}
+    \hline
+     Ros-Topic 			& Ros-Datentyp		 	& Beschreibung 	\\ \hline \hline
+    /sensors/current		& std\_msgs/Float32		& Der aktuelle Motorstom in Ampere								\\ \hline
+    /sensors/imu/data\_raw	& ottocar\_msgs/simpleImu	& Die Daten werden im Standartformat für Inertialsensoren zur Verfügung gestellt		\\ \hline
+    /sensors/IR1		& std\_msgs/Float32		& Der aktuelle Spannungswert des Sensors in Volt						\\ \hline
+    /sensors/IR2		& std\_msgs/Float32		& Der aktuelle Spannungswert des Sensors in Volt						\\ \hline
+    /sensors/motor\_revolutions	& std\_msgs/UInt32		& Die Anzahl der vergangenden Motorumdrehungen seit dem Start des Microcontrollers		\\ \hline
+    /sensors/motor\_state	& std\_msgs/UInt8		& Der aktuelle Zustand des Motortreibers							\\ \hline
+    /uC\_time			& std\_msgs/UInt32		& Die vergangende Zeit auf dem Microcontrollers seit dessen start in Millisekunden		\\ \hline
+    /sensors/voltage		& std\_msgs/Float32		& Die aktuelle Akkuspannung in Volt								\\ \hline
+
+  \end{tabularx}
+  \caption{Ros-Publisher}%
+  \label{tab:ros-pub}
+\end{table}
+
+
+ Das Programm hört auf folgende Ros-Topics:\\
+
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\textwidth}{|X|l|X|}
+    \hline
+     Ros-Topic 			& Ros-Datentyp		 	& Beschreibung 	\\ \hline \hline
+    /actuators/speed\_cmd		& std\_msgs/Int8		& Die neue Motorgeschwindigkeit von -128 bis +127		\\ \hline
+    /actuators/angle\_cmd		& std\_msgs/Int8		& Der neue Servowinkel von -128 bis +127			\\ \hline
+    /actuators/motor\_reset		& std\_msgs/Bool		& Initiiere einen Reset im Motortreiber				\\ \hline
+  \end{tabularx}
+  \caption{Ros-Subscriber}%
+  \label{tab:ros-sub}
+\end{table}
+
 
 
 \subsection{Übertragungsprotokoll}

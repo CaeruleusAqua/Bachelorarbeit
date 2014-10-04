@@ -24,7 +24,7 @@ $\SI{7}{\mV}\cdot\frac{30}{256}=\SI{0,82}{\mV} $
 Mit Hilfe dieses Mittelwertes können wir grob abschätzen ob der nachfolgende Filter seine Funktion erfolgreich erfüllt.
 
 
-Als nächstes wird die Spannung nach der Filterschaltung direkt am Operationsversärker gemessen. Es fällt auf das das Signal trotz Teifpass noch Störungen in Form des Motorstromes enthält.
+Als nächstes wird die Spannung nach der Filterschaltung direkt am Operationsversärker gemessen. Es fällt auf das das Signal trotz Tiefpass noch Störungen in Form des Motorstromes enthält.
 Dies ist eine Auswirkung der gestörten Betriebsspannung, welche später untersucht wird.
 
 
@@ -36,7 +36,7 @@ Dies ist eine Auswirkung der gestörten Betriebsspannung, welche später untersu
 \end{figure}
 
 
-Wie in \cref{fig:filter_ausgang} zu sehen wurde die Spannung erfolgreich verstärkt und hat etwa eine Spannung von \SI{40}{\mV}. Dividiert durch den Verstärkungsfaktor 48, ergibt sich eine Spannung von 
+Wie in \cref{fig:filter_ausgang} zu sehen wurde die Eingangsspannung erfolgreich verstärkt und hat nun etwa eine Spannung von \SI{40}{\mV}. Dividiert durch den Verstärkungsfaktor 48, ergibt sich eine Spannung von 
 \SI{0,83}{\mV}. Welche sehr nahe an dem vorher abgeschätzten Wert von \SI{0,82}{\mV} liegt. Der Strom lässt sich nun mit Hilfe des ohmnschen Gesetzes $U=R\cdot I$ errechnen.
 \begin{align*}
 I=\frac{\SI{0,83}{\mV}}{\SI{0,005}{\ohm}}=\SI{166,7}{\mA}
@@ -85,7 +85,7 @@ die Messungen erneut unter Last durchgeführt, der Motor befand sich währenddes
 \end{table}
 
 Der Tabelle \ref{tab:current_load} kann leicht entnommen werden, das die Ströme unter last stark ansteigen. Die Standardabweichung steigt im Verhältnis zum Strom nur leicht.
-So dass die Streuung der Messung mit steigendem Strom zwar zunimmt, die relative Abweichung der Werte jedoch nicht steigt.
+So dass die Streuung der Messung mit steigendem Strom zwar zunimmt, die relative Abweichung der Werte jedoch nicht zunimmt.
 
 
 \section{Spannungsversorgung}
@@ -102,7 +102,7 @@ des Fahrzeuges untersucht.
 
 Betrachtet man den Verlauf der Spannung im 5V-Netz lässt sich leicht erkennen, dass das Signal von einem dem Strom sehr ähnlichen Signal überlagert wird.
 Eine solche Störung kann nur von der Betriebsspannung kommen, da der Motor nicht an das 5V-Netz angeschlossen ist. Scheinbar ist der 5V-Schaltregler nicht in der Lage diese Störungen vollständig auszugleichen.
-Daher wird nun die Betriebsspannung untersucht um das Ausmaß der Störungen Beurteilen zu können.
+Daher wird nun die Betriebsspannung untersucht um das Ausmaß der Störungen beurteilen zu können.
 Die Werte wurden in einer 1:10 Teilung gemessen, daher sind alle Spannungen mit dem Faktor 10 zu multiplizieren.
 
 Im Akkubetrieb (\cref{fig:accu_supply}) kann gut Beobachtet werden, dass die Spannung um mehr als \SI{100}{\mV} schwankt. Die Frequenz der Spannungseinbrüche entspricht in etwa

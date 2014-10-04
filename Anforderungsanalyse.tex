@@ -1,8 +1,29 @@
 
 \chapter{Anforderungsanalyse}
 
+\section{Ausgangssituation}
+Die Ausgangsposition der Arbeit stell sich folgender maßen dar. Das Fahrzeug basiert einem Fahrgestell vom Typ ``Tamiya TT-01-Type E''
+dieses Verfügt bereits über einen Motor und einem Motortreiber. Auf Grund der Herkunft der Komponenten, dem Modellbau, ist leider keine
+Dokumentation des elektrischen Kompnenten verfügbar. Wodurch der original Motortreiber leider nicht verwendet werden kann.
+Da das das Fahrzeug über bereits vorhandene 4 Zellen Lithium-Polymer-Akkus (14,4V Nennspannung) versorget werden soll, um die Anschaffung teuer Akkus zu vermeiden,
+hätte dieser so oder so nicht verwendet werden können. Für das Fahrzeug wurde bereits eine Treiberplatine in Form eins Prototyps gefertigt.
+Diese verfügt über ein Crumb123 Mikrocontoller Modul (At90can128), welches einen Motortreiber vom Typ ``L298 DUAL FULL-BRIDGE DRIVER'' ansteuert.
+Des weiteren verfügt der Prototyp über einen 3 Ampere Schaltregler von Texas Instruments, welcher Mikrocontoller und zwei Pandaboard mit Energie Versorgt, 
+Der Schaltregler befindet sich durch den betrieb zweier Pandaboards jedoch bereits an seiner Leistungsgrenze, da ursprünglich nur der Bertieb eines Pandaboards
+vorgesehen war. Der Verwendete Motortreiber wurde genutzt, weil weil er durch die Verwendung in anderen Projekten bereits vorhanden war, jedoch ist dieser 
+nur für Ströme von bis zu \SI{4}{\A} ausgelegt. In einem Versuch wuden für den im Fahrzeug vorhandenen Motor Stöme von bis zu \SI{20}{\A} gemessen. 
+Durch die Unterdimensionierung des Treibers überhitzt dieser bereits nach wenigen Minuten Fahrbetrieb.
+Da der vorhandene Motor jedoch weiter verwendet werden soll, muss hier ein leistungsfähiger Ersatz 
+entwickelt werden. Des weiteren fehlen dem Prototyp wichtige Anschlüsse für weitere Sensoren und Beleuchtung. Welche nun integriert werden sollen. 
+
+Bei der Entwicklung der neuen Treiberplatine sollen, um Kosten zu sparen, möglichst viele Vorhandene Komponenten verwendet werden. Dazu gehören
+Microcontroller vom Typ ``Atmel At90can128'' welche in großer Stückzahl vorhanden sind. Benötigte Sensoren in Form eines Interialsensors (Sparkfun SEN-10724)
+und Sharp GP2D Sensoren werden ebenfalls vom Lehrstuhl zur Verfügung gestellt. Des weiteren sind Sortimente von SMD Widerständen und
+Kondensatoren in der Größe 805 vorhanden, sodass diese Bauform bei der Entwicklung der Platine bevorzugt wird.
+
 \section{Anforderungen laut Regelwerk}
-Um am „Carolo-Cup“ Teilnehmen zu können ist ein regelkonformes Fahrzeug notig, darum wird nun ein Auszug aus den Anforderungen an das Auto kurz aufgelistet und ausgewertet.
+Um am „Carolo-Cup“ Teilnehmen zu können ist ein regelkonformes Fahrzeug notig, darum wird nun ein Auszug aus den Anforderungen an das Fahrzeug kurz 
+aufgelistet und ausgewertet.
 Alle Anforderungen können im Regelwerk des „Carolo-Cup“ nachgelesen werden \cite{website-carolo-cup-regelwerk}
 
 
@@ -30,13 +51,13 @@ Dazu gehören 3 rote Bremslichter am Heck des Autos sowie jeweils 2 gelbe Blinke
 1-Hz betragen.
 
 \section{Auswertung des Regelwerks}
-Da ein elektrischer Antrieb vorgesehen ist, muss die nötige Elektronik zur Steuerung des Motors in die Platine integriert werden.
-Die Lenkung des Autos kann von einen einfachen Servomotor vorgenommen werden. 
-Damit das Auto die im RC-Modus nötigen Funksignale auswerten kann, muss ein Empfänger integriert werden. Dieser wird jedoch über USB zur Verfügung gestellt und ist deswegen nicht Teil dieser Arbeit.
-Des weiteren muss das Auto mit den nötigen Signalleuchten ausgestattet sein, dazu gehören Blinker rechts und links jeweils vorne und hinten.
-Sowie 3 Bremsleuchten an der Rückseite und eine weitere Leuchte welche din RC-Modus anzeigt. Der Vollständigkeit halber kommt hier noch die
-Frontbeleuchtung hinzu
-
+Der vorhandene Prototyp entspricht bereit der Anforderung bezüglich des elektrischen Antriebs, jedoch mit den bereits beschriebenen Unzulänglichkeiten. 
+Um diese Unzulänglichkeiten zu korrigieren, muss einen leistungsfähiger Motortreiber integriert werden.
+Die Lenkung des Autos kann von einen einfachen Servomotor vorgenommen werden, ein solcher wurde bereits in Form eines IQ-620CMG des Herstellers Hype angeschafft. 
+Damit das Auto die im RC-Modus nötigen Funksignale auswerten kann, muss ein Empfänger integriert werden. Dieser wird jedoch über USB zur Verfügung gestellt
+und ist deswegen nicht Teil dieser Arbeit. Des weiteren muss das Auto mit den nötigen Signalleuchten ausgestattet sein, dazu gehören Blinker rechts und links
+jeweils vorne und hinten. Sowie 3 Bremsleuchten an der Rückseite und eine weitere Leuchte welche din RC-Modus anzeigt. Der Vollständigkeit halber kommt hier noch die
+Frontbeleuchtung hinzu.
 
 \section{Andere Anforderungen}
 \subsection{Anforderungen durch Bewertungskriterien}
@@ -44,101 +65,18 @@ Abseits des Regelwerkes ergeben sich weitere Anforderungen durch die Bewertungsk
 So muss das Team während der statischen Disziplinen ihr Gesamtkonzept präsentieren. Schwerpunkte dabei sind, Hardware und Software Architektur sowie Energiebedarf und 
 Herstellungskosten \cite{website-carolo-cup-regelwerk}. Daraus entstehen weitere Anforderungen: Energieeffizienz und Herstellungskosten. \\
 
-Woraus sich Energieeffizienz und Herstellungskosten als Anforderungen ergeben.
 
 \subsection{externe Anforderungen}
-Folgende Anforderungen werden durch das Team an die Platine gestellt.
-\begin{itemize}
- \item Integration einer Inertialsensorik (Sparkfun SEN-10724)
- \item Anschlüsse für bis zu 6 Infarotsensoren vom Typ Sharp GP2D
- \item Integration einer Odometrie
- \item Stromversorgung eines ``Pandaboard ES'' 
-\end{itemize}
+Folgende Anforderungen werden durch das Team an die Platine gestellt. Die Integration einer Inertialsensorik (Sparkfun SEN-10724) zur Inertialnavigation.
+Anschlüsse Infarotsensoren vom Typ Sharp GP2D120 und GP2D1202. Die Integration einer Odometrie zur Geschwindigkeitsmessung. 
+Sowie eine 5V Stromversorgung zum betreiben eines Pandaboards. Die Platine soll ein ROS-Interface auf einem Pandaboard zur Verfügung stellen, mit welchem die Aktorik gesteuert und
+die Sensorwerte ausgelesen werden können.
 
 \section{Zusammenfassung}
-
-Zusammengefasst werden folgende Komponenten in der Platine benötigt:
-
-\begin{itemize}
- \item nötige Elektonik zur Motoransteuerung (vor und Rückwärts)
- \item Anschluss und Steuerung für einen Servomotor
- \item Anschlusse und Steuerung für die nötige Beleuchtung
- \item Anschlüsse für die Sharp GP2D Sensorn
- \item Integration des Sparkfun Inertialsensors
- \item Leistungsfähige Stromversorgung
- \item Odometrie
-\end{itemize}
-
-
-
-\todo{
-
-
-  Vorgehen: Was war seit anfang an vorhanden...,\\
- - warum wurde alter motortreiber (4A) im Prototyp verwendent?\\
- - aus vorhandennen komponenten wurde .. gebaut..
- - folgendes musste verbessert werden!
- 
-
-}
-
-\todo{
-
-
- - Konzept überabrbeiten...
-  - Vierquadrantensteller ins konzept--> wie soll es umgesetzt werden.
-  - Anforderungsanalyse vor das Konzept
-  - 
- 
-
-}
-
-
-
-% Das Team setzt ein Fahrzeug vom Typ TT-01 Type E des Herstellers Tamiya ein. Dabei handelst es sich um ein modellbau Auto. Dieses Modell wird bereits mit
-% Motor und Fahrtenregler ausgeliefertund entspricht den vorgaben im Regelwerk. Da am Lehrstuhl bereits größere Mengen an LiPo-Akkus mit einer Nennspannung von 14,4V vorhanden sind, sollen diese verwendent
-% werden. Da der dem Auto beiliegende Fahrtenregler nicht für eine derart hohe Spannung ausgelegt ist, ist hier ein Ersatz notwendig. 
-% 
-
-% 
-% Im folgenden wird geklärt wie das Fahrzeug vom Team geplant und umgestetzt wird. Das Fahrzeug basiert auf einem Modellbauauto vom Typ TT-01 Type E des Herstellers Tamiya. 
-% Das Auto besteht dabei aus folgenden Komponenten: einem Elektromotor zur Fortbewegung, einem Servomotor zur Lenkung, einer Kamera welche die Fahrbahn aufzeichnet, einer Recheneinheit welche
-% die Bildverabreitung und Regelung des Fahrzeuges übernimmt und einer Treiberplatine. 
-% 
-% 
-% \subsection{Die Treiberplatine}
-% Die Treiberplatine hat hat die Aufgabe die Sensorik und Aktorik mit der Recheneinheit zu verbinden. Zusätzlich befinden sich auf ihr eine Spannungsversorgung, ein Motortrieber und
-% diverste Anschlüsse fürdie Sensorik. Die Platine wurde in 2 Versionen erstellt. Da für die 1. Platinenversion eine Ansteuerung durch GPIO-Pins des Pandaboards geplant war. Durch den
-% späteren Wechsel zum Intel NUC, welcher nicht über GPIO-Pins verfügt, musste eine überarbeite Version der Platine entwickelt werden. Welche ien einfachen Anschluss an den NUC gewährleistet.
-% Die 
-% 
-% Die Treiberplatine wurde 
-% 
-% In Abbildung [\ref{fig:platine_rv3}] ist das Board der überarbeiteten Platinenversion zu sehen.
-% 
-% \begin{figure}[H]
-% \centering
-% \includegraphics[width=.8\textwidth]{platine_rv3.png}\\
-% \caption{Korrigierte Platinenversion}
-% \label{fig:platine_rv3}
-% \end{figure}
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-
-
-
-
-
-
-
-
-
-
-
-
+Um den Anforderungen zu genügen muss ein Motorteiber mit einer Belastbarkeit von mindestens 20 Ampere integriert werden. 
+Ein Mikrocontroller zum Steuern der Aktorik inklusive des Motors, sowie zum Auslesen der Sensorsignale muss zur verfügung gestellt werden. 
+Anschlüsse für zwei Sharp Sensoren vom Typ ``GP2D120'' oder ``GP2D12'' sowie weitere Anschlüsse für den Inertialsensor, Beleuchtung, Servomotor werden ebenfalls benötigt. 
+Es muss eine Odometrie zur Messung der Geschwindigkeit in irgendeiner Form integriert werden.
+Es muss eine effiziente Energieversorgung aller Bauteile zur Verfügung gestellt werden, welche auch zwei Pandaboards stabil betreiben kann. 
+Da das Fahrzeug energieeffizient arbeiten soll ist eine Messung des Motorstromverbrauches essenziell um das Fahrverhalten bezüglich der Effiziens bewerten zu können.
+Zu guter letzt muss die Platine über eine Schnitstekke mit einem Pandaboard kommunizieren und seine Daten dort über ein ROS-Interface zur Verfügung zu stellen.

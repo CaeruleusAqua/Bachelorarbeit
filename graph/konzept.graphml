@@ -15,7 +15,6 @@
   <graph edgedefault="directed" id="G">
     <data key="d7"/>
     <node id="n0">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="195.625" width="392.5" x="896.359375" y="-211.25"/>
@@ -33,13 +32,12 @@
       </data>
     </node>
     <node id="n1">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="195.625" width="392.5" x="896.359375" y="160.125"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="40" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="50.5625" modelName="custom" textColor="#000000" visible="true" width="277.06640625" x="57.716796875" y="72.53125">Motor-Treiber<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="40" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="50.5625" modelName="custom" textColor="#000000" visible="true" width="253.8828125" x="69.30859375" y="72.53125">Motortreiber<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -51,7 +49,6 @@
       </data>
     </node>
     <node id="n2">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="195.625" width="392.5" x="-46.375" y="531.5"/>
@@ -70,13 +67,12 @@ Spannung<y:LabelModel>
       </data>
     </node>
     <node id="n3">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="195.625" width="392.5" x="1296.125" y="531.5"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="40" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="50.5625" modelName="custom" textColor="#000000" visible="true" width="352.57421875" x="19.962890625" y="72.53125">Infrarot Sensoren<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="40" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="50.5625" modelName="custom" textColor="#000000" visible="true" width="354.29296875" x="19.103515625" y="72.53125">Infrarot-Sensoren<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -88,7 +84,6 @@ Spannung<y:LabelModel>
       </data>
     </node>
     <node id="n4">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="195.625" width="392.5" x="624.875" y="531.5"/>
@@ -106,13 +101,12 @@ Spannung<y:LabelModel>
       </data>
     </node>
     <node id="n5">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="195.625" width="392.5" x="624.875" y="914.4218749999999"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="40" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="50.5625" modelName="custom" textColor="#000000" visible="true" width="291.5390625" x="50.48046875" y="72.53124999999989">Recheneinheit<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="40" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="50.5625" modelName="custom" textColor="#000000" visible="true" width="291.5390625" x="50.48046875" y="72.53125000000011">Recheneinheit<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -124,7 +118,6 @@ Spannung<y:LabelModel>
       </data>
     </node>
     <node id="n6">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="195.625" width="392.5" x="351.55800271034127" y="160.125"/>
@@ -142,7 +135,6 @@ Spannung<y:LabelModel>
       </data>
     </node>
     <node id="n7">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="195.625" width="392.5" x="-46.375" y="757.125"/>
@@ -160,7 +152,6 @@ Spannung<y:LabelModel>
       </data>
     </node>
     <edge id="e0" source="n1" target="n0">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -179,7 +170,6 @@ Spannung<y:LabelModel>
       </data>
     </edge>
     <edge id="e1" source="n4" target="n6">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -200,7 +190,6 @@ Spannung<y:LabelModel>
       </data>
     </edge>
     <edge id="e2" source="n4" target="n1">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -221,7 +210,6 @@ Spannung<y:LabelModel>
       </data>
     </edge>
     <edge id="e3" source="n4" target="n3">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -240,7 +228,6 @@ Spannung<y:LabelModel>
       </data>
     </edge>
     <edge id="e4" source="n4" target="n2">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -259,7 +246,6 @@ Spannung<y:LabelModel>
       </data>
     </edge>
     <edge id="e5" source="n4" target="n7">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -282,13 +268,12 @@ Spannung<y:LabelModel>
       </data>
     </edge>
     <edge id="e6" source="n4" target="n5">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="3.0"/>
           <y:Arrows source="standard" target="standard"/>
-          <y:EdgeLabel alignment="center" anchorX="10.5390625" anchorY="60.857421875" configuration="AutoFlippingLabel" distance="3.0" fontFamily="Dialog" fontSize="30" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="38.921875" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" upX="1.0" upY="1.8369701987210297E-16" visible="true" width="65.58203125" x="10.539062499999988" y="60.857421875">USB<y:LabelModel>
+          <y:EdgeLabel alignment="center" anchorX="10.5390625" anchorY="60.857421875" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="30" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="38.921875" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" upX="1.0" upY="1.8369701987210297E-16" visible="true" width="65.58203125" x="10.539062499999988" y="60.857421875">USB<y:LabelModel>
               <y:SmartEdgeLabelModel autoRotationEnabled="true" defaultAngle="0.0" defaultDistance="10.0"/>
             </y:LabelModel>
             <y:ModelParameter>
