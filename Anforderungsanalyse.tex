@@ -70,14 +70,15 @@ Herstellungskosten \cite{website-carolo-cup-regelwerk}. Daraus entstehen weitere
 Folgende Anforderungen werden durch das Team an die Platine gestellt. Die Integration einer Inertialsensorik (Sparkfun SEN-10724) zur Inertialnavigation.
 Anschlüsse Infarotsensoren vom Typ Sharp GP2D120 und GP2D1202. Die Integration einer Odometrie zur Geschwindigkeitsmessung. 
 Sowie eine 5V Stromversorgung zum betreiben eines Pandaboards. Die Platine soll ein ROS-Interface auf einem Pandaboard zur Verfügung stellen, mit welchem die Aktorik gesteuert und
-die Sensorwerte ausgelesen werden können.
+die Sensorwerte ausgelesen werden können. Das Auto soll über einem vorhandenen Netzteil betrieben werden können (ca. 20V).
 
 \section{Zusammenfassung}
 Um den Anforderungen zu genügen muss ein Motorteiber mit einer Belastbarkeit von mindestens 20 Ampere integriert werden. 
 Ein Mikrocontroller zum Steuern der Aktorik inklusive des Motors, sowie zum Auslesen der Sensorsignale muss zur verfügung gestellt werden. 
 Anschlüsse für zwei Sharp Sensoren vom Typ ``GP2D120'' oder ``GP2D12'' sowie weitere Anschlüsse für den Inertialsensor, Beleuchtung, Servomotor werden ebenfalls benötigt. 
 Es muss eine Odometrie zur Messung der Geschwindigkeit in irgendeiner Form integriert werden.
-Es muss eine effiziente Energieversorgung aller Bauteile zur Verfügung gestellt werden, welche auch zwei Pandaboards stabil betreiben kann. 
+Es muss eine effiziente Energieversorgung aller Bauteile zur Verfügung gestellt werden, welche auch zwei Pandaboards stabil betreiben kann. Die maximale Eingangsspannung
+muss mindestens 20 Volt betragen um das Auto auch über das Netzteil betreiben zu können.
 Da das Fahrzeug energieeffizient arbeiten soll ist eine Messung des Motorstromverbrauches essenziell um das Fahrverhalten bezüglich der Effiziens bewerten zu können.
 Zu guter letzt muss die Platine über eine Schnittstelle mit einem Pandaboard kommunizieren und seine Daten dort über ein ROS-Interface zur Verfügung zu stellen.
 
@@ -86,5 +87,5 @@ Nach der erfolgreichen Teilnahme am ``Carolo-Cup Junior'' im Februar 2014, began
 einige Flaschenhälse zum vorschein, so dass in der Projektphase die Hardwareplatform geändert werden musste. Die Rechenleistung der Pandaboards stellte sich
 als unzureichend heraus und es wurden mehr Distanzsensoren gewünscht. Die Pandaboards wurden nach der Absprache mit dem Team durch ein Intel NUC vom Typ
 D34010WYB ersetzt. Laut Datenblatt \cite{datasheet-nuc} besitzt der NUC einen Weitbereichseingang zur Spannungsversorgung, dieser ist für 12-24 Volt zugelassen.
-Sodas der NUC direkt an den 14,4V der Akkus betrieben werden kann.  Um Verwirrungen zu vermeiden wird im Folgenden legendlich von Recheneinheit gesprochen, wenn
-es nicht relevant ist ob es sich um NUC oder Pandaboard handelt.
+Sodas der NUC direkt an den 14,4V der Akkus und den 20V des Netzteils betrieben werden kann.  Um Verwirrungen zu vermeiden wird im Folgenden legendlich 
+von Recheneinheit gesprochen, wenn es nicht relevant ist ob es sich um NUC oder Pandaboard handelt.

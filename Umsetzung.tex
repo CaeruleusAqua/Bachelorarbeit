@@ -600,7 +600,7 @@ Diese liegt bei 33,7dB. Daran kann man erkennen, dass es sich nicht mehr um eine
   set ylabel 'Verstärkung in [dB]'
   set logscale x 10
   
-  plot 'Simulation/Filter_original_frequenzgang.csv' with line linecolor rgb "red" title "Ideal", 'Simulation/Filter_real_frequenzgang.csv' with line linecolor rgb "green" title "Real"
+  plot 'Simulation/Filter_original_frequenzgang.csv' with line linecolor rgb "red" title "Ideal", 'Simulation/Filter_real_frequenzgang.csv' with line linecolor rgb "blue" title "Real"
 \end{gnuplot}
 \caption{Frequenzgang des berechneten Filters mit finalen Bauteilwerten}
 \label{plott:filter_freq_real}
@@ -788,7 +788,9 @@ Mittelwert des Sensorsignals, erzeugt durch einen Tiefpass, genutzt.
 \end{figure}
 
 Leider führt dieses Vorgehen nicht zum Erfolg, da die Magnetfeldstärke stark von der Drehrichtung des Motors abhängt. Es war nicht möglich
-den Schmitt-Trigger so auszulegen, das er in beide Drehrichtungen zuverlässig funktioniert.
+den Schmitt-Trigger so auszulegen, das er in beide Drehrichtungen zuverlässig funktioniert.\\
+
+Im Schaltplan befindet sich eine andere Schaltung, diese wurde aus Zeitnot kurz vor der Bestellung der Platine eingearbeitet und funktioniert ebenfalls nicht!
 
 \subsection{Gabellichtschranke}
 
@@ -857,7 +859,7 @@ Stromabgabe von 500mA vor.
 
 Der Stromvebrauch des normalen Pandaboards (ohne ES) beträgt ca. 800mA \cite{website-panda-power}.
 Nähere Angaben zu Stromverbrauch des normalen Pandaboards (ohne ES) finden sich in \cite{website-panda-power}.
-Der Verbrauchdes Pandaboard ES dürfte durch den schnelleren Prozessor minimal darüber liegen. 
+Der Verbrauch des Pandaboard ES dürfte durch den schnelleren Prozessor minimal darüber liegen. 
 Durch Anschluss von USB-Geräten an das Board kann der Stomverbrauch jedoch noch steigen, Die USB-Spezifikation \cite{website-usb-spec}
 sieht pro Port eine maximale Stomentnahme von 500mA vor. Da das Pandaboard über 2 USB-Ports verfügt liegt der maximale zusätzliche Verbrauch bei 1A,
 so dass hier ein Gesammtverbrauch von 2A veranschlagt wird.
@@ -872,8 +874,8 @@ unterschätzen. Da wir RBG-LEDs einsetzen besteht ein LED-Modul aus 3 LEDs in de
 Laut Datenblatt \cite{ds-WS2812} haben die LEDs eine Stromaufnahme von 20mA, also 60mA pro Modul.
 Um reglelwerkkonform zu sein, werden folgende Beleuchtungen benötigt: Blinker rechts und links jeweils vorne und hinten.
 Sowie eine Leuchte, welche den RC-Modus anzeigt. Zusätzlich zu den im Reglelwerk vorgeschriebenen Beleuchtungen werden noch je
-zwei Frontscheinwerfer und Rückleuchten integriert, so dass sich eine Anzahl von 9 LED-Modulen ergibt.
-Der maximale durch die LEDs verursachte Strom liegt somit bei 540mA. 
+zwei Frontscheinwerfer und drei Rück/Bremslichter integriert, so dass sich eine Anzahl von 10 LED-Modulen ergibt.
+Der maximale durch die LEDs verursachte Strom liegt somit bei 600mA. 
 
 
 \todo{Bremslichter???}
@@ -891,10 +893,15 @@ Die Sharp GP2D120 Distanzsensoren verbrauchen laut Datenblatt \cite{ds-sharp-GP2
 Da der Stromverbrauch der restlichen Komponenten minimal ist werden hier pauschal 100mA veranschlagt.
 
 \subsection{Auswahl des Reglers}
-Der Gesamtstromverbrauch der Komponenten beträgt 4.740mA. Ein Linearregler ist hier nicht mehr praktikabel, da dieser bei einer Akkuspannung von 14,4V und 3.740mA fast 45 Watt Leistung in Wärme umwandeln würde.
+Der Gesamtstromverbrauch der Komponenten beträgt 4800mA. Ein Linearregler ist hier nicht mehr praktikabel, da dieser bei einer Akkuspannung von 14,4V und 4800mA über 45 Watt Leistung in Wärme umwandeln würde.
 
-\todo{verbessern..}
-Eine gute Wahl für diesen Einsatzzweck ist der LM2678 von Texas Instruments, dieser kann dauerhaft einen Strom von 5A liefern und sein Wirkungsgrad liegt selbst bei Maximallast bei über 80\%.
+\begin{align*}
+P_{\text{linear}}=(\SI{14,4}{\V}-\SI{5}{\V})\cdot \SI{4,8}{\A}=\SI{45,120}{\W}
+\end{align*}
+
+Schaltregler in Form von Abwärtswandlern haben hingegen einen sehr hohen Wirkungsgrad. Eine gute Wahl ist die Schaltregler Reihe von Texas Instuments, da diese einfach zu bekommen sind,
+und nur wenig Außenbeschaltung benötigen. Ein Exemplar das unsere Anforderungen entspricht ist der LM2678 von Texas Instruments, dieser kann dauerhaft einen Strom von 5A liefern und sein Wirkungsgrad
+liegt selbst bei Maximallast bei über 80\%.
 Eine Übersicht dazu findet sich in Abbildung [\ref{fig:vreg-eff}].
 \begin{figure}[H]
 \centering
@@ -912,14 +919,19 @@ Ausgehend von ca. 24 Watt Leistungsaufnahme ($4,8A*5V$) und einem minimalen Wirk
 \label{fig:vreg}
 \end{figure}
 
-\subsubsection{Low-ESR Kondensatoren}
+
+Die Beschaltung erfolgt dabei nach den Empfehlungen des Datenblattes. Die verwendeten \SI{180}{\uF} Kondensatoren sollen laut Datenblatt low ESR Kondensatoren sein. 
+Die verbauten Kondensatoren stammen aus Nichicons L8 Serie und haben einen Serienwiderstand von nur \SI{12}{\mohm}.
+
+\begin{minipage}{0.9\textwidth}
+\textbf{Low-ESR Kondensatoren:\\}
 
 Low-ESR Kondensatoren zeichen sich durch einen niedrigen Serienwiderstand ($R_{ESR}$) aus.
 Dieser liegt in Reihe(Serie) zum idealen Kondensator (\cref{fig:esr}). 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.5\textwidth]{esr.png}\\
+\includegraphics[width=.56\textwidth]{esr.png}\\
 \caption{Ersatzschaltbild eines Kondensators}%
 \label{fig:esr}
 \end{figure}
@@ -929,9 +941,11 @@ seine Lebensdauer verringert. Desto kleiner der ESR desto niedriger die Verluste
 kann ein Kondensator mit kleinem ESR schneller ge- und entladen werden, als ein herkömmlicher Kondensator.
 %Im entlade Fall kann man sich den Kondensator als Spannungsquelle vorstellen, der ESR stellt dann den Innenwiderstand der Spannungsquelle dar.
 Durch diese Eigenschaft ist ein ESR Kondensator hervorragend zur Störunterdrückung geeignet.
+\end{minipage}
 
 
-Die Beschaltung erfolgt dabei nach den Empfehlungen des Datenblattes. Die verwendeten \SI{180}{\uF} Kondensatoren sollen laut Datenblatt low ESR Kondensatoren sein. Die verbauten Kondensatoren stammen aus Nichicons L8 Serie und haben einen Serienwiderstand von nur \SI{12}{\mohm}.
+
+
 
 \section{Zusammenfassung}
 
@@ -958,29 +972,37 @@ Poll konnte das abfragen der seriellen Schnitstelle auf Systemebene ausgeführt 
 auslastete liegt die C++ Implementierung im unteren einstelligen Bereich.
 
 
- Das Programm stellt dann folgende Ros-Topics zur verfügung:\\
+ Das Programm stellt dann folgende ROS-Topics zur verfügung:\\
  
 \begin{table}[H]
   \centering
-  \begin{tabularx}{\textwidth}{|X|l|X|}
+  \begin{tabularx}{\textwidth}{|l|l|}
     \hline
-     Ros-Topic 			& Ros-Datentyp		 	& Beschreibung 	\\ \hline \hline
-    /sensors/current		& std\_msgs/Float32		& Der aktuelle Motorstom in Ampere								\\ \hline
-    /sensors/imu/data\_raw	& ottocar\_msgs/simpleImu	& Die Daten werden im Standartformat für Inertialsensoren zur Verfügung gestellt		\\ \hline
-    /sensors/IR1		& std\_msgs/Float32		& Der aktuelle Spannungswert des Sensors in Volt						\\ \hline
-    /sensors/IR2		& std\_msgs/Float32		& Der aktuelle Spannungswert des Sensors in Volt						\\ \hline
-    /sensors/motor\_revolutions	& std\_msgs/UInt32		& Die Anzahl der vergangenden Motorumdrehungen seit dem Start des Microcontrollers		\\ \hline
-    /sensors/motor\_state	& std\_msgs/UInt8		& Der aktuelle Zustand des Motortreibers							\\ \hline
-    /uC\_time			& std\_msgs/UInt32		& Die vergangende Zeit auf dem Microcontrollers seit dessen start in Millisekunden		\\ \hline
-    /sensors/voltage		& std\_msgs/Float32		& Die aktuelle Akkuspannung in Volt								\\ \hline
+     Ros-Topic 			& Ros-Datentyp			 \\ \hline \hline	
+    /sensors/current		& std\_msgs/Float32														\\ \hline
+    \multicolumn{2}{|X|}{Der aktuelle Motorstom in Ampere}											\\ \hline\hline
+    /sensors/imu/data\_raw	& ottocar\_msgs/simpleImu													\\ \hline
+    \multicolumn{2}{|X|}{Die Daten werden im Standartformat für Inertialsensoren zur Verfügung gestellt	}						\\ \hline\hline
+    /sensors/IR1		& std\_msgs/Float32										\\ \hline
+     \multicolumn{2}{|X|}{Der aktuelle Spannungswert des Sensors in Volt}										\\ \hline\hline
+    /sensors/IR2		& std\_msgs/Float32										\\ \hline
+      \multicolumn{2}{|X|}{Der aktuelle Spannungswert des Sensors in Volt}										\\ \hline\hline
+    /sensors/motor\_revolutions	& std\_msgs/UInt32										\\ \hline
+      \multicolumn{2}{|X|}{Die Anzahl der vergangenden Motorumdrehungen seit dem Start des Microcontrollers}						\\ \hline\hline
+    /sensors/motor\_state	& std\_msgs/UInt8										\\ \hline
+      \multicolumn{2}{|X|}{Der aktuelle Zustand des Motortreibers}											\\ \hline\hline
+    /uC\_time			& std\_msgs/UInt32										\\ \hline
+      \multicolumn{2}{|X|}{Die vergangende Zeit auf dem Microcontrollers seit dessen start in Millisekunden}						\\ \hline\hline
+    /sensors/voltage		& std\_msgs/Float32										\\ \hline
+     \multicolumn{2}{|X|}{Die aktuelle Akkuspannung in Volt}												\\ \hline\hline
 
   \end{tabularx}
-  \caption{Ros-Publisher}%
+  \caption{ROS-Publisher}%
   \label{tab:ros-pub}
 \end{table}
 
 
- Das Programm hört auf folgende Ros-Topics:\\
+ Das Programm hört auf folgende ROS-Topics:\\
 
 \begin{table}[H]
   \centering
