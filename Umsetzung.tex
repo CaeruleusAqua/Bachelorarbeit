@@ -5,26 +5,12 @@ In diesem Kapitel werden die technischen Hintergründe der einzelnen Komponenten
 
 
 \section{Motoransteuerung}
-
-Eine Motorsteuerung ist nötig um die Geschwindigkeit eines Motors einstellen zu können. Dem Auto liegt ab Werk bereits ein Motortreiber bei,
-welcher genau diese Funktion übernehmen kann. Im folgenden Abschnitt wird beschrieben, warum dieser nicht genutzt werden kann und wie die Lösung aussieht.
-
-\subsection{Treiberbausteine}
-Da die gewählten Akkus eine Spannung von 14,4V aufweisen, kann der original Motortreiber leider nicht verwendet werden.
-Denn dieser benötig eine Spannung von 7,4V. Da der AVR Mikrokontroller mit 5V betrieben wird, wird ein Motortreiber benötig der
-mit den 5V Pegeln arbeiten kann. In vielen Mikrocontroller-Projekten und in unserem ersten Prototyp wird der ``L298 DUAL FULL-BRIDGE DRIVER''
-verwendet. Dieser ist leider auch bei der Benutzung beider Kanäle auf 4 Ampere begrenzt \cite{L298}, was beim Prototyp zu einer permanenten
-Überlastung des Treibers führt. Die benötigte maximale Belastbarkeit des Motortreibers wurde in einem kurzen Expriment ermittelt 
-und beträgt 20 A. Leider sind keine vollintegrierten Motortreiber mit der benötigten Belastbarkeit verfügbar. 
-Eine Möglichkeit dieses Problem zu umgehen und unseren Anforderungen, wie Vor- und Rückwärtsbetrieb, zu genügen  
-wird ein Vierquadrantensteller aus diskreten Mosfets aufgebaut.
-
-\subsubsection{Vierquadrantensteller}
-Definition nach Wikipedia\cite{vierquadrantensteller}:\\
-``Ein Vierquadrantensteller besteht aus einer elektronischen H-Brückenschaltung aus vier Halbleiterschaltern, meist aus Transistoren, 
-welche eine Gleichspannung in eine Wechselspannung variabler Frequenz und variabler Pulsbreite umwandeln kann. Vierquadrantensteller 
-in der Energietechnik können auch Wechselspannungen unterschiedlicher Frequenzen in beiden Richtungen ineinander umwandeln.''
-
+Wie bereits im Konzept beschrieben, wird der Motorteiber als diskreter Vierquadrantensteller ausgeführt. Auf Grund der hohen Belastbarkeit
+und leistungslosen Ansteuerung werden meist p-Kanal-Mosfets als Halbleiterschalter genutzt. Um die beiden oberen Mosfets (T1/T3) durchzuschalten
+ist auf Grund des fehlenden Massepotentials eine Gatespannung oberhalb der Betriebsspannung nötig. Diese wird meist mittels Bootstrapping zur
+Verfügung gestellt. Da das simultane Durchschalten der übereinander liegenden Mosfets zu einem Kurzschluss führen würde, muss dies durch
+eine Schutzschalung verhindert werden. Um all diese Funktionen zur Verfügung zu stellen gibt es bereits fertige Mosfettreiber,
+welche das Schaltungsdesign enorm vereinfachen.
 
 \begin{figure}[H]
 \centering
@@ -33,21 +19,20 @@ in der Energietechnik können auch Wechselspannungen unterschiedlicher Frequenze
 \label{fig:Vierquadrantensteller}
 \end{figure}
 
+\todo{minimale Max Betriebsspannung im Anforderungsanalyse/Konzept festlegen}
 
-Auf Grund der hohen Belastbarkeit und leistungslosen Ansteuerung werden meist Mosfets als Halbleiterschalter genutzt. Um die beiden oberen Mosfets (T1/T3) durchzuschalten
-ist auf Grund des fehlenden Massepotentials eine Gatespannung oberhalb der Betriebsspannung nötig. Diese wird meist mittels Bootstrapping zur
-Verfügung gestellt. Da das simultane Durchschalten der übereinander liegenden Mosfets zu einem Kurzschluss führen würde, muss dies durch
-eine Schutzschalung verhindert werden. Um all diese Funktionen zur Verfügung zu stellen gibt es bereits fertige Mosfettreiber,
-welche das Schaltungsdesign enorm vereinfachen.
-
-
-\subsection{Mosfets}
-Als geeignete Mosfets wurden die FDD6690A von Fairchild Semiconductor ausgewählt. Diese sind zugelassen bis zu einer Drain-Source-Spannung von 30V und einer maximalen Dauerbelastung
-von 46A, eine gute Kühlung vorausgesetzt. Des Weiteren verfügen sie über einen sehr niedrigen Drain-Source-Widerstand von $R_{\text{DS(ON)}}= 12 m$, was zu einer niedrigen Verlustleistung führt. Durch ihre niedrige 
-Gate Ladung von 13nC eignen sie sich gut für hohe Schaltfrequenzen. Auf Grund dieser Eigenschaften sind sie hervorragend für einen Motortreiber geeignet.
+\subsection{Auswahl der Mosfets}
+Die Auswahl der Mosfets wird duch den geforderten Stom von 20A und der maximalen Betriebsspannung von 20V eingegrenzt. Weitere Kriterien wie die Gate-Source-Spannung, welche zum durchschalten
+der Mosfets benbötigt wird, sind auf Grund der Tatsache, dass ein Mosfettreiber verwendet werden soll nicht von belangen. Da dieser die benötigten Spannungen generiert.
+Für die Anwendung in einem Vierquadrantensteller ist dei wahrscheinlich wichtigste Größe, ist der Drain-Source-Widerstand im Einschaltzustand $R_{\text{DS(ON)}}$.
+Ein kleiner $R_{\text{DS(ON)}}$ ist von Vorteil und führt zu einer kleinen Verlustleistung an den Mosfets.
+Mosfets mit einem hervorragenden $R_{\text{DS(ON)}}$ von nur \SI{12}{\mohm} sind die FDD6690A von Fairchild Semiconductor \cite{ds-fs}. Weitere Kenngrößen dieser sind
+eine maximale Drain-Source-Spannung von 30V sowie eine Belastbarkeit von 46A, eine gute Kühlung vorausgesetzt. Aufgrund der kleinen Gate Ladung von 13nC eignen
+sie sich gut für hohe Schaltfrequenzen. Aufgrund ihres niedrigen $R_{\text{DS(ON)}}$ werden sie für die Platine genutzt.
 
 
 \subsection{Mosfettreiber}
+
 \subsubsection{Verfügbarkeit}
 
 Mosfettreiber gibt es in vielen Ausführungen, unter anderem als ``Single Channel High Side Driver``, ``Half Bridge Driver'', ``Full Bridge Driver''
@@ -56,11 +41,12 @@ ausschließlich ``Full Bridge Driver'' untersucht.
 
 Eine Tabelle auf Mikrocontroller.net\cite{FET_D_TABLE} zeigt eine Auswahl an verfügbaren Mosfettreibern. Dort sind zwei
 ``Full Bridge Driver'' aufgeführt, welche für dieses Projekt passend sind. Allerdings fällt die Entscheidung auf einen anderen Treiber,
-dem Allegro A3941.
+dem Allegro A3941 \cite{ds-A3941}.
 \subsubsection{Allegro A3941}
-Der Allegro A3941 ist für Betriebsspannungen von 5,5V bis 50V geeignet und liegt damit in der Spezifikation des Projekts.
+Der Allegro A3941  ist für Betriebsspannungen von 5,5V bis 50V geeignet und liegt damit in der Spezifikation des Projekts.
 Des Weiteren verfügt der Motor über eine integrierten 5V Regulator und kann somit ohne Spannungsregulator am Akku betrieben werden.
 Über zwei Ausgänge der Treibers können diverse Fehler ausgelesen werden. Auch sind alle gängigen Schutztschaltungen wie z.B. ein Kurzschlussschutz enthalten.
+Daher ist er Herrvorragend für das Projekt geeignet.
 
 
 Der Treiber lässt sich in verschiedennen Modi betreiben:
@@ -153,8 +139,8 @@ In Folgenden wird geklärt wie sich die Beschaltung des Allegro A3941 bestimmen 
 
 $R_{\text{DEAD}}$ legt die Totzeit zwischen den Mosfetumschaltungen fest. Wird sie zu niedrig gewählt, können in jeder PWM-Periode Kurzschlüsse auftreten. Wird sie zu hoch
 gewählt, beschränkt man das Tastverhältnis unnötig, was die Motorleistung reduziert. Da wir ``Low Gate Charge'' Mosfets nutzen, und die Einschalt- bzw. Ausschaltzeit
-der Mosfets hauptsächlich von dieser Größe abhängt, ist diese Zeit sehr klein. Da jedoch eine genaue Bestimmung dieser Zeit für unseren Einsatz nicht nötig ist,
-wird hier ein mittlerer Wert von $100k\Omega$ gewählt. Da sich dieser laut Datenblatt zwischen 3 und $240k\Omega$ befinden sollte.\\
+der Mosfets hauptsächlich von dieser Größe abhängt, ist diese Zeit sehr klein. Eine genaue bestimmung dieser Zeit ist sehr aufwändig, deswegen
+wird hier ein mittlerer Wert von $100k\Omega$ gewählt, dieser soll suich laut Datenblatt zwischen 3 und $240k\Omega$ befinden.\\
 
 
 %(ca 50ns).
@@ -206,7 +192,10 @@ Durch diese Entscheidung werden Betriebsmodi, welche ein Gleichschalten der Mosf
 ist, dass es möglich ist Bremsenergie des Fahrzeugs zurück in den Akku zu speisen. Da die Akkus jedoch mit einer integrierten Ladeelektronik ausgestattet sind, liegt die Vermutung nahe, dass ein Laden des Akkus so nicht möglich ist.
 Darum wird der Betriebsmodus im Rahmen dieser Arbeit nicht untersucht.
 
-Alle weiteren Anschlüsse des Allegros werden direkt an Pins von PORTA am Microcontroller angeschlossen. Da die Fehlerausgänge als Open-Collector ausgeführt sind, werden die Internen Pullup-Widerstände des Microcontrollers genutzt.
+Alle weiteren Anschlüsse des Allegros werden direkt an Pins von PORTC am Microcontroller angeschlossen. Da die Fehlerausgänge als Open-Collector ausgeführt sind, werden die Internen Pullup-Widerstände des Microcontrollers genutzt.
+
+\todo{Verweis auf bild von uC}
+
 
 \section{Motorstrommessung am Shunt}
 
@@ -227,7 +216,11 @@ Da der Innenwiderstand des ADC sehr groß ist (\SI{100}{\mohm}), kann der Spannu
 Die maximal messbare Akkuspannung beträgt dadurch $\frac{\SI{5}{\V}}{0,152}=\SI{32,7}{\V}$. Die Messung des Stroms gestaltet sich wesentlich aufwändiger und wird im Folgenen erläutert.
 
 %TODO
-\todo{Maximale Betiebsspannung ermitteln!!}
+\todo{Maximale Betiebsspannung ermitteln!!
+LM2678= 45 Volt
+Allegro= 50V
+Mosftes = 30V
+}
 
 
 \subsection{Problem}
@@ -253,7 +246,7 @@ Bei einem maximalen Motorstrom von 20A ergibt sich somit ein maximaler Spannungs
 $\frac{\SI{0,1}{\V}}{\SI{20}{A}}=\SI{0,005}{\ohm}$. Shuntwiederstände in der Größe sind problemlos zu bekommen.
 Da es sich hier um eine Worst Case Rechnung handelt, wird der zusätzliche Widerstand des Shuntwiederstandes und der damit verringerte Strom bewusst ignoriert.
 
-Der Shunt wird direkt unter der H-Brücke des Motortreibers gegen Ground geschaltet. So wird eine Messung gegen Ground durchgeführt. Die so über den Shuntwiederstand gemessene Spannung könnte 
+Der Shunt wird direkt unter der H-Brücke des Motortreibers gegen Masse geschaltet. So wird eine Messung gegen Masse durchgeführt. Die so über den Shuntwiederstand gemessene Spannung könnte 
 dann über den ADC Eingang des Mikrocontrollers eingelesen werden. Vorher jedoch muss das Signal gefiltert und verstärkt werden.
 
 \subsection{Anforderungen}
@@ -282,13 +275,14 @@ Nachteil nicht hat. So dass ab dieser Stelle ein Sallen-Key Tiefpass entworfen w
 
 \subsection{Die Filterschaltung}
 
-Wie im vorherigen Abschnitt diskutiert wird hier ein Sallen-Key Tiefpass entworfen. Zum Entworf der Schaltung [\ref{fig:fschalt}] wurde Eagle genutzt.
-\todo{Welcher OPV wird genutzt und warum}
-
+Wie im vorherigen Abschnitt diskutiert wird hier ein Sallen-Key Tiefpass entworfen. Zum Entworf der Schaltung wurde Eagle genutzt.
+Genutzt wird ein AD8628  Rail-to-Rail Operationsverstärker von Analog Devices, da dieser direkt an einer einzelnen 5V Spannung betrieben werden kann und
+über hervorragende Eigenschaften verfügt \cite{ds-opv}. Die fertige Schaltung kann in \cref{fig:fschalt} betrachtet werden. Um Konflikte im Schaltpan zu vermeiden,
+wurden den Variablen ein ``F'' vorangestellt.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{filter_schaltung.png}\\
-\caption{Salle-Key Tiefpass mit Shunt}%
+\caption{Sallen-Key Tiefpass mit Shunt}%
 \label{fig:fschalt}
 \end{figure}
 
@@ -303,15 +297,15 @@ ist es nötig das Messsignal zu verstärken. Hierzu wird ein nichtinvertierender
 Die Beschaltung, welche den Verstärkungsfaktor des Sallen-Key Tiefpass festlegt, entspricht der eines nichtinvertierenden Verstärkers:
 
 \begin{align*}
-v &= 1 + \frac{R_{F3}}{R_{F4}}\\
-50 &= 1 + \frac{R_{F3}}{R_{F4}}\\
-49\cdot R_{F4} &= R_{F3}
+v &= 1 + \frac{R_{3}}{R_{4}}\\
+50 &= 1 + \frac{R_{3}}{R_{4}}\\
+49\cdot R_{4} &= R_{3}
 \end{align*}
 \\
-Wobei $R_{F4} = 47 k\Omega$ und $R_{F3} = 1 k\Omega$  gewählt werden, was eine Verstärkung von 48 ergibt.
+Wobei $R_{F4} = 47 k\Omega$ und $R_{F3} = 1 k\Omega$  gewählt werden, was eine Verstärkung von 48 ergibt. Die Größen sollten nicht zu klein gewählt werden, 
+da der Operationsverstäkerausgang sonst zu stark belastet wird. Ein Gesammtwiderstand von \SI{5}{\kohm} resultiert stets in einem Stromverbrauch von unter \SI{1}{\mA}, und ist
+akzeptabel.
 
-%TODO
-\todo{warum werde widerstände so gewählt}
 
 \subsection{Anforderungen an den Filter}
 
@@ -342,13 +336,9 @@ Statt eine fixe Grenzfreqeunz festzulegen und die benötigte Filterordnung zu be
 
 \subsection{Filterentwurf}
 
-\subsubsection{Bestimmung des Filtertyps}
+\subsubsection{Bestimmung der Filtercharakteristik}
 
-Der Filtertyp muss in zweierlei Hinblick bestimmt werden. Einmal im Hinblick auf die Schaltung und seinem Frequenzgang.
-Im Groben gibt es zwei mögliche aktive Tiefpassfilterschaltungen, den Sallen-Key Tiefpass mit nicht invertierendem OPV und dem aktiven Tiefpass mit Mehrfachgegenkopplung 
-(invertierender OPV). Der aktive Tiefpass mit Mehrfachgegenkopplung benötigt allerdings negative Spannungsniveaus die auf der Treiberplatine nicht zur
-Verfügung stehen, deshalb wird an dieser Stelle nur der Sallen-Key Tiefpass betrachtet.
-Was den Frequenzgang angeht, gibt es viele Filtercharakteristiken, eine Auswahl an häufig verwendeten Charakteristiken wird hier verglichen.
+Die Charakteristik eins Filters entscheidet über seinen Frequenzgang. Es gibt viele dieser Filtercharakteristiken, eine Auswahl an häufig verwendeten Charakteristiken wird hier verglichen.
 
 Der \emph{Butterworth}-Filter besitzt einen maximal flachen Verlauf des Frequenzganges im Durchlassbereich und eine monoton verlaufende Dämpfung im Sperrbereich.
 Leider hat der Butterworth-Filter nur eine geringe Flankensteilheit im Sperrbereich (20dB/Dekade pro Ordnung). Ein Butterworth-Filter 1. Ordnung entspricht einen  einfachen RC-Filter.
@@ -360,6 +350,17 @@ für den geforderten Filter geeignet ist
 Der \emph{Bessel-Filter} hat den Vorteil einer konstanten Gruppenlaufzeit, hat dafür aber eine noch geringere Flankensteilheit als der Butterworth-Filter.
 Da eine konstante Gruppenlaufzeit für den geforderten Filter nicht von Vorteil ist, da das Endsignals einer Gleichspannung entsprechen sollte, ist der Butterworth-Filter
 die bessere Wahl.
+
+
+\subsubsection{Bestimmung der Grenzfreqeunz}
+
+Zur bestimmung der Grenzfrequenz des Filters ist es nötig die PWM-Frequenz der Motoransteuerung zu kennen. Diese kann jedoch nur im Betrieb optimal bestimmt werden, da sie
+auch von subjektiven Kriterien wie dem Motorgeräusch abhängt. Um den Filter trotzdem auslegen zu können wird sie auf 3,9kHz festgelegt. Diese Frequenz
+lässt sich im AVR durch den Phase Correct Modus mit einem Prescaler von 8 erreichen.
+
+\begin{align*}
+f_{PWM}=\frac{f_{CPU}}{Prescaler\cdot 2 \cdot 256} = \frac{16 MHz }{8 \cdot 2 \cdot 256 }=3906,25 Hz
+\end{align*}
 
 
 \begin{figure}[H]
@@ -384,24 +385,23 @@ die bessere Wahl.
 
 
 
-Für unsere Schaltung wird ein Sallen Key Tiefpass 2. Ordnung nach Butterworth entwurfen. Die PWM-Frequenz $f_{PWM}$ beträt 3,9kHz.
-%TODO
-\todo{PWM Frequenz muss noch festgelegt werden, hier sonst erste erwähnung....}
-Die Sperrfrequenz entspreicht der PWM Frequenz, also der Frequenz unserer Grundschwingung. $\Omega$ entspricht der mit der Grenzfreqeunz 
+Für die Schaltung wird nun ein Sallen Key Tiefpass 2. Ordnung nach Butterworth entwurfen. Die PWM-Frequenz $f_{PWM}$ beträt 3,9kHz.
+
+Die Sperrfrequenz entspreicht der PWM Frequenz, also der Frequenz der Grundschwingung. $\Omega$ entspricht der mit der Grenzfreqeunz 
 normierten Frequenz $\Omega=\frac{f}{f_g}$. Nach (\ref{eq:daempfung}) ergibt sich für Abbildung \ref{fig:analog}
-$f_s=f_{PWM}=3,9 kHz$, $a_{min}=55,9 dB$ und $a_{max}$ wird auf 3dB festgelegt.
+$f_s=f_{PWM}=3,9 kHz$, $a_{min}=55,9 dB$ und $a_{max}$ wird auf einen üblichen Wert von 3dB festgelegt.
 
 
 
 
 
 
-\subsubsection{Bestimmung der Grenzfreqeunz}
+
 \begin{align}
 n \ge \frac{\log{\sqrt{\frac{e^{2a_{min}}-1}{e^{2a_{max}}-1}}}}{\log{\Omega_s}}
 \label{eq:butterworth}
 \end{align}
-Die Filterordnung nach Butterworth wird nach (\ref{eq:butterworth}) bestimmt. Umgestellt nach $\Omega_s$ ergibt sich:
+Die Filterordnung nach Butterworth wird nach (\ref{eq:butterworth}) bestimmt\cite{AnalogFilter}. Umgestellt nach $\Omega_s$ ergibt sich:
 
 \begin{align}
 \Omega_s \le  \left(\frac{e^{2a_{min}}-1}{e^{2a_{max}}-1}\right)^{\frac{1}{2n}}
@@ -468,18 +468,15 @@ Betrachten wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. O
 
 
 
-Charakteristisch für den Butterworthfilter ist, dass sich die Polstellen auf einer Kreisbahn befinden. Auf die Grenzfreqeunz normiert hat dieser beim Butterworthfilter den Radius
+Charakteristisch für den Butterworth-Filter ist, dass sich die Polstellen auf einer Kreisbahn befinden. Auf die Grenzfreqeunz normiert hat dieser beim Butterworth-Filter den Radius
 eins. Bei einem Butterworth 2. Ordnung befinden sie sich genau bei $\delta=45^\circ$. Das Interessante am Polstellen-Nullstellendiagramm ist, dass sich Polfrequenz $\Omega_P$ und 
 Polgüte $Q_P$ einfach ablesen lassen. Die Polfrequenz $\Omega_P$ ist der Betrag der normierten Polstelle, welcher beim Butterworth-Filter immer eins ist.
-Die Polgüte ist abhängig von $\delta$ und ergibt sich zu: $Q_P=\frac{1}{2\cos{\delta}}$. Für unseren Butterworthfilter ergeben sich also $Q_P=0,707$ und $\Omega_P=1$
+Die Polgüte ist abhängig von $\delta$ und ergibt sich zu: $Q_P=\frac{1}{2\cos{\delta}}$. Für den Butterworth-Filter ergeben sich also $Q_P=0,707$ und $\Omega_P=1$
 
-%TODO
-\todo{Variablennamen auf Schaltplan anpassen}
-
-Betrachten wir die Übertragungsfunktion eines Sallen-Key Tiefpasses 2. Ordnung:
+Betrachten wir die Übertragungsfunktion eines Sallen-Key Tiefpasses 2. Ordnung \cite[S. 101]{Krucker2000}:
 
 \begin{align*}
-A(P)&=\frac{A_0}{1+\omega_g (R_2 C_2 + R_1 C_2 + R_1 C_2(1-A_0))P + \omega_g^2R_1 R_2 C_1C_2P^2}
+A(P)&=\frac{A_0}{1+\omega_g (R_2 C_1 + R_1 C_1 + R_1 C_2(1-A_0))P + \omega_g^2R_1 R_2 C_1C_2P^2}
 \end{align*}
 
 mit
@@ -501,8 +498,8 @@ Nach dem Koeffizientenvergleich ergibt sich
 
 \begin{align*}
 C_1&<\frac{C_2\cdot(1+4Q^2_P(A_0-1))}{4Q^2_P}\\
-R_1&=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2\pm\sqrt{C_2^2-4Q^2_PC_2(C_1+C2(1-A_0))}}{C_2(C_1-C_2(1-A_0))}   \\
-R_2&=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2\pm\sqrt{C_2^2-4Q^2_PC_2(C_1+C2(1-A_0))}}{C_1C_2}  \\
+R_1&=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2\pm\sqrt{C_2^2-4Q^2_PC_2(C_1+C_2(1-A_0))}}{C_2(C_1-C_2(1-A_0))}   \\
+R_2&=\frac{1}{2\omega_g\Omega_PQ_P} \cdot \frac{C_2\pm\sqrt{C_2^2-4Q^2_PC_2(C_1+C_2(1-A_0))}}{C_1C_2}  \\
 Q_p&=\frac{\sqrt{R_1R_2C_1C_2}}{C1(R_1+R_2)+R_1C_2(1-A_0)}\\
 \Omega_p&=\frac{1}{\omega_g\sqrt{R_1R_2C_1C_2}}
 \end{align*}
@@ -512,8 +509,8 @@ Dabei sind immer nur die positiven, reellen Lösungen zu verwenden.
 
 \subsubsection{Bestimmung der Bauteilwerte}
 
-Um die Übersicht zu wahren wird die Berechnung der Bauteilwerte hier nicht aufgeführt. Zur Erinnerung,
-die gegebenen Werte sind $Q_P=0,707$, $\Omega_P=1$, $A_0=48$ und $\omega_g = 2 \cdot \pi 100Hz$.
+Um die Übersicht zu wahren wird die Berechnung der Bauteilwerte hier nur auszugsweise aufgeführt. Zur Erinnerung,
+die gegebenen Werte sind $Q_P=0,707$, $\Omega_P=1$, $A_0=48$ und $\omega_g = 2 \cdot \pi \cdot 100Hz$.
 $A_0$ ist die Gleichspannungsverstärkung, sie beschreibt den gewünschten Verstärkungsfaktor der bereits in einem voherigen
 Abschnitt mit 48 bestimmt wurde. Die Berechnungen wurden mit Hilfe eines Python-Scriptes ausgeführt, dabei wurden verschiedene
 Konfigurationen durchgerechnet. Hautpsächlich wurde dabei darauf geachtet, dass sich der Filter mit den vor Ort vorhandennen SMD-Bauteilen
@@ -530,13 +527,15 @@ C_1&<3.90\mu F
 $C_1$ soll nur kleiner sein als 3.90\textmu F und wird ebenfalls auf 82nF gesetzt.
 
 \begin{align*}
-R_1&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot \frac{82nF\pm\sqrt{82nF^2-4\cdot0.707^2\cdot82nF(82nF+82nF(1-48))}}{82nF(82nF-82nF(1-48))}\\
+B_1&=\frac{82nF\pm\sqrt{82nF^2-4\cdot0.707^2\cdot82nF(82nF+82nF(1-48))}}{82nF(82nF-82nF(1-48))}\\
+R_1&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot B_1\\
 R_1&=[-3176\Omega,2579\Omega]
 \end{align*}
 
 
 \begin{align*}
-R_2&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot \frac{82nF\pm\sqrt{82nF^2-4\cdot0.707^2\cdot82nF(82nF+82nF(1-48))}}{82nF^2}\\
+B_2=&\frac{82nF\pm\sqrt{82nF^2-4\cdot0.707^2\cdot82nF(82nF+82nF(1-48))}}{82nF^2}\\
+R_2&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot B_2\\
 R_2&=[146079\Omega,-118626\Omega]
 \end{align*}
 
@@ -555,7 +554,7 @@ Es ist eine Verstärkung von 48 des Ursprungssignals gewünscht. Diese Verstärk
 20\cdot\log{48}=-33,6dB
 \end{align*}
 
-Bei 3,9kHz erreicht der Filter eine Dämpfung von -30,1dB. Zusammen mit der Verstärkung von 33,6dB unseres Eingangssignals 
+Bei 3,9kHz erreicht der Filter eine Dämpfung von -30,1dB. Zusammen mit der Verstärkung von 33,6dB des Eingangssignals 
 wird das bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren hier 55,9dB, so dass der Filter den gerforderten Wert übersteigt, was an der niedrigeren Grenzfreqeunz von 100Hz statt 108,9Hz liegt.
 
 %%Verstärkung: 33,6dB gewünscht:
@@ -578,13 +577,15 @@ wird das bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren h
 \label{plott:filter_freq}
 \end{figure}
 
-Leider kann ein solcher Filter nur mit erheblichen Aufwändungen gebaut werden, da es keine fertigen Widerstände in den Größen $2579\Omega\\$ und $146079\Omega$ gibt. Da jedoch alle Widerstände der E12 Reihe vor Ort vorhanden sind, werden die realen Werte wie folgt gewählt: $R_1=2,7k\Omega\\ R_2=150k\Omega$, da sie den nächsten Größen in der E12 Reihe entsprechen.
+Leider kann ein solcher Filter nur mit erheblichen Aufwändungen gebaut werden, da es keine fertigen Widerstände in den Größen $2579\Omega\\$ und $146079\Omega$ gibt. 
+Da jedoch alle Widerstände der E12 Reihe vor Ort vorhanden sind, werden die realen Werte wie folgt gewählt: $R_1=2,7k\Omega\\ R_2=150k\Omega$, da sie den nächsten Größen in der E12 Reihe entsprechen.
 
 
 In der folgenden Abbildung ist die Simulation des Filters mit den realen Bauteilwerten(grün) im Vergleich zum idealen Filter(rot) zu sehen.
-Die Grenzfrequenz des Filters (-3dB) liegt diesmal mit 104Hz etwas über den ursprünglichen 100Hz. Da wir die Werte von $R_5$ und $R_6$ nicht verändert haben, liegt die Verstärkung bei 10Hz immer noch bei exakt 33,6dB. Bei 3,9 kHz, im Diagramm gut zu erkennen wird trotz der höheren Grenzfrequenz eine höhere Dämpfung als vorher erreicht. Diese liegt bei 33,7dB. Daran kann man erkennen, dass es sich nicht mehr um einen idealen Butterworthfilter handelt. 
+Die Grenzfrequenz des Filters (-3dB) liegt diesmal mit 104Hz etwas über den ursprünglichen 100Hz. Da wir die Werte von $R_5$ und $R_6$ nicht verändert haben, 
+liegt die Verstärkung bei 10Hz immer noch bei exakt 33,6dB. Bei 3,9 kHz, im Diagramm gut zu erkennen wird trotz der höheren Grenzfrequenz eine höhere Dämpfung als vorher erreicht.
+Diese liegt bei 33,7dB. Daran kann man erkennen, dass es sich nicht mehr um einen idealen Butterworth-Filter handelt. 
 
-\todo{Butterworthfilter identische Schreibweise}
 %%Verstärkung: 33,6dB gewünscht:
 %%20*log(1/48)=-33,6
 
@@ -594,20 +595,23 @@ Die Grenzfrequenz des Filters (-3dB) liegt diesmal mit 104Hz etwas über den urs
 \begin{figure}[H]
 \centering
 \begin{gnuplot}[terminal=pdf]
-  set nokey 
   set xrange [10:3900]
   set xlabel 'Frequenz in [Hz]'
   set ylabel 'Verstärkung in [dB]'
   set logscale x 10
   
-  plot 'Simulation/Filter_original_frequenzgang.csv' with line linecolor rgb "red", 'Simulation/Filter_real_frequenzgang.csv' with line linecolor rgb "green"
+  plot 'Simulation/Filter_original_frequenzgang.csv' with line linecolor rgb "red" title "Ideal", 'Simulation/Filter_real_frequenzgang.csv' with line linecolor rgb "green" title "Real"
 \end{gnuplot}
 \caption{Frequenzgang des berechneten Filters mit finalen Bauteilwerten}
 \label{plott:filter_freq_real}
 \end{figure}
 
+\todo{Überall Kommas oder Punkte als Dezimaltrenner}
 
-Im der folgenden Abbildung [\ref{plott:filter_sprungantwort}] ist die Antwort des Filters auf ein Rechtecksignal mit 3,9kHz, einem Tastverhältnisvon 0,5 und einer Amplitude von 50mV zu sehen. Das Überschwingen im Bereich von 7ms ist charakteristisch für den Butterworthfiter und wirkt sich negativ auf die Messung des Stromes aus. Allerdings werden solch große Sprünge in der Praxis nicht auftreten, da der Strom duch die große Induktivität des Motors nur langsam ansteigt.
+Im der folgenden Abbildung [\ref{plott:filter_sprungantwort}] ist 
+die Antwort des Filters auf ein Rechtecksignal mit 3,9kHz, einem Tastverhältnisvon 0,5 und einer Amplitude von 50mV zu sehen. Das Überschwingen im Bereich
+von 7ms ist charakteristisch für den Butterworth-Filter und wirkt sich negativ auf die Messung des Stromes aus. Allerdings werden solch große Sprünge in der Praxis nicht auftreten
+, da der Strom duch die große Induktivität des Motors nur langsam ansteigt.
 \begin{figure}[H]
 \centering
 \begin{gnuplot}[terminal=pdf]

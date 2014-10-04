@@ -11,7 +11,7 @@ Diese verfügt über ein Crumb123 Mikrocontoller Modul (At90can128), welches ein
 Des weiteren verfügt der Prototyp über einen 3 Ampere Schaltregler von Texas Instruments, welcher Mikrocontoller und zwei Pandaboard mit Energie Versorgt, 
 Der Schaltregler befindet sich durch den betrieb zweier Pandaboards jedoch bereits an seiner Leistungsgrenze, da ursprünglich nur der Bertieb eines Pandaboards
 vorgesehen war. Der Verwendete Motortreiber wurde genutzt, weil weil er durch die Verwendung in anderen Projekten bereits vorhanden war, jedoch ist dieser 
-nur für Ströme von bis zu \SI{4}{\A} ausgelegt. In einem Versuch wuden für den im Fahrzeug vorhandenen Motor Stöme von bis zu \SI{20}{\A} gemessen. 
+nur für Ströme von bis zu \SI{4}{\A} ausgelegt \cite{L298}. In einem Versuch wuden für den im Fahrzeug vorhandenen Motor Stöme von bis zu \SI{20}{\A} gemessen. 
 Durch die Unterdimensionierung des Treibers überhitzt dieser bereits nach wenigen Minuten Fahrbetrieb.
 Da der vorhandene Motor jedoch weiter verwendet werden soll, muss hier ein leistungsfähiger Ersatz 
 entwickelt werden. Des weiteren fehlen dem Prototyp wichtige Anschlüsse für weitere Sensoren und Beleuchtung. Welche nun integriert werden sollen. 
@@ -79,4 +79,12 @@ Anschlüsse für zwei Sharp Sensoren vom Typ ``GP2D120'' oder ``GP2D12'' sowie w
 Es muss eine Odometrie zur Messung der Geschwindigkeit in irgendeiner Form integriert werden.
 Es muss eine effiziente Energieversorgung aller Bauteile zur Verfügung gestellt werden, welche auch zwei Pandaboards stabil betreiben kann. 
 Da das Fahrzeug energieeffizient arbeiten soll ist eine Messung des Motorstromverbrauches essenziell um das Fahrverhalten bezüglich der Effiziens bewerten zu können.
-Zu guter letzt muss die Platine über eine Schnitstekke mit einem Pandaboard kommunizieren und seine Daten dort über ein ROS-Interface zur Verfügung zu stellen.
+Zu guter letzt muss die Platine über eine Schnittstelle mit einem Pandaboard kommunizieren und seine Daten dort über ein ROS-Interface zur Verfügung zu stellen.
+
+\section{Änderung der Anforderungen}
+Nach der erfolgreichen Teilnahme am ``Carolo-Cup Junior'' im Februar 2014, begann die Weiterentwicklung des Konzepts. Während der Entwicklung kamen jedoch
+einige Flaschenhälse zum vorschein, so dass in der Projektphase die Hardwareplatform geändert werden musste. Die Rechenleistung der Pandaboards stellte sich
+als unzureichend heraus und es wurden mehr Distanzsensoren gewünscht. Die Pandaboards wurden nach der Absprache mit dem Team durch ein Intel NUC vom Typ
+D34010WYB ersetzt. Laut Datenblatt \cite{datasheet-nuc} besitzt der NUC einen Weitbereichseingang zur Spannungsversorgung, dieser ist für 12-24 Volt zugelassen.
+Sodas der NUC direkt an den 14,4V der Akkus betrieben werden kann.  Um Verwirrungen zu vermeiden wird im Folgenden legendlich von Recheneinheit gesprochen, wenn
+es nicht relevant ist ob es sich um NUC oder Pandaboard handelt.
