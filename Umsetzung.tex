@@ -1,7 +1,7 @@
 \chapter{Umsetzung}
 
 
-\todo{text verbessern.....ode entfernen}
+\todo{Text verbessern.....oder entfernen}
 In diesem Kapitel werden die technischen Hintergründe der einzelnen Komponenten erläutert und ihre Umsetzung beschrieben.
 ....
 
@@ -24,7 +24,7 @@ welche das Schaltungsdesign enorm vereinfachen.
 \todo{minimale Max Betriebsspannung im Anforderungsanalyse/Konzept festlegen}
 
 \subsection{Auswahl der Mosfets}
-Die Auswahl der Mosfets wird duch den geforderten Strom von 20A und der maximalen Betriebsspannung von 20V eingegrenzt. Weitere Kriterien wie die Gate-Source-Spannung, welche zum Durchschalten
+Die Auswahl der Mosfets wird durch den geforderten Strom von 20A und der maximalen Betriebsspannung von 20V eingegrenzt. Weitere Kriterien wie die Gate-Source-Spannung, welche zum Durchschalten
 der Mosfets benötigt wird, sind auf Grund der Tatsache, dass ein Mosfettreiber verwendet werden soll nicht von Belang, da dieser die benötigten Spannungen generiert.
 Für die Anwendung in einem Vierquadrantensteller ist die wahrscheinlich wichtigste Größe der Drain-Source-Widerstand im Einschaltzustand $R_{\text{DS(ON)}}$.
 Ein kleiner $R_{\text{DS(ON)}}$ ist von Vorteil und führt zu einer kleinen Verlustleistung an den Mosfets.
@@ -47,8 +47,8 @@ dem Allegro A3941 \cite{ds-A3941}.
 \subsubsection{Allegro A3941}
 Der Allegro A3941  ist für Betriebsspannungen von 5,5V bis 50V geeignet und liegt damit in der Spezifikation des Projekts.
 Des Weiteren verfügt der Motor über einen integrierten 5V-Regulator und kann somit ohne Spannungsregulator am Akku betrieben werden.
-Über zwei Ausgänge der Treibers können diverse Fehler ausgelesen werden. Auch sind alle gängigen Schutztschaltungen wie z.B. ein Kurzschlussschutz enthalten.
-Daher ist er herrvorragend für das Projekt geeignet.
+Über zwei Ausgänge der Treibers können diverse Fehler ausgelesen werden. Auch sind alle gängigen Schutzschaltungen wie z.B. ein Kurzschlussschutz enthalten.
+Daher ist er hervorragend für das Projekt geeignet.
 
 
 Der Treiber lässt sich in verschiedenen Modi betreiben:
@@ -79,7 +79,7 @@ Bei aktivierten PWMH fließt der Strom durch den GHA-Mosfets über den Motor und
 dann über den GLB-Mosfet. In diesem Modus wird der Motor angetrieben.
 Wenn PWML deaktiviert ist, zirkuliert der vom Motor induziert Strom durch 
 GLB und durch GLA. Der Motor wird durch den niedrigeren Innenwiderstand des Mosfets 
-stärker gebremst als in der voherigen Konfiguration. Dabei ist darauf zu achten, dass
+stärker gebremst als in der vorherigen Konfiguration. Dabei ist darauf zu achten, dass
 beinahe die gesamte vom Motor induzierte Spannung über den beiden Mosfets (GLA/GLB) abfällt,
 was zu einer starken Hitzeentwicklung führen kann.
 
@@ -128,9 +128,9 @@ fließt der Strom von links nach rechts. Liegt 0 an, fließt er von rechts nach 
 Mithilfe des PHASE-Pins wird also die Polung des Motors festgelegt.
 
 
-\subsubsection{Schaltpan}
+\subsubsection{Schaltplan}
 
-In Folgenden wird geklärt wie sich die Beschaltung des Allegro A3941 bestimmen lässt. Die Schaltung in \cref{fig:schalt:allegro} entspicht dabei den Vorgaben im Datenblatt.
+In Folgenden wird geklärt wie sich die Beschaltung des Allegro A3941 bestimmen lässt. Die Schaltung in \cref{fig:schalt:allegro} entspricht dabei den Vorgaben im Datenblatt.
 
 \begin{figure}[H]
 \centering
@@ -163,17 +163,13 @@ wird hier ein mittlerer Wert von $100k\Omega$ gewählt, dieser soll sich laut Da
 % Gatekapazität $C_{\text{GATE}}=\frac{13nC}{13V}=1\text{nF}$. Die Entladedauer für für einen nF beträgt laut Datenblatt 20ns. Die Ladedauer 35ns. Allerdings ist
 
 Als Nächstes werden die Größen der Bootstrapkondensatoren C\textsubscript{BOOTA} und C\textsubscript{BOOTB} bestimmt. Diese sind für eine ordnungsgemäße
-Funktion der Schaltung richtig zu wählen. Zu kleine Kondensatoren verhindern ein Durchschalten der oberen Mosfest, was zu einer nicht funktionsfähigen Schaltung
+Funktion der Schaltung richtig zu wählen. Zu kleine Kondensatoren verhindern ein Durchschalten der oberen Mosfets, was zu einer nicht funktionsfähigen Schaltung
 führt. Zu große Werte hingegen verringern das maximale Tastverhältnis des PWM Signals, da die Aufladung der Kondensatoren Zeit in Anspruch nimmt.
 Laut Datenblatt hat sich folgende Faustformel gut bewährt:
 
 \begin{align*}
 C_{\text{BOOT}}=\frac{Q_{\text{GATE}}\cdot20}{V_{\text{BOOT}}}
 \end{align*}
-
-
-
-
 
 
 V\textsubscript{BOOT} entspricht dabei in etwa V\textsubscript{REG}, welche laut Datenblatt \cite{ds-A3941} 13V beträgt.
@@ -195,20 +191,20 @@ C\textsubscript{BOOTA} bzw C\textsubscript{BOOTB} gewählt werden, sodass hier e
 Das Datenbatt empfiehlt \SI{100}{\nF} entkoppelungs Kondensatoren zwischen Drain und Source eines jeden Mosfets. Diese wurden in Form von C\textsubscript{AH},C\textsubscript{AL},C\textsubscript{BH} und C\textsubscript{BL} 
 verbaut. Alle restlichen Größen werden direkt dem Datenblatt entnommen.\\
 
-Da der verwendete AVR Microcontroller nur über begrenzte PWM fähige Anschlüsse verfügt, wird lediglich der PWM-Kanal für die oberen Mosfets (PWMH) an einen PWM Ausgang des AVR angeschlossen.
-Durch diese Entscheidung werden Betriebsmodi, welche ein Gleichschalten der Mosfets erfordern, erschwert und können nur duch ein Software PWM realisiert werden. Der Vorteil es Betriebsmodus ``Fast decay, diode recirculation''
+Da der verwendete AVR Mikrocontroller nur über begrenzte PWM fähige Anschlüsse verfügt, wird lediglich der PWM-Kanal für die oberen Mosfets (PWMH) an einen PWM Ausgang des AVR angeschlossen.
+Durch diese Entscheidung werden Betriebsmodi, welche ein Gleichschalten der Mosfets erfordern, erschwert und können nur durch ein Software PWM realisiert werden. Der Vorteil es Betriebsmodus ``Fast decay, diode recirculation''
 ist, dass es möglich ist Bremsenergie des Fahrzeugs zurück in den Akku zu speisen. Da die Akkus jedoch mit einer integrierten Ladeelektronik ausgestattet sind, liegt die Vermutung nahe, dass ein Laden des Akkus so nicht möglich ist.
 Deshalb wird der Betriebsmodus im Rahmen dieser Arbeit nicht untersucht.
 
-Alle weiteren Anschlüsse des Allegros werden direkt an Pins von PORTC am Microcontroller angeschlossen. Da die Fehlerausgänge als Open-Collector ausgeführt sind, werden die internen Pullup-Widerstände des Microcontrollers genutzt.
+Alle weiteren Anschlüsse des Allegros werden direkt an Pins von PORTC am Mikrocontroller angeschlossen. Da die Fehlerausgänge als Open-Collector ausgeführt sind, werden die internen Pullup-Widerstände des Mikrocontrollers genutzt.
 
-\todo{Verweis auf bild von uC}
+\todo{Verweis auf Bild von uC}
 
 
 \section{Motorstrommessung am Shunt}
 
 Da innerhalb des Wettbewerbes Energieeffizienz wichtig ist, ist es notwendig den aktuellen Stromverbrauch zu kennen. Es wird davon ausgegangen, dass der Stromverbrauch der Recheneinheit und Sensoren
-konstant ist, bzw. sich mit der fertigen Software über die Zeit nicht wesentlich ändert. Da der Motor einen großen zu erwartenden Verbrauch hat, ist es wichtig seinen Verbrauch zu bestimmen. Mithilfe dieser
+konstant ist, bzw.. sich mit der fertigen Software über die Zeit nicht wesentlich ändert. Da der Motor einen großen zu erwartenden Verbrauch hat, ist es wichtig seinen Verbrauch zu bestimmen. Mithilfe dieser
 Informationen ist es möglich verschiedene Fahrregler Auslegungen im Aspekt des Verbrauches zu vergleichen. Um den Verbrauch zu bestimmen, ist es notwendig die anliegende Spannung und den Strom durch den
 Motor zu messen. Die H-Brücke wird dabei als Teil des Motors betrachtet, daher entspricht Spannung über den Motor der Akkuspannung. Diese lässt sich einfach über einen Spannungsteiler an den ADC des Mikrocontrollers
 anschließen. Als Werte für den Spannungsteiler werden \SI{1,8}{\kohm} und \SI{10}{\kohm} gewählt.
@@ -221,7 +217,7 @@ anschließen. Als Werte für den Spannungsteiler werden \SI{1,8}{\kohm} und \SI{
 \end{figure}
 
 Da der Innenwiderstand des ADC sehr groß ist (\SI{100}{\mohm}), kann der Spannungsteiler als unbelastet betrachtet werden. Damit ergibt sich das Teilungsverhältnis zu $\frac{R_{STL}}{R_{STH}+R_{STL}}=0,153$.
-Die maximal messbare Akkuspannung beträgt dadurch $\frac{\SI{5}{\V}}{0,152}=\SI{32,7}{\V}$. Die Messung des Stroms gestaltet sich wesentlich aufwändiger und wird im Folgenen erläutert.
+Die maximal messbare Akkuspannung beträgt dadurch $\frac{\SI{5}{\V}}{0,152}=\SI{32,7}{\V}$. Die Messung des Stroms gestaltet sich wesentlich aufwändiger und wird im Folgenden erläutert.
 
 
 %\todo{Maximale Betiebsspannung ermitteln!!
@@ -235,7 +231,7 @@ Die maximal messbare Akkuspannung beträgt dadurch $\frac{\SI{5}{\V}}{0,152}=\SI
 
 Die Messung des Motorstroms ist mit einem Problem behaftet, da der Motor über eine Pulsweitenmodulation angesteuert wird. Der Verlauf des Stroms ist pulsierend, abhängig von
 der Frequenz und dem Tastgrad der Pulsweitenmodulation. In \cref{fig:pwm+i_0} zu erkennen ist der Verlauf des PWM Signals (obere Kurve) und des Stroms, welcher nach einer $1-e^t$ Funktion ansteigt.
-Ohne weitere Filterung des Signals wäre eine extrem hohe Abtastfequenz des ADC nötig, um den genauen Stromfluss zu messen. Da für eine Verbrauchsmessung 
+Ohne weitere Filterung des Signals wäre eine extrem hohe Abtastfrequenz des ADC nötig, um den genauen Stromfluss zu messen. Da für eine Verbrauchsmessung 
 der Mittelwert des Stroms interessant ist, kann dieser mit Hilfe eines Tiefpasses erzeugt werden.
 
 
@@ -250,8 +246,8 @@ Eine kostengünstige Variante den Strom zu messen ist den Spannungsabfall über 
 Ein zu kleiner Shuntwiderstand benötigt einen starken Messverstärker, um das Signal auswerten zu können. Die Qualität und Genauigkeit dieses Signals nimmt allerdings mit steigender Verstärkung ab.
 
 Nach kurzer Recherche wurde die Größe des Shuntwiderstands auf R2512(ca \SI{6,35}{\mm} x \SI{3,00}{\mm}) begrenzt. Messshunts in dieser Größe gibt es problemlos bis zu einer Belastbarkeit von 2 Watt. 
-Bei einem maximalen Motorstrom von 20A ergibt sich somit ein maximaler Spannungsabfall von \SI{100}{\mV}. Nach dem Ohmschen Gesetz ergibt sich so eine Shuntgröße von
-$\frac{\SI{0,1}{\V}}{\SI{20}{A}}=\SI{0,005}{\ohm}$. Shuntwiederstände in der Größe sind problemlos zu bekommen.
+Bei einem maximalen Motorstrom von 20A ergibt sich somit ein maximaler Spannungsabfall von \SI{100}{\mV}. Nach dem Ohmschen Gesetz ergibt sich so eine Shunt-Größe von
+$\frac{\SI{0,1}{\V}}{\SI{20}{A}}=\SI{0,005}{\ohm}$. Shuntwiderstände in der Größe sind problemlos zu bekommen.
 Da es sich hier um eine Worst Case Rechnung handelt, wird der zusätzliche Widerstand des Shuntwiderstandes und der damit verringerte Strom bewusst ignoriert.
 
 Der Shunt wird direkt unter der H-Brücke des Motortreibers gegen Masse geschaltet. So wird eine Messung gegen Masse durchgeführt. Die so über den Shuntwiderstand gemessene Spannung könnte 
@@ -279,13 +275,13 @@ negativen Referenzspannung arbeiten, was den Schaltungsaufwand unnötig vergrö�
 Nachteil nicht hat. Sodass ab dieser Stelle ein Sallen-Key Tiefpass entworfen wird.
 
 %TODO
-\todo{Quellen (verweise auf übliche Filtertypem)}
+\todo{Quellen (verweise auf übliche Filtertypen)}
 
 \subsection{Die Filterschaltung}
 
-Wie im vorherigen Abschnitt diskutiert, wird hier ein Sallen-Key Tiefpass entworfen. Zum Entworf der Schaltung wurde Eagle genutzt.
+Wie im vorherigen Abschnitt diskutiert, wird hier ein Sallen-Key Tiefpass entworfen. Zum Entwurf der Schaltung wurde Eagle genutzt.
 Genutzt wird ein AD8628  Rail-to-Rail Operationsverstärker von Analog Devices, da dieser direkt an einer einzelnen 5V Spannung betrieben werden kann und
-über hervorragende Eigenschaften verfügt \cite{ds-opv}. Die fertige Schaltung kann in \cref{fig:fschalt} betrachtet werden. Um Konflikte im Schaltpan zu vermeiden,
+über hervorragende Eigenschaften verfügt \cite{ds-opv}. Die fertige Schaltung kann in \cref{fig:fschalt} betrachtet werden. Um Konflikte im Schaltplan zu vermeiden,
 wurden den Variablen ein ``F'' vorangestellt.
 \begin{figure}[H]
 \centering
@@ -299,10 +295,10 @@ wurden den Variablen ein ``F'' vorangestellt.
 \subsection{Dimensionierung des Verstärkers}
 
 In bisherigen Rechnungen wurde ein maximaler Spannungsabfall von 100mV am Shunt errechnet. Da der Messbereich des ADC voll ausgenutzt werden soll,
-ist es nötig das Messsignal zu verstärken. Hierzu wird ein nichtinvertierender Verstärker genutzt. Da der Messbereich des ADC bis 5V reicht, wird hier eine 
+ist es nötig das Messsignal zu verstärken. Hierzu wird ein nicht-invertierender Verstärker genutzt. Da der Messbereich des ADC bis 5V reicht, wird hier eine 
 50-fache Verstärkung angestrebt.
 
-Die Beschaltung, welche den Verstärkungsfaktor des Sallen-Key Tiefpass festlegt, entspricht der eines nichtinvertierenden Verstärkers:
+Die Beschaltung, welche den Verstärkungsfaktor des Sallen-Key Tiefpass festlegt, entspricht der eines nicht-invertierenden Verstärkers:
 
 \begin{align*}
 v &= 1 + \frac{R_{3}}{R_{4}}\\
@@ -311,7 +307,7 @@ v &= 1 + \frac{R_{3}}{R_{4}}\\
 \end{align*}
 \\
 Wobei $R_{F4} = 47 k\Omega$ und $R_{F3} = 1 k\Omega$  gewählt werden, was eine Verstärkung von 48 ergibt. Die Größen sollten nicht zu klein gewählt werden, 
-da der Operationsverstäkerausgang sonst zu stark belastet wird. Ein Gesamtwiderstand von \SI{5}{\kohm} resultiert stets in einem Stromverbrauch von unter \SI{1}{\mA} und ist
+da der Operationsverstärkerausgang sonst zu stark belastet wird. Ein Gesamtwiderstand von \SI{5}{\kohm} resultiert stets in einem Stromverbrauch von unter \SI{1}{\mA} und ist
 akzeptabel.
 
 
@@ -330,7 +326,7 @@ Tastverhältnis von 0.5 entspricht. Die Amplitude der Grundschwingung ergibt sic
 A_1 = K\cdot \frac{1}{\pi}[\sin(\pi p)-\sin(2\pi(1-\frac{p}{2}))]
 \label{eq:ripple}
 \end{align}
-Wobei $p$ dem Tastverhältnis und $K$ der maximale Amplitude des Ursprungsingals entspricht \cite{Alter2008}. $K$ entspricht den errechneten 100mV multipliziert mit dem Verstärkungsfaktor 48, also 4.8V. 
+Wobei $p$ dem Tastverhältnis und $K$ der maximale Amplitude des Ursprungssignal entspricht \cite{Alter2008}. $K$ entspricht den errechneten 100mV multipliziert mit dem Verstärkungsfaktor 48, also 4.8V. 
 Das Tastverhältnis $p$ wird zu 0,5
 angenommen. Mit (\ref{eq:ripple}) ergibt sich für die Amplitude der Grundschwingung $ A_1 = K\cdot \frac{2}{\pi} = 3,056V$. $A_1$ soll auf $ < 4,88mV$ gedämpft werden.
 Als Sperrfrequenz $\Omega_s $ wird hier die PWM Frequenz angesetzt. Für $H(\omega=2\pi f_{PWM})$ gilt also:
@@ -341,7 +337,7 @@ H(\omega=2\pi f_{PWM}) \le \frac{4,88mV}{3,056V} \mathop{\hat{=}} 20\cdot\log(\f
 \end{align}
 
 Um die Komplexität der Schaltung gering zu halten, wird im Folgenden von den üblichen Konventionen zur Dimensionierung von Filtern abgewichen.
-Statt eine fixe Grenzfreqeunz festzulegen und die benötigte Filterordnung zu bestimmen, wird die Filterordnung vorgegeben und die Grenzfrequenz variiert.
+Statt eine fixe Grenzfrequenz festzulegen und die benötigte Filterordnung zu bestimmen, wird die Filterordnung vorgegeben und die Grenzfrequenz variiert.
 
 \subsection{Filterentwurf}
 
@@ -353,7 +349,7 @@ Der \emph{Butterworth}-Filter besitzt einen maximal flachen Verlauf des Frequenz
 Leider hat der Butterworth-Filter nur eine geringe Flankensteilheit im Sperrbereich (20dB/Dekade pro Ordnung). Ein Butterworth-Filter 1. Ordnung entspricht einen  einfachen RC-Filter.
 
 Der \emph{Tschebyscheff}-Filter hat eine höhere Flankensteilheit als der Butterworth-Filter, allerdings entsteht beim Tschebyscheff-Filter Welligkeit im Durchlassbereich,
-welche mit höherer Ordnung zunimmt. Durch die Welligkeit im Duchlassbereich würde ein zusätzlicher Ripple im Signal entstehen, weshalb der Tschebyscheff-Filter nicht
+welche mit höherer Ordnung zunimmt. Durch die Welligkeit im Durchlassbereich würde ein zusätzlicher Ripple im Signal entstehen, weshalb der Tschebyscheff-Filter nicht
 für den geforderten Filter geeignet ist. 
 
 Der \emph{Bessel-Filter} hat den Vorteil einer konstanten Gruppenlaufzeit, hat dafür aber eine noch geringere Flankensteilheit als der Butterworth-Filter.
@@ -361,7 +357,7 @@ Da eine konstante Gruppenlaufzeit für den geforderten Filter nicht von Vorteil 
 die bessere Wahl.
 
 
-\subsubsection{Bestimmung der Grenzfreqeunz}
+\subsubsection{Bestimmung der Grenzfrequenz}
 
 Zur Bestimmung der Grenzfrequenz des Filters ist es nötig die PWM-Frequenz der Motoransteuerung zu kennen. Diese kann jedoch nur im Betrieb optimal bestimmt werden, da sie
 auch von subjektiven Kriterien wie dem Motorgeräusch abhängt. Um den Filter trotzdem auslegen zu können wird sie auf 3,9kHz festgelegt. Diese Frequenz
@@ -394,9 +390,9 @@ f_{PWM}=\frac{f_{CPU}}{Prescaler\cdot 2 \cdot 256} = \frac{16 MHz }{8 \cdot 2 \c
 
 
 
-Für die Schaltung wird nun ein Sallen Key Tiefpass 2. Ordnung nach Butterworth entworfen. Die PWM-Frequenz $f_{PWM}$ beträt 3,9kHz.
+Für die Schaltung wird nun ein Sallen Key Tiefpass 2. Ordnung nach Butterworth entworfen. Die PWM-Frequenz $f_{PWM}$ beträgt 3,9kHz.
 
-Die Sperrfrequenz entspricht der PWM Frequenz, also der Frequenz der Grundschwingung. $\Omega$ entspricht der mit der Grenzfreqeunz 
+Die Sperrfrequenz entspricht der PWM Frequenz, also der Frequenz der Grundschwingung. $\Omega$ entspricht der mit der Grenzfrequenz 
 normierten Frequenz $\Omega=\frac{f}{f_g}$. Nach (\ref{eq:daempfung}) ergibt sich für Abbildung \ref{fig:analog}
 $f_s=f_{PWM}=3,9 kHz$, $a_{min}=55,9 dB$ und $a_{max}$ wird auf einen üblichen Wert von 3dB festgelegt.
 
@@ -418,7 +414,7 @@ Die Filterordnung nach Butterworth wird nach (\ref{eq:butterworth}) bestimmt\cit
 
 
 
-Für die Berechnung der Sperrfrequenz $\Omega_s$ müssen  $a_{min}$ und $a_{max}$ in Neper umgrechnet werden. Wobei:
+Für die Berechnung der Sperrfrequenz $\Omega_s$ müssen  $a_{min}$ und $a_{max}$ in Neper umgerechnet werden. Wobei:
 \begin{align*}
 1 \text{dB} =  \frac{\ln{10}}{20}\text{Np} = 0,115129255 \text{Np}   
 \end{align*}
@@ -428,17 +424,17 @@ Damit ergibt sich für $a_{min}=55,9 dB\cdot \frac{\ln{10}}{20}=6,45Np$ und für
 \Omega_s \le  \left(\frac{e^{2\cdot6,45N }-1}{e^{2\cdot 0,345Np}-1}\right)^{\frac{1}{2n}}  = 35,8
 \end{align}
 
-Die Grenzfreqeunz $f_g$ ergibt sich jetzt aus:
+Die Grenzfrequenz $f_g$ ergibt sich jetzt aus:
 
 \begin{align}
 \frac{f_s}{\Omega_s} \le \frac{3,9kHz}{35,8} = 108,9Hz
 \end{align}
 
 \subsubsection{Filterentwurf}
-Im voherigen Abschnitt wurde berechnet, dass die Grenzfreqeunz des Filters kleiner als 108,9Hz sein muss.
+Im vorherigen Abschnitt wurde berechnet, dass die Grenzfrequenz des Filters kleiner als 108,9Hz sein muss.
 Im Folgenden wird nun ein Sallen-Key Filter 2. Ordnung mit einer Grenzfrequenz von 100Hz entworfen.
-Die genaue Wahl der Grenzfreqeunz ist hier nicht relevant da die realen Bauteile nicht in  allen Größen 
-verfügbar sind und daher am Schluss variiert werden müssen, wodurch sich die Grenzfrequen des Filters leicht ändert.
+Die genaue Wahl der Grenzfrequenz ist hier nicht relevant da die realen Bauteile nicht in  allen Größen 
+verfügbar sind und daher am Schluss variiert werden müssen, wodurch sich die Grenzfrequenz des Filters leicht ändert.
 
 
 \subsubsection{Finaler Entwurf}
@@ -477,7 +473,7 @@ Betrachten wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. O
 
 
 
-Charakteristisch für den Butterworth-Filter ist, dass sich die Polstellen auf einer Kreisbahn befinden. Auf die Grenzfreqeunz normiert hat dieser beim Butterworth-Filter den Radius
+Charakteristisch für den Butterworth-Filter ist, dass sich die Polstellen auf einer Kreisbahn befinden. Auf die Grenzfrequenz normiert hat dieser beim Butterworth-Filter den Radius
 eins. Bei einem Butterworth 2. Ordnung befinden sie sich genau bei $\delta=45^\circ$. Das Interessante am Polstellen-Nullstellendiagramm ist, dass sich Polfrequenz $\Omega_P$ und 
 Polgüte $Q_P$ einfach ablesen lassen. Die Polfrequenz $\Omega_P$ ist der Betrag der normierten Polstelle, welcher beim Butterworth-Filter immer eins ist.
 Die Polgüte ist abhängig von $\delta$ und ergibt sich zu: $Q_P=\frac{1}{2\cos{\delta}}$. Für den Butterworth-Filter ergeben sich also $Q_P=0,707$ und $\Omega_P=1$
@@ -520,9 +516,9 @@ Dabei sind immer nur die positiven, reellen Lösungen zu verwenden.
 
 Um die Übersicht zu wahren wird die Berechnung der Bauteilwerte hier nur auszugsweise aufgeführt. Zur Erinnerung,
 die gegebenen Werte sind $Q_P=0,707$, $\Omega_P=1$, $A_0=48$ und $\omega_g = 2 \cdot \pi \cdot 100Hz$.
-$A_0$ ist die Gleichspannungsverstärkung, sie beschreibt den gewünschten Verstärkungsfaktor der bereits in einem voherigen
+$A_0$ ist die Gleichspannungsverstärkung, sie beschreibt den gewünschten Verstärkungsfaktor der bereits in einem vorherigen
 Abschnitt mit 48 bestimmt wurde. Die Berechnungen wurden mit Hilfe eines Python-Scriptes ausgeführt, dabei wurden verschiedene
-Konfigurationen durchgerechnet. Hautpsächlich wurde dabei darauf geachtet, dass sich der Filter mit den vor Ort vorhandennen SMD-Bauteilen
+Konfigurationen durchgerechnet. Hauptsächlich wurde dabei darauf geachtet, dass sich der Filter mit den vor Ort vorhandenen SMD-Bauteilen
 aufbauen lässt.
 
 In den Berechnungen fiel auf, dass bei steigender Größe der Kondensatoren die Größe der Widerstände sinkt. Da Widerstände auch in großen Größen vorhanden waren,
@@ -564,7 +560,7 @@ Es ist eine Verstärkung von 48 des Ursprungssignals gewünscht. Diese Verstärk
 \end{align*}
 
 Bei 3,9kHz erreicht der Filter eine Dämpfung von -30,1dB. Zusammen mit der Verstärkung von 33,6dB des Eingangssignals 
-wird das bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren hier 55,9dB, sodass der Filter den gerforderten Wert übersteigt, was an der niedrigeren Grenzfreqeunz von 100Hz statt 108,9Hz liegt.
+wird das bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren hier 55,9dB, sodass der Filter den geforderten Wert übersteigt, was an der niedrigeren Grenzfrequenz von 100Hz statt 108,9Hz liegt.
 
 %%Verstärkung: 33,6dB gewünscht:
 %%20*log(1/48)=-33,6
@@ -586,7 +582,7 @@ wird das bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren h
 \label{plott:filter_freq}
 \end{figure}
 
-Leider kann ein solcher Filter nur mit erheblichen Aufwändungen gebaut werden, da es keine fertigen Widerstände in den Größen $2579\Omega\\$ und $146079\Omega$ gibt. 
+Leider kann ein solcher Filter nur mit erheblichen Aufwendungen gebaut werden, da es keine fertigen Widerstände in den Größen $2579\Omega\\$ und $146079\Omega$ gibt. 
 Da jedoch alle Widerstände der E12 Reihe vor Ort vorhanden sind, werden die realen Werte wie folgt gewählt: $R_1=2,7k\Omega\\ R_2=150k\Omega$, da sie den nächsten Größen in der E12 Reihe entsprechen.
 
 
@@ -620,7 +616,7 @@ Diese liegt bei 33,7dB. Daran kann man erkennen, dass es sich nicht mehr um eine
 In der folgenden Abbildung [\ref{plott:filter_sprungantwort}] ist 
 die Antwort des Filters auf ein Rechtecksignal mit 3,9kHz, einem Tastverhältnis von 0,5 und einer Amplitude von 50mV zu sehen. Das Überschwingen im Bereich
 von 7ms ist charakteristisch für den Butterworth-Filter und wirkt sich negativ auf die Messung des Stroms aus. Allerdings werden solch große Sprünge in der Praxis nicht auftreten,
-da der Strom duch die große Induktivität des Motors nur langsam ansteigt.
+da der Strom durch die große Induktivität des Motors nur langsam ansteigt.
 \begin{figure}[H]
 \centering
 \begin{gnuplot}[terminal=pdf, scale=0.94]
@@ -635,7 +631,7 @@ da der Strom duch die große Induktivität des Motors nur langsam ansteigt.
 \end{figure}
 
 
-Die in Abbildung [\ref{plott:ripple}] gut zu erkennende Restwelligkeit (Ripple) beträgt 3,36mV und liegt damit deutlich unter den gerforderten 4,88mV. 
+Die in Abbildung [\ref{plott:ripple}] gut zu erkennende Restwelligkeit (Ripple) beträgt 3,36mV und liegt damit deutlich unter den geforderten 4,88mV. 
 Als Eingangssignal dient hier ein Rechtecksignal mit 3,9kHz und einem Tastverhältnis von 0,5, die Amplitude liegt bei 50mV. 
 Die Tatsache, dass das Signal 240mV über den rechnerischen 2,40V  ($0.5V \cdot 48 $) liegt, rührt daher, dass LT-Spice die Steig- und Fallzeiten in den low-Bereich des Rechtecksignals legt, 
 wodurch der Mittelwert des Signals bei 2,64V liegt.
@@ -665,13 +661,13 @@ Da der berechnete Filter den Anforderungen bestens genügt, wird dieser in die S
 
 \section{Beleuchtung}
 Die einfachste Möglichkeit eine Beleuchtung am Auto zu realisieren sind Leuchtdioden, welche in allen erdenklichen Farben zu bekommen sind. Weiter Vorteile
-sind ihre Energieeffizienz und günstigen Preise. LEDs stellen zudem keine großen Anforderugen an die Energieversorgung.
+sind ihre Energieeffizienz und günstigen Preise. LEDs stellen zudem keine großen Anforderungen an die Energieversorgung.
 
 Das Hauptproblem bei der Integration von vielen LEDs ist die Verkabelung. Eine große Erleichterung bei der Integration sind 
 LED-Streifen. Diese LED-Streifen gibt es in vielen Ausführungen. Für diese Arbeit interessant sind allerdings nur jene Vertreter, welche die Ansteuerung
 jeder einzelnen LED zulassen. Die LED-Streifen mit Controllern von ``Worldsemi'' sind hierbei die prominentesten Vertreter. Zu erwähnen wären hierbei die Modelle
 WS2801, WS2811 und WS2812. Der WS2812 ist dabei nahezu identisch mit dem WS2811 mit dem Unterschied, dass der WS2812 bereits in eine RGB-LED integriert ist.
-Im Unterschied zum WS2801 werden die beiden durch eine einzige Signalleitung mit fixem Takt angesteuert, sodass hier eine seperate Taktleitung entfällt.
+Im Unterschied zum WS2801 werden die beiden durch eine einzige Signalleitung mit fixem Takt angesteuert, sodass hier eine separate Taktleitung entfällt.
 
 Der Nachteil an dieser Methode ist, dass das Timing genau eingehalten werden muss um die Daten korrekt zu übertragen. Wie in Abbildung \ref{fig:led_cascade} werden die 
 LEDs kaskadiert. Die Daten werden dann durch die LEDs geschoben.
@@ -684,14 +680,14 @@ LEDs kaskadiert. Die Daten werden dann durch die LEDs geschoben.
 \end{figure}
 
 Um die Beleuchtung am Auto zu realisieren, werden LEDs mit WS2812 genutzt. Da die LEDs an einem beliebigen
-Eingang des AVR-Microcontrollers angeschlossen werden können, wird der LED-Streifen an Pin PA5 angeschlossen. Da das Timing 
-exakt eingehalten werden muss, ist die Software zur Ansteuerung in Assember geschrieben.
+Eingang des AVR-Mikrocontrollers angeschlossen werden können, wird der LED-Streifen an Pin PA5 angeschlossen. Da das Timing 
+exakt eingehalten werden muss, ist die Software zur Ansteuerung in Assembler geschrieben.
 
 Die LEDs werden wie folgt angesteuert:\\
 Jede LED wird mit einem 24Bit Datenwort angesprochen, welches die Helligkeitsstufen für jede der drei Grundfarben enthält. 
 Die Reihenfolge der Daten ist dabei grün, rot und dann blau. Das höchstwertige Bit wird zuerst übertragen.
 Die Daten werden ohne Pause gesendet, bis alle LEDs im Strang die nötigen Daten erhalten haben. Nach jeder Übertragung muss eine Pause von mindestens 50\textmu s eingehalten
-werden, damit die LEDs die Daten übernehmen. Die einzenen Bits der Übertragung sind dabei folgendermaßen codiert:
+werden, damit die LEDs die Daten übernehmen. Die einzelnen Bits der Übertragung sind dabei folgendermaßen codiert:
 
 \begin{figure}[H]
 \centering
@@ -710,7 +706,7 @@ Die genauen Signallängen können \cref{tab:led_timing} entnommen werden.
     T0H & 0 Code, high Zeit & $0.35\mu s$ & \textpm 150ns\\ \hline
     T1H & 1 Code, high Zeit & $0.7\mu s$ & \textpm 150ns\\ \hline
     T0L & 0 Code, low Zeit & $0.8\mu s$ & \textpm 150ns\\ \hline
-    T1L & 0 Code, low Zeit & $0.6\mu s$ & \textpm 150ns\\ \hline
+    T1L & 0 Code, low Zeit & $0.6\mu s$ & \textpm 150 ns\\ \hline
     RES & Reset Code, low Zeit & über $50\mu s$ & \\ \hline
   \end{tabularx}
   \caption{Signallängen}%
@@ -724,7 +720,7 @@ Die genauen Signallängen können \cref{tab:led_timing} entnommen werden.
 
  
 \subsection{Messprinzip}
-Die ausgewählen Sensoren der Sharp GP2D Reihe basieren auf einer optischen Abstandsmessung, genauer der optischen Abstandsmessung durch Triangulation.
+Die ausgewählten Sensoren der Sharp GP2D Reihe basieren auf einer optischen Abstandsmessung, genauer der optischen Abstandsmessung durch Triangulation.
 Bei der optische Abstandsmessung durch Triangulation projiziert ein Projektor einen Lichtpunkt auf das Messobjekt [\ref{fig:lasertriangulation}]. Ein optischer
 Sensor misst dann den Winkel des vom Messobjekt reflektierten Lichts. Durch Triangulation kann dann durch den fest definierten Abstand des optischen
 Sensors von der Lichtquelle die Entfernung zum Objekt berechnet werden. \cite{Hugenschmidt2007}. In \cref{fig:lasertriangulation} ist
@@ -741,12 +737,12 @@ Da es sich um eine rein trigonometrische Messung handelt, kann sie zur kontinuie
 Außerdem besitzen Sensoren nach diesem Prinzip einen kleinen Messfleck.
 
 Nachteile:
-Die Messung ist stark von der Oberläche des Messobjektes abhängig, spiegelnde Oberflächen stellen ein großes Problem dar.
+Die Messung ist stark von der Oberfläche des Messobjektes abhängig, spiegelnde Oberflächen stellen ein großes Problem dar.
 In staubigen oder nebligen Umgebungen wird das Licht möglicherweise zu stark gestreut, sodass eine korrekte Messung nicht möglich ist.
 
 \subsection{Probleme der GP2D Sensoren}
 Die Sensoren verfügen über einen analogen Ausgang. Bei analogen Signalen ist generell mit Störungen zu rechnen. Die GP2D Sensoren scheinen
-hohe Anforderungen an die Energieversorgung zu stellen. Hier ist eine Entstörung mittels Kondensator von nöten, da im Messignal sonst große Spikes
+hohe Anforderungen an die Energieversorgung zu stellen. Hier ist eine Entstörung mittels Kondensator vonnöten, da im Messsignal sonst große Spikes
 entstehen, wie in Abbildung \ref{fig:IR_spikes} zu sehen.
 
 \begin{figure}[H]
@@ -756,7 +752,7 @@ entstehen, wie in Abbildung \ref{fig:IR_spikes} zu sehen.
 \label{fig:IR_spikes}
 \end{figure}
 
-Nach der Entstörung mit einem 82nF Kondensator direkt am Sensor zwischen VCC und GND sind die Störungen bereits stark vermindert.
+Nach der Entstörung mit einem 82 nF Kondensator direkt am Sensor zwischen VCC und GND sind die Störungen bereits stark vermindert.
 
 \begin{figure}[H]
 \centering
@@ -765,8 +761,8 @@ Nach der Entstörung mit einem 82nF Kondensator direkt am Sensor zwischen VCC un
 \label{fig:IR_lessspikes}
 \end{figure}
 
-\subsection{Auswertung des Messignales}
-Das Messsignal vom Sensor wird über einen ADC-Eingang des AVR Microcontrollers ausgelesen. Angeschlossen werden die Sensoren über die PH-Connector Reihe des Herstellers JST, welche auch an den Sensoren verbaut sind.
+\subsection{Auswertung des Messsignales}
+Das Messsignal vom Sensor wird über einen ADC-Eingang des AVR Mikrocontrollers ausgelesen. Angeschlossen werden die Sensoren über die PH-Connector Reihe des Herstellers JST, welche auch an den Sensoren verbaut sind.
 
 
 
@@ -791,11 +787,11 @@ Motorankers auszuwerten. Dazu sehen wir uns den Aufbau eines Gleichstrommotors a
 \end{figure}
 Ein Gleichstrommotor besteht aus zwei grundsätzlichen Teilen, einem unbeweglichen Teil, den Stator und einem beweglichen Teil, dem Anker.
 Der Stator besteht aus sich gegenüberliegenden Permanentmagneten, welche zwei entgegengesetzt gepolte Magnetfelder erzeugen.
-Der Anker besteht aus Elektromeganeten dessen Polung jede halbe Umdrehung kommutiert wird. Durch die Kommutierung ändert sich die 
+Der Anker besteht aus Elektromagneten dessen Polung jede halbe Umdrehung kommutiert wird. Durch die Kommutierung ändert sich die 
 Polung der Elektromagneten. Das sich so ändernde Magnetfeld kann mit einem Hallsensor ausgewertet werden. Das entstehende 
 Signal ähnelt dabei über der Zeit einer Sinusschwingung. Mit Hilfe eines Schmitt-Trigger kann daraus ein Drehzahlsignal generiert werden.
 
-Der Hallsensor ist erfolgreich durch ein Belüftungsloch im Motor plaziert wurden. Als Referenzspannung für den Schmitt-Trigger wird der
+Der Hallsensor ist erfolgreich durch ein Belüftungsloch im Motor platziert wurden. Als Referenzspannung für den Schmitt-Trigger wird der
 Mittelwert des Sensorsignals, erzeugt durch einen Tiefpass, genutzt.
 
 \begin{figure}[H]
@@ -813,7 +809,7 @@ Im Schaltplan befindet sich eine andere Schaltung, diese wurde aus Zeitnot kurz 
 \subsection{Gabellichtschranke}
 
 Alternativ zum Vorgehen mit einem Hall-Sensor wurde eine andere Lösung implementiert. An eine speziell für diesen Motor angefertigte Achsverlängerung wurde eine Inkrementalgeberscheibe befestigt, zu sehen in \cref{fig:gabellichtschranke}. 
-Diese wird durch einen Sharp GP1A30R Sensor ausgewertet, welcher ein Drehzahlsignal an den externen Takteingang des Timer 1 vom AVR Microcontroller liefert.
+Diese wird durch einen Sharp GP1A30R Sensor ausgewertet, welcher ein Drehzahlsignal an den externen Takteingang des Timer 1 vom AVR Mikrocontroller liefert.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{odometrie.png}\\
@@ -835,8 +831,8 @@ Mit dieser Größe lassen sich die Motorticks einfach in Meter umrechnen.
 \section{Auslegung der Stromversorgung}
 
 Um das Layout der Platine möglichst simpel zu halten und damit kostengünstig zu bleiben, wurden alle Komponenten so ausgewählt, dass diese über eine einzige 5V Spannungsquelle mit Energie versorgt werden können.
-Es ist wichtig den Stromverbrauch aller Komponenten abzuschätzten, um die Spannungsversorgung sinnvoll dimensionieren zu können. Eine zu schwache Spannungsquelle kann zu Instabilitäten führen,
-während eine überdimmensionierte Geld verschenkt.
+Es ist wichtig den Stromverbrauch aller Komponenten abzuschätzen, um die Spannungsversorgung sinnvoll dimensionieren zu können. Eine zu schwache Spannungsquelle kann zu Instabilitäten führen,
+während eine überdimensionierte Geld verschenkt.
 
 \subsection{Stromverbrauch der Komponenten}
 In diesem Abschnitt soll eine Abschätzung des Stromverbrauchs vorgenommen werden. Dabei wird keinen Wert auf hohe Genauigkeit gelegt, es soll nur eine ungefähre Größenordnung für den Stromverbrauch gefunden werden.
@@ -847,10 +843,10 @@ sind im Datenblatt hierzu keine Daten aufzufinden. Da ein Messaufbau für die Ab
 zu aufwändig ist, werden hier Messwerte eines ähnlichen Servos aus einem Artikel \cite{website-servo} herangezogen.
 Laut diesem hat eine Servomotor keinen konstanten Stromverbrauch. Der Stromfluss wird immer wieder unterbrochen, sodass es zu einem intervallartigen Stromfluss kommt.
 Nur wenn der Servomotor dauerhaft belastet wird, kommt es zu einem konstanten Stromfluss.
-Im Artikel werden mehrere Servomotoren vermessen, der Motor der dem verwendeten am nächsten kommt ist der ``Graupner 4421'' mit folgenen Daten:
+Im Artikel werden mehrere Servomotoren vermessen, der Motor der dem verwendeten am nächsten kommt ist der ``Graupner 4421'' mit folgenden Daten:
 
 %TODO
-\todo{Servo modell \cite{website-servo-dat} in Anforderungen mit aufnehmen}
+\todo{Servo Modell \cite{website-servo-dat} in Anforderungen mit aufnehmen}
 
 Technische Daten ``Graupner 4421'' \cite{website-servo-vergleich-dat}:
 \begin{itemize}
@@ -875,27 +871,27 @@ Leider gibt es vom Hersteller des Pandaboards keine konkreten Angaben zum Stromv
 Netzteil mit 4A\cite{website-panda-supply}, wobei auch ein Betrieb an USB mit Hilfe eines Y-Kabels möglich ist. Die USB-2.0 Spezifikation\cite{website-usb-spec} sieht eine maximale 
 Stromabgabe von 500mA vor.
 
-Der Stromvebrauch des normalen Pandaboards (ohne ES) beträgt ca. 800mA \cite{website-panda-power}.
+Der Stromverbrauch des normalen Pandaboards (ohne ES) beträgt ca. 800mA \cite{website-panda-power}.
 Nähere Angaben zum Stromverbrauch des normalen Pandaboards (ohne ES) finden sich in \cite{website-panda-power}.
 Der Verbrauch des Pandaboard ES dürfte durch den schnelleren Prozessor minimal darüber liegen. 
 Durch Anschluss von USB-Geräten an das Board kann der Stromverbrauch jedoch noch steigen. Die USB-Spezifikation \cite{website-usb-spec}
 sieht pro Port eine maximale Stromentnahme von 500mA vor. Da das Pandaboard über 2 USB-Ports verfügt liegt der maximale zusätzliche Verbrauch bei 1A,
-sodass hier ein Gesammtverbrauch von 2A veranschlagt wird.
+sodass hier ein Gesamtverbrauch von 2A veranschlagt wird.
 
 \paragraph{Hinweis:}
 Das Pandaboard ES wurde im Laufe des Projekts durch einen Intel NUC ersetzt, welcher jedoch nicht über die 5V Schiene versorgt wird.
 Daher entfällt der Verbrauch des Boards in den Messungen der Evaluierung.
 
-\subsubsection{Led Beleuchtung}
-Auch wenn LEDs den Ruf haben besonders energieffizient zu sein, ist der Stromverbrauch bei einer größeren Anzahl nicht zu
+\subsubsection{LED Beleuchtung}
+Auch wenn LEDs den Ruf haben besonders energieeffizient zu sein, ist der Stromverbrauch bei einer größeren Anzahl nicht zu
 unterschätzen. Da wir RBG-LEDs einsetzen besteht ein LED-Modul aus 3 LEDs in den Grundfarben rot, blau und grün.
 Laut Datenblatt \cite{ds-WS2812} haben die LEDs eine Stromaufnahme von 20mA, also 60mA pro Modul.
 Um regelwerkkonform zu sein, werden folgende Beleuchtungen benötigt: Blinker rechts und links jeweils vorne und hinten.
-Sowie eine Leuchte, welche den RC-Modus anzeigt. Zusätzlich zu den im Reglelwerk vorgeschriebenen Beleuchtungen werden noch je
-zwei Frontscheinwerfer und drei Rück/Bremslichter integriert, so dass sich eine Anzahl von 10 LED-Modulen ergibt.
+Sowie eine Leuchte, welche den RC-Modus anzeigt. Zusätzlich zu den im Regelwerk vorgeschriebenen Beleuchtungen werden noch je
+zwei Frontscheinwerfer und drei Rück-/Bremslichter integriert, so dass sich eine Anzahl von 10 LED-Modulen ergibt.
 Der maximale durch die LEDs verursachte Strom liegt somit bei 600mA. 
 
-\subsubsection{Microcontroller}
+\subsubsection{Mikrocontroller}
 Der maximale Stromverbrauch des AVR Mikrocontrollers liegt laut Datenblatt\cite{ds-at90can} bei 200mA, wenn IO-Pins belastet werden
 Der Mikrocontroller selber braucht jedoch bei 5V Betriebsspannung und 16MHz nur 29mA. Da die IO-Pins des Controllers nur wenig belastet werden,
 wird hier nur ein Verbrauch von 100mA veranschlagt.
@@ -962,8 +958,7 @@ Durch diese Eigenschaften ist ein ESR Kondensator hervorragend zur Störunterdr�
 
 
 \section{Das Layout}
-\todo{orgesehende Lücke in Anforderungen}
-In Abbildung \ref{fig:layout} ist das fertige Platinenlayout zu sehen. Bei der Entwicklung des Layouts wurde darauf geachtet, dass die Platine in die vorgesehende Lücke des Fahrzeugs passt.
+In Abbildung \ref{fig:layout} ist das fertige Platinenlayout zu sehen. Bei der Entwicklung des Layouts wurde darauf geachtet, dass die Platine in die vorgesehene Lücke des Fahrzeugs passt.
 
 \begin{figure}[H]
 \centering
@@ -989,14 +984,14 @@ Auf dem Layout sind folgende Komponenten zu sehen:
  \item [1] H-Brücke mit Motoranschluss
  \item [2] \SI{5}{\A} Schaltregler
  \item [3] Allegro Mosfettreiber
- \item [4] Atmel Microcontroller
- \item [5] Sparkfun Interialsensor ( Anschluss und Postition )
+ \item [4] Atmel Mikrocontroller
+ \item [5] Sparkfun Inertialsensor ( Anschluss und Position )
  \item [6] Anschluss für den LED-Strang
  \item [7] Anschluss für den Servomotor
- \item [8] ISP Anschluss zum Programieren des Mikrocontrollers
+ \item [8] ISP Anschluss zum Programmieren des Mikrocontrollers
  \item [9] RJ45 Buchse zum Anschluss der Pandaboards (mit SPI und UART)
  \item [10] Anschlüsse für die Sharp GP2D Sensoren 
- \item [11] Anschluss und Filterschaltung für die Odeometrie (Hallsensor)
+ \item [11] Anschluss und Filterschaltung für die Odometrie (Hallsensor)
  \item [12] Shunt mit Filterschaltung zur Strommessung
  \item [13] Stromanschluss für die Pandaboards
 \end{itemize}
@@ -1005,12 +1000,12 @@ Auf dem Layout sind folgende Komponenten zu sehen:
 
 \section{Software}
 
-Die Software besteht im Grunde aus zwei Teilen, zum einem der Firmware auf dem Microcontroller zum anderem aus der Software auf der Recheneinheit, welche die Daten vom Microcontroller ausliest und über ROS published.
+Die Software besteht im Grunde aus zwei Teilen, zum einem der Firmware auf dem Mikrocontroller zum anderem aus der Software auf der Recheneinheit, welche die Daten vom Mikrocontroller ausliest und über ROS published.
 In den folgenden Abschnitten werden erst die beiden Softwareteile erläutert, dann wird das Übertragungsprotokoll veranschaulicht.
 
 
-\subsection{Software auf dem Microcontroller}
-Die Software auf dem Microcontroller ist vollständig in C++ geschrieben. Eine vollständige Dokumentation der Software ist als Doxygen Dokument verfügbar. 
+\subsection{Software auf dem Mikrocontroller}
+Die Software auf dem Mikrocontroller ist vollständig in C++ geschrieben. Eine vollständige Dokumentation der Software ist als Doxygen Dokument verfügbar. 
 Die Software fungiert auf dem Controller als Service und wartet legendlich auf eine Anfrage von der seriellen Schnittstelle, welche sie bearbeitet und bei Bedarf beantwortet. 
 
 
@@ -1019,7 +1014,7 @@ Das Client Programm, im folgenden SerialNode genannt, wurde zuerst in Python imp
 eine enorm hohe CPU-Last verursacht. Da sich das Problem kurzfristig nicht lösen ließ, die Rechenleistung für andere Aufgaben benötigt wird und auch Energieeffizienz ein wichtiges Kriterium ist,
 wurde das Programm erneut in C++ implementiert. Unter Verwendung der Systemaufrufe von Poll konnte das Abfragen der seriellen Schnittstelle auf Systemebene ausgeführt werden, was die Effizienz stark 
 verbesserte. Während die Python Implementierung einen CPU-Kern zu 100\% auslastete liegt die C++ Implementierung im unteren einstelligen Prozentbereich.
-Eine volständige Dokumentation der Software ist ebenfalls als Doxygen Dokument verfügbar.
+Eine vollständige Dokumentation der Software ist ebenfalls als Doxygen Dokument verfügbar.
 
 Das Programm stellt nach seinem Start folgende ROS-Topics zur Verfügung:\\
  
@@ -1031,17 +1026,17 @@ Das Programm stellt nach seinem Start folgende ROS-Topics zur Verfügung:\\
     /sensors/current		& std\_msgs/Float32														\\ \hline
     \multicolumn{2}{|X|}{Der aktuelle Motorstrom in Ampere}											\\ \hline\hline
     /sensors/imu/data\_raw	& ottocar\_msgs/simpleImu													\\ \hline
-    \multicolumn{2}{|X|}{Die Daten werden im Standartformat für Inertialsensoren zur Verfügung gestellt	}						\\ \hline\hline
+    \multicolumn{2}{|X|}{Die Daten werden im ROS-Standartformat für Inertialsensoren zur Verfügung gestellt	}						\\ \hline\hline
     /sensors/IR1		& std\_msgs/Float32										\\ \hline
      \multicolumn{2}{|X|}{Der aktuelle Spannungswert des Sensors in Volt}										\\ \hline\hline
     /sensors/IR2		& std\_msgs/Float32										\\ \hline
       \multicolumn{2}{|X|}{Der aktuelle Spannungswert des Sensors in Volt}										\\ \hline\hline
     /sensors/motor\_revolutions	& std\_msgs/UInt32										\\ \hline
-      \multicolumn{2}{|X|}{Die Anzahl der vergangenden Motorumdrehungen seit dem Start des Microcontrollers}						\\ \hline\hline
+      \multicolumn{2}{|X|}{Die Anzahl der vergangenden Motorumdrehungen seit dem Start des Mikrocontrollers}						\\ \hline\hline
     /sensors/motor\_state	& std\_msgs/UInt8										\\ \hline
       \multicolumn{2}{|X|}{Der aktuelle Zustand des Motortreibers}											\\ \hline\hline
     /uC\_time			& std\_msgs/UInt32										\\ \hline
-      \multicolumn{2}{|X|}{Die vergangene Zeit auf dem Microcontrollers seit dessen Start in Millisekunden}						\\ \hline\hline
+      \multicolumn{2}{|X|}{Die vergangene Zeit auf dem Mikrocontrollers seit dessen Start in Millisekunden}						\\ \hline\hline
     /sensors/voltage		& std\_msgs/Float32										\\ \hline
      \multicolumn{2}{|X|}{Die aktuelle Akkuspannung in Volt}												\\ \hline
 
@@ -1055,12 +1050,15 @@ Das Programm hört auf folgende ROS-Topics:\\
 
 \begin{table}[H]
   \centering
-  \begin{tabularx}{\textwidth}{|X|l|X|}
+  \begin{tabularx}{\textwidth}{|l|l|}
     \hline
-     Ros-Topic 			& Ros-Datentyp		 	& Beschreibung 	\\ \hline \hline
-    /actuators/speed\_cmd		& std\_msgs/Int8		& Die neue Motorgeschwindigkeit von -128 bis +127		\\ \hline
-    /actuators/angle\_cmd		& std\_msgs/Int8		& Der neue Servowinkel von -128 bis +127			\\ \hline
-    /actuators/motor\_reset		& std\_msgs/Bool		& Initiiere einen Reset im Motortreiber				\\ \hline
+     Ros-Topic 			& Ros-Datentyp			 	\\ \hline \hline
+    /actuators/speed\_cmd		& std\_msgs/Int8										\\ \hline	
+      \multicolumn{2}{|X|}{Die neue Motorgeschwindigkeit von -128 bis +127}		\\ \hline\hline
+    /actuators/angle\_cmd		& std\_msgs/Int8										\\ \hline	
+     \multicolumn{2}{|X|}{Der neue Servowinkel von -128 bis +127}			\\ \hline\hline
+    /actuators/motor\_reset		& std\_msgs/Bool										\\ \hline	
+     \multicolumn{2}{|X|}{Initiiere einen Reset im Motortreiber}			\\ \hline\hline
   \end{tabularx}
   \caption{Ros-Subscriber}%
   \label{tab:ros-sub}
@@ -1074,12 +1072,10 @@ Dabei wurde auf Fehlertoleranz und niedrigen Ressourcenverbrauch geachtet. Der D
 übertragen zu können.
 Der grundlegende Ablauf der Datenübertragung ist in \cref{fig:uC_read} und \ref{fig:uC_write} zu sehen.
 
-\todo{in Bildern NUC duch recheneinheit ersetzten??}
-
-Während eines Lesevorganges (\cref{fig:uC_read}) wartet der Microcontroller auf ein fest definiertes Startsignal von der Recheneinheit. Nachdem das Startsignal empfangen wurde, wird auf eine weitere Preamble gewartet.
-Dies ist notwendig, um bei Asynchronitäten die Wahrscheinlichkeit eines zufälligen Startsignals zu verringern. Wurde die Preamble erfolgreich empfangen, erwartet der Microcontroller eine gültige Topic ID.
-Wurde eine falsche Preamble empfangen, wartet der Microcontroller erneut auf ein gültiges Startsignal. Abhängig von der Topic ID verfährt der Microcontroller dann im Programm fort und beantwortet
-die Anfrage entsprechend. Für manche Topics ist eine Bestätigung (Acknowledge) nötig. Bekommt der Microcontroller keine Bestätigung sendet er die Daten erneut. Eine Bestätigung wird nur gesendet,
+Während eines Lesevorganges (\cref{fig:uC_read}) wartet der Mikrocontroller auf ein fest definiertes Startsignal von der Recheneinheit. Nachdem das Startsignal empfangen wurde, wird auf eine weitere Preamble gewartet.
+Dies ist notwendig, um bei Asynchronitäten die Wahrscheinlichkeit eines zufälligen Startsignals zu verringern. Wurde die Preamble erfolgreich empfangen, erwartet der Mikrocontroller eine gültige Topic ID.
+Wurde eine falsche Preamble empfangen, wartet der Mikrocontroller erneut auf ein gültiges Startsignal. Abhängig von der Topic ID verfährt der Mikrocontroller dann im Programm fort und beantwortet
+die Anfrage entsprechend. Für manche Topics ist eine Bestätigung (Acknowledge) nötig. Bekommt der Mikrocontroller keine Bestätigung sendet er die Daten erneut. Eine Bestätigung wird nur gesendet,
 wenn die vom Client berechnete Checksumme mit der mitgesendeten identisch ist. Dies ist besonders bei den Daten der Inertialsensorik von Nöten, da hier defekte Daten zu einem dauerhaften Fehler führen. 
 Die Anzahl dieser Retransmits ist begrenzt und wird vom Client festgelegt. Wurde ein Acknowledge empfangen oder für den Topic ist keine Bestätigung
 nötig, wartet der Controller erneut auf ein Startsignal.
@@ -1091,13 +1087,13 @@ nötig, wartet der Controller erneut auf ein Startsignal.
 \label{fig:uC_read}
 \end{figure}
 
-Der Ablauf eines Schreibvorganges (\cref{fig:uC_write}) auf dem Microcontroller ist ähnlich. Der Microcontroller wartet auf das Startsignal und eine Preamble sowie eine Topic ID.
+Der Ablauf eines Schreibvorganges (\cref{fig:uC_write}) auf dem Mikrocontroller ist ähnlich. Der Mikrocontroller wartet auf das Startsignal und eine Preamble sowie eine Topic ID.
 Nach dem Empfang der Topic ID erwartet er die nötigen Daten, samt Checksumme. Diese ist nötig, um die Daten zu verifizieren. Bei der Ansteuerung des Motors kann ein
-Bitfehler zu fatalen Folgen führen. Beispielsweise kann die Recheneinheit oder der Microcontroller abstürzen, wenn die Motorleistung plötzlich stark erhöht wird.
-Daher werden die Daten nur übernommen, wenn die Checksumme erfolgreich verifiziert wurde. Sollte die Checksumme nicht verifiziert werden, springt der Microcontroller
+Bitfehler zu fatalen Folgen führen. Beispielsweise kann die Recheneinheit oder der Mikrocontroller abstürzen, wenn die Motorleistung plötzlich stark erhöht wird.
+Daher werden die Daten nur übernommen, wenn die Checksumme erfolgreich verifiziert wurde. Sollte die Checksumme nicht verifiziert werden, springt der Mikrocontroller
 erneut in den Startzustand und wartet auf ein Startsignal, ohne die Daten zu übernehmen. Der Client bekommt davon nichts mit, wenige einzelne Fehler können durch die
 hohe interne Datenrate von \SI{100}{\Hz} ignoriert werden. Häufige oder dauerhafte Fehlübertragungen können durch die Reaktion des Autos leicht identifiziert werden.
-Häufige oder dauerhafte Fehlübertragungen würden durch das fortlaufende Lesen und Schreiben auf dem Microcontroller so oder so zu Fehlern in beiden Richtungen führen.
+Häufige oder dauerhafte Fehlübertragungen würden durch das fortlaufende Lesen und Schreiben auf dem Mikrocontroller so oder so zu Fehlern in beiden Richtungen führen.
 
 \begin{figure}[ht]
 \centering

@@ -11,7 +11,7 @@ hätte dieser so oder so nicht verwendet werden können.
 Für das Fahrzeug wurde bereits eine Treiberplatine in Form eins Prototyps gefertigt.
 Diese verfügt über ein Crumb123 Mikrocontroller Modul (At90can128), welches einen Motortreiber vom Typ ``L298 DUAL FULL-BRIDGE DRIVER'' ansteuert.
 Des Weiteren verfügt der Prototyp über einen \SI{3}{\A} Schaltregler von Texas Instruments, welcher Mikrocontroller und zwei Pandaboards mit Energie versorgt. 
-Der Schaltregler befindet sich durch den Betrieb zweier Pandaboards jedoch bereits an seiner Leistungsgrenze, da ursprünglich nur der Bertieb eines Pandaboards
+Der Schaltregler befindet sich durch den Betrieb zweier Pandaboards jedoch bereits an seiner Leistungsgrenze, da ursprünglich nur der Betrieb eines Pandaboards
 vorgesehen war. Der verwendete Motortreiber wurde genutzt, da er durch die Verwendung in anderen Projekten bereits vorhanden war, jedoch ist dieser 
 nur für Ströme von bis zu \SI{4}{\A} ausgelegt \cite{L298}. In einem Versuch wurden für den im Fahrzeug vorhandenen Motor Ströme von bis zu \SI{20}{\A} gemessen. 
 Durch die Unterdimensionierung des Treibers überhitzt dieser bereits nach wenigen Minuten Fahrbetrieb.
@@ -19,7 +19,7 @@ Da der vorhandene Motor jedoch weiter verwendet werden soll, muss hier ein leist
 entwickelt werden. Des Weiteren fehlen dem Prototyp wichtige Anschlüsse für weitere Sensoren und Beleuchtung, welche nun integriert werden sollen. 
 
 Bei der Entwicklung der neuen Treiberplatine sollen, um Kosten zu sparen, möglichst viele vorhandene Komponenten verwendet werden. Dazu gehören
-Microcontroller vom Typ ``Atmel At90can128'', welche in großer Stückzahl vorhanden sind. Benötigte Sensoren in Form eines Interialsensors (Sparkfun SEN-10724)
+Mikrocontroller vom Typ ``Atmel At90can128'', welche in großer Stückzahl vorhanden sind. Benötigte Sensoren in Form eines Inertialsensors (Sparkfun SEN-10724)
 und Sharp GP2D Sensoren werden ebenfalls vom Lehrstuhl zur Verfügung gestellt. Des Weiteren sind Sortimente von SMD Widerständen und
 Kondensatoren in der Größe 805 vorhanden, sodass diese Bauform bei der Entwicklung der Platine bevorzugt wird.
 
@@ -70,15 +70,15 @@ Herstellungskosten \cite{website-carolo-cup-regelwerk}. Daraus entstehen weitere
 
 \subsection{externe Anforderungen}
 Folgende Anforderungen werden durch das Team an die Platine gestellt. Die Integration einer Inertialsensorik (Sparkfun SEN-10724) zur Inertialnavigation,
-Anschlüsse Infarotsensoren vom Typ Sharp GP2D120 und GP2D1202, die Integration einer Odometrie zur Geschwindigkeitsmessung,
+Anschlüsse Infrarotsensoren vom Typ Sharp GP2D120 und GP2D120, die Integration einer Odometrie zur Geschwindigkeitsmessung,
 sowie eine 5V Stromversorgung zum Betreiben eines Pandaboards. Die Platine soll ein ROS-Interface auf einem Pandaboard zur Verfügung stellen, mit welchem die Aktorik gesteuert und
 die Sensorwerte ausgelesen werden können. Das Auto soll über ein vorhandenes Netzteil betrieben werden können (ca. 20V).\\
 
-Desweiteren muss die Platine in eine dafür vorgesehende Lücke des Fahrzeuges passen. Diese Lücke hat Maße von \SI{13}{\cm} mal \SI{5,4}{\cm}.
+Des Weiteren muss die Platine in eine dafür vorgesehene Lücke des Fahrzeuges passen. Diese Lücke hat Maße von \SI{13}{\cm} mal \SI{5,4}{\cm}.
 
 
 \section{Zusammenfassung}
-Um den Anforderungen zu genügen, muss ein Motorteiber mit einer Belastbarkeit von mindestens 20 Ampere integriert werden. 
+Um den Anforderungen zu genügen, muss ein Motortreiber mit einer Belastbarkeit von mindestens 20 Ampere integriert werden. 
 Ein Mikrocontroller zum Steuern der Aktorik inklusive des Motors, sowie zum Auslesen der Sensorsignale muss zur Verfügung gestellt werden. 
 Anschlüsse für zwei Sharp Sensoren vom Typ ``GP2D120'' oder ``GP2D12'' sowie weitere Anschlüsse für den Inertialsensor, Beleuchtung, Servomotor werden ebenfalls benötigt. 
 Es muss eine Odometrie zur Messung der Geschwindigkeit integriert werden.

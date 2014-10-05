@@ -7,7 +7,7 @@ parser = OptionParser()
 
 (optionen, args) = parser.parse_args()
 data=np.genfromtxt(args[0] , delimiter=',', dtype='float')
-plt.plot(data[:,int(args[1])], 'r-')
+plt.plot(data*15, 'r-')
 
 plt.show()
 print data.shape

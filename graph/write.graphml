@@ -381,7 +381,7 @@
           <y:Geometry height="30.0" width="30.0" x="433.0" y="384.0"/>
           <y:Fill hasColor="false" transparent="false"/>
           <y:BorderStyle hasColor="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.625" modelName="custom" textColor="#000000" visible="true" width="38.8515625" x="-4.42578125" y="4.0">NUC<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="22.625" modelName="custom" textColor="#000000" visible="true" width="119.015625" x="-44.5078125" y="4.0">Recheneinheit<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>

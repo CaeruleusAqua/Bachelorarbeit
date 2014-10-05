@@ -10,7 +10,7 @@ Der Motor wurde, soweit nicht anders beschrieben, mit einem PWM-Tastgrad von 30:
 Zur Beurteilung der Messergebnisse wurden Messungen an diversen Punkten vorgenommen und mit der Ausgabe des Mikrocontrollers verglichen.
 
 Zuerst wurde dazu die Spannung direkt am Shuntwiderstand gemessen.
-Dabei kann der periodische Ansteig der Spannung am Shunt beobachtet werden, zu sehen in \cref{fig:filter_eingang}. Die Spannung am Shunt ist proportional zum Strom durch den Motor.
+Dabei kann der periodische Anstieg der Spannung am Shunt beobachtet werden, zu sehen in \cref{fig:filter_eingang}. Die Spannung am Shunt ist proportional zum Strom durch den Motor.
 
 \begin{figure}[H]
 \centering
@@ -19,7 +19,7 @@ Dabei kann der periodische Ansteig der Spannung am Shunt beobachtet werden, zu s
 \label{fig:filter_eingang}
 \end{figure}
 
-Die mittlere Spannung aus \cref{fig:filter_eingang} lässt sich abschätzen, indem die Spannug in der Mitte eines Impulses abgelesen und mit dem Tastverhältnis multipliziert wird.
+Die mittlere Spannung aus \cref{fig:filter_eingang} lässt sich abschätzen, indem die Spannung in der Mitte eines Impulses abgelesen und mit dem Tastverhältnis multipliziert wird.
 $\SI{7}{\mV}\cdot\frac{30}{256}=\SI{0,82}{\mV} $
 Mit Hilfe dieses Mittelwertes können wir grob abschätzen, ob der nachfolgende Filter seine Funktion erfolgreich erfüllt.
 
@@ -42,7 +42,7 @@ Wie in \cref{fig:filter_ausgang} zu sehen wurde die Eingangsspannung erfolgreich
 I=\frac{\SI{0,83}{\mV}}{\SI{0,005}{\ohm}}=\SI{166,7}{\mA}
 \end{align*}
 
-Der vom Microcontroller ausgegebene Strom beträgt im Mittel \SI{156,1}{\mA}.
+Der vom Mikrocontroller ausgegebene Strom beträgt im Mittel \SI{156,1}{\mA}.
 
 Zur weiteren Bewertung der Messung wurden jeweils ca. 1000 Samples an Daten zu unterschiedlichen PWM-Tastgraden aufgezeichnet.
 Dabei soll untersucht werden, ob die Qualität der Messwerte mit zunehmender Geschwindigkeit stabil bleibt.
@@ -117,7 +117,7 @@ der PWM Frequenz von \SI{7812,5}{\hertz}.  Der Motor wurde währenddessen mit ei
 \end{figure}
 
 
-Vergleicht man die Messungen im Akkubetrieb (\cref{fig:akku_supply}) mit den Messungen im Netztbetrieb (\cref{fig:power_supply}), kann man erkennen das das Netzteil versucht die Schwankungen auszugleichen.
+Vergleicht man die Messungen im Akkubetrieb (\cref{fig:akku_supply}) mit den Messungen im Netzbetrieb (\cref{fig:power_supply}), kann man erkennen das das Netzteil versucht die Schwankungen auszugleichen.
 
 \begin{figure}[H]
 \centering
@@ -126,7 +126,7 @@ Vergleicht man die Messungen im Akkubetrieb (\cref{fig:akku_supply}) mit den Mes
 \label{fig:power_supply}
 \end{figure}
 
-Unter Last bei einem Tastgrad von 50:256 betägt die Amplitude der Schwankungen im Akkubetrieb über 3V. Die Messung wurde ohne 1:10 Teilung durchgeführt.
+Unter Last bei einem Tastgrad von 50:256 beträgt die Amplitude der Schwankungen im Akkubetrieb über \SI{3}{V}. Die Messung wurde ohne 1:10 Teilung durchgeführt.
 Erstaunlicherweise war trotz der starken Schwankungen noch ein stabiler Betrieb des Fahrzeuges möglich. Dies wurde jedoch nur ca. 30 Sekunden getestet, da
 die hohe Belastung zu einer starken Wärmeentwicklung des Motors führte.
 
@@ -137,8 +137,8 @@ die hohe Belastung zu einer starken Wärmeentwicklung des Motors führte.
 \label{fig:akku_supply}
 \end{figure}
 
-Betrachet man das 5V-Netz unter diesen Bedingungen (\cref{fig:5V_last}) zeigt sich die beeindruckende Leistung des 5V Schaltreglers.
-Das 5V-Netz scheint troz der immensen Störung stabiler zu sein als bei niedriger Motorlast. 
+Betrachtet man das 5V-Netz unter diesen Bedingungen (\cref{fig:5V_last}) zeigt sich die beeindruckende Leistung des 5V Schaltreglers.
+Das 5V-Netz scheint trotz der immensen Störung stabiler zu sein als bei niedriger Motorlast. 
 
 \begin{figure}[H]
 \centering
@@ -150,7 +150,7 @@ Das 5V-Netz scheint troz der immensen Störung stabiler zu sein als bei niedrige
 Da das 5V Netz auch unter Last stabil bleibt, sind auch bei höheren Motorlasten keine größeren Störungen in den Sensormesswerten zu erwarten.
 
 
-\section{Inertisalsensor}
+\section{Inertialsensor}
 
 Da die Auswertung der Inertialsensorik ist nicht Teil diese Arbeit. Um jedoch die Abhängigkeit der Inertialsensorik von der Motorlast
 zu untersuchen, wurden einige Messwerte aufgenommen.
@@ -205,7 +205,7 @@ Sowohl beim Accelerometer als auch beim Gyroskop lässt sich anhand der Daten ke
   \label{tab:mag}
 \end{table}
 
-Beim Magnetometer lässt sich jedoch erkennen, dass die Streuung der Daten mit zunehmender Motorlast ebenfals zunimmt. Da der Motor jedoch ein Magnetfeld
+Beim Magnetometer lässt sich jedoch erkennen, dass die Streuung der Daten mit zunehmender Motorlast ebenfalls zunimmt. Da der Motor jedoch ein Magnetfeld
 erzeugt, welches mit zunehmender Belastung zunimmt, war ein Einfluss auf die Messwerte zu erwarten. Diese Störungen sollten bei der Verwendung
 des Magnetometers beachtet werden.
 
@@ -233,11 +233,11 @@ Nach ausführlicher Untersuchung konnte der Fehler jedoch im Platinenlayout ausg
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{platine_imu.png}\\
-\caption{Platinelayout mit IMU und Spule}%
+\caption{Platinenlayout mit IMU und Spule}%
 \label{fig:plat_imu}
 \end{figure}
 
-Der Inertialsensor wurde bei der Entwickling des Layouts zu nahe an die Filterspule des Schaltreglers gelegt. Da das Magnetfeld einer Spule proportional zum durchfließenden Strom ist, treten die Störungen
+Der Inertialsensor wurde bei der Entwicklung des Layouts zu nahe an die Filterspule des Schaltreglers gelegt. Da das Magnetfeld einer Spule proportional zum durchfließenden Strom ist, treten die Störungen
 besonders bei starken Lastwechseln im 5V-Netz auf. Die konstante Belastung belegt das Magnetometer nur mit einem Offset.
 
 Durch die Verschiebung des Inertialsensors, mit Hilfe einer Lochrasterplatine, konnten die Störungen jedoch stark verringert werden (\cref{plott:ripple_mag_new}).
@@ -255,13 +255,11 @@ Durch die Verschiebung des Inertialsensors, mit Hilfe einer Lochrasterplatine, k
 \label{plott:ripple_mag_new}
 \end{figure}
 
-\todo{Verleich signal im ruhezustand??}
+\todo{Standardabweichung mit t geschrieben??}
 
-\todo{Standartabweichung mit d geschrieben}
-
-\section{Infarotsensoren}
-Im Kapietel Umsetzung wurde bereits über die hohen Anforderungen der GP2D Sensoren berichtet. Da bei starker Motorlast kleine Störungen im 5V-Netz auftreten, wird nun
-untersucht, wie groß der Einfluss der Störungen auf die Infarotsensoren ist. Die Werte wurden dabei wieder in unterschiedlichen Lastszenarien aufgezeichnet.
+\section{Infrarotsensoren}
+Im Kapitel Umsetzung wurde bereits über die hohen Anforderungen der GP2D Sensoren berichtet. Da bei starker Motorlast kleine Störungen im 5V-Netz auftreten, wird nun
+untersucht, wie groß der Einfluss der Störungen auf die Infrarotsensoren ist. Die Werte wurden dabei wieder in unterschiedlichen Lastszenarien aufgezeichnet.
 
 \begin{table}[H]
   \centering
@@ -272,7 +270,7 @@ untersucht, wie groß der Einfluss der Störungen auf die Infarotsensoren ist. D
      30 & 1.533 & 0.0248\\ \hline
      60 & 1.570 & 0.1185\\ \hline
   \end{tabularx}
-  \caption{Infarotsensoren}%
+  \caption{Infrarotsensoren}%
   \label{tab:ir}
 \end{table}
 
@@ -352,7 +350,7 @@ eine Strecke von 10m möglichst gerade zurücklegen musste. Dabei wurden Start- 
 Der Mittelwert über alle Messungen beträgt 4989,01 und weicht somit nach oben vom errechneten Wert ab. Diese Abweichung lässt sich durch den Schlupf erklären.
 Der Wert wurde ebenfalls dadurch vergrößert, dass das Fahrzeug, während der Messungen, nicht exakt gerade gefahren ist.
 
-Im Folgenden wurde die Vvom Auto berechnete Geschwindigkeit mit einem kamerabasierendem Trackingsystem verglichen. Das Fahrzeug fuhr dabei
+Im Folgenden wurde die vom Auto berechnete Geschwindigkeit mit einem Kamera-basierenden Trackingsystem verglichen. Das Fahrzeug fuhr dabei
  einen Rundkurs (siehe \cref{fig:strasse}), wobei ein Geschwindigkeitsregler das Fahrzeug anhand der Odometriedaten auf \SI{1}{\metre\per\second} hielt.
 
 \begin{figure}[H]
@@ -363,11 +361,11 @@ Im Folgenden wurde die Vvom Auto berechnete Geschwindigkeit mit einem kamerabasi
   set xlabel 'Zeit in [s]'
   plot 'MessData/odom/test.csv' using 1:2 with line title "Tracking" lt rgb "red", 'MessData/odom/test.csv' using 1:4 with line title "Odometrie" lt rgb "blue"
 \end{gnuplot}
-\caption{Vergleich Odmometrie mit Kameratracking}
+\caption{Vergleich Odometrie mit Kameratracking}
 \label{plott:odom}
 \end{figure}
 
-Auffällig ist, dass die Geschwindigkeit vom Trackiungsystem mit einer sinusartigen Schwingung überlagert ist. Eine Erklärung zeigt ein Verleich der Geschwindigkeit
+Auffällig ist, dass die Geschwindigkeit vom Trackingsystem mit einer sinusartigen Schwingung überlagert ist. Eine Erklärung zeigt ein Vergleich der Geschwindigkeit
 mit der Orientierung des Fahrzeugs (\cref{fig:orientation}).
 
 \begin{figure}[H]
@@ -413,7 +411,7 @@ mit der Orientierung des Fahrzeugs (\cref{fig:orientation}).
 
 
 
-Während der Datenaufzeichung fuhr das Fahrzeug den OttoCar-Rundkurs ab, es startete  an der Position des Pfeils in dessen Richtung.
+Während der Datenaufzeichnung fuhr das Fahrzeug den OttoCar-Rundkurs ab, es startete  an der Position des Pfeils in dessen Richtung.
 
 
 \begin{figure}[H]
@@ -426,7 +424,7 @@ Während der Datenaufzeichung fuhr das Fahrzeug den OttoCar-Rundkurs ab, es star
 Sobald das Auto beschleunigt hat fängt die Orientierung an sich zu ändern. Direkt nach dem 1. Sprung der Orientierung (von -Pi zu Pi)
  beginnt sie ihre Orientierung zu ändern. Währenddessen durchfährt das Fahrzeug die S-Kurve des Rundkurses, Der Kurvenradius der S-Kurve ist sehr gering, daher fährt das Fahrzeug
  beinahe gerade. An dieser Stelle hat die Geschwindigkeit des Trackings ihr Maximum, das Fahrzeug fährt also in  Kurven bei gleicher Drehzahl langsamer zu fahren, was sich durch
- den erhöhten Schlupf in den Kurven erlären lässt. Die Abweichungen der Geschwindigkeit in den Kurven ist jedoch sehr gering, sodass diese nur wenig ins Gewicht fallen.
+ den erhöhten Schlupf in den Kurven erklären lässt. Die Abweichungen der Geschwindigkeit in den Kurven ist jedoch sehr gering, sodass diese nur wenig ins Gewicht fallen.
  Der Wert der Geschwindigkeit ist mit Hilfe des Trackings nicht verifizierbar, da eine Kalibrierung dessen auf Grund des Entwicklungsstandes nicht erfolgt ist.
  Das Tracking ist somit als Referenzsystem nicht geeignet.
  
@@ -435,9 +433,9 @@ Sobald das Auto beschleunigt hat fängt die Orientierung an sich zu ändern. Dir
 
 Der Stromverbrauch des Fahrzeugs ist ein wichtiges Kriterium in den statischen Disziplinen. Um den Stromverbrauch im laufenden Betrieb messen zu können, wird hier ein Versuchsaufbau verwendet welcher der Messung des
 Motorstromes ähnelt. Die Schaltung besteht dabei aus einem Shuntwiderstand, einer aktiven Filterschaltung und einem Arduino, welcher die Daten zum NUC weiterleitet. Der Vorteil dieser Methode ist, dass die Daten
-unter realen Bedingungen in Echtzeit aufgezeichtet werden können. \cref{fig:power_consumption} zeigt den Verlauf des Stromes während folgendem Szenario: Bis ca. 25s steht das Auto, sämmtliche Software ist dabei auf 
-dem Fahrzeug aktiv. Ab 25s beschleunigt das Fahrzeug auf \SI{1,3}{\metre\per\second} und verhart dort bis ca. Sekunde 57, in welcher es gegen eine Wand fährt. Der grüne Graph stellt dabei den Strom durch den Motor dar, während
-der blaue Graph den Gesamtverbrauch des Fahrzeugs darstellt. Die roten Linien stellen einen gleitenden Mittelwert aus den letzten 200 Messwerten dar. Gut zu erkenn ist, dass der Stromverbrauch des Fahrzeugs im Stand unter 
+unter realen Bedingungen in Echtzeit aufgezeichnet werden können. \cref{fig:power_consumption} zeigt den Verlauf des Stromes während folgendem Szenario: Bis ca. 25s steht das Auto, sämtliche Software ist dabei auf 
+dem Fahrzeug aktiv. Ab 25s beschleunigt das Fahrzeug auf \SI{1,3}{\metre\per\second} und verharrt dort bis ca. Sekunde 57, in welcher es gegen eine Wand fährt. Der grüne Graph stellt dabei den Strom durch den Motor dar, während
+der blaue Graph den Gesamtverbrauch des Fahrzeugs darstellt. Die roten Linien stellen einen gleitenden Mittelwert aus den letzten 200 Messwerten dar. Gut zu erkennen ist, dass der Stromverbrauch des Fahrzeugs im Stand unter 
 10 Watt liegt. Der Mittelwert des Verbrauches im Stand beträgt 7,9 Watt, während das Fahrzeug während der Fahrt knapp 13 Watt an Leistung aufnimmt. Nur während das Fahrzeug beschleunigt benötigt es für die Dauer
 des Beschleunigungsvorganges mehr Leistung. Fährt das Fahrzeug gegen ein Hindernis, sodass die Räder blockieren, befindet sich der Motor im Kurzschlussbetrieb, dabei reduziert sich sein Widerstand auf den Ohmschen Widerstand
 des Motors, was zu einem hohen Stromfluss durch den Motor führt. Dauerhaft kann das durch Überhitzung zur Zerstörung des Motors oder der Treiberplatine führen.

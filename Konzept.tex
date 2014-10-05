@@ -1,14 +1,14 @@
 
 \chapter{Konzept}
 
-\todo{Konzeptkapietel sinnvoll?}
+\todo{Konzeptkapitel sinnvoll?}
 
-\section{Grunlegender Aufbau}
+\section{Grundlegender Aufbau}
 
 Die Treiberplatine ist der zentrale Punkt für das Einsammeln aller Messwerte und die Ansteuerung der Aktorik. Dabei übernimmt sie sowohl die Energieversorgung der Komponenten als auch
 die Kommunikation mit der darüber liegenden Recheneinheit. Herzstück der Platine ist dabei ein Mikrocontroller, an welchen über diverse Schnittstellen die Aktorik bzw. Sensorik
 angeschlossen ist. Die Platine selber kommuniziert über USB mit der Recheneinheit und stellt dieser eine Schnittstelle zum Auslesen der Messwerte und Einstellen der Stellgrößen für die Aktorik
-zur Verfügung. Weitere Aufgaben der Platine sind die Überwachung von Zuständen wie z.B. der Akkuspannung und dem Motorstrom. Eine Übersicht über die Sensorik bzw Aktorik und ihre Anbinding ist in 
+zur Verfügung. Weitere Aufgaben der Platine sind die Überwachung von Zuständen wie z.B. der Akkuspannung und dem Motorstrom. Eine Übersicht über die Sensorik bzw. Aktorik und ihre Anbindung ist in 
 Abbildung [\ref{fig:konzept}] zu sehen.
 
 \begin{figure}[H]
@@ -23,15 +23,15 @@ Die fertig entwickelte Platine soll als Prototyp gefertigt werden, deshalb wird 
 Die Größe aller SMD Bausteine wird aufgrund des vorhandenen Sortiments auf 0805 beschränkt.
 
 
-\section{Der Microcontroller}
-Als Microcontroller wird ein ``Atmel At90can12''\cite{ds-at90can} verwendet, da dieser vor Ort vorhanden ist und die nötigen Funktionen wie PWM-Kanäle und einen Analog-/Digital-Wandler mitbringt und 
-über die nötige Leistung und Speicherkapazität verfügt (128KB). Der Microcontroller kann durch ein einzelnes 5V-Netz mit Strom versorgt werden.
+\section{Der Mikrocontroller}
+Als Mikrocontroller wird ein ``Atmel At90can12''\cite{ds-at90can} verwendet, da dieser vor Ort vorhanden ist und die nötigen Funktionen wie PWM-Kanäle und einen Analog-/Digital-Wandler mitbringt und 
+über die nötige Leistung und Speicherkapazität verfügt (128KB). Der Mikrocontroller kann durch ein einzelnes 5V-Netz mit Strom versorgt werden.
 
 
 
 
 \section{Motortreiber}
-Da der Motorteiber eine hohe Belastbarkeit von mindestens 20 Ampere aufweisen soll und
+Da der Motortreiber eine hohe Belastbarkeit von mindestens 20 Ampere aufweisen soll und
 vollintegrierte Motortreiber in dieser Leistungsklasse praktisch nicht zu bekommen sind, wird der Motortreiber als Vierquadrantensteller mit diskreten Mosfets ausgeführt.
 
 \begin{minipage}{0.9\textwidth}
@@ -56,7 +56,7 @@ an einem 5V-Netz betrieben werden können.
 \section{Anschluss an das Pandaboard}
 Da die verwendeten Pandaboards bereits über GPIO-Anschlüsse verfügen, wird auf eine USB Anbindung verzichtet, stattdessen wird die Platine direkt an die SPI-Anschlüsse
 eines der Pandaboards angeschlossen. Da die Verbindung mechanisch stabil sein muss und trotzdem einfach zu entfernen sein soll, wird hier eine RJ45-Buchse verwendet.
-Diese stellt insgesammt 8 Leitungen zur Verfügung. Um eine größere Flexibilität zu erreichen wird durch diese zusätzlich die UART geleitet.
+Diese stellt insgesamt 8 Leitungen zur Verfügung. Um eine größere Flexibilität zu erreichen wird durch diese zusätzlich die UART geleitet.
 Die einzelnen Pins sind wie folgt belegt:
 
 \begin{table}[H]
