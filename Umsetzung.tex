@@ -948,13 +948,19 @@ Durch diese Eigenschaft ist ein ESR Kondensator hervorragend zur Störunterdrüc
 
 
 \section{Zusammenfassung}
+In Abbildung \ref{fig:layout} ist das Fertige Platinenlayout zu sehen.
 
-
+\begin{figure}[H]
+\centering
+\includegraphics[width=.56\textwidth]{platinen_layout_scr.png}\\
+\caption{Platinenlayout}%
+\label{fig:layout}
+\end{figure}
 
 
 \section{Software}
 
-Die Software besteht im Grunde aus zwei Teilen, zum einem der Firmware auf dem Microcontroller zum anderem aus der Software auf der Recheneinheit, welche die Daten vom Microcontroller ausliest und über ROS publisht.
+Die Software besteht im Grunde aus zwei Teilen, zum einem der Firmware auf dem Microcontroller zum anderem aus der Software auf der Recheneinheit, welche die Daten vom Microcontroller ausliest und über ROS published.
 \todo{publisht oder published????????????}
 In den folgenden Abschnitten werden erst die beiden Softwareteile erläutert, dann wird das Übertragungsprotokoll veranschaulicht.
 
@@ -965,14 +971,13 @@ Die Software fungiert auf dem Controller als Service und wartet legendlich auf e
 
 
 \subsection{Client Programm auf der Recheneinheit}
-Das Client Programm, im folgenden SerialNode genannt,
-Im erten Schritt wurde hier ein Python Programm genutzt, welches jedoch einen Nachteil mit sich bringt. Da das Ansprechen der seriellen Schnitstelle unter pyserial sehr hohe CPU-Last mit sich bringt.
-Da die so verschwendete Rechenleistung für andere Aufgaben benötigt wird und auch energieeffizienz ein wichtiges Kriterium ist, Wurde das Programm erneut in C++ implementiert. Unter verwendung der Systemaufrufe von 
-Poll konnte das abfragen der seriellen Schnitstelle auf Systemebene ausgeführt werden, was die effizeinz stark verbessert. Während die Python Implementierung einen CPU-Kern zu 100\%
-auslastete liegt die C++ Implementierung im unteren einstelligen Bereich.
+Das Client Programm, im folgenden SerialNode genannt wurde zu erst in Python implementiert. Durch die Verwendung der pyserial Bibliothek zum ansprechen der seriellen Schnitstelle wurde jedoch
+eine enorm hohe CPU-Last verrusacht. Da sich das Problem kurzfristig nicht lösen ließ und die Rechenleistung für andere Aufgaben benötigt wird und auch energieeffizienz ein wichtiges Kriterium ist,
+wurde das Programm erneut in C++ implementiert. Unter verwendung der Systemaufrufe von Poll konnte das abfragen der seriellen Schnitstelle auf Systemebene ausgeführt werden, was die effizeinz stark 
+verbessert. Während die Python Implementierung einen CPU-Kern zu 100\% auslastete liegt die C++ Implementierung im unteren einstelligen Prozent Bereich.
+Eine volständige Dokumentation der Software ist ebenfalls als Doxygen Dokument verfügbar.
 
-
- Das Programm stellt dann folgende ROS-Topics zur verfügung:\\
+Das Programm stellt nach seinem start folgende ROS-Topics zur verfügung:\\
  
 \begin{table}[H]
   \centering
@@ -994,7 +999,7 @@ auslastete liegt die C++ Implementierung im unteren einstelligen Bereich.
     /uC\_time			& std\_msgs/UInt32										\\ \hline
       \multicolumn{2}{|X|}{Die vergangende Zeit auf dem Microcontrollers seit dessen start in Millisekunden}						\\ \hline\hline
     /sensors/voltage		& std\_msgs/Float32										\\ \hline
-     \multicolumn{2}{|X|}{Die aktuelle Akkuspannung in Volt}												\\ \hline\hline
+     \multicolumn{2}{|X|}{Die aktuelle Akkuspannung in Volt}												\\ \hline
 
   \end{tabularx}
   \caption{ROS-Publisher}%
@@ -1002,7 +1007,7 @@ auslastete liegt die C++ Implementierung im unteren einstelligen Bereich.
 \end{table}
 
 
- Das Programm hört auf folgende ROS-Topics:\\
+Das Programm hört auf folgende ROS-Topics:\\
 
 \begin{table}[H]
   \centering
