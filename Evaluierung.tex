@@ -102,7 +102,7 @@ des Fahrzeuges untersucht.
 
 Betrachtet man den Verlauf der Spannung im 5V-Netz lässt sich leicht erkennen, dass das Signal von einem dem Strom sehr ähnlichen Signal überlagert wird.
 Eine solche Störung kann nur von der Betriebsspannung kommen, da der Motor nicht an das 5V-Netz angeschlossen ist. Scheinbar ist der 5V-Schaltregler nicht in der Lage diese Störungen vollständig auszugleichen.
-Daher wird nun die Betriebsspannung untersucht um das Ausmaß der Störungen beurteilen zu können.
+Daher wird nun die Betriebsspannung untersucht, um das Ausmaß der Störungen beurteilen zu können.
 Die Werte wurden in einer 1:10 Teilung gemessen, daher sind alle Spannungen mit dem Faktor 10 zu multiplizieren.
 
 Im Akkubetrieb (\cref{fig:accu_supply}) kann gut beobachtet werden, dass die Spannung um mehr als \SI{100}{\mV} schwankt. Die Frequenz der Spannungseinbrüche entspricht in etwa
@@ -210,7 +210,7 @@ erzeugt, welches mit zunehmender Belastung zunimmt, war ein Einfluss auf die Mes
 des Magnetometers beachtet werden.
 
 
-Weiter Störungen beim Magnetometer entstehen, wenn der Servomotor belastet wird (\cref{plott:ripple_mag}). Durch die Art und Weise wie der Servomotor arbeitet, treten starke Schwankungen im Stomverbrauch des Servomotors auf.
+Weiter Störungen beim Magnetometer entstehen, wenn der Servomotor belastet wird (\cref{plott:ripple_mag}). Durch die Art und Weise wie der Servomotor arbeitet, treten starke Schwankungen im Stromverbrauch des Servomotors auf.
 Bei der Untersuchung des 5V-Netzes konnten allerdings keine Störungen in der Spannungsversorgung festgestellt werden.
 
 
@@ -237,7 +237,7 @@ Nach ausführlicher Untersuchung konnte der Fehler jedoch im Platinenlayout ausg
 \label{fig:plat_imu}
 \end{figure}
 
-Der Inertialsensor wurde bei der Entwickling des Layouts zu nahe an die Filterspule des Schaltreglers gelegt. Da das Magnetfeld einer Spule proportional zum durchfließenden Stom ist, treten die Störungen
+Der Inertialsensor wurde bei der Entwickling des Layouts zu nahe an die Filterspule des Schaltreglers gelegt. Da das Magnetfeld einer Spule proportional zum durchfließenden Strom ist, treten die Störungen
 besonders bei starken Lastwechseln im 5V-Netz auf. Die konstante Belastung belegt das Magnetometer nur mit einem Offset.
 
 Durch die Verschiebung des Inertialsensors, mit Hilfe einer Lochrasterplatine, konnten die Störungen jedoch stark verringert werden (\cref{plott:ripple_mag_new}).
@@ -446,7 +446,7 @@ des Motors, was zu einem hohen Stromfluss durch den Motor führt. Dauerhaft kann
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{Strom/Power.png}\\
-\caption{Stomverbrauch des Fahrzeuges}%
+\caption{Stromverbrauch des Fahrzeuges}%
 \label{fig:power_consumption}
 \end{figure}
 
@@ -454,4 +454,4 @@ des Motors, was zu einem hohen Stromfluss durch den Motor führt. Dauerhaft kann
 Die starken Schwankungen der Messwerte werden durch die vor den Akku geschaltete Strommessung verursacht. Der Shuntwiderstand in dieser Schaltung hat eine Größe von
 \SI{0,2}{\ohm}, was den Innenwiderstand der Akkus stark erhöht und dadurch die Spannungsschwankungen der Betriebsspannung verstärkt. 
 
-\todo{Stommessung bei anderen Motormodi}
+\todo{Strommessung bei anderen Motormodi}

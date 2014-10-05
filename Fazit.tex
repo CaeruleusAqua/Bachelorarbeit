@@ -3,12 +3,12 @@
 Im Rahmen dieser Arbeit wurde eine Treiberplatine für das OttoCar geschaffen, ausgehend von einem Anfangsbestand von Komponenten sollte die Platine, diversen Anforderungen genügen.
 Die Anforderungen umfassten dabei die Ansteuerung des Motors und des Servomotors, welche erfolgreich umgesetzt wurden, und zuverlässig ihren Dienst verrichten.
 Auch die Sharp GP2D Sensoren konnten erfolgreich in das System integriet werden....................................................Evaluierung Sensorqualität
-Die benötigte Beleuchtung wurde duch einen LED-Streifen mit WS2812 Contollern umgesetzt, welche durch ihre Bauart eine einfache integration in das Auto ermöglichen.
+Die benötigte Beleuchtung wurde duch einen LED-Streifen mit WS2812 Controllern umgesetzt, welche durch ihre Bauart eine einfache integration in das Auto ermöglichen.
 Da diese als RGB-Leds ausgeführt sind Übertreffen sie die Anforderungen sogar, da sie nahezu jede mögliche Farbe Annehmen können. Innerhalb der Software können diese einzeln Angesteuert
 werden und so zu Fehlerdiagnose genutzt werden. Bei der Integration des Sparkfun Inertialsensors traten Probleme mit dem Magnetometer auf, welche im nachhinein nur provisorisch abgemildert werden konnten.
 Trotz diese Probleme kann der Intertialsensor erfolgreich ???????????????? zur Inertialnavigation eingesetzt werden %%%%%%%%\cite{Martins_arbeit}}
 
-Die Auslegung der 5V Stomversorgung kann ebenfalls als erfolg gewertet werden, der Regler schafft es trotz ernormer Schwankungen der Betriebsspannung die Spannung, bis auf minimale Störungen
+Die Auslegung der 5V Stromversorgung kann ebenfalls als erfolg gewertet werden, der Regler schafft es trotz ernormer Schwankungen der Betriebsspannung die Spannung, bis auf minimale Störungen
 stabil zu halten, so dass es zu keiner Störung der Sensormesswerte kommt. Die Odometrie konnte die Anforderungen leider nicht vollständig erfüllen, da nur eine Wegmessug nach vorne möglich ist.
 Die Qualität der Geschwindigkeitsangabe ist dafür auch bei Mittleren Geschwindigkeiten bis \SI{2}{\metre\per\second} auch in Kurven gut brauchbar. Durch die Fusion, der
 Inertailsensorik und Odometrie konnte ein Inertialnavigationssystem

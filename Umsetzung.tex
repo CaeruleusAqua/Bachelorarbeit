@@ -209,7 +209,7 @@ Alle weiteren Anschlüsse des Allegros werden direkt an Pins von PORTC am Microc
 
 Da innerhalb des Wettbewerbes Energieeffizienz wichtig ist, ist es notwendig den aktuellen Stromverbrauch zu kennen. Es wird davon ausgegangen, dass der Stromverbrauch der Recheneinheit und Sensoren
 konstant ist, bzw. sich mit der fertigen Software über die Zeit nicht wesentlich ändert. Da der Motor einen großen zu erwartenden Verbrauch hat, ist es wichtig seinen Verbrauch zu bestimmen. Mithilfe dieser
-Informationen ist es möglich verschiedene Fahrregler Auslegungen im Aspekt des Verbrauches zu vergleichen. Um den Verbrauch zu bestimmen, ist es notwendig die anliegende Spannung und den Stom durch den
+Informationen ist es möglich verschiedene Fahrregler Auslegungen im Aspekt des Verbrauches zu vergleichen. Um den Verbrauch zu bestimmen, ist es notwendig die anliegende Spannung und den Strom durch den
 Motor zu messen. Die H-Brücke wird dabei als Teil des Motors betrachtet, daher entspricht Spannung über den Motor der Akkuspannung. Diese lässt sich einfach über einen Spannungsteiler an den ADC des Mikrocontrollers
 anschließen. Als Werte für den Spannungsteiler werden \SI{1,8}{\kohm} und \SI{10}{\kohm} gewählt.
 
@@ -235,7 +235,7 @@ Die maximal messbare Akkuspannung beträgt dadurch $\frac{\SI{5}{\V}}{0,152}=\SI
 
 Die Messung des Motorstroms ist mit einem Problem behaftet, da der Motor über eine Pulsweitenmodulation angesteuert wird. Der Verlauf des Stroms ist pulsierend, abhängig von
 der Frequenz und dem Tastgrad der Pulsweitenmodulation. In \cref{fig:pwm+i_0} zu erkennen ist der Verlauf des PWM Signals (obere Kurve) und des Stroms, welcher nach einer $1-e^t$ Funktion ansteigt.
-Ohne weitere Filterung des Signals wäre eine extrem hohe Abtastfequenz des ADC nötig um den genauen Stromfluss zu messen. Da für eine Verbrauchsmessung 
+Ohne weitere Filterung des Signals wäre eine extrem hohe Abtastfequenz des ADC nötig, um den genauen Stromfluss zu messen. Da für eine Verbrauchsmessung 
 der Mittelwert des Stroms interessant ist, kann dieser mit Hilfe eines Tiefpasses erzeugt werden.
 
 
@@ -247,7 +247,7 @@ der Mittelwert des Stroms interessant ist, kann dieser mit Hilfe eines Tiefpasse
 \end{figure}
 
 Eine kostengünstige Variante den Strom zu messen ist den Spannungsabfall über einen Shuntwiderstand zu bestimmen. Die Größe des Shuntwiderstandes sollte nur so klein wie nötig gewählt werden.
-Ein zu kleiner Shuntwiderstand benötigt einen starken Messverstärker um das Signal auswerten zu können. Die Qualität und Genauigkeit dieses Signals nimmt allerdings mit steigender Verstärkung ab.
+Ein zu kleiner Shuntwiderstand benötigt einen starken Messverstärker, um das Signal auswerten zu können. Die Qualität und Genauigkeit dieses Signals nimmt allerdings mit steigender Verstärkung ab.
 
 Nach kurzer Recherche wurde die Größe des Shuntwiderstands auf R2512(ca \SI{6,35}{\mm} x \SI{3,00}{\mm}) begrenzt. Messshunts in dieser Größe gibt es problemlos bis zu einer Belastbarkeit von 2 Watt. 
 Bei einem maximalen Motorstrom von 20A ergibt sich somit ein maximaler Spannungsabfall von \SI{100}{\mV}. Nach dem Ohmschen Gesetz ergibt sich so eine Shuntgröße von
@@ -771,7 +771,7 @@ Das Messsignal vom Sensor wird über einen ADC-Eingang des AVR Microcontrollers 
 
 
 \section{Odometrie}
-Das Auto benötigt in unterschiedlichen Situationen unterschiedlich viel Leistung um seine Geschwindigkeit zu halten.
+Das Auto benötigt in unterschiedlichen Situationen unterschiedlich viel Leistung, um seine Geschwindigkeit zu halten.
 Besonders in Kurven ist durch die erhöhte Reibung mehr Motorleistung nötig. Über den Motortreiber lässt sich jedoch nur
 die mittlere Spannung am Motor verändern, deshalb ist es nötig diese zu regeln. Dafür ist jedoch eine Rückführung der Geschwindigkeit
 des Autos nötig. Eine Aufintegrierung der Beschleunigungsdaten der Inertialsensorik führt auf Dauer zu erheblichen
@@ -878,7 +878,7 @@ Stromabgabe von 500mA vor.
 Der Stromvebrauch des normalen Pandaboards (ohne ES) beträgt ca. 800mA \cite{website-panda-power}.
 Nähere Angaben zum Stromverbrauch des normalen Pandaboards (ohne ES) finden sich in \cite{website-panda-power}.
 Der Verbrauch des Pandaboard ES dürfte durch den schnelleren Prozessor minimal darüber liegen. 
-Durch Anschluss von USB-Geräten an das Board kann der Stomverbrauch jedoch noch steigen. Die USB-Spezifikation \cite{website-usb-spec}
+Durch Anschluss von USB-Geräten an das Board kann der Stromverbrauch jedoch noch steigen. Die USB-Spezifikation \cite{website-usb-spec}
 sieht pro Port eine maximale Stromentnahme von 500mA vor. Da das Pandaboard über 2 USB-Ports verfügt liegt der maximale zusätzliche Verbrauch bei 1A,
 sodass hier ein Gesammtverbrauch von 2A veranschlagt wird.
 
@@ -997,8 +997,8 @@ Auf dem Layout sind folgende Komponenten zu sehen:
  \item [9] RJ45 Buchse zum Anschluss der Pandaboards (mit SPI und UART)
  \item [10] Anschlüsse für die Sharp GP2D Sensoren 
  \item [11] Anschluss und Filterschaltung für die Odeometrie (Hallsensor)
- \item [12] Shunt mit Filterschaltung zur Stommessung
- \item [13] Stomanschluss für die Pandaboards
+ \item [12] Shunt mit Filterschaltung zur Strommessung
+ \item [13] Stromanschluss für die Pandaboards
 \end{itemize}
 
 
@@ -1006,11 +1006,10 @@ Auf dem Layout sind folgende Komponenten zu sehen:
 \section{Software}
 
 Die Software besteht im Grunde aus zwei Teilen, zum einem der Firmware auf dem Microcontroller zum anderem aus der Software auf der Recheneinheit, welche die Daten vom Microcontroller ausliest und über ROS published.
-\todo{publisht oder published????????????}
 In den folgenden Abschnitten werden erst die beiden Softwareteile erläutert, dann wird das Übertragungsprotokoll veranschaulicht.
 
 
-\subsection{Software auf dem Mikrocontroller}
+\subsection{Software auf dem Microcontroller}
 Die Software auf dem Microcontroller ist vollständig in C++ geschrieben. Eine vollständige Dokumentation der Software ist als Doxygen Dokument verfügbar. 
 Die Software fungiert auf dem Controller als Service und wartet legendlich auf eine Anfrage von der seriellen Schnittstelle, welche sie bearbeitet und bei Bedarf beantwortet. 
 
@@ -1071,14 +1070,14 @@ Das Programm hört auf folgende ROS-Topics:\\
 
 \subsection{Übertragungsprotokoll}
 Da die Übertragung der Daten via ROS-Serial im ersten Prototypen zu vielen Problemen geführt hat, wurde ein neues Übertragungsprotokoll entwickelt.
-Dabei wurde auf Fehlertoleranz und niedrigen Ressourcenverbrauch geachtet. Der Datendurchsatz muss hier ausreichend sein um alle Daten stabil mit 100Hz
+Dabei wurde auf Fehlertoleranz und niedrigen Ressourcenverbrauch geachtet. Der Datendurchsatz muss hier ausreichend sein, um alle Daten stabil mit 100Hz
 übertragen zu können.
 Der grundlegende Ablauf der Datenübertragung ist in \cref{fig:uC_read} und \ref{fig:uC_write} zu sehen.
 
 \todo{in Bildern NUC duch recheneinheit ersetzten??}
 
 Während eines Lesevorganges (\cref{fig:uC_read}) wartet der Microcontroller auf ein fest definiertes Startsignal von der Recheneinheit. Nachdem das Startsignal empfangen wurde, wird auf eine weitere Preamble gewartet.
-Dies ist notwendig um bei Asynchronitäten die Wahrscheinlichkeit eines zufälligen Startsignals zu verringern. Wurde die Preamble erfolgreich empfangen, erwartet der Microcontroller eine gültige Topic ID.
+Dies ist notwendig, um bei Asynchronitäten die Wahrscheinlichkeit eines zufälligen Startsignals zu verringern. Wurde die Preamble erfolgreich empfangen, erwartet der Microcontroller eine gültige Topic ID.
 Wurde eine falsche Preamble empfangen, wartet der Microcontroller erneut auf ein gültiges Startsignal. Abhängig von der Topic ID verfährt der Microcontroller dann im Programm fort und beantwortet
 die Anfrage entsprechend. Für manche Topics ist eine Bestätigung (Acknowledge) nötig. Bekommt der Microcontroller keine Bestätigung sendet er die Daten erneut. Eine Bestätigung wird nur gesendet,
 wenn die vom Client berechnete Checksumme mit der mitgesendeten identisch ist. Dies ist besonders bei den Daten der Inertialsensorik von Nöten, da hier defekte Daten zu einem dauerhaften Fehler führen. 
@@ -1093,7 +1092,7 @@ nötig, wartet der Controller erneut auf ein Startsignal.
 \end{figure}
 
 Der Ablauf eines Schreibvorganges (\cref{fig:uC_write}) auf dem Microcontroller ist ähnlich. Der Microcontroller wartet auf das Startsignal und eine Preamble sowie eine Topic ID.
-Nach dem Empfang der Topic ID erwartet er die nötigen Daten, samt Checksumme. Diese ist nötig um die Daten zu verifizieren. Bei der Ansteuerung des Motors kann ein
+Nach dem Empfang der Topic ID erwartet er die nötigen Daten, samt Checksumme. Diese ist nötig, um die Daten zu verifizieren. Bei der Ansteuerung des Motors kann ein
 Bitfehler zu fatalen Folgen führen. Beispielsweise kann die Recheneinheit oder der Microcontroller abstürzen, wenn die Motorleistung plötzlich stark erhöht wird.
 Daher werden die Daten nur übernommen, wenn die Checksumme erfolgreich verifiziert wurde. Sollte die Checksumme nicht verifiziert werden, springt der Microcontroller
 erneut in den Startzustand und wartet auf ein Startsignal, ohne die Daten zu übernehmen. Der Client bekommt davon nichts mit, wenige einzelne Fehler können durch die
