@@ -1,5 +1,7 @@
 \chapter{Umsetzung}
 
+
+\todo{text verbessern.....ode entfernen}
 In diesem Kapitel werden die technischen Hintergründe der einzelnen Komponenten erläutert und ihre Umsetzung beschrieben.
 ....
 
@@ -170,22 +172,24 @@ C_{\text{BOOT}}=\frac{Q_{\text{GATE}}\cdot20}{V_{\text{BOOT}}}
 \end{align*}
 
 
-V\textsubscript{BOOT} entspricht dabei in etwa V\textsubscript{REG} welche laut Datenblatt 13V beträgt.
-Die Gateladung Q\textsubscript{GATE} der FDD6690A Mosfets beträgt typischerweise 13nC. Damit ergibt sich für C\textsubscript{BOOT}=20nF es werden demnach
+V\textsubscript{BOOT} entspricht dabei in etwa V\textsubscript{REG} welche laut Datenblatt \cite{ds-A3941} 13V beträgt.
+Die Gateladung Q\textsubscript{GATE} der FDD6690A Mosfets beträgt typischerweise 13nC \cite{ds-fs}. Damit ergibt sich für C\textsubscript{BOOT}=20nF es werden demnach
 die nächst größeren 22nF als Bootstrapkondensatoren genutzt.\\
 
 Die Spannung V\textsubscript{DSTH} am VDSTH-Eingang soll der Spannung entsprechen die maximal über jeden Mosfet abfallen darf, bevor der Treiber einen Kurzschuss detektiert 
-und abschaltet. Da der maximale Strom durch unseren Motor 20Ampere beträgt, lässt sich diese Spannung, einfach berechnen. Der Wiederstand der Mosfest im Einschaltzustand beträgt
-in unseren Fall (13V\textsubscript{GS}) etwas weniger als $12m\Omega$  bei einem Strom von 20A ergibt sich damit eine Spannung von $12m\Omega \cdot 20A = 0,24V$
+und abschaltet. Da der maximale Strom durch unseren Motor 20 Ampere beträgt, lässt sich diese Spannung, einfach berechnen. Der Widerstand der Mosfest im Einschaltzustand beträgt
+in unseren Fall ($U_{GS}=\SI{13}{\V}$) etwas weniger als \SI{12}{\mohm}  bei einem Strom von \SI{20}{\A} ergibt sich damit eine Spannung von $\SI{12}{\mohm} \cdot \SI{20}{\A} = \SI{0,24}{\V}$
 Da wir den Motor über sein gesammtes Leistungsspektrum nutzen wollen muss diese Spannung etwas darüber gewählt werden.
 
-Da der Strom in VDSTH nur minimal ist (ca 10\textmu A) kann diese Spannung über einen einfachen Spannungsteiler zur Verfügung gestellt werden. Ein Spannungsteiler mit 
-Widerständen zu $2k\Omega$ und $32k\Omega$ erzeugt uns zusammen mit den 5V aus dem V5 Ausgang eine Spannung von $\frac{2k\Omega}{2k\Omega+32k\Omega}\cdot 5V =0,294 V$.\\
-
+Da der Strom in VDSTH nur minimal ist (ca \SI{10}{\uA})  kann diese Spannung über einen einfachen Spannungsteiler zur Verfügung gestellt werden. Ein Spannungsteiler mit 
+Widerständen zu \SI{2}{\kohm} und \SI{32}{\kohm} erzeugt uns zusammen mit den 5V aus dem V5 Ausgang eine Spannung von $\frac{\SI{2}{\kohm}}{\SI{32}{\kohm}+\SI{2}{\kohm}}\cdot \SI{5}{\V} =\SI{0,24}{\V}$.
+Der Spannungsteiler wird durch R\textsubscript{VDSTH1} und R\textsubscript{VDSTH2} gebildet.\\
 
 Die Größe des C\textsubscript{REG} Kondensators hängt direkt mit der Größe der Bootstrapkondensatoren zusammen. Er soll ca 20 mal größer als
-C\textsubscript{BOOTA} bzw C\textsubscript{BOOTB} gewählt werden, So das hier ein 470nF Kondensator gewählt wird.
-Alle restlichen Größen werden direkt dem Datenblatt entnommen.
+C\textsubscript{BOOTA} bzw C\textsubscript{BOOTB} gewählt werden, So das hier ein 470nF Kondensator gewählt wird.\\
+
+Das Datenbatt empfiehlt \SI{100}{\nF} entkoppelungs Kondensatoren zwischen Drain und Source eines jeden Mosfets. Diese wurden in Form von C\textsubscript{AH},C\textsubscript{AL},C\textsubscript{BH} und C\textsubscript{BL} 
+verbaut. Alle restlichen Größen werden direkt dem Datenblatt entnommen.\\
 
 Da der verwendete AVR Microcontroller nur über begrenzte PWM fähige Anschlüsse zu verfügung stellt, wird legendlich der PWM-Kanal für die oberen Mosfets (PWMH) an einen PWM Ausgang des AVR angeschlossen.
 Durch diese Entscheidung werden Betriebsmodi, welche ein Gleichschalten der Mosfets erfordern, erschwert und können nur duch ein Software PWM realisiert werden. Der Vorteil es Betriebsmodus ``Fast decay, diode recirculation''
@@ -565,7 +569,7 @@ wird das bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren h
 %% Grenzfreqeunz = 100Hz (-3db)
 \begin{figure}[H]
 \centering
-\begin{gnuplot}[terminal=pdf]
+\begin{gnuplot}[terminal=pdf, scale=0.94]
   set nokey 
   set xrange [10:3900]
   set xlabel 'Frequenz in [Hz]'
@@ -594,7 +598,7 @@ Diese liegt bei 33,7dB. Daran kann man erkennen, dass es sich nicht mehr um eine
 %% Grenzfreqeunz = 104Hz (-3db)
 \begin{figure}[H]
 \centering
-\begin{gnuplot}[terminal=pdf]
+\begin{gnuplot}[terminal=pdf, scale=0.94]
   set xrange [10:3900]
   set xlabel 'Frequenz in [Hz]'
   set ylabel 'Verstärkung in [dB]'
@@ -609,12 +613,12 @@ Diese liegt bei 33,7dB. Daran kann man erkennen, dass es sich nicht mehr um eine
 \todo{Überall Kommas oder Punkte als Dezimaltrenner}
 
 Im der folgenden Abbildung [\ref{plott:filter_sprungantwort}] ist 
-die Antwort des Filters auf ein Rechtecksignal mit 3,9kHz, einem Tastverhältnisvon 0,5 und einer Amplitude von 50mV zu sehen. Das Überschwingen im Bereich
+die Antwort des Filters auf ein Rechtecksignal mit 3,9kHz, einem Tastverhältnis von 0,5 und einer Amplitude von 50mV zu sehen. Das Überschwingen im Bereich
 von 7ms ist charakteristisch für den Butterworth-Filter und wirkt sich negativ auf die Messung des Stromes aus. Allerdings werden solch große Sprünge in der Praxis nicht auftreten
-, da der Strom duch die große Induktivität des Motors nur langsam ansteigt.
+, da der Strom durch die große Induktivität des Motors nur langsam ansteigt.
 \begin{figure}[H]
 \centering
-\begin{gnuplot}[terminal=pdf]
+\begin{gnuplot}[terminal=pdf, scale=0.94]
   set nokey 
   set yrange [0:3]
   set xlabel 'Zeit in [s]'
@@ -632,7 +636,7 @@ Die in Abbildung [\ref{plott:ripple}] gut zu erkennende Restwelligkeit (Ripple) 
 %% zu hoher Spannungswert durch Steig und Fallzeiten im low bereich des Rechtecksignals
 \begin{figure}[H]
 \centering
-\begin{gnuplot}[terminal=pdf]
+\begin{gnuplot}[terminal=pdf, scale=0.94]
   set nokey 
   set xrange [0.03:0.04]
   set yrange [2.62:2.66]
@@ -948,8 +952,19 @@ Durch diese Eigenschaft ist ein ESR Kondensator hervorragend zur Störunterdrüc
 
 
 
-\section{Zusammenfassung}
-In Abbildung \ref{fig:layout} ist das fertige Platinenlayout zu sehen.
+\section{Das Layout}
+\todo{orgesehende Lücke in Anforderungen}
+In Abbildung \ref{fig:layout} ist das fertige Platinenlayout zu sehen. Bei der Entwicklung des Layouts wurde darauf geachtet, dass die Platine in die vorgesehende Lücke des Fahrzeugs passt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{auto_struck.png}\\
+\caption{Fahrzeug Platinen-Position}%
+\label{fig:car_struc}
+\end{figure}
+
+Die Lücke hat Maße von \SI{13,0}{\cm} mal \SI{5,4}{\cm}. Das Platinenlayout hat eine Größe von  \SI{13,0}{\cm} mal \SI{5,05}{\cm} und passt somit in die Lücke ohne dabei zu viel Spielraum zu haben, 
+was in einem festen Sitz der Platine resultiert. 
 
 \begin{figure}[H]
 \centering
@@ -1049,7 +1064,7 @@ Das Programm hört auf folgende ROS-Topics:\\
 Da die Übertragung der Daten via ROS-Serial im ersten Prototypen zu vielen Problemen geführt hat, wurde ein neues Übertragungsprotokoll entwickelt.
 Dabei wurde auf Fehlertoleranz und niedrigen Ressourcenverbrauch geachtet. Der Datendurchsatz muss hier ausreichend sein um alle Daten stabil mit 100Hz
 übertragen zu können.
-Der Grundlegende Ablauf der Datenübertragung ist in den Abbildungen [\ref{fig:uC_read}] und [\ref{fig:uC_write}] zu sehen.
+Der Grundlegende Ablauf der Datenübertragung ist in \cref{fig:uC_read} und \ref{fig:uC_write} zu sehen.
 
 \todo{in Bildern NUC duch recheneinheit ersetzten??}
 
@@ -1073,8 +1088,8 @@ Nach dem Empfang der TopicID erwartet er die nötigen Daten, samt Checksumme. Di
 Bitfehler zu fatalen Folgen führen. Beispielsweise kann die Recheneinheit oder der Microcontroller abstürzen wenn die Motorleistung plötzlich stark erhöt wird.
 Daher werden die Daten nur übernommen, wenn die Checksumme erfolgreich verifiziert wurde. Sollte die Checksumme nicht verifiziert werden, springt der Microcontroller
 erneut in des Startzustand und wartet auf ein Startsignal, ohne die Daten zu übernehmen. Der Client bekommt davon nichts mit, wenige einzelne Fehler können durch die
-hohe interne Datenrate von 100Hz ignoriert werden. Haufige oder dauerhafte Fehlübertragungen, können durch die Reaktion des Autos leicht identifiziert werden.
-Häufige oder dauerhafte Fehlübertragungen würden duch das fortlaufende Lesen und Schreiben auf dem Microcontroller so oder so zu Fehlern in beiden Richtungen führen.
+hohe interne Datenrate von \SI{100}{\Hz} ignoriert werden. Häufige oder dauerhafte Fehlübertragungen, können durch die Reaktion des Autos leicht identifiziert werden.
+Häufige oder dauerhafte Fehlübertragungen würden durch das fortlaufende Lesen und Schreiben auf dem Microcontroller so oder so zu Fehlern in beiden Richtungen führen.
 
 \begin{figure}[ht]
 \centering

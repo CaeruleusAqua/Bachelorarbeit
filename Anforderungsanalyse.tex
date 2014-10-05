@@ -72,7 +72,10 @@ Herstellungskosten \cite{website-carolo-cup-regelwerk}. Daraus entstehen weitere
 Folgende Anforderungen werden durch das Team an die Platine gestellt. Die Integration einer Inertialsensorik (Sparkfun SEN-10724) zur Inertialnavigation,
 Anschlüsse Infarotsensoren vom Typ Sharp GP2D120 und GP2D1202, die Integration einer Odometrie zur Geschwindigkeitsmessung,
 sowie eine 5V Stromversorgung zum Betreiben eines Pandaboards. Die Platine soll ein ROS-Interface auf einem Pandaboard zur Verfügung stellen, mit welchem die Aktorik gesteuert und
-die Sensorwerte ausgelesen werden können. Das Auto soll über ein vorhandenes Netzteil betrieben werden können (ca. 20V).
+die Sensorwerte ausgelesen werden können. Das Auto soll über ein vorhandenes Netzteil betrieben werden können (ca. 20V).\\
+
+Desweiteren muss die Platine in eine dafür vorgesehende Lücke des Fahrzeuges passen. Diese Lücke hat Maße von \SI{13}{\cm} mal \SI{5,4}{\cm}.
+
 
 \section{Zusammenfassung}
 Um den Anforderungen zu genügen, muss ein Motorteiber mit einer Belastbarkeit von mindestens 20 Ampere integriert werden. 
@@ -89,5 +92,5 @@ Nach der erfolgreichen Teilnahme am ``Carolo-Cup Junior'' im Februar 2014, began
 einige Flaschenhälse zum Vorschein, sodass in der Projektphase die Hardwareplattform geändert werden musste. Die Rechenleistung der Pandaboards stellte sich
 als unzureichend heraus und es wurden mehr Distanzsensoren gewünscht. Die Pandaboards wurden nach der Absprache mit dem Team durch ein Intel NUC vom Typ
 D34010WYB ersetzt. Laut Datenblatt \cite{datasheet-nuc} besitzt der NUC einen Weitbereichseingang zur Spannungsversorgung, dieser ist für 12-24 Volt zugelassen.
-Sodas der NUC direkt an den 14,4V der Akkus und den 20V des Netzteils betrieben werden kann. Um Verwirrungen zu vermeiden wird im Folgenden legendlich 
+Sodas der NUC direkt an den \SI{14,4}{\V} der Akkus und den \SI{20}{\V} des Netzteils betrieben werden kann. Um Verwirrungen zu vermeiden wird im Folgenden legendlich 
 von Recheneinheit gesprochen, wenn es nicht relevant ist ob es sich um NUC oder Pandaboard handelt.

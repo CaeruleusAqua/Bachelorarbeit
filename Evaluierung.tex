@@ -117,7 +117,7 @@ der PWM Frequenz von \SI{7812,5}{\hertz}.  Der Motor wurde währenddessen mit ei
 \end{figure}
 
 
-Vergleicht man die Messungen im Akkubetrieb mit den Messungen im Netztbetrieb (\cref{fig:power_supply}), kann man erkennen das das Netzteil versucht die Schwankungen auszugleichen.
+Vergleicht man die Messungen im Akkubetrieb (\cref{fig:akku_supply}) mit den Messungen im Netztbetrieb (\cref{fig:power_supply}), kann man erkennen das das Netzteil versucht die Schwankungen auszugleichen.
 
 \begin{figure}[H]
 \centering
@@ -134,7 +134,7 @@ die hohe Belastung führte zu einer starken Wärmeentwicklung des Motors.
 \centering
 \includegraphics[width=.8\textwidth]{VCC_AKKU_LAST.png}\\
 \caption{Störungen der Betriebsspannung mit Akku unter Last}%
-\label{fig:power_supply}
+\label{fig:akku_supply}
 \end{figure}
 
 Betrachet man das 5V-Netz unter diesen Bedingungen (\cref{fig:5V_last}) zeigt sich die beeindruckende Leistung des 5V Schaltreglers.
@@ -217,7 +217,7 @@ Bei der Untersuchung des 5V-Netzes konnten allerdings keine Störungen in der Sp
   
 \begin{figure}[H]
 \centering
-\begin{gnuplot}[terminal=pdf]
+\begin{gnuplot}[terminal=pdf, scale=0.94]
   set nokey
   set xlabel 'Zeit in [s]'
   set ylabel 'Flussdichte in [T]'
@@ -244,7 +244,7 @@ Durch die Verschiebung des Inertialsensors, mit Hilfe einer Lochrasterplatine, k
 
 \begin{figure}[H]
 \centering
-\begin{gnuplot}[terminal=pdf]
+\begin{gnuplot}[terminal=pdf, scale=0.94]
   set nokey 
   set xlabel 'Zeit in [s]'
   set ylabel 'Flussdichte in [T]'
@@ -282,7 +282,7 @@ der Messwerte zu rechnen. Abbildung \ref{plott:IR_signal_30} und \ref{plott:IR_s
 
 \begin{figure}[H]
 \centering
-\begin{gnuplot}[terminal=pdf]
+\begin{gnuplot}[terminal=pdf, scale=0.94]
   set nokey
   set datafile separator ','
   set ylabel 'Spannung in [V]'
@@ -296,7 +296,7 @@ der Messwerte zu rechnen. Abbildung \ref{plott:IR_signal_30} und \ref{plott:IR_s
 
 \begin{figure}[H]
 \centering
-\begin{gnuplot}[terminal=pdf]
+\begin{gnuplot}[terminal=pdf, scale=0.94]
   set nokey 
   set datafile separator ','
   set ylabel 'Spannung in [V]'
@@ -310,7 +310,7 @@ der Messwerte zu rechnen. Abbildung \ref{plott:IR_signal_30} und \ref{plott:IR_s
 
 %\begin{figure}[H]
 %\centering
-%\begin{gnuplot}[terminal=pdf]
+%\begin{gnuplot}[terminal=pdf, scale=0.94]
 %  set nokey 
 %  set datafile separator ','
 %  plot 'MessData/Infrared/idle.csv' with line
@@ -355,7 +355,7 @@ Im Folgenden wurde die Vom Auto berechnete Geschwindigkeit mit einem kamerabasie
 
 \begin{figure}[H]
 \centering
-\begin{gnuplot}[terminal=pdf]
+\begin{gnuplot}[terminal=pdf, scale=0.94]
   set datafile separator ','
   set ylabel 'Geschwindigkeit in [m/s]'
   set xlabel 'Zeit in [s]'
