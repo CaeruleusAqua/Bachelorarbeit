@@ -215,18 +215,18 @@ anschließen. Als Werte für den Spannungsteiler werden \SI{1,8}{\kohm} und \SI{
 Da der Innenwiderstand des ADC sehr groß ist (\SI{100}{\mohm}), kann der Spannungsteiler als unbelastet betrachtet werden. Damit ergibt sich das Teilungsverhältnis zu $\frac{R_{STL}}{R_{STH}+R_{STL}}=0,153$.
 Die maximal messbare Akkuspannung beträgt dadurch $\frac{\SI{5}{\V}}{0,152}=\SI{32,7}{\V}$. Die Messung des Stroms gestaltet sich wesentlich aufwändiger und wird im Folgenen erläutert.
 
-%TODO
-\todo{Maximale Betiebsspannung ermitteln!!
-LM2678= 45 Volt
-Allegro= 50V
-Mosftes = 30V
-}
+
+%\todo{Maximale Betiebsspannung ermitteln!!
+%LM2678= 45 Volt
+%Allegro= 50V
+%Mosftes = 30V
+%}
 
 
 \subsection{Problem}
 
 Die Messung des Motorstroms ist mit einem Problem behaftet, da der Motor über eine Pulsweitenmodulation angesteuert wird. Der Verlauf des Stoms ist pulsierend, abhängig von
-der Frequenz der Pulsweitenmodulation. In \cref{fig:pwm+i_0} zu erkennen ist der Verlauf des PWM Signals (obere Kurve) und des Stoms, welcher nach einer $1-e^t$ Funktion ansteigt.
+der Frequenz und dem Tastgrad der Pulsweitenmodulation. In \cref{fig:pwm+i_0} zu erkennen ist der Verlauf des PWM Signals (obere Kurve) und des Stoms, welcher nach einer $1-e^t$ Funktion ansteigt.
 Ohne weitere Filterung des Signals wäre eine extrem hohe Abtastfequenz des ADC nötig um den genauen Stromfluss zu messen. Da für eine Verbrauchsmessung 
 der Mittelwert des Stoms interessant ist, kann dieser mit Hilfe eines Tiefpasses erzeugt werden.
 
@@ -641,7 +641,7 @@ Die in Abbildung [\ref{plott:ripple}] gut zu erkennende Restwelligkeit (Ripple) 
   plot 'Simulation/Filter_real_time.csv' with line
 \end{gnuplot}
 \caption{Restwelligkeit des Filters}
-\label{plott:imu_servo}
+\label{plott:ripple}
 \end{figure}
 
 Da der berechnete Filter den Anforderungen bestens genügt, wird dieser in die Schaltung übernommen.
@@ -656,7 +656,8 @@ jeder einzelnen LED zulassen. Die LED-Streifen mit Controllern von ``Worldsemi''
 WS2801, WS2811 und WS2812. Der WS2812 ist dabei nahezu identisch mit dem WS2811 mit dem Unterschied, dass der WS2812 bereits in eine RGB-LED integriert ist.
 Im Unterschied zum WS2801 werden die beiden duche eine einzige Signalleitung mit fixem Takt angesteuert, so dass hier eine seperate Taktleitung entfällt.
 
-Der Nachteil an dieser Methode ist, dass das Timing genau eingehalten werden muss um die Daten korrekt zu übertragen. Wie in Abbildung \ref{fig:led_cascade}werden die LEDs kaskadiert. Die Daten werden dann durch die LEDs geschoben.
+Der Nachteil an dieser Methode ist, dass das Timing genau eingehalten werden muss um die Daten korrekt zu übertragen. Wie in Abbildung \ref{fig:led_cascade}werden die 
+LEDs kaskadiert. Die Daten werden dann durch die LEDs geschoben.
 
 \begin{figure}[H]
 \centering
@@ -948,14 +949,34 @@ Durch diese Eigenschaft ist ein ESR Kondensator hervorragend zur Störunterdrüc
 
 
 \section{Zusammenfassung}
-In Abbildung \ref{fig:layout} ist das Fertige Platinenlayout zu sehen.
+In Abbildung \ref{fig:layout} ist das fertige Platinenlayout zu sehen.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.56\textwidth]{platinen_layout_scr.png}\\
+\includegraphics[width=.8\textwidth]{platinen_layout_scr.png}\\
 \caption{Platinenlayout}%
 \label{fig:layout}
 \end{figure}
+
+
+Auf dem Layout sind folgende Komponenten zu sehen:
+\begin{itemize}
+\setlength{\parskip}{0pt}
+ \item [1] H-Brücke mit Motoranschluss
+ \item [2] \SI{5}{\A} Schaltregler
+ \item [3] Allegro Mosfettreiber
+ \item [4] Atmel Microcontroller
+ \item [5] Sparkfun Interialsensor ( Anschluss und Postition )
+ \item [6] Anschluss für den LED-Strang
+ \item [7] Anschluss für den Servomotor
+ \item [8] ISP Anschluss zum Programieren des Mikrocontrollers
+ \item [9] RJ45 Buchse zum Anschluss der Pandaboards (mit SPI und UART)
+ \item [10] Anschlüsse für die Sharp GP2D Sensoren 
+ \item [11] Anschluss und Filterschaltung für die Odeometrie (Hallsensor)
+ \item [12] Shunt mit Filterschaltung zur Stommessung
+ \item [13] Stomanschluss für die Pandaboards
+\end{itemize}
+
 
 
 \section{Software}
@@ -965,7 +986,7 @@ Die Software besteht im Grunde aus zwei Teilen, zum einem der Firmware auf dem M
 In den folgenden Abschnitten werden erst die beiden Softwareteile erläutert, dann wird das Übertragungsprotokoll veranschaulicht.
 
 
-\subsection{Software auf dem \textmu Controller}
+\subsection{Software auf dem Mikrocontroller}
 Die Software auf dem Microcontroller ist vollständig in C++ geschrieben. Eine volständige Dokumentation der Software ist als Doxygen Dokument verfügbar. 
 Die Software fungiert auf dem Controller als Service und wartet legendlich auf eine Anfrage von der seriellen Schnitstelle, welche sie bearbeitet und bei Bedarf beantwortet. 
 
@@ -1032,7 +1053,7 @@ Der Grundlegende Ablauf der Datenübertragung ist in den Abbildungen [\ref{fig:u
 
 \todo{in Bildern NUC duch recheneinheit ersetzten??}
 
-Während eines Lesevorganges wartet der Microcontroller auf ein fest definiertes Startsignal von der Recheneinheit. Nachdem das Startsignal empfangen wurde, wird auf eine weitere Preamble gewartet.
+Während eines Lesevorganges (\cref{fig:uC_read}) wartet der Microcontroller auf ein fest definiertes Startsignal von der Recheneinheit. Nachdem das Startsignal empfangen wurde, wird auf eine weitere Preamble gewartet.
 Dies ist notwendig um bei Asynchronitäten die Wahrscheinlichkeit eines zufälligen Startsignals zu verringern. Wurde die Preamble erfolgreich empfangen erwartet der Microcontroller eine gültige Topic ID.
 Wurde eine falsche Preamble empfangen wartet der Microcontroller erneut auf ein gültiges Startsignal. Abhängig von der Topic ID verfährt der Microcontroller dann im Programm fort und beantwortet
 die Anfrage entsprechend. Für manche Topics ist eine Bestätigung (Acknowledge) nötig. Bekommt der Microcontroller keine Bestätigung sendet er die Daten erneut. Eine Bestätigung wird nur gesendet,
@@ -1047,7 +1068,7 @@ nötig, wartet der Controller erneut auf ein Startsignal.
 \label{fig:uC_read}
 \end{figure}
 
-Der Ablauf eines Schreibvorganges auf dem Microcontroller ist ähnlich. Der Microcontroller wartet auf das Startsignal und eine Preamble sowie eine Topic ID.
+Der Ablauf eines Schreibvorganges (\cref{fig:uC_write}) auf dem Microcontroller ist ähnlich. Der Microcontroller wartet auf das Startsignal und eine Preamble sowie eine Topic ID.
 Nach dem Empfang der TopicID erwartet er die nötigen Daten, samt Checksumme. Diese ist nötig um die Daten zu verifizieren. Bei der Ansteuerung des Motors kann ein
 Bitfehler zu fatalen Folgen führen. Beispielsweise kann die Recheneinheit oder der Microcontroller abstürzen wenn die Motorleistung plötzlich stark erhöt wird.
 Daher werden die Daten nur übernommen, wenn die Checksumme erfolgreich verifiziert wurde. Sollte die Checksumme nicht verifiziert werden, springt der Microcontroller

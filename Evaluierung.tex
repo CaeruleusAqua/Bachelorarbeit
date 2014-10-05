@@ -366,7 +366,7 @@ Im Folgenden wurde die Vom Auto berechnete Geschwindigkeit mit einem kamerabasie
 \end{figure}
 
 Aufflällig ist, dass die Geschwindigkeit vom Trackiungsystems mit einer Sinusartigen Schwingung überlagert ist. Eine Erklärung zeigt ein Verleich der Geschwindigkeit
-mit der Orientierung des Fahrzeugs (\cref{plott:orientation}).
+mit der Orientierung des Fahrzeugs (\cref{fig:orientation}).
 
 \begin{figure}[H]
 \centering
@@ -433,7 +433,7 @@ Sobald das Auto beschleunigt hat fängt die Orientierung an sich zu ändern. Dir
 
 Der Stromverbrauch des Fahrzeugs ist ein wichtiges Kriterium in den statischen Disziplinen. Um den Stromverbrauch im laufenden Betrieb messen zu können, wird hier ein Versuchsaufbau verwendet welcher der Messung des
 Motorstomes ähnelt. Die Schaltung besteht dabei aus einem Shuntwiderstand, einer aktiven Filterschaltung und einem Arduino, welcher die Daten zum NUC weiterleitet. Der Vorteil dieser Methode ist, dass die Daten
-unter realen Bedingungen in Echtzeit aufgezeichtet werden können. \cref{fig:Strom_con} zeigt den Verlauf des Stromes währed folgendem Szenario: Bis ca 25s steht das Auto, sämmtliche Software ist dabei auf 
+unter realen Bedingungen in Echtzeit aufgezeichtet werden können. \cref{fig:power_consumption} zeigt den Verlauf des Stromes währed folgendem Szenario: Bis ca 25s steht das Auto, sämmtliche Software ist dabei auf 
 dem Fahrzeug aktiv. Ab 25s beschleunigt das Fahrzeug auf \SI{1,3}{\metre\per\second} und verhart dort bis ca. Sekunde 57, in welcher es gegen eine Wand fährt. Der grüne Graph stellt dabei den Strom durch den Motor dar, während
 der blaue Graph den Gesammtverbrauch des Fahrzeugs darstellt. Die roten Linien Stellen einen gleitenden Mittelwert aus den letzten 200 Messwerten dar. Gut zu erkenn ist, dass der Stromverbrauch des Fahrzeugs im Stand unter 
 10 Watt liegt. Der Mittelwert des Verbrauches im Stand beträgt 7,9 Watt, während das Fahrzeug während der fahrt knapp 13 Watt an Leistung aufnimmt. Nur während das Fahrzeug beschleunigt benötigt es für die Dauer
@@ -445,7 +445,7 @@ Motors, was zu einem hohen Stromfluss durch den Motor führt. Dauerhaft kann das
 \centering
 \includegraphics[width=.8\textwidth]{Strom/Power.png}\\
 \caption{Stomverbrauch des Fahrzeuges}%
-\label{fig:Power_con}
+\label{fig:power_consumption}
 \end{figure}
 
 
