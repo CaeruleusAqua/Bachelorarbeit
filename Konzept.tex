@@ -4,9 +4,9 @@
 \section{Grunlegender Aufbau}
 
 Die Treiberplatine ist der zentrale Punkt für das Einsammeln aller Messwerte und die Ansteuerung der Aktorik. Dabei übernimmt sie sowohl die Energieversorgung der Komponenten als auch
-Kommunikation mit der darüber liegenden Recheneinheit. Herzstück der Platine ist dabei ein Mikrocontroller, an welchen über diverse Schnittstellen die Aktorik bzw. Sensorik
-angeschlossen ist. Die Platine selber kommuniziert über USB mit der Recheneinheit und stellt dieser eine Schnittstelle zum auslesen der Messwerte und einstellen der Stellgrößen für die Aktorik
-zur Verfügung. Weitere Aufgaben der Platine sind die Überwachung von Zuständen wie z.B. der Akkuspannung und dem Motorstromes. Eine Übersicht über die Sensorik bzw Aktorik und ihre Anbinding ist in 
+die Kommunikation mit der darüber liegenden Recheneinheit. Herzstück der Platine ist dabei ein Mikrocontroller, an welchen über diverse Schnittstellen die Aktorik bzw. Sensorik
+angeschlossen ist. Die Platine selber kommuniziert über USB mit der Recheneinheit und stellt dieser eine Schnittstelle zum Auslesen der Messwerte und Einstellen der Stellgrößen für die Aktorik
+zur Verfügung. Weitere Aufgaben der Platine sind die Überwachung von Zuständen wie z.B. der Akkuspannung und dem Motorstrom. Eine Übersicht über die Sensorik bzw Aktorik und ihre Anbinding ist in 
 Abbildung [\ref{fig:konzept}] zu sehen.
 
 \begin{figure}[H]
@@ -17,13 +17,13 @@ Abbildung [\ref{fig:konzept}] zu sehen.
 \end{figure}
 
 
-Die fertig entwickelte Platine soll als Prototyp gefertigt werden, deshalb wird darauf geachtet, dass alle verwendeten Bauteile mit Hand bestückt werden können,
-Die größe aller SMD Bausteine wird aufgrund des vorhandenen Sortiments auf 0805 beschränkt.
+Die fertig entwickelte Platine soll als Prototyp gefertigt werden, deshalb wird darauf geachtet, dass alle verwendeten Bauteile mit Hand bestückt werden können.
+Die Größe aller SMD Bausteine wird aufgrund des vorhandenen Sortiments auf 0805 beschränkt.
 
 
 \section{Der Microcontroller}
-Als Microcontroller wird ein ``Atmel At90can12''\cite{ds-at90can} verwendet, da dieser vor Ort vorhanden ist und die Nötigen Funktionen wie PWM-Kanäle und einen Analog-/Digital-Wandler mitbringt und 
-über die nötige Leistung und Speicherkapazität verfügt (128KB). Der Microcontroller kann durch ein einzelnes 5-Netzt mit Stom versorgt werden.
+Als Microcontroller wird ein ``Atmel At90can12''\cite{ds-at90can} verwendet, da dieser vor Ort vorhanden ist und die nötigen Funktionen wie PWM-Kanäle und einen Analog-/Digital-Wandler mitbringt und 
+über die nötige Leistung und Speicherkapazität verfügt (128KB). Der Microcontroller kann durch ein einzelnes 5V-Netz mit Stom versorgt werden.
 
 
 
@@ -47,15 +47,15 @@ in der Energietechnik können auch Wechselspannungen unterschiedlicher Frequenze
 \end{figure}
 
 \section{Spannungsversorgung}
-Da der Mikrocontroller und alle vorhandennen Sensoren eine Betriebsspannung von 5 Volt aufweisen, wird auf eine andres Spannungsnetzt verzichtet.
-Da die Platine somit nur mit einer einzigen Spannungsversorgung ausgestattet ist werden alle weiteren Bauteile so ausgewählt, dass sie 
-an einem 5 Volt Netz betrieben werden können.
+Da der Mikrocontroller und alle vorhandenen Sensoren eine Betriebs\-spannung von 5 Volt aufweisen, wird auf ein anderes Spannungsnetz verzichtet.
+Da die Platine somit nur mit einer einzigen Spannungsversorgung ausgestattet ist, werden alle weiteren Bauteile so ausgewählt, dass sie 
+an einem 5V-Netz betrieben werden können.
 
 \section{Anschluss an das Pandaboard}
-Da die verwendeten Pandaboards bereits über GPIO Anschlüsse verfügen, wird auf eine USB Anbinding verzichtet, stattdessen wird die Platine direkt an die SPI Anschlüsse
-eines angeschlossen. Da die Verbindung mechanisch stabil sein muss, und Trotzdem einfach zu entfernen sein soll wird hier eine RJ45 Buchse verwendet.
-Diese stellt insgesammt 8 Leitungen zur Verfügung, um eine größere Flexibilität zu erreichen wir durch diese zusätzlich die UART geleitet.
-Die einzelnen Pins sind wiefolgt belegt:
+Da die verwendeten Pandaboards bereits über GPIO-Anschlüsse verfügen, wird auf eine USB Anbindung verzichtet, stattdessen wird die Platine direkt an die SPI-Anschlüsse
+eines der Pandaboards angeschlossen. Da die Verbindung mechanisch stabil sein muss und trotzdem einfach zu entfernen sein soll, wird hier eine RJ45-Buchse verwendet.
+Diese stellt insgesammt 8 Leitungen zur Verfügung. Um eine größere Flexibilität zu erreichen wird durch diese zusätzlich die UART geleitet.
+Die einzelnen Pins sind wie folgt belegt:
 
 \begin{table}[H]
   \centering
@@ -77,7 +77,7 @@ Die einzelnen Pins sind wiefolgt belegt:
 
 \begin{minipage}{0.9\textwidth}
 \textbf{Hinweis:\\}
-\emph{Da die Pandaboards jedoch im laufe der Projektphase durch einen Intel NUC ersetzt wurden, welcher nicht über einen externen SPI-BUS verfügt.
+\emph{Da die Pandaboards jedoch im Laufe der Projektphase durch einen Intel NUC ersetzt wurden, welcher nicht über einen externen SPI-BUS verfügt.
 Musste die Verbindung der Platine anders realisiert werden. Mit Hilfe der ebenfalls herausgeführten UART konnte mit einem UART-USB Adapter eine
 Verbindung zum Intel NUC Hergestellt werden. Da die Software erst im späteren Projektverlauf geschrieben wurde, nutzt sie die Anbindung über 
 den UART-USB Adapter.}

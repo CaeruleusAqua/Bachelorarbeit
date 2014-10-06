@@ -2,35 +2,37 @@
 \chapter{Anforderungsanalyse}
 
 \section{Ausgangssituation}
-Die Ausgangsposition der Arbeit stell sich folgender maßen dar. Das Fahrzeug basiert einem Fahrgestell vom Typ ``Tamiya TT-01-Type E''
-dieses Verfügt bereits über einen Motor und einem Motortreiber. Auf Grund der Herkunft der Komponenten, dem Modellbau, ist leider keine
-Dokumentation des elektrischen Kompnenten verfügbar. Wodurch der original Motortreiber leider nicht verwendet werden kann.
-Da das das Fahrzeug über bereits vorhandene 4 Zellen Lithium-Polymer-Akkus (14,4V Nennspannung) versorget werden soll, um die Anschaffung teuer Akkus zu vermeiden,
-hätte dieser so oder so nicht verwendet werden können. Für das Fahrzeug wurde bereits eine Treiberplatine in Form eins Prototyps gefertigt.
-Diese verfügt über ein Crumb123 Mikrocontoller Modul (At90can128), welches einen Motortreiber vom Typ ``L298 DUAL FULL-BRIDGE DRIVER'' ansteuert.
-Des weiteren verfügt der Prototyp über einen 3 Ampere Schaltregler von Texas Instruments, welcher Mikrocontoller und zwei Pandaboard mit Energie Versorgt, 
-Der Schaltregler befindet sich durch den betrieb zweier Pandaboards jedoch bereits an seiner Leistungsgrenze, da ursprünglich nur der Bertieb eines Pandaboards
-vorgesehen war. Der Verwendete Motortreiber wurde genutzt, weil weil er durch die Verwendung in anderen Projekten bereits vorhanden war, jedoch ist dieser 
-nur für Ströme von bis zu \SI{4}{\A} ausgelegt \cite{L298}. In einem Versuch wuden für den im Fahrzeug vorhandenen Motor Stöme von bis zu \SI{20}{\A} gemessen. 
+Die Ausgangsposition der Arbeit stell sich folgendermaßen dar. Das Fahrzeug basiert auf einem Fahrgestell vom Typ ``Tamiya TT-01-Type E'', welches bereits über einen Motor und einem Motortreiber verfügt.
+Auf Grund der Herkunft der Komponenten, dem Modellbau, ist keine
+Dokumentation der elektrischen Komponenten verfügbar.
+Aus diesem Grund kann der originale Motortreiber nicht verwendet werden.
+Da das Fahrzeug über bereits vorhandene 4-Zellen-Lithium-Polymer-Akkus (14,4V Nennspannung) versorgt werden soll um die Anschaffung teurer Akkus zu vermeiden,
+hätte dieser so oder so nicht verwendet werden können. 
+Für das Fahrzeug wurde bereits eine Treiberplatine in Form eins Prototyps gefertigt.
+Diese verfügt über ein Crumb123 Mikrocontroller Modul (At90can128), welches einen Motortreiber vom Typ ``L298 DUAL FULL-BRIDGE DRIVER'' ansteuert.
+Des Weiteren verfügt der Prototyp über einen \SI{3}{\A} Schaltregler von Texas Instruments, welcher Mikrocontroller und zwei Pandaboards mit Energie versorgt. 
+Der Schaltregler befindet sich durch den Betrieb zweier Pandaboards jedoch bereits an seiner Leistungsgrenze, da ursprünglich nur der Bertieb eines Pandaboards
+vorgesehen war. Der verwendete Motortreiber wurde genutzt, da er durch die Verwendung in anderen Projekten bereits vorhanden war, jedoch ist dieser 
+nur für Ströme von bis zu \SI{4}{\A} ausgelegt \cite{L298}. In einem Versuch wurden für den im Fahrzeug vorhandenen Motor Ströme von bis zu \SI{20}{\A} gemessen. 
 Durch die Unterdimensionierung des Treibers überhitzt dieser bereits nach wenigen Minuten Fahrbetrieb.
 Da der vorhandene Motor jedoch weiter verwendet werden soll, muss hier ein leistungsfähiger Ersatz 
-entwickelt werden. Des weiteren fehlen dem Prototyp wichtige Anschlüsse für weitere Sensoren und Beleuchtung. Welche nun integriert werden sollen. 
+entwickelt werden. Des Weiteren fehlen dem Prototyp wichtige Anschlüsse für weitere Sensoren und Beleuchtung, welche nun integriert werden sollen. 
 
-Bei der Entwicklung der neuen Treiberplatine sollen, um Kosten zu sparen, möglichst viele Vorhandene Komponenten verwendet werden. Dazu gehören
-Microcontroller vom Typ ``Atmel At90can128'' welche in großer Stückzahl vorhanden sind. Benötigte Sensoren in Form eines Interialsensors (Sparkfun SEN-10724)
-und Sharp GP2D Sensoren werden ebenfalls vom Lehrstuhl zur Verfügung gestellt. Des weiteren sind Sortimente von SMD Widerständen und
+Bei der Entwicklung der neuen Treiberplatine sollen, um Kosten zu sparen, möglichst viele vorhandene Komponenten verwendet werden. Dazu gehören
+Microcontroller vom Typ ``Atmel At90can128'', welche in großer Stückzahl vorhanden sind. Benötigte Sensoren in Form eines Interialsensors (Sparkfun SEN-10724)
+und Sharp GP2D Sensoren werden ebenfalls vom Lehrstuhl zur Verfügung gestellt. Des Weiteren sind Sortimente von SMD Widerständen und
 Kondensatoren in der Größe 805 vorhanden, sodass diese Bauform bei der Entwicklung der Platine bevorzugt wird.
 
 \section{Anforderungen laut Regelwerk}
-Um am „Carolo-Cup“ Teilnehmen zu können ist ein regelkonformes Fahrzeug notig, darum wird nun ein Auszug aus den Anforderungen an das Fahrzeug kurz 
-aufgelistet und ausgewertet.
+Um am „Carolo-Cup“ teilnehmen zu können ist ein regelkonformes Fahrzeug nötig, weshalb nun ein Auszug aus den Anforderungen an das Fahrzeug kurz 
+aufgelistet und ausgewertet wird.
 Alle Anforderungen können im Regelwerk des „Carolo-Cup“ nachgelesen werden \cite{website-carolo-cup-regelwerk}
 
 
 \subsection{Fahrzeugantrieb und Energieversorgung}
 Laut Regelwerk sind alle Teams zur Verwendung eines elektrischen Antriebs verpflichtet.
 Die Anzahl der angetriebenen Räder ist nicht vorgeschrieben.
-Des weiteren muss das Auto durch Akkus mit Strom versorgt werden.
+Des Weiteren muss das Auto durch Akkus mit Strom versorgt werden.
 Die Übertragung von Daten ist während der Dauer der Disziplinen nicht gestattet
 
 \subsection{Fahrzeugantrieb und Energieversorgung}
@@ -42,50 +44,50 @@ In Notsituationen muss es möglich sein das Fahrzeug mit Hilfe einer Funkfernbed
 das Auto seine Aufgabe aufgrund eines Fahrfehlers oder anderem Fehlverhalten nicht mehr autonom fortführen kann.
 Der RC-Modus muss per Fernbedienung eingeschaltet und ausgeschaltet werden, bei Aktivierung des RC-Modus muss das Fahrzeug unverzüglich angehalten werden.
 Während des Wettbewerbs darf die Geschwindigkeit des Autos $0,3\frac{m}{s}$ nicht überschreiten.
-Da das 2,4-GHz Band bereits durch die Vorort genutzte Kameratechnik belegt ist können diese Frequenzen nicht für den RC-Modus genutzt werden.
-Der RC-Modus muss durch eine blaue Leuchte an der höchsten stelle des Fahrzeuges angezeigt werden, welche mit einer Frequenz von 1-Hz blinkt.
+Da das 2,4-GHz Band bereits durch die Vor Ort genutzte Kameratechnik belegt ist, können diese Frequenzen nicht für den RC-Modus genutzt werden.
+Der RC-Modus muss durch eine blaue Leuchte an der höchsten Stelle des Fahrzeuges angezeigt werden, welche mit einer Frequenz von 1-Hz blinkt.
 
 \subsection{Signalleuchten}
-Durch die Anlehnung des Wettbewerbes an den realen Straßenverkehr muss das Auto über alle in echten Auto vorhandene Signalleuchten besitzen. 
-Dazu gehören 3 rote Bremslichter am Heck des Autos sowie jeweils 2 gelbe Blinker Rechts und Links am Fahrzeug.  Die Blinkfrequenz der Blinker muss
+Durch die Anlehnung des Wettbewerbes an den realen Straßenverkehr muss das Auto über alle in echten Autos vorhandene Signalleuchten besitzen. 
+Dazu gehören drei rote Bremslichter am Heck des Autos, sowie jeweils zwei gelbe Blinker rechts und links am Fahrzeug. Die Blinkfrequenz der Blinker muss
 1-Hz betragen.
 
 \section{Auswertung des Regelwerks}
-Der vorhandene Prototyp entspricht bereit der Anforderung bezüglich des elektrischen Antriebs, jedoch mit den bereits beschriebenen Unzulänglichkeiten. 
-Um diese Unzulänglichkeiten zu korrigieren, muss einen leistungsfähiger Motortreiber integriert werden.
-Die Lenkung des Autos kann von einen einfachen Servomotor vorgenommen werden, ein solcher wurde bereits in Form eines IQ-620CMG des Herstellers Hype angeschafft. 
+Der vorhandene Prototyp entspricht bereit den Anforderungen bezüglich des elektrischen Antriebs, jedoch mit den bereits beschriebenen Unzulänglichkeiten. 
+Um diese Unzulänglichkeiten zu korrigieren, muss ein leistungsfähiger Motortreiber integriert werden.
+Die Lenkung des Autos kann von einem einfachen Servomotor vorgenommen werden. Ein solcher wurde bereits in Form eines IQ-620CMG des Herstellers Hype angeschafft. 
 Damit das Auto die im RC-Modus nötigen Funksignale auswerten kann, muss ein Empfänger integriert werden. Dieser wird jedoch über USB zur Verfügung gestellt
-und ist deswegen nicht Teil dieser Arbeit. Des weiteren muss das Auto mit den nötigen Signalleuchten ausgestattet sein, dazu gehören Blinker rechts und links
-jeweils vorne und hinten. Sowie 3 Bremsleuchten an der Rückseite und eine weitere Leuchte welche din RC-Modus anzeigt. Der Vollständigkeit halber kommt hier noch die
+und ist deswegen nicht Teil dieser Arbeit. Des Weiteren muss das Auto mit den nötigen Signalleuchten ausgestattet sein, dazu gehören Blinker rechts und links
+jeweils vorne und hinten, sowie drei Bremsleuchten an der Rückseite und eine weitere Leuchte welche den RC-Modus anzeigt. Der Vollständigkeit halber kommt hier noch die
 Frontbeleuchtung hinzu.
 
 \section{Andere Anforderungen}
 \subsection{Anforderungen durch Bewertungskriterien}
 Abseits des Regelwerkes ergeben sich weitere Anforderungen durch die Bewertungskriterien des Wettbewerbes. Dabei handelt es sich um nichtfunktionale Anforderungen.
-So muss das Team während der statischen Disziplinen ihr Gesamtkonzept präsentieren. Schwerpunkte dabei sind, Hardware und Software Architektur sowie Energiebedarf und 
+So muss das Team während der statischen Disziplinen ihr Gesamtkonzept präsentieren. Schwerpunkte dabei sind, Hardware- und Software-Architektur sowie Energiebedarf und 
 Herstellungskosten \cite{website-carolo-cup-regelwerk}. Daraus entstehen weitere Anforderungen: Energieeffizienz und Herstellungskosten. \\
 
 
 \subsection{externe Anforderungen}
-Folgende Anforderungen werden durch das Team an die Platine gestellt. Die Integration einer Inertialsensorik (Sparkfun SEN-10724) zur Inertialnavigation.
-Anschlüsse Infarotsensoren vom Typ Sharp GP2D120 und GP2D1202. Die Integration einer Odometrie zur Geschwindigkeitsmessung. 
-Sowie eine 5V Stromversorgung zum betreiben eines Pandaboards. Die Platine soll ein ROS-Interface auf einem Pandaboard zur Verfügung stellen, mit welchem die Aktorik gesteuert und
-die Sensorwerte ausgelesen werden können. Das Auto soll über einem vorhandenen Netzteil betrieben werden können (ca. 20V).
+Folgende Anforderungen werden durch das Team an die Platine gestellt. Die Integration einer Inertialsensorik (Sparkfun SEN-10724) zur Inertialnavigation,
+Anschlüsse Infarotsensoren vom Typ Sharp GP2D120 und GP2D1202, die Integration einer Odometrie zur Geschwindigkeitsmessung,
+sowie eine 5V Stromversorgung zum Betreiben eines Pandaboards. Die Platine soll ein ROS-Interface auf einem Pandaboard zur Verfügung stellen, mit welchem die Aktorik gesteuert und
+die Sensorwerte ausgelesen werden können. Das Auto soll über ein vorhandenes Netzteil betrieben werden können (ca. 20V).
 
 \section{Zusammenfassung}
-Um den Anforderungen zu genügen muss ein Motorteiber mit einer Belastbarkeit von mindestens 20 Ampere integriert werden. 
-Ein Mikrocontroller zum Steuern der Aktorik inklusive des Motors, sowie zum Auslesen der Sensorsignale muss zur verfügung gestellt werden. 
+Um den Anforderungen zu genügen, muss ein Motorteiber mit einer Belastbarkeit von mindestens 20 Ampere integriert werden. 
+Ein Mikrocontroller zum Steuern der Aktorik inklusive des Motors, sowie zum Auslesen der Sensorsignale muss zur Verfügung gestellt werden. 
 Anschlüsse für zwei Sharp Sensoren vom Typ ``GP2D120'' oder ``GP2D12'' sowie weitere Anschlüsse für den Inertialsensor, Beleuchtung, Servomotor werden ebenfalls benötigt. 
-Es muss eine Odometrie zur Messung der Geschwindigkeit in irgendeiner Form integriert werden.
+Es muss eine Odometrie zur Messung der Geschwindigkeit integriert werden.
 Es muss eine effiziente Energieversorgung aller Bauteile zur Verfügung gestellt werden, welche auch zwei Pandaboards stabil betreiben kann. Die maximale Eingangsspannung
 muss mindestens 20 Volt betragen um das Auto auch über das Netzteil betreiben zu können.
-Da das Fahrzeug energieeffizient arbeiten soll ist eine Messung des Motorstromverbrauches essenziell um das Fahrverhalten bezüglich der Effiziens bewerten zu können.
-Zu guter letzt muss die Platine über eine Schnittstelle mit einem Pandaboard kommunizieren und seine Daten dort über ein ROS-Interface zur Verfügung zu stellen.
+Da das Fahrzeug energieeffizient arbeiten soll, ist eine Messung des Motorstromverbrauches essenziell um das Fahrverhalten bezüglich der Effizienz bewerten zu können.
+Zu guter Letzt muss die Platine über eine Schnittstelle mit einem Pandaboard kommunizieren und seine Daten dort über ein ROS-Interface zur Verfügung zu stellen.
 
 \section{Änderung der Anforderungen}
 Nach der erfolgreichen Teilnahme am ``Carolo-Cup Junior'' im Februar 2014, begann die Weiterentwicklung des Konzepts. Während der Entwicklung kamen jedoch
-einige Flaschenhälse zum vorschein, so dass in der Projektphase die Hardwareplatform geändert werden musste. Die Rechenleistung der Pandaboards stellte sich
+einige Flaschenhälse zum Vorschein, sodass in der Projektphase die Hardwareplattform geändert werden musste. Die Rechenleistung der Pandaboards stellte sich
 als unzureichend heraus und es wurden mehr Distanzsensoren gewünscht. Die Pandaboards wurden nach der Absprache mit dem Team durch ein Intel NUC vom Typ
 D34010WYB ersetzt. Laut Datenblatt \cite{datasheet-nuc} besitzt der NUC einen Weitbereichseingang zur Spannungsversorgung, dieser ist für 12-24 Volt zugelassen.
-Sodas der NUC direkt an den 14,4V der Akkus und den 20V des Netzteils betrieben werden kann.  Um Verwirrungen zu vermeiden wird im Folgenden legendlich 
+Sodas der NUC direkt an den 14,4V der Akkus und den 20V des Netzteils betrieben werden kann. Um Verwirrungen zu vermeiden wird im Folgenden legendlich 
 von Recheneinheit gesprochen, wenn es nicht relevant ist ob es sich um NUC oder Pandaboard handelt.
