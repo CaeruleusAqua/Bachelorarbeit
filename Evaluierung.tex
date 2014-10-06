@@ -37,7 +37,7 @@ Dies ist eine Auswirkung der gestörten Betriebsspannung, welche später untersu
 \end{figure}
 
 
-Wie in \cref{fig:filter_ausgang} zu sehen wurde die Eingangsspannung erfolgreich verstärkt und hat nun etwa eine Spannung von \SI{40}{\mV}. Dividiert durch den Verstärkungsfaktor 48 ergibt sich eine Spannung von 
+Wie in \cref{fig:filter_ausgang} zu sehen wurde die Eingangsspannung erfolgreich ver\-stärkt und hat nun etwa eine Spannung von \SI{40}{\mV}. Dividiert durch den Verstärkungsfaktor 48 ergibt sich eine Spannung von 
 \SI{0,83}{\mV}. Welche sehr nahe an dem vorher abgeschätzten Wert von \SI{0,82}{\mV} liegt. Der Strom lässt sich nun mit Hilfe des Ohmschen Gesetzes $U=R\cdot I$ errechnen.
 \begin{align*}
 I=\frac{\SI{0,83}{\mV}}{\SI{0,005}{\ohm}}=\SI{166,7}{\mA}
@@ -152,7 +152,7 @@ stark vergrößert.
 \end{figure}
 
 
-Da das \SI{5}{\V} Netz während der Motor belastet ist von Störungen überlagert ist, werden in den nächsten Abschnitten die Sensorwerte in Abhängigkeit von der Motorlast untersucht.
+Da das \SI{5}{\V}-Netz während der Motor belastet ist von Störungen überlagert ist, werden in den nächsten Abschnitten die Sensorwerte in Ab\-hän\-gig\-keit von der Motorlast untersucht.
 
 \section{Inertialsensor}
 
@@ -244,7 +244,7 @@ Nach ausführlicher Untersuchung konnte der Fehler jedoch im Platinenlayout ausg
 Der Inertialsensor wurde bei der Entwicklung des Layouts zu nahe an die Filterspule des Schaltreglers gelegt. Da das Magnetfeld einer Spule proportional zum durchfließenden Strom ist, treten die Störungen
 besonders bei starken Lastwechseln im 5V-Netz auf. Die konstante Belastung belegt das Magnetometer nur mit einem Offset.
 
-Durch die Verschiebung des Inertialsensors, mit Hilfe einer Lochrasterplatine, konnten die Störungen jedoch stark verringert werden (\cref{plott:ripple_mag_new}).
+Durch die Verschiebung des Inertialsensors, mit Hilfe einer Lochrasterplatine, konnten die Störungen jedoch stark verringert werden (siehe \cref{plott:ripple_mag_new}).
 
 \begin{figure}[H]
 \centering
@@ -258,8 +258,6 @@ Durch die Verschiebung des Inertialsensors, mit Hilfe einer Lochrasterplatine, k
 \caption{Störungen des Magnetometers nach der Korrektur}
 \label{plott:ripple_mag_new}
 \end{figure}
-
-\todo{Standardabweichung mit t geschrieben??}
 
 \section{Infrarotsensoren}
 Im Kapitel Umsetzung wurde bereits über die hohen Anforderungen der GP2D Sensoren berichtet. Da bei starker Motorlast kleine Störungen im 5V-Netz auftreten, wird nun
@@ -279,7 +277,7 @@ untersucht, wie groß der Einfluss der Störungen auf die Infrarotsensoren ist. 
 \end{table}
 
 Bis zu einem Tastgrad von 30:256 ist keine signifikante Verschlechterung der Messwerte erkennbar, bei höheren Tastgraden ist jedoch mit einer signifikanten Verschlechterung
-der Messwerte zu rechnen. Abbildung \ref{plott:IR_signal_30} und \ref{plott:IR_signal_60} zeigen den Verlauf des Signals.
+der Messwerte zu rechnen. \cref{plott:IR_signal_30} und \cref{plott:IR_signal_60} zeigen den Verlauf des Signals.
 
 
 \begin{figure}[H]
@@ -322,7 +320,7 @@ der Messwerte zu rechnen. Abbildung \ref{plott:IR_signal_30} und \ref{plott:IR_s
 %\end{figure}
 
 Trotz der Störungen bei hohen Tastgraden befinden sich die Störungen im akzeptablen Bereich, da die Distanzsensoren ausschließlich während des Einparkvorganges
-genutzt werden. Dieser findet jedoch nur bei niedrigen Geschwindigkeiten statt, sodass dort keine hohen Tastgrade vonnöten sind.
+genutzt werden. Dieser findet jedoch nur bei niedrigen Geschwindigkeiten statt, sodass dort keine hohen Tastgrade von\-nö\-ten sind.
 
 
 \section{Odometrie}
@@ -414,7 +412,7 @@ mit der Orientierung des Fahrzeugs (\cref{fig:orientation}).
 
 
 
-Während der Datenaufzeichnung fuhr das Fahrzeug den OttoCar-Rundkurs ab, es startete  an der Position des Pfeils in dessen Richtung.
+Während der Datenaufzeichnung fuhr das Fahrzeug den OttoCar-Rund\-kurs ab, es startete  an der Position des Pfeils in dessen Richtung.
 
 
 \begin{figure}[H]
@@ -495,7 +493,7 @@ Durch die stärkere Bremswirkung im SR-Modus spricht das Auto besonders gut auf 
 
 \subsection{Vergleich innerhalb des „Carolo-Cup“}
 Ein direkter Vergleich des Stromverbrauchs mit anderen Teams des vergangenden „Carolo-Cup“ 2014 ist leider kaum möglich, da in den vorhandenen Quellen (Teampräsentationen) nur sehr selten
-angaben über die Bedingungen der Messung gemacht werden. Die Angaben variieren dabei von \SI{10}{\W} (Berlin-United-Racing Team \cite{cc_bu}) bis zu \SI{161}{\W}(Team CDLC \cite{cc-cdlc}).
+angaben über die Bedingungen der Messung gemacht werden. Die Angaben variieren dabei von \SI{10}{\W} (Berlin-United-Racing Team \cite{cc-bu}) bis zu \SI{161}{\W}(Team CDLC \cite{cc-cdlc}).
 Team ``Tetrix''\cite{cc-tx} gibt ihren Stromverbrauch jedoch mit \SI{66,2}{\W} bei \SI{1}{\metre\per\second} und ist somit das einzige vergleichbare Team. Von diesem Wert entfallen
 laut der Präsentation \SI{47}{\W} auf den Motor. Dieser Wert scheint jedoch viel zu hoch, so dass hier von einer Fehlerhaften Messung des Team ``Tetrix'' ausgegangen wird.
 

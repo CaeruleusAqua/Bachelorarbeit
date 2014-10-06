@@ -7,7 +7,7 @@ Die Treiberplatine ist der zentrale Punkt für das Einsammeln aller Messwerte un
 die Kommunikation mit der darüber liegenden Recheneinheit. Herzstück der Platine ist dabei ein Mikrocontroller, an welchen über diverse Schnittstellen die Aktorik bzw. Sensorik
 angeschlossen ist. Die Platine selber kommuniziert über USB mit der Recheneinheit und stellt dieser eine Schnittstelle zum Auslesen der Messwerte und Einstellen der Stellgrößen für die Aktorik
 zur Verfügung. Weitere Aufgaben der Platine sind die Überwachung von Zuständen wie z.B. der Akkuspannung und dem Motorstrom. Eine Übersicht über die Sensorik bzw. Aktorik und ihre Anbindung ist in 
-Abbildung [\ref{fig:konzept}] zu sehen.
+\cref{fig:konzept} zu sehen.
 
 \begin{figure}[H]
 \centering
@@ -36,7 +36,7 @@ vollintegrierte Motortreiber in dieser Leistungsklasse praktisch nicht zu bekomm
 \textbf{Vierquadrantensteller:\\}
 \emph{``Ein Vierquadrantensteller besteht aus einer elektronischen H-Brückenschaltung aus vier Halbleiterschaltern, meist aus Transistoren, 
 welche eine Gleichspannung in eine Wechselspannung variabler Frequenz und variabler Pulsbreite umwandeln kann. Vierquadrantensteller 
-in der Energietechnik können auch Wechselspannungen unterschiedlicher Frequenzen in beiden Richtungen ineinander umwandeln.''}\cite{vierquadrantensteller2}
+in der Energietechnik können auch Wechselspannungen unterschiedlicher Frequenzen in beiden Richtungen ineinander umwandeln.''}\cite{vierquadrantensteller}
 \end{minipage}
 
 \begin{figure}[H]
@@ -52,7 +52,7 @@ Da die Platine somit nur mit einer einzigen Spannungsversorgung ausgestattet ist
 an einem 5V-Netz betrieben werden können.
 
 \section{Anschluss an das Pandaboard}
-Da die verwendeten Pandaboards bereits über GPIO-Anschlüsse verfügen, wird auf eine USB Anbindung verzichtet, stattdessen wird die Platine direkt an die SPI-Anschlüsse
+Da die verwendeten Panda\-boards bereits über GPIO-Anschlüsse ver\-fü\-gen, wird auf eine USB Anbindung verzichtet, stattdessen wird die Platine direkt an die SPI-Anschlüsse
 eines der Pandaboards angeschlossen. Da die Verbindung mechanisch stabil sein muss und trotzdem einfach zu entfernen sein soll, wird hier eine RJ45-Buchse verwendet.
 Diese stellt insgesamt 8 Leitungen zur Verfügung. Um eine größere Flexibilität zu erreichen wird durch diese zusätzlich die UART geleitet.
 Die einzelnen Pins sind wie folgt belegt:
