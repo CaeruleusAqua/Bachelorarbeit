@@ -2,25 +2,22 @@
 
 Im Rahmen dieser Arbeit wurde eine Treiberplatine für das OttoCar geschaffen, ausgehend von einem Anfangsbestand von Komponenten sollte die Platine, diversen Anforderungen genügen.
 Die Anforderungen umfassten dabei die Ansteuerung des Motors und des Servomotors, welche erfolgreich umgesetzt wurden, und zuverlässig ihren Dienst verrichten.
-Auch die Sharp GP2D Sensoren konnten erfolgreich in das System integriert werden....................................................Evaluierung Sensorqualität
+Auch die Sharp GP2D Sensoren konnten erfolgreich in das System integriert werden leiden jedoch bei zunehmendem Motorstrom an einer massiven Verschlechterung der Messergebnisse.
+So dass diese nur bei niedrigen Geschwindigkeiten und nicht während Beschleunigungsvorgängen aussagekräftige Messwerte liefern.
 Die benötigte Beleuchtung wurde durch einen LED-Streifen mit WS2812 Controllern umgesetzt, welche durch ihre Bauart eine einfache Integration in das Auto ermöglichen.
 Da diese als RGB-LEDs ausgeführt sind Übertreffen sie die Anforderungen sogar, da sie nahezu jede mögliche Farbe Annehmen können. Innerhalb der Software können diese einzeln Angesteuert
-werden und so zu Fehlerdiagnose genutzt werden. Bei der Integration des Sparkfun Inertialsensors traten Probleme mit dem Magnetometer auf, welche im Nachhinein nur provisorisch abgemildert werden konnten.
-Trotz diese Probleme kann der Inertialsensor erfolgreich ???????????????? zur Inertialnavigation eingesetzt werden %%%%%%%%\cite{Martins_arbeit}}
+werden und so zu Fehlerdiagnose genutzt werden. Auf Grund des Baufortschritts des Fahrzeuges (fehlendes Gehäuse) konnten diese jedoch nicht vollständig integriert werden. Ein kurzer Test
+verlief allerdings erfolgreich
+Bei der Integration des Sparkfun Inertialsensors traten Probleme mit dem Magnetometer auf, welche im Nachhinein nur provisorisch abgemildert werden konnten.
+Ob der Inertialsensor trotz der Störungen zur Inertialnavigation eingesetzt werden kann wird in einer anderen Arbeit evaluiert \cite{martins_arbeit}. 
+Die Auslegung der Stromversorgung kann nicht als Erfolg gewertet werden. Zwar erlaubt die Platine einen stabilen Betrieb aller Komponenten, allerdings
+verursachen die Störungen in der Betriebsspannung teils massive Störungen in den Messwerten. 
 
-Die Auslegung der 5V Stromversorgung kann ebenfalls als Erfolg gewertet werden, der Regler schafft es trotz enormer Schwankungen der Betriebsspannung die Spannung, bis auf minimale Störungen
-stabil zu halten, so dass es zu keiner Störung der Sensormesswerte kommt. Die Odometrie konnte die Anforderungen leider nicht vollständig erfüllen, da nur eine Wegmessung nach vorne möglich ist.
-Die Qualität der Geschwindigkeitsangabe ist dafür auch bei Mittleren Geschwindigkeiten bis \SI{2}{\metre\per\second} auch in Kurven gut brauchbar. Durch die Fusion, der
-Inertialsensorik und Odometrie konnte ein Inertialnavigationssystem
-%%%%%%%%\cite{Martins_arbeit}}
-entwickelt werden, welche eine gute????????????????? Aussage über die Postion des Autos machen kann.
+Die Odometrie konnte die Anforderungen erfüllen, die Ergebnisse der Geschwindigkeitsmessung erlauben eine gute Überwachung der Geschwindigkeit und deren Regelung, sie weichen nur wenig vom wahren Wert ab.
 
-Als großer Erfolg, kann die Energieeffizeins des Systems gewertet werden! 
-In zuk+nftigen entwicklingenn sollte die Leistungselkektronik jedoch von ser Sensorkmgetrennt werden, um Störungen zu vermeiden
+Als großer Erfolg, kann die Energieeffizienz des Systems gewertet werden! Auch wenn ein Vergleich mit anderen Fahrzeugen des „Carolo-Cup“ nur schwer möglich ist, liegen die Messwerte am unteren Ende aller Angaben anderer
+Teams.
 
-% \item nötige Elektonik zur Motoransteuerung (vor und Rückwärts)
-% \item Anschluss und Steuerung für einen Servomotor
-% \item Anschlusse und Steuerung für die nötige Beleuchtung
-% \item Anschlüsse für die Sharp GP2D Sensorn
-% \item Integration des Sparkfun Inertialsensors
-% \item Leistungsfähige Stromversorgung
+In zukünftigen Entwicklungen sollte die Leistungselektronik  jedoch von der Sensorik getrennt werden, um Störungen in den Messwerten zu vermeiden. Eventuell können die Probleme auch durch
+den Einsatz besserer Akkus, mit niedrigeren Innenwiederstand gelöst werden. Auch ein Austausch der Sharp Sensoren gegen weniger empfindliche Sensoren ist denkbar. 
+

@@ -6,6 +6,7 @@
 
 Zur Qualitätsbewertung der Strommessung wurde das Fahrzeug aufgebockt. 
 Das Fahrzeug befand sich während aller Messungen im Akkubetrieb, bei ca. 16,8V Akkuspannung.
+Während aller Messungen im Akkubetrieb wurden zwei Akkus parallel genutzt um den Innenwiderstand zu verringern.
 Der Motor wurde, soweit nicht anders beschrieben, mit einem PWM-Tastgrad von 30:256 angesteuert.
 Zur Beurteilung der Messergebnisse wurden Messungen an diversen Punkten vorgenommen und mit der Ausgabe des Mikrocontrollers verglichen.
 
@@ -47,18 +48,19 @@ Der vom Mikrocontroller ausgegebene Strom beträgt im Mittel \SI{156,1}{\mA}.
 Zur weiteren Bewertung der Messung wurden jeweils ca. 1000 Samples an Daten zu unterschiedlichen PWM-Tastgraden aufgezeichnet.
 Dabei soll untersucht werden, ob die Qualität der Messwerte mit zunehmender Geschwindigkeit stabil bleibt.
 Die Ergebnisse der Messungen sind in \cref{tab:current_noload} zu sehen.
+Um die Tabellen nicht zu überladen wurde der Tastgrad nur unvollständig angegeben, dieser bezieht sich immer auf Teile von 256.
 
 \begin{table}[H]
   \centering
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
     Tastgrad & Erwartungswert [A] & Standardabweichung [A]  \\ \hline \hline
-    10 & 0.0044 & 0.0212\\ \hline
-    20 & 0.0730 & 0.0214\\ \hline
-    30 & 0.1600 & 0.0215\\ \hline
-    40 & 0.2629 & 0.0214\\ \hline
-    50 & 0.3653 & 0.0185\\ \hline
-    60 & 0.4720 & 0.0231\\ \hline
+    10 & 0,0044 & 0,0212\\ \hline
+    20 & 0,0730 & 0,0214\\ \hline
+    30 & 0,1600 & 0,0215\\ \hline
+    40 & 0,2629 & 0,0214\\ \hline
+    50 & 0,3653 & 0,0185\\ \hline
+    60 & 0,4720 & 0,0231\\ \hline
 
   \end{tabularx}
   \caption{Motorstrom im Leerlauf}%
@@ -73,12 +75,12 @@ die Messungen erneut unter Last durchgeführt, der Motor befand sich währenddes
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
     Tastgrad & Erwartungswert [A] & Standardabweichung [A]  \\ \hline \hline
-    10 & 0.0454 & 0.0183\\ \hline
-    20 & 0.4635 & 0.0243\\ \hline
-    30 & 1.1694 & 0.0338\\ \hline
-    40 & 1.9822 & 0.0563\\ \hline
-    50 & 3.8737 & 0.0477\\ \hline
-    60 & 4.7023 & 0.0706\\ \hline
+    10 & 0,0454 & 0,0183\\ \hline
+    20 & 0,4635 & 0,0243\\ \hline
+    30 & 1,1694 & 0,0338\\ \hline
+    40 & 1,9822 & 0,0563\\ \hline
+    50 & 3,8737 & 0,0477\\ \hline
+    60 & 4,7023 & 0,0706\\ \hline
   \end{tabularx}
   \caption{Motorstrom unter Last}%
   \label{tab:current_load}
@@ -101,7 +103,8 @@ des Fahrzeuges untersucht.
 \end{figure}
 
 Betrachtet man den Verlauf der Spannung im 5V-Netz lässt sich leicht erkennen, dass das Signal von einem dem Strom sehr ähnlichen Signal überlagert wird.
-Eine solche Störung kann nur von der Betriebsspannung kommen, da der Motor nicht an das 5V-Netz angeschlossen ist. Scheinbar ist der 5V-Schaltregler nicht in der Lage diese Störungen vollständig auszugleichen.
+Eine solche Störung kann nur von der Betriebsspannung kommen, da der Motor nicht an das 5V-Netz angeschlossen ist. Scheinbar ist der 5V-Schaltregler nicht in der
+Lage diese Störungen vollständig auszugleichen.
 Daher wird nun die Betriebsspannung untersucht, um das Ausmaß der Störungen beurteilen zu können.
 Die Werte wurden in einer 1:10 Teilung gemessen, daher sind alle Spannungen mit dem Faktor 10 zu multiplizieren.
 
@@ -138,7 +141,8 @@ die hohe Belastung zu einer starken Wärmeentwicklung des Motors führte.
 \end{figure}
 
 Betrachtet man das 5V-Netz unter diesen Bedingungen (\cref{fig:5V_last}) zeigt sich die beeindruckende Leistung des 5V Schaltreglers.
-Das 5V-Netz scheint trotz der immensen Störung stabiler zu sein als bei niedriger Motorlast. 
+Das 5V-Netz scheint trotz der immensen Störung im Mittel noch stabil. Jedoch hat sich die Amplitude der Störungen
+stark vergrößert.
 
 \begin{figure}[H]
 \centering
@@ -147,8 +151,8 @@ Das 5V-Netz scheint trotz der immensen Störung stabiler zu sein als bei niedrig
 \label{fig:5V_last}
 \end{figure}
 
-Da das 5V Netz auch unter Last stabil bleibt, sind auch bei höheren Motorlasten keine größeren Störungen in den Sensormesswerten zu erwarten.
 
+Da das \SI{5}{\V} Netz während der Motor belastet ist von Störungen überlagert ist, werden in den nächsten Abschnitten die Sensorwerte in Abhängigkeit von der Motorlast untersucht.
 
 \section{Inertialsensor}
 
@@ -162,11 +166,11 @@ Die Messwerte wurden unter Last bei dem angegebenen Tastgrad aufgenommen. Um die
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
      Tastgrad & Erwartungswert [\SI{}{\metre\per\second\squared}] & Standardabweichung [\SI{}{\metre\per\second\squared}]  \\ \hline \hline
-     20 & -0.02034  & 0.00078 \\ \hline
-     30 & -0.02047  & 0.00225 \\ \hline
-     40 & -0.02035  & 0.00097 \\ \hline
-     50 & -0.02034  & 0.00074 \\ \hline
-     60 & -0.02028  & 0.00189 \\ \hline
+     20 & -0,02034  & 0,00078 \\ \hline
+     30 & -0,02047  & 0,00225 \\ \hline
+     40 & -0,02035  & 0,00097 \\ \hline
+     50 & -0,02034  & 0,00074 \\ \hline
+     60 & -0,02028  & 0,00189 \\ \hline
   \end{tabularx}
   \caption{Accelerometer}%
   \label{tab:acc}
@@ -177,11 +181,11 @@ Die Messwerte wurden unter Last bei dem angegebenen Tastgrad aufgenommen. Um die
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
      Tastgrad & Erwartungswert [\SI{}{\radian\per\second}] & Standardabweichung [\SI{}{\radian\per\second}]  \\ \hline \hline
-     20 & 0.72961 & 0.27632\\ \hline
-     30 & 0.77174 & 0.30825\\ \hline
-     40 & 0.78556 & 0.27121\\ \hline
-     50 & 0.77792 & 0.27066\\ \hline
-     60 & 0.87919 & 0.23369\\ \hline
+     20 & 0,72961 & 0,27632\\ \hline
+     30 & 0,77174 & 0,30825\\ \hline
+     40 & 0,78556 & 0,27121\\ \hline
+     50 & 0,77792 & 0,27066\\ \hline
+     60 & 0,87919 & 0,23369\\ \hline
   \end{tabularx}
   \caption{Gyroskop}%
   \label{tab:gyro}
@@ -195,11 +199,11 @@ Sowohl beim Accelerometer als auch beim Gyroskop lässt sich anhand der Daten ke
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
      Tastgrad & Erwartungswert [\SI{}{\tesla}] & Standardabweichung [\SI{}{\tesla}]  \\ \hline \hline
-     20 & 0.06974 & 0.00436\\ \hline
-     30 & 0.07602 & 0.00715\\ \hline
-     40 & 0.07336 & 0.01154\\ \hline
-     50 & 0.06504 & 0.01366\\ \hline
-     60 & 0.06564 & 0.01894\\ \hline
+     20 & 0,06974 & 0,00436\\ \hline
+     30 & 0,07602 & 0,00715\\ \hline
+     40 & 0,07336 & 0,01154\\ \hline
+     50 & 0,06504 & 0,01366\\ \hline
+     60 & 0,06564 & 0,01894\\ \hline
   \end{tabularx}
   \caption{Magnetometer}%
   \label{tab:mag}
@@ -266,9 +270,9 @@ untersucht, wie groß der Einfluss der Störungen auf die Infrarotsensoren ist. 
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
      Tastgrad & Erwartungswert [\SI{}{\V}] & Standardabweichung [\SI{}{\V}]  \\ \hline \hline
-     0 &  1.535 & 0.0243\\ \hline
-     30 & 1.533 & 0.0248\\ \hline
-     60 & 1.570 & 0.1185\\ \hline
+     0 &  1,535 & 0,0243\\ \hline
+     30 & 1,533 & 0,0248\\ \hline
+     60 & 1,570 & 0,1185\\ \hline
   \end{tabularx}
   \caption{Infrarotsensoren}%
   \label{tab:ir}
@@ -323,7 +327,6 @@ genutzt werden. Dieser findet jedoch nur bei niedrigen Geschwindigkeiten statt, 
 
 \section{Odometrie}
 
-\todo{Dringend überarbeiten}
 Zur Auswertung der Odometrie wird das errechnete Verhältnis von Ticks zu Meter von 4760 validiert. Dazu wurden 10 Messungen durchgeführt, in denen das Fahrzeug
 eine Strecke von 10m möglichst gerade zurücklegen musste. Dabei wurden Start- sowie Endwert der vergangenden Motorticks aufgenommen und die Differenz berechnet.
 
@@ -421,25 +424,25 @@ Während der Datenaufzeichnung fuhr das Fahrzeug den OttoCar-Rundkurs ab, es sta
 \label{fig:strasse}
 \end{figure}
 
-Sobald das Auto beschleunigt hat fängt die Orientierung an sich zu ändern. Direkt nach dem 1. Sprung der Orientierung (von -Pi zu Pi)
- beginnt sie ihre Orientierung zu ändern. Währenddessen durchfährt das Fahrzeug die S-Kurve des Rundkurses, Der Kurvenradius der S-Kurve ist sehr gering, daher fährt das Fahrzeug
- beinahe gerade. An dieser Stelle hat die Geschwindigkeit des Trackings ihr Maximum, das Fahrzeug fährt also in  Kurven bei gleicher Drehzahl langsamer zu fahren, was sich durch
- den erhöhten Schlupf in den Kurven erklären lässt. Die Abweichungen der Geschwindigkeit in den Kurven ist jedoch sehr gering, sodass diese nur wenig ins Gewicht fallen.
- Der Wert der Geschwindigkeit ist mit Hilfe des Trackings nicht verifizierbar, da eine Kalibrierung dessen auf Grund des Entwicklungsstandes nicht erfolgt ist.
- Das Tracking ist somit als Referenzsystem nicht geeignet.
- 
- 
+Sobald das Auto beschleunigt hat fängt es an seine Orientierung zu ändern. Direkt nach dem 1. Sprung der Orientierung (von -Pi zu Pi)
+hat die Geschwindigkeit ihr Maximum. Währenddessen durchfährt das Fahrzeug die S-Kurve des Rundkurses, Der Kurvenradius der S-Kurve ist sehr gering, daher fährt das Fahrzeug
+beinahe gerade. Das Fahrzeug scheint also in Kurven bei gleicher Drehzahl langsamer zu fahren, was sich durch  den erhöhten Schlupf in den Kurven erklären lässt. Die Abweichungen 
+der Geschwindigkeit in den Kurven ist jedoch sehr gering, sodass diese nur wenig ins Gewicht fallen. Der Wert der Geschwindigkeit ist mit Hilfe des Trackings nicht verifizierbar,
+da eine Kalibrierung dessen auf Grund des Entwicklungsstandes nicht erfolgt ist. Das Tracking ist somit als Referenzsystem nicht geeignet, da die zurückgelegte Strecke im vorherigen
+Abschnitt jedoch bereits evaluiert wurde ist dies nicht nötig.
+
+
 \section{Stromverbrauch}
 
 Der Stromverbrauch des Fahrzeugs ist ein wichtiges Kriterium in den statischen Disziplinen. Um den Stromverbrauch im laufenden Betrieb messen zu können, wird hier ein Versuchsaufbau verwendet welcher der Messung des
 Motorstromes ähnelt. Die Schaltung besteht dabei aus einem Shuntwiderstand, einer aktiven Filterschaltung und einem Arduino, welcher die Daten zum NUC weiterleitet. Der Vorteil dieser Methode ist, dass die Daten
-unter realen Bedingungen in Echtzeit aufgezeichnet werden können. \cref{fig:power_consumption} zeigt den Verlauf des Stromes während folgendem Szenario: Bis ca. 25s steht das Auto, sämtliche Software ist dabei auf 
+unter realen Bedingungen in Echtzeit aufgezeichnet werden können. \cref{fig:power_consumption} zeigt den Verlauf der Leistungsaufnahme während folgendem Szenario: Bis ca. 25s steht das Auto, sämtliche Software, des OttoCar-Projekts (inklusive
+der Bildverarbeitung), ist dabei auf 
 dem Fahrzeug aktiv. Ab 25s beschleunigt das Fahrzeug auf \SI{1,3}{\metre\per\second} und verharrt dort bis ca. Sekunde 57, in welcher es gegen eine Wand fährt. Der grüne Graph stellt dabei den Strom durch den Motor dar, während
 der blaue Graph den Gesamtverbrauch des Fahrzeugs darstellt. Die roten Linien stellen einen gleitenden Mittelwert aus den letzten 200 Messwerten dar. Gut zu erkennen ist, dass der Stromverbrauch des Fahrzeugs im Stand unter 
 10 Watt liegt. Der Mittelwert des Verbrauches im Stand beträgt 7,9 Watt, während das Fahrzeug während der Fahrt knapp 13 Watt an Leistung aufnimmt. Nur während das Fahrzeug beschleunigt benötigt es für die Dauer
 des Beschleunigungsvorganges mehr Leistung. Fährt das Fahrzeug gegen ein Hindernis, sodass die Räder blockieren, befindet sich der Motor im Kurzschlussbetrieb, dabei reduziert sich sein Widerstand auf den Ohmschen Widerstand
 des Motors, was zu einem hohen Stromfluss durch den Motor führt. Dauerhaft kann das durch Überhitzung zur Zerstörung des Motors oder der Treiberplatine führen.
-
 
 \begin{figure}[H]
 \centering
@@ -448,8 +451,51 @@ des Motors, was zu einem hohen Stromfluss durch den Motor führt. Dauerhaft kann
 \label{fig:power_consumption}
 \end{figure}
 
-
 Die starken Schwankungen der Messwerte werden durch die vor den Akku geschaltete Strommessung verursacht. Der Shuntwiderstand in dieser Schaltung hat eine Größe von
 \SI{0,2}{\ohm}, was den Innenwiderstand der Akkus stark erhöht und dadurch die Spannungsschwankungen der Betriebsspannung verstärkt. 
 
-\todo{Strommessung bei anderen Motormodi}
+\subsection{Vergleich der Motormodi}
+Im folgenden werden zwei Motormodi miteinander verglichen, und zwar  \{PWML=1, PHASE=1, SR=0\} und  \{PWML=1, PHASE=1, SR=1\} jeweils nur mit high-side PWM.
+
+
+\subsubsection{Stromverbrauch \{PWML=1, PHASE=1, SR=1\}}
+
+In \cref{fig:power_consumption_sr} lässt sich wieder gut der erhöhte Stromverbrauch beim Anfahren von Sekunde 1 bis 3 erkennen, das Fahrzeug beschleunigt in dieser Zeit
+von \SI{0}{\metre\per\second} auf \SI{1}{\metre\per\second}. Der Bremsstrom des Motor kann in diesem Modus nahezu ungestört durch die Mosfets fließen, da diese einen
+sehr niedrigen Widerstand aufweisen (ca. \SI{12}{\mohm}). Dadurch beleibt das Fahrzeug nach der Reduzierung des Tastgrades auf 0:256 bereits nach weniger als \SI{10}{cm} zum stehen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{Strom/sr_power.png}\\
+\caption{Stromverbrauch des Fahrzeuges mit SR}%
+\label{fig:power_consumption_sr}
+\end{figure}
+
+Der Mittelwert des Stromverbrauchs liegt im konstanten Fahrbetrieb bei \SI{4,24}{\W}.
+
+\subsubsection{Stromverbrauch \{PWML=1, PHASE=1, SR=0\}}
+
+
+In \cref{fig:power_consumption_nsr} lässt sich ebenfalls gut der erhöhte Stromverbrauch beim Anfahren von Sekunde 1 bis 3 erkennen, das Fahrzeug beschleunigt in dieser Zeit wieder
+von \SI{0}{\metre\per\second} auf \SI{1}{\metre\per\second}. Da der Bremsstrom in diesem Motor durch die internen Dioden der Mosfets fließt und dadurch kleiner als im
+voherigen Fall ist. Rollt das Fahrzeug trotz einem Tastgrad von 0:256 ca. \SI{50}{\cm} weiter.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{Strom/nsr_power.png}\\
+\caption{Stromverbrauch des Fahrzeuges ohne SR}%
+\label{fig:power_consumption_nsr}
+\end{figure}
+
+Der Mittelwert des Stromverbrauchs liegt im konstanten Fahrbetrieb bei \SI{5,13}{\W}.
+
+Der Modus mit SR ist dem Modus ohne SR vorzuziehen, zum einen ist der Verbrauch in den Messungen durchgängig besser, zum anderen erlaubt der SR-Modus eine bessere Fahrzeugkontrolle.
+Durch die stärkere Bremswirkung im SR-Modus spricht das Auto besonders gut auf einen Geschwindigkeitswechsel an.
+
+\subsection{Vergleich innerhalb des „Carolo-Cup“}
+Ein direkter Vergleich des Stromverbrauchs mit anderen Teams des vergangenden „Carolo-Cup“ 2014 ist leider kaum möglich, da in den vorhandenen Quellen (Teampräsentationen) nur sehr selten
+angaben über die Bedingungen der Messung gemacht werden. Die Angaben variieren dabei von \SI{10}{\W} (Berlin-United-Racing Team \cite{cc_bu}) bis zu \SI{161}{\W}(Team CDLC \cite{cc-cdlc}).
+Team ``Tetrix''\cite{cc-tx} gibt ihren Stromverbrauch jedoch mit \SI{66,2}{\W} bei \SI{1}{\metre\per\second} und ist somit das einzige vergleichbare Team. Von diesem Wert entfallen
+laut der Präsentation \SI{47}{\W} auf den Motor. Dieser Wert scheint jedoch viel zu hoch, so dass hier von einer Fehlerhaften Messung des Team ``Tetrix'' ausgegangen wird.
+

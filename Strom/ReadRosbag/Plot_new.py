@@ -57,26 +57,18 @@ def rolling_std(data, window):
 
 
 
-ges_current_list=np.load("ges_current_list.npy")
-current_list=np.load("current_list.npy")
+current_list=np.load("current_nsr.npy")
 
-mean=rolling_mean(ges_current_list[:,1],110)
-mean2=rolling_mean(current_list[:,1],110)
+mean=rolling_mean(current_list[:,1],40)
 
-print ges_current_list[100:1900,1].mean()
-print current_list[3000:5000,1].mean()
-print ges_current_list[3000:5000,1].mean()
-print (ges_current_list[3000:5000,1]-current_list[3000:5000,1]).mean()
-
+print current_list[300:600,1].mean()
       
-time = ges_current_list[:,0]   
+time = current_list[:,0]   
 sel = time < 60
-plt.plot(time[sel],ges_current_list[sel,1] , 'b')
 plt.plot(time[sel],current_list[sel,1] , 'g')
 plt.plot(time[sel],mean[sel] , 'r' ,linewidth=1.0)
-plt.plot(time[sel],mean2[sel] , 'r' ,linewidth=1.0)  
-plt.yticks(np.arange(-10,100,10))
-#plt.plot(np.array(ges_current_list[:count])-np.array(current_list[:count]))
+plt.yticks(np.arange(-10,30,10))
 plt.xlabel('Zeit in Sekunden')
 plt.ylabel('Leistung in Watt')
-plt.savefig("Power",dpi=600)
+plt.plot(np.array(ges_current_list[:count])-np.array(current_list[:count]))
+#plt.savefig("sr_power",dpi=600)
