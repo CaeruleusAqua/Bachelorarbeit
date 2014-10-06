@@ -178,7 +178,7 @@ Widerständen zu \SI{2}{\kohm} und \SI{32}{\kohm} erzeugt uns zusammen mit den 5
 Der Spannungsteiler wird durch R\textsubscript{VDSTH1} und R\textsubscript{VDSTH2} gebildet.\\
 
 Die Größe des C\textsubscript{REG} Kondensators hängt direkt mit der Größe der Bootstrapkondensatoren zusammen. Er soll ca 20 mal größer als
-C\textsubscript{BOOTA} bzw C\textsubscript{BOOTB} gewählt werden, sodass hier ein 470nF Kondensator gewählt wird.\\
+C\textsubscript{BOOTA} bzw C\textsubscript{BOOTB} gewählt werden, so dass hier ein 470nF Kondensator gewählt wird.\\
 
 Das Datenbatt empfiehlt \SI{100}{\nF} entkoppelungs Kondensatoren zwischen Drain und Source eines jeden Mosfets. Diese wurden in Form von C\textsubscript{AH},C\textsubscript{AL},C\textsubscript{BH} und C\textsubscript{BL} 
 verbaut. Alle restlichen Größen werden direkt dem Datenblatt entnommen.\\
@@ -255,7 +255,7 @@ Die kleinst mögliche zu erfassende Spannung des ADC beträgt $\frac{5}{2^{10}}=
 Diesen Wert sollte der Ripple des Endsignales nicht überschreiten.
 Aus einem möglichst kleinem Ripple resultiert eine möglichst hohe Filterordnung bzw. eine niedrige Grenzfrequenz.
 Allerdings soll $U_{DC}$ einer Änderung des Mittelwertes, also einer Änderung des Tastverhältnisses, möglichst
-schnell folgen. Diese Anforderung widerspricht der Vorherigen, sodass ein Kompromiss gefunden werden muss.
+schnell folgen. Diese Anforderung widerspricht der Vorherigen, so dass ein Kompromiss gefunden werden muss.
 
 \subsection{Bestimmung des Filtertyps}
 Da zum Verstärken des Signals aktive elektronische Elemente notwendig sind, z.B. ein Operationsverstärker, wird an dieser Stelle gleich ein aktiver Filter verwendet. 
@@ -264,7 +264,7 @@ filtern. Da das Signal im optimalen Fall eine Gleichspannung darstellt, müssen 
 mit Hilfe eines Tiefpasses. Es gibt im Grunde zwei übliche aktive Tiefpässe, den Tiefpass mit Mehrfachgegenkopplung und den Sallen-Key Filter. Ersterer verwendet
 einen invertierenden Verstärker, dieser invertiert das Messsignal. Da der Mikrocontroller jedoch nur mit positiven Spannungen umgehen kann, müsste man hier mit einer 
 negativen Referenzspannung arbeiten, was den Schaltungsaufwand unnötig vergrößern würde. Der Sallen-Key Tiefpass benutzt einen nicht invertierenden Verstärker, welcher diesen
-Nachteil nicht hat. Sodass ab dieser Stelle ein Sallen-Key Tiefpass entworfen wird.
+Nachteil nicht hat. So dass ab dieser Stelle ein Sallen-Key Tiefpass entworfen wird.
 
 \subsection{Die Filterschaltung}
 
@@ -549,7 +549,7 @@ Es ist eine Verstärkung von 48 des Ursprungssignals gewünscht. Diese Verstärk
 \end{align*}
 
 Bei 3,9kHz erreicht der Filter eine Dämpfung von -30,1dB. Zusammen mit der Verstärkung von 33,6dB des Eingangssignals 
-wird das bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren hier 55,9dB, sodass der Filter den geforderten Wert übersteigt, was an der niedrigeren Grenzfrequenz von 100Hz statt 108,9Hz liegt.
+wird das bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren hier 55,9dB, so dass der Filter den geforderten Wert übersteigt, was an der niedrigeren Grenzfrequenz von 100Hz statt 108,9Hz liegt.
 
 %%Verstärkung: 33,6dB gewünscht:
 %%20*log(1/48)=-33,6
@@ -650,7 +650,7 @@ Das Hauptproblem bei der Integration von vielen LEDs ist die Verkabelung. Eine g
 LED-Streifen. Diese LED-Streifen gibt es in vielen Ausführungen. Für diese Arbeit interessant sind allerdings nur jene Vertreter, welche die Ansteuerung
 jeder einzelnen LED zulassen. Die LED-Streifen mit Controllern von ``Worldsemi'' sind hierbei die prominentesten Vertreter. Zu erwähnen wären hierbei die Modelle
 WS2801, WS2811 und WS2812. Der WS2812 ist dabei nahezu identisch mit dem WS2811 mit dem Unterschied, dass der WS2812 bereits in eine RGB-LED integriert ist.
-Im Unterschied zum WS2801 werden die beiden durch eine einzige Signalleitung mit fixem Takt angesteuert, sodass hier eine separate Taktleitung entfällt.
+Im Unterschied zum WS2801 werden die beiden durch eine einzige Signalleitung mit fixem Takt angesteuert, so dass hier eine separate Taktleitung entfällt.
 
 Der Nachteil an dieser Methode ist, dass das Timing genau eingehalten werden muss um die Daten korrekt zu übertragen. Wie in Abbildung \ref{fig:led_cascade} werden die 
 LEDs kaskadiert. Die Daten werden dann durch die LEDs geschoben.
@@ -721,7 +721,7 @@ Außerdem besitzen Sensoren nach diesem Prinzip einen kleinen Messfleck.
 
 Nachteile:
 Die Messung ist stark von der Oberfläche des Messobjektes abhängig, spiegelnde Oberflächen stellen ein großes Problem dar.
-In staubigen oder nebligen Umgebungen wird das Licht möglicherweise zu stark gestreut, sodass eine korrekte Messung nicht möglich ist.
+In staubigen oder nebligen Umgebungen wird das Licht möglicherweise zu stark gestreut, so dass eine korrekte Messung nicht möglich ist.
 
 \subsection{Probleme der GP2D Sensoren}
 Die Sensoren verfügen über einen analogen Ausgang. Bei analogen Signalen ist generell mit Störungen zu rechnen. Die GP2D Sensoren scheinen
@@ -804,7 +804,7 @@ Diese wird durch einen Sharp GP1A30R Sensor ausgewertet, welcher ein Drehzahlsig
 
 Die Scheibe ist dabei mit 120 Strichmarkierungen versehen. Eine Motorumdrehung entspricht also 120 Impulsen, im folgenden Motorticks genannt. Über das Übersetzungsverhältnis des Getriebes und dem Radumfang kann dann 
 der zurückgelegte Weg berechnet werden. Das Übersetzungsverhältnis des Fahrzeugs ist abhängig von drei Komponenten, dem Stirnrad, dem Motorritzel sowie einer festen internen Übersetzung. Das verwendete Stirnrad hat
-61 Zähne, das Motorritzel 19. Damit ergibt sich ein Verhältnis von 61:19 zusammen mit der internen Übersetzung von 2,6 
+61 Zähne, das Motorritzel 19. Damit ergibt sich ein Verhältnis von 61:19 zusammen mit der internen Übersetzung von 2,6 \cite{uebersetzung}
 
 \todo{Quelle raussuchen für interne Übersetzung} 
 haben wir ein Übersetzungsverhältnis von 8,35. Der Radumfang beträgt ca. \SI{21}{\cm}.
@@ -828,7 +828,7 @@ In diesem Abschnitt soll eine Abschätzung des Stromverbrauchs vorgenommen werde
 Der Stromverbrauch des Servomotors ist schwer zu ermitteln. Da es sich um einen Modellbauservomotor handelt 
 sind im Datenblatt hierzu keine Daten aufzufinden. Da ein Messaufbau für die Abschätzung des Stromverbrauches
 zu aufwändig ist, werden hier Messwerte eines ähnlichen Servos aus einem Artikel \cite{website-servo} herangezogen.
-Laut diesem hat eine Servomotor keinen konstanten Stromverbrauch. Der Stromfluss wird immer wieder unterbrochen, sodass es zu einem intervallartigen Stromfluss kommt.
+Laut diesem hat eine Servomotor keinen konstanten Stromverbrauch. Der Stromfluss wird immer wieder unterbrochen, so dass es zu einem intervallartigen Stromfluss kommt.
 Nur wenn der Servomotor dauerhaft belastet wird, kommt es zu einem konstanten Stromfluss.
 Im Artikel werden mehrere Servomotoren vermessen, der Motor der dem verwendeten am nächsten kommt ist der ``Graupner 4421'' mit folgenden Daten:
 
@@ -863,7 +863,7 @@ Nähere Angaben zum Stromverbrauch des normalen Pandaboards (ohne ES) finden sic
 Der Verbrauch des Pandaboard ES dürfte durch den schnelleren Prozessor minimal darüber liegen. 
 Durch Anschluss von USB-Geräten an das Board kann der Stromverbrauch jedoch noch steigen. Die USB-Spezifikation \cite{website-usb-spec}
 sieht pro Port eine maximale Stromentnahme von 500mA vor. Da das Pandaboard über 2 USB-Ports verfügt liegt der maximale zusätzliche Verbrauch bei 1A,
-sodass hier ein Gesamtverbrauch von 2A veranschlagt wird.
+so dass hier ein Gesamtverbrauch von 2A veranschlagt wird.
 
 \paragraph{Hinweis:}
 Das Pandaboard ES wurde im Laufe des Projekts durch einen Intel NUC ersetzt, welcher jedoch nicht über die 5V Schiene versorgt wird.

@@ -1,23 +1,23 @@
 \chapter{Ausblick und Fazit}
 
-Im Rahmen dieser Arbeit wurde eine Treiberplatine für das OttoCar geschaffen, ausgehend von einem Anfangsbestand von Komponenten sollte die Platine, diversen Anforderungen genügen.
-Die Anforderungen umfassten dabei die Ansteuerung des Motors und des Servomotors, welche erfolgreich umgesetzt wurden, und zuverlässig ihren Dienst verrichten.
+Im Rahmen dieser Arbeit wurde eine Treiberplatine für das OttoCar geschaffen. Ausgehend von einem Anfangsbestand von Komponenten sollte die Platine diversen Anforderungen genügen.
+Die Anforderungen umfassten dabei die Ansteuerung des Motors und des Servomotors, welche erfolgreich umgesetzt wurden und zuverlässig ihren Dienst verrichten.
 Auch die Sharp GP2D Sensoren konnten erfolgreich in das System integriert werden leiden jedoch bei zunehmendem Motorstrom an einer massiven Verschlechterung der Messergebnisse.
 So dass diese nur bei niedrigen Geschwindigkeiten und nicht während Beschleunigungsvorgängen aussagekräftige Messwerte liefern.
 Die benötigte Beleuchtung wurde durch einen LED-Streifen mit WS2812 Controllern umgesetzt, welche durch ihre Bauart eine einfache Integration in das Auto ermöglichen.
-Da diese als RGB-LEDs ausgeführt sind Übertreffen sie die Anforderungen sogar, da sie nahezu jede mögliche Farbe Annehmen können. Innerhalb der Software können diese einzeln Angesteuert
-werden und so zu Fehlerdiagnose genutzt werden. Auf Grund des Baufortschritts des Fahrzeuges (fehlendes Gehäuse) konnten diese jedoch nicht vollständig integriert werden. Ein kurzer Test
-verlief allerdings erfolgreich
+Da diese als RGB-LEDs ausgeführt sind, übertreffen sie die Anforderungen sogar, da sie nahezu jede mögliche Farbe annehmen können. Innerhalb der Software können diese einzeln angesteuert
+werden und so zur Fehlerdiagnose genutzt werden. Auf Grund des Baufortschritts des Fahrzeuges (fehlendes Gehäuse) konnten diese jedoch nicht vollständig integriert werden. Ein kurzer Test
+verlief allerdings erfolgreich.
 Bei der Integration des Sparkfun Inertialsensors traten Probleme mit dem Magnetometer auf, welche im Nachhinein nur provisorisch abgemildert werden konnten.
-Ob der Inertialsensor trotz der Störungen zur Inertialnavigation eingesetzt werden kann wird in einer anderen Arbeit evaluiert \cite{martins_arbeit}. 
+Ob der Inertialsensor trotz der Störungen zur Inertialnavigation eingesetzt werden kann, wird in einer anderen Arbeit evaluiert \cite{martins_arbeit}. 
 Die Auslegung der Stromversorgung kann nicht als Erfolg gewertet werden. Zwar erlaubt die Platine einen stabilen Betrieb aller Komponenten, allerdings
 verursachen die Störungen in der Betriebsspannung teils massive Störungen in den Messwerten. 
 
-Die Odometrie konnte die Anforderungen erfüllen, die Ergebnisse der Geschwindigkeitsmessung erlauben eine gute Überwachung der Geschwindigkeit und deren Regelung, sie weichen nur wenig vom wahren Wert ab.
+Die Ergebnisse der Geschwindigkeitsmessung erlauben eine gute Überwachung der Geschwindigkeit und deren Regelung, sie weichen nur wenig vom tatsächlichen Wert ab.
 
-Als großer Erfolg, kann die Energieeffizienz des Systems gewertet werden! Auch wenn ein Vergleich mit anderen Fahrzeugen des „Carolo-Cup“ nur schwer möglich ist, liegen die Messwerte am unteren Ende aller Angaben anderer
+Als großer Erfolg kann die Energieeffizienz des Systems gewertet werden! Auch wenn ein Vergleich mit anderen Fahrzeugen des „Carolo-Cup“ nur schwer möglich ist, liegen die Messwerte am unteren Ende aller Angaben anderer
 Teams.
 
-In zukünftigen Entwicklungen sollte die Leistungselektronik  jedoch von der Sensorik getrennt werden, um Störungen in den Messwerten zu vermeiden. Eventuell können die Probleme auch durch
-den Einsatz besserer Akkus, mit niedrigeren Innenwiderstand gelöst werden. Auch ein Austausch der Sharp Sensoren gegen weniger empfindliche Sensoren ist denkbar. 
+In zukünftigen Entwicklungen sollte die Leistungselektronik jedoch von der Sensorik getrennt werden, um Störungen in den Messwerten zu vermeiden. Eventuell können die Probleme auch durch
+den Einsatz besserer Akkus, mit niedrigeren Innenwiderstand, gelöst werden. Auch ein Austausch der Sharp Sensoren gegen weniger empfindliche Sensoren ist denkbar. 
 
