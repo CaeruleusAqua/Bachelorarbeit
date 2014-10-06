@@ -20,7 +20,7 @@ Die Auswahl der Mosfets wird durch den geforderten Strom von \SI{20}{\ampere} un
 der Mosfets benötigt wird, sind auf Grund der Tatsache, dass ein Mosfettreiber verwendet werden soll nicht von Belang, da dieser die benötigten Spannungen generiert.
 Für die Anwendung in einem Vierquadrantensteller ist die wahrscheinlich wichtigste Größe der Drain-Source-Widerstand im Einschaltzustand $R_{\text{DS(ON)}}$.
 Ein kleiner $R_{\text{DS(ON)}}$ ist von Vorteil und führt zu einer kleinen Verlustleistung an den Mosfets.
-Mosfets mit einem hervorragenden $R_{\text{DS(ON)}}$ von nur \SI{12}{\mohm} sind die FDD6690A von Fairchild Semiconductor \cite{ds-fs}. Weitere Kenngrößen dieser sind
+Mosfets mit einem hervorragenden $R_{\text{DS(ON)}}$ von nur \SI{12}{\milli\ohm} sind die FDD6690A von Fairchild Semiconductor \cite{ds-fs}. Weitere Kenngrößen dieser sind
 eine maximale Drain-Source-Spannung von \SI{30}{\volt} sowie eine Belastbarkeit von \SI{46}{\ampere}, eine gute Kühlung vorausgesetzt. Aufgrund der kleinen Gate Ladung von \SI{13}{\nano\coulomb} eignen
 sie sich gut für hohe Schaltfrequenzen. Aufgrund ihres niedrigen $R_{\text{DS(ON)}}$ werden sie für die Platine genutzt.
 
@@ -37,8 +37,8 @@ Eine Tabelle auf Mikrocontroller.net\cite{FET_D_TABLE} zeigt eine Auswahl an ver
 ``Full Bridge Driver'' aufgeführt, welche für dieses Projekt passend sind. Allerdings fällt die Entscheidung auf einen anderen Treiber,
 dem Allegro A3941 \cite{ds-A3941}.
 \subsubsection{Allegro A3941}
-Der Allegro A3941  ist für Betriebsspannungen von 5,5V bis 50V geeignet und liegt damit in der Spezifikation des Projekts.
-Des Weiteren verfügt der Motor über einen integrierten 5V-Regulator und kann somit ohne Spannungsregulator am Akku betrieben werden.
+Der Allegro A3941  ist für Betriebsspannungen von \SI{5,5}{\volt} bis \SI{50}{\volt} geeignet und liegt damit in der Spezifikation des Projekts.
+Des Weiteren verfügt der Motor über einen integrierten \SI{5}{\volt}-Regulator und kann somit ohne Spannungsregulator am Akku betrieben werden.
 Über zwei Ausgänge der Treibers können diverse Fehler ausgelesen werden. Auch sind alle gängigen Schutzschaltungen wie z.B. ein Kurzschlussschutz enthalten.
 Daher ist er hervorragend für das Projekt geeignet.
 
@@ -134,7 +134,7 @@ In Folgenden wird geklärt wie sich die Beschaltung des Allegro A3941 bestimmen 
 $R_{\text{DEAD}}$ legt die Totzeit zwischen den Mosfetumschaltungen fest. Wird sie zu niedrig gewählt, können in jeder PWM-Periode Kurzschlüsse auftreten. Wird sie zu hoch
 gewählt, beschränkt man das Tastverhältnis unnötig, was die Motorleistung reduziert. Da wir ``Low Gate Charge'' Mosfets nutzen und die Einschalt- bzw. Ausschaltzeit
 der Mosfets hauptsächlich von dieser Größe abhängt, ist diese Zeit sehr klein. Eine genaue Bestimmung dieser Zeit ist sehr aufwändig, deswegen
-wird hier ein mittlerer Wert von $100k\Omega$ gewählt, dieser soll sich laut Datenblatt zwischen 3 und $240k\Omega$ befinden.\\
+wird hier ein mittlerer Wert von \SI{100}{\kilo\ohm} gewählt, dieser soll sich laut Datenblatt zwischen 3 und \SI{240}{\kilo\ohm} befinden.\\
 
 
 %(ca 50ns).
@@ -165,22 +165,22 @@ C_{\text{BOOT}}=\frac{Q_{\text{GATE}}\cdot20}{V_{\text{BOOT}}}
 
 
 V\textsubscript{BOOT} entspricht dabei in etwa V\textsubscript{REG}, welche laut Datenblatt \cite{ds-A3941} 13V beträgt.
-Die Gateladung Q\textsubscript{GATE} der FDD6690A Mosfets beträgt typischerweise \SI{13}{\nC} \cite{ds-fs}. Damit ergibt sich für C\textsubscript{BOOT}=20nF. Es werden demnach
-die nächst größeren 22nF als Bootstrapkondensatoren genutzt.\\
+Die Gateladung Q\textsubscript{GATE} der FDD6690A Mosfets beträgt typischerweise \SI{13}{\nano\coulomb} \cite{ds-fs}. Damit ergibt sich für C\textsubscript{BOOT}=20nF. Es werden demnach
+die nächst größeren \SI{22}{\nano\farad} als Bootstrapkondensatoren genutzt.\\
 
 Die Spannung V\textsubscript{DSTH} am VDSTH-Eingang soll der Spannung entsprechen die maximal über jeden Mosfet abfallen darf, bevor der Treiber einen Kurzschuss detektiert 
-und abschaltet. Da der maximale Strom durch unseren Motor 20 Ampere beträgt, lässt sich diese Spannung, einfach berechnen. Der Widerstand der Mosfest im Einschaltzustand beträgt
-in unseren Fall ($U_{GS}=\SI{13}{\V}$) etwas weniger als \SI{12}{\mohm}  bei einem Strom von \SI{20}{\A} ergibt sich damit eine Spannung von $\SI{12}{\mohm} \cdot \SI{20}{\A} = \SI{0,24}{\V}$
+und abschaltet. Da der maximale Strom durch unseren Motor \SI{20}{\ampere} beträgt, lässt sich diese Spannung, einfach berechnen. Der Widerstand der Mosfest im Einschaltzustand beträgt
+in unseren Fall ($U_{GS}=\SI{13}{\V}$) etwas weniger als \SI{12}{\milli\ohm}  bei einem Strom von \SI{20}{\A} ergibt sich damit eine Spannung von $\SI{12}{\milli\ohm} \cdot \SI{20}{\A} = \SI{0,24}{\V}$
 Da wir den Motor über sein gesamtes Leistungsspektrum nutzen wollen, muss diese Spannung etwas darüber gewählt werden.
 
-Da der Strom in VDSTH nur minimal ist (ca \SI{10}{\uA}), kann diese Spannung über einen einfachen Spannungsteiler zur Verfügung gestellt werden. Ein Spannungsteiler mit 
-Widerständen zu \SI{2}{\kohm} und \SI{32}{\kohm} erzeugt uns zusammen mit den 5V aus dem V5 Ausgang eine Spannung von $\frac{\SI{2}{\kohm}}{\SI{32}{\kohm}+\SI{2}{\kohm}}\cdot \SI{5}{\V} =\SI{0,24}{\V}$.
+Da der Strom in VDSTH nur minimal ist (ca \SI{10}{\micro\ampere}), kann diese Spannung über einen einfachen Spannungsteiler zur Verfügung gestellt werden. Ein Spannungsteiler mit 
+Widerständen zu \SI{2}{\kilo\ohm} und \SI{32}{\kilo\ohm} erzeugt uns zusammen mit den \SI{5}\volt} aus dem V5 Ausgang eine Spannung von $\frac{\SI{2}{\kilo\ohm}}{\SI{32}{\kilo\ohm}+\SI{2}{\kilo\ohm}}\cdot \SI{5}{\V} =\SI{0,24}{\V}$.
 Der Spannungsteiler wird durch R\textsubscript{VDSTH1} und R\textsubscript{VDSTH2} gebildet.\\
 
 Die Größe des C\textsubscript{REG} Kondensators hängt direkt mit der Größe der Bootstrapkondensatoren zusammen. Er soll ca 20 mal größer als
-C\textsubscript{BOOTA} bzw C\textsubscript{BOOTB} gewählt werden, so dass hier ein 470nF Kondensator gewählt wird.\\
+C\textsubscript{BOOTA} bzw C\textsubscript{BOOTB} gewählt werden, so dass hier ein \SI{470}{\nano\farad} Kondensator gewählt wird.\\
 
-Das Datenbatt empfiehlt \SI{100}{\nF} entkoppelungs Kondensatoren zwischen Drain und Source eines jeden Mosfets. Diese wurden in Form von C\textsubscript{AH},C\textsubscript{AL},C\textsubscript{BH} und C\textsubscript{BL} 
+Das Datenbatt empfiehlt \SI{100}{\nano\farad} entkoppelungs Kondensatoren zwischen Drain und Source eines jeden Mosfets. Diese wurden in Form von C\textsubscript{AH},C\textsubscript{AL},C\textsubscript{BH} und C\textsubscript{BL} 
 verbaut. Alle restlichen Größen werden direkt dem Datenblatt entnommen.\\
 
 Da der verwendete AVR Mikrocontroller nur über begrenzte PWM fähige Anschlüsse verfügt, wird lediglich der PWM-Kanal für die oberen Mosfets (PWMH) an einen PWM Ausgang des AVR angeschlossen.
@@ -196,7 +196,7 @@ Da innerhalb des Wettbewerbes Energieeffizienz wichtig ist, ist es notwendig den
 konstant ist, bzw.. sich mit der fertigen Software über die Zeit nicht wesentlich ändert. Da der Motor einen großen zu erwartenden Verbrauch hat, ist es wichtig seinen Verbrauch zu bestimmen. Mithilfe dieser
 Informationen ist es möglich verschiedene Fahrregler Auslegungen im Aspekt des Verbrauches zu vergleichen. Um den Verbrauch zu bestimmen, ist es notwendig die anliegende Spannung und den Strom durch den
 Motor zu messen. Die H-Brücke wird dabei als Teil des Motors betrachtet, daher entspricht Spannung über den Motor der Akkuspannung. Diese lässt sich einfach über einen Spannungsteiler an den ADC des Mikrocontrollers
-anschließen. Als Werte für den Spannungsteiler werden \SI{1,8}{\kohm} und \SI{10}{\kohm} gewählt.
+anschließen. Als Werte für den Spannungsteiler werden \SI{1,8}{\kilo\ohm} und \SI{10}{\kilo\ohm} gewählt.
 
 \begin{figure}[H]
 \centering
@@ -205,8 +205,8 @@ anschließen. Als Werte für den Spannungsteiler werden \SI{1,8}{\kohm} und \SI{
 \label{fig:Spannungsteiler}
 \end{figure}
 
-Da der Innenwiderstand des ADC sehr groß ist (\SI{100}{\mohm}), kann der Spannungsteiler als unbelastet betrachtet werden. Damit ergibt sich das Teilungsverhältnis zu $\frac{R_{STL}}{R_{STH}+R_{STL}}=0,153$.
-Die maximal messbare Akkuspannung beträgt dadurch $\frac{\SI{5}{\V}}{0,152}=\SI{32,7}{\V}$. Die Messung des Stroms gestaltet sich wesentlich aufwändiger und wird im Folgenden erläutert.
+Da der Innenwiderstand des ADC sehr groß ist (\SI{100}{\milli\ohm}), kann der Spannungsteiler als unbelastet betrachtet werden. Damit ergibt sich das Teilungsverhältnis zu $\frac{R_{STL}}{R_{STH}+R_{STL}}=\num{0,153}$.
+Die maximal messbare Akkuspannung beträgt dadurch $\frac{\SI{5}{\volt}}{\num{0,152}}=\SI{32,7}{\volt}$. Die Messung des Stroms gestaltet sich wesentlich aufwändiger und wird im Folgenden erläutert.
 
 
 %\todo{Maximale Betiebsspannung ermitteln!!
@@ -234,9 +234,9 @@ der Mittelwert des Stroms interessant ist, kann dieser mit Hilfe eines Tiefpasse
 Eine kostengünstige Variante den Strom zu messen ist den Spannungsabfall über einen Shuntwiderstand zu bestimmen. Die Größe des Shuntwiderstandes sollte nur so klein wie nötig gewählt werden.
 Ein zu kleiner Shuntwiderstand benötigt einen starken Messverstärker, um das Signal auswerten zu können. Die Qualität und Genauigkeit dieses Signals nimmt allerdings mit steigender Verstärkung ab.
 
-Nach kurzer Recherche wurde die Größe des Shuntwiderstands auf R2512 (ca. \SI{6,35}{\mm} x \SI{3,00}{\mm}) begrenzt. Messshunts in dieser Größe gibt es problemlos bis zu einer Belastbarkeit von 2 Watt. 
-Bei einem maximalen Motorstrom von 20A ergibt sich somit ein maximaler Spannungsabfall von \SI{100}{\mV}. Nach dem Ohmschen Gesetz ergibt sich so eine Shunt-Größe von
-$\frac{\SI{0,1}{\V}}{\SI{20}{A}}=\SI{0,005}{\ohm}$. Shuntwiderstände in der Größe sind problemlos zu bekommen.
+Nach kurzer Recherche wurde die Größe des Shuntwiderstands auf R2512(ca. \SI{6,35}{\milli\meter} x \SI{3,00}{\milli\meter}) begrenzt. Messshunts in dieser Größe gibt es problemlos bis zu einer Belastbarkeit von \SI{2}{\watt}. 
+Bei einem maximalen Motorstrom von \SI{20}{\ampere} ergibt sich somit ein maximaler Spannungsabfall von \SI{100}{\milli\volt}. Nach dem Ohmschen Gesetz ergibt sich so eine Shunt-Größe von
+$\frac{\SI{0,1}{\volt}}{\SI{20}{\ampere}}=\SI{0,005}{\ohm}$. Shuntwiderstände in der Größe sind problemlos zu bekommen.
 Da es sich hier um eine Worst Case Rechnung handelt, wird der zusätzliche Widerstand des Shuntwiderstandes und der damit verringerte Strom bewusst ignoriert.
 
 Der Shunt wird direkt unter der H-Brücke des Motortreibers gegen Masse geschaltet. So wird eine Messung gegen Masse durchgeführt. Die so über den Shuntwiderstand gemessene Spannung könnte 
@@ -244,11 +244,11 @@ dann über den ADC Eingang des Mikrocontrollers eingelesen werden. Vorher jedoch
 
 \subsection{Anforderungen}
 Die maximale Auflösung des Mikrocontrollers soll ausgenutzt werden. Der ADC des Mikrocontrollers arbeitet mit einer Auflösung von 10 Bit und einer 
-Referenzspannung von 5V. Um die Auflösung des ADC auszunutzen muss das Signal, aufgrund des geringen Spannungsabfalls, verstärkt werden.
+Referenzspannung von \SI{5}{\volt}. Um die Auflösung des ADC auszunutzen muss das Signal, aufgrund des geringen Spannungsabfalls, verstärkt werden.
 
 Als Anforderung ergibt sich außerdem, dass der maximale Ripple des Endsignals kleiner ist als der Quantisierungsfehler des ADC.
 So ist es möglich auf eine zusätzliche digitale Filterung weitgehend zu verzichten.
-Die kleinst mögliche zu erfassende Spannung des ADC beträgt $\frac{5}{2^{10}}=4,88mV$.
+Die kleinst mögliche zu erfassende Spannung des ADC beträgt $\frac{\SI{5}{\volt}}{2^{10}}=\SI{4,88}{\milli\volt}$.
 Diesen Wert sollte der Ripple des Endsignales nicht überschreiten.
 Aus einem möglichst kleinem Ripple resultiert eine möglichst hohe Filterordnung bzw. eine niedrige Grenzfrequenz.
 Allerdings soll $U_{DC}$ einer Änderung des Mittelwertes, also einer Änderung des Tastverhältnisses, möglichst
@@ -280,8 +280,8 @@ wurden den Variablen ein ``F'' vorangestellt.
 
 \subsection{Dimensionierung des Verstärkers}
 
-In bisherigen Rechnungen wurde ein maximaler Spannungsabfall von 100mV am Shunt errechnet. Da der Messbereich des ADC voll ausgenutzt werden soll,
-ist es nötig das Messsignal zu verstärken. Hierzu wird ein nicht-invertierender Verstärker genutzt. Da der Messbereich des ADC bis 5V reicht, wird hier eine 
+In bisherigen Rechnungen wurde ein maximaler Spannungsabfall von \SI{100}{\milli\volt} am Shunt errechnet. Da der Messbereich des ADC voll ausgenutzt werden soll,
+ist es nötig das Messsignal zu verstärken. Hierzu wird ein nicht-invertierender Verstärker genutzt. Da der Messbereich des ADC bis \SI{5}{\volt} reicht, wird hier eine 
 50-fache Verstärkung angestrebt.
 
 Die Beschaltung, welche den Verstärkungsfaktor des Sallen-Key Tiefpass festlegt, entspricht der eines nicht-invertierenden Verstärkers:
@@ -292,8 +292,8 @@ v &= 1 + \frac{R_{3}}{R_{4}}\\
 49\cdot R_{4} &= R_{3}
 \end{align*}
 \\
-Wobei $R_{F4} = 47 k\Omega$ und $R_{F3} = 1 k\Omega$  gewählt werden, was eine Ver\-stär\-kung von 48 ergibt. Die Größen sollten nicht zu klein gewählt werden, 
-da der Operationsverstärkerausgang sonst zu stark belastet wird. Ein Gesamtwiderstand von \SI{5}{\kohm} resultiert stets in einem Stromverbrauch von unter \SI{1}{\mA} und ist
+Wobei $R_{F4} = \SI{47}{\kilo\ohm}$ und $R_{F3} = \SI{1}{\kilo\ohm}$  gewählt werden, was eine Ver\-stär\-kung von 48 ergibt. Die Größen sollten nicht zu klein gewählt werden, 
+da der Operationsverstärkerausgang sonst zu stark belastet wird. Ein Gesamtwiderstand von \SI{5}{\kilo\ohm} resultiert stets in einem Stromverbrauch von unter \SI{1}{\milli\ampere} und ist
 akzeptabel.
 
 
@@ -307,18 +307,18 @@ akzeptabel.
 \end{figure}
 
 Da dem Messsignal wie in \cref{fig:pwm+i2} zu erkennen, die PWM Frequenz zu Grunde liegt, wird sich bei der Dimensionierung des Filters einer Idee nach \cite{Alter2008} bedient, nach der die maximale Amplitude des Ripple der Grundschwingung bei einem
-Tastverhältnis von 0,5 ent\-spricht. Die Amplitude der Grundschwingung ergibt sich aus dem ersten Koeffizienten der Fourierreihe einer Rechteckschwingung.
+Tastverhältnis von \num{0,5} ent\-spricht. Die Amplitude der Grundschwingung ergibt sich aus dem ersten Koeffizienten der Fourierreihe einer Rechteckschwingung.
 \begin{align}
 A_1 = K\cdot \frac{1}{\pi}[\sin(\pi p)-\sin(2\pi(1-\frac{p}{2}))]
 \label{eq:ripple}
 \end{align}
-Wobei $p$ dem Tastverhältnis und $K$ der maximale Amplitude des Ursprungssignal entspricht \cite{Alter2008}. $K$ entspricht den errechneten 100mV multipliziert mit dem Verstärkungsfaktor 48, also 4,8V. 
+Wobei $p$ dem Tastverhältnis und $K$ der maximale Amplitude des Ursprungssignal entspricht \cite{Alter2008}. $K$ entspricht den errechneten \SI{100}{\milli\volt} multipliziert mit dem Verstärkungsfaktor 48, also \SI{4,8}{\volt}. 
 Das Tastverhältnis $p$ wird zu 0,5
-angenommen. Mit (\ref{eq:ripple}) ergibt sich für die Amplitude der Grundschwingung $ A_1 = K\cdot \frac{2}{\pi} = 3,056V$. $A_1$ soll auf $ < 4,88mV$ gedämpft werden.
+angenommen. Mit (\ref{eq:ripple}) ergibt sich für die Amplitude der Grundschwingung $ A_1 = K\cdot \frac{2}{\pi} = \SI{3,056}{\volt}$. $A_1$ soll auf $ < \SI{4,88}{\milli\volt}$ gedämpft werden.
 Als Sperrfrequenz $\Omega_s $ wird hier die PWM Frequenz angesetzt. Für $H(\omega=2\pi f_{PWM})$ gilt also:
 
 \begin{align}
-H(\omega=2\pi f_{PWM}) \le \frac{4,88mV}{3,056V} \mathop{\hat{=}} 20\cdot\log(\frac{4,88mV}{3,056V})= -55,9 dB
+H(\omega=2\pi f_{PWM}) \le \frac{\SI{4,88}{\milli\volt}}{\SI{3,056}{\volt}} \mathop{\hat{=}} 20\cdot\log(\frac{\SI{4,88}{\milli\volt}}{\SI{3,056}{\volt}})= \SI{-55,9}{\decibel}
 \label{eq:daempfung}
 \end{align}
 
@@ -332,7 +332,7 @@ Statt eine fixe Grenzfrequenz festzulegen und die benötigte Filterordnung zu be
 Die Charakteristik eins Filters entscheidet über seinen Frequenzgang. Es gibt viele dieser Filtercharakteristiken, eine Auswahl an häufig verwendeten Charakteristiken wird hier verglichen.
 
 Der \emph{Butterworth}-Filter besitzt einen maximal flachen Verlauf des Frequenzganges im Durchlassbereich und eine monoton verlaufende Dämpfung im Sperrbereich.
-Leider hat der Butterworth-Filter nur eine geringe Flankensteilheit im Sperrbereich (20dB/Dekade pro Ordnung). Ein Butterworth-Filter 1. Ordnung entspricht einen  einfachen RC-Filter.
+Leider hat der Butterworth-Filter nur eine geringe Flankensteilheit im Sperrbereich (\SI{20}{\decibel}/Dekade pro Ordnung). Ein Butterworth-Filter 1. Ordnung entspricht einen  einfachen RC-Filter.
 
 Der \emph{Tschebyscheff}-Filter hat eine höhere Flankensteilheit als der But\-ter\-worth-Filter, allerdings entsteht beim Tschebyscheff-Filter Welligkeit im Durchlassbereich,
 welche mit höherer Ordnung zunimmt. Durch die Welligkeit im Durchlassbereich würde ein zusätzlicher Ripple im Signal entstehen, weshalb der Tschebyscheff-Filter nicht
@@ -346,11 +346,11 @@ die bessere Wahl.
 \subsubsection{Bestimmung der Grenzfrequenz}
 
 Zur Bestimmung der Grenzfrequenz des Filters ist es nötig die PWM-Frequenz der Motoransteuerung zu kennen. Diese kann jedoch nur im Betrieb optimal bestimmt werden, da sie
-auch von subjektiven Kriterien wie dem Motorgeräusch abhängt. Um den Filter trotzdem auslegen zu können wird sie auf 3,9kHz festgelegt. Diese Frequenz
+auch von subjektiven Kriterien wie dem Motorgeräusch abhängt. Um den Filter trotzdem auslegen zu können wird sie auf \SI{3,9}{\kilo\hertz} festgelegt. Diese Frequenz
 lässt sich im AVR durch den Phase Correct Modus mit einem Prescaler von 8 erreichen.
 
 \begin{align*}
-f_{PWM}=\frac{f_{CPU}}{Prescaler\cdot 2 \cdot 256} = \frac{16 MHz }{8 \cdot 2 \cdot 256 }=3906,25 Hz
+f_{PWM}=\frac{f_{CPU}}{Prescaler\cdot 2 \cdot 256} = \frac{\SI{16}{\mega\hertz}}{8 \cdot 2 \cdot 256 }=\SI{3906,25}{\hertz}
 \end{align*}
 
 
@@ -376,12 +376,12 @@ f_{PWM}=\frac{f_{CPU}}{Prescaler\cdot 2 \cdot 256} = \frac{16 MHz }{8 \cdot 2 \c
 
 
 
-Für die Schaltung wird nun ein Sallen Key Tiefpass 2. Ordnung nach Butterworth entworfen. Die PWM-Frequenz $f_{PWM}$ beträgt 3,9kHz.
+Für die Schaltung wird nun ein Sallen Key Tiefpass 2. Ordnung nach Butterworth entworfen. Die PWM-Frequenz $f_{PWM}$ beträgt \SI{3,9}{\kilo\hertz}.
 
 Die Sperrfrequenz entspricht der PWM Frequenz, also der Frequenz der Grundschwingung. $\Omega$ entspricht der mit der Grenzfrequenz 
-normierten Frequenz $\Omega=\frac{f}{f_g}$. Nach (\ref{eq:daempfung}) ergibt sich für \cref{fig:analog}
+normierten Frequenz $\Omega=\frac{f}{f_g}$. Nach (\ref{eq:daempfung}) ergibt sich für \ref{fig:analog}
 
-$f_s=f_{PWM}=3,9 kHz$, $a_{min}=55,9 dB$ und $a_{max}$ wird auf einen üblichen Wert von 3dB festgelegt.
+$f_s=f_{PWM}=\SI{3,9}{\kilo\hertz}$; $a_{min}=\SI{55,9}{\decibel}$ und $a_{max}$ wird auf einen üblichen Wert von \SI{3}{\decibel} festgelegt.
 
 
 
@@ -403,23 +403,23 @@ Die Filterordnung nach Butterworth wird nach (\ref{eq:butterworth}) bestimmt\cit
 
 Für die Berechnung der Sperrfrequenz $\Omega_s$ müssen  $a_{min}$ und $a_{max}$ in Neper umgerechnet werden. Wobei:
 \begin{align*}
-1 \text{dB} =  \frac{\ln{10}}{20}\text{Np} = 0,115129255 \text{Np}   
+\SI{1}{\decibel} =  \frac{\ln{10}}{20}\si{{\neper}} = \SI{0,115129255}{\neper}   
 \end{align*}
 
-Damit ergibt sich für $a_{min}=55,9 dB\cdot \frac{\ln{10}}{20}=6,45Np$ und für  $a_{max}=3 dB\cdot \frac{\ln{10}}{20}=0,345Np$. Die Filterordnung wird auf 2 festgelegt.
+Damit ergibt sich für $a_{min}=\SI{55,9}{\decibel}\cdot \frac{\ln{10}}{20}=\SI{6,45}{\neper}$ und für  $a_{max}=\SI{3}{\decibel}\cdot \frac{\ln{10}}{20}=\SI{0,345}{\neper}$. Die Filterordnung wird auf 2 festgelegt.
 \begin{align}
-\Omega_s \le  \left(\frac{e^{2\cdot6,45N }-1}{e^{2\cdot 0,345Np}-1}\right)^{\frac{1}{2n}}  = 35,8
+\Omega_s \le  \left(\frac{e^{2\cdot\SI{6,45}{\neper} }-1}{e^{2\cdot \SI{0,345}{\neper}}-1}\right)^{\frac{1}{2n}}  = 35,8
 \end{align}
 
 Die Grenzfrequenz $f_g$ ergibt sich jetzt aus:
 
 \begin{align}
-\frac{f_s}{\Omega_s} \le \frac{3,9kHz}{35,8} = 108,9Hz
+\frac{f_s}{\Omega_s} \le \frac{\SI{3,9}{\kilo\hertz}}{35,8} = \SI{108,9}{\hertz}
 \end{align}
 
 \subsubsection{Filterentwurf}
-Im vorherigen Abschnitt wurde berechnet, dass die Grenzfrequenz des Filters kleiner als 108,9Hz sein muss.
-Im Folgenden wird nun ein Sallen-Key Filter 2. Ordnung mit einer Grenzfrequenz von 100Hz entworfen.
+Im vorherigen Abschnitt wurde berechnet, dass die Grenzfrequenz des Filters kleiner als \SI{108,9}{\hertz} sein muss.
+Im Folgenden wird nun ein Sallen-Key Filter 2. Ordnung mit einer Grenzfrequenz von \SI{100}{\hertz} entworfen.
 Die genaue Wahl der Grenzfrequenz ist hier nicht relevant da die realen Bauteile nicht in  allen Größen 
 verfügbar sind und daher am Schluss variiert werden müssen, wodurch sich die Grenzfrequenz des Filters leicht ändert.
 
@@ -502,52 +502,52 @@ Dabei sind immer nur die positiven, reellen Lösungen zu verwenden.
 \subsubsection{Bestimmung der Bauteilwerte}
 
 Um die Übersicht zu wahren wird die Berechnung der Bauteilwerte hier nur auszugsweise aufgeführt. Zur Erinnerung,
-die gegebenen Werte sind $Q_P=0,707$ ; $\Omega_P=1$ ; $A_0=48$ und $\omega_g = 2 \cdot \pi \cdot 100Hz$.
+die gegebenen Werte sind $Q_P=0,707$ ; $\Omega_P=1$ ; $A_0=48$ und $\omega_g = 2 \cdot \pi \cdot \SI{100}{\hertz}$.
 $A_0$ ist die Gleichspannungsverstärkung, sie beschreibt den gewünschten Verstärkungsfaktor der bereits in einem vorherigen
 Abschnitt mit 48 bestimmt wurde. Die Berechnungen wurden mit Hilfe eines Python-Scriptes ausgeführt, dabei wurden verschiedene
 Konfigurationen durchgerechnet. Hauptsächlich wurde dabei darauf geachtet, dass sich der Filter mit den vor Ort vorhandenen SMD-Bauteilen
 aufbauen lässt.
 
 In den Berechnungen fiel auf, dass bei steigender Größe der Kondensatoren die Größe der Widerstände sinkt. Da Widerstände auch in großen Größen vorhanden waren,
-wurde für den frei wählbaren $C_2$ ein kleiner Wert von 82nF gewählt.
+wurde für den frei wählbaren $C_2$ ein kleiner Wert von \SI{82}{\nano\farad} gewählt.
 
 \begin{align*}
 C_1&<\frac{C_2\cdot(1+4\cdot0,707^2_P(48-1))}{4\cdot0,707^2}\\
 C_1&<3,90\mu F
 \end{align*}
 
-$C_1$ soll nur kleiner sein als \SI{3,9}{\uF} und wird ebenfalls auf 82nF gesetzt.
+$C_1$ soll nur kleiner sein als \SI{3,9}{\micro\farad} und wird ebenfalls auf \SI{82}{\nano\farad} gesetzt.
 
 \begin{align*}
-B_1&=\frac{82nF\pm\sqrt{82nF^2-4\cdot0,707^2\cdot82nF(82nF+82nF(1-48))}}{82nF(82nF-82nF(1-48))}\\
-R_1&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot B_1\\
-R_1&=[-3176\Omega,2579\Omega]
+B_1&=\frac{\SI{82}{\nano\farad}\pm\sqrt{\SI{82}{\nano\farad}^2-4\cdot0,707^2\cdot\SI{82}{\nano\farad}(\SI{82}{\nano\farad}+\SI{82}{\nano\farad}(1-48))}}{\SI{82}{\nano\farad}(\SI{82}{\nano\farad}-\SI{82}{\nano\farad}(1-48))}\\
+R_1&=\frac{1}{2\cdot\SI{100}{\hertz}\cdot0,707} \cdot B_1\\
+R_1&=[\SI{-3176}{\ohm},\SI{2579}{\ohm}]
 \end{align*}
 
 
 \begin{align*}
-B_2=&\frac{82nF\pm\sqrt{82nF^2-4\cdot0,707^2\cdot82nF(82nF+82nF(1-48))}}{82nF^2}\\
-R_2&=\frac{1}{2\cdot100Hz\cdot0,707} \cdot B_2\\
-R_2&=[146079\Omega,-118626\Omega]
+B_2=&\frac{\SI{82}{\nano\farad}\pm\sqrt{\SI{82}{\nano\farad}^2-4\cdot0,707^2\cdot\SI{82}{\nano\farad}(\SI{82}{\nano\farad}+\SI{82}{\nano\farad}(1-48))}}{\SI{82}{\nano\farad}^2}\\
+R_2&=\frac{1}{2\cdot\SI{100}{\hertz}\cdot0,707} \cdot B_2\\
+R_2&=[\SI{146079}{\ohm},\SI{-118626}{\ohm}]
 \end{align*}
 
 Da nur positive Werte genutzt werden, ergeben sich die Bauteilwerte nun zu:
 \begin{align*}
-C_1&=82nF\\
-C_2&=82nF\\
-R_1&=2579\Omega\\
-R_2&=146079\Omega
+C_1&=\SI{82}{\nano\farad}\\
+C_2&=\SI{82}{\nano\farad}\\
+R_1&=\SI{2579}{\ohm}\\
+R_2&=\SI{146079}{\ohm}
 \end{align*}
 
 In der folgenden Abbildung ist das Ergebnis der Simulation zu sehen. An der Abbildung leider nicht gut zu erkennen,
-liegt der -3dB Punkt genau bei 100Hz. Die Frequenzachse des Diagrammes geht genau bis 3,9kHz. 
-Es ist eine Verstärkung von 48 des Ursprungssignals gewünscht. Diese Verstärkung wird mit 33,6 dB bei 10Hz, erreicht.
+liegt der \SI{-3}{\decibel} Punkt genau bei \SI{100}{\hertz}. Die Frequenzachse des Diagrammes geht genau bis \SI{3,9}{\kilo\hertz}. 
+Es ist eine Verstärkung von 48 des Ursprungssignals gewünscht. Diese Verstärkung wird mit \SI{33,6}{\decibel} bei 10{\hertz}, erreicht.
 \begin{align*}
-20\cdot\log{48}=-33,6dB
+20\cdot\log{48}=\SI{-33,6}{\decibel}
 \end{align*}
 
-Bei 3,9kHz erreicht der Filter eine Dämpfung von -30,1dB. Zusammen mit der Verstärkung von 33,6dB des Eingangssignals 
-wird das bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren hier 55,9 dB, so dass der Filter den geforderten Wert übersteigt, was an der niedrigeren Grenzfrequenz von 100Hz statt 108,9Hz liegt.
+Bei \SI{3,9}{\kilo\hertz} erreicht der Filter eine Dämpfung von \SI{-30,1}{\decibel}. Zusammen mit der Verstärkung von \SI{33,6}{\decibel} des Eingangssignals 
+wird das bereits verstärkte Signal also um \SI{63,7}{\decibel} gedämpft. Gefordert waren hier \SI{55,9}{\decibel}, so dass der Filter den geforderten Wert übersteigt, was an der niedrigeren Grenzfrequenz von \SI{100}{\hertz} statt \SI{108,9}{\hertz} liegt.
 
 %%Verstärkung: 33,6dB gewünscht:
 %%20*log(1/48)=-33,6
@@ -569,14 +569,14 @@ wird das bereits verstärkte Signal also um 63,7 dB gedämpft. Gefordert waren h
 \label{plott:filter_freq}
 \end{figure}
 
-Leider kann ein solcher Filter nur mit erheblichen Aufwendungen gebaut werden, da es keine fertigen Widerstände in den Größen $2579\Omega\\$ und $146079\Omega$ gibt. 
-Da jedoch alle Widerstände der E12 Reihe vor Ort vorhanden sind, werden die realen Werte wie folgt gewählt: $R_1=2,7k\Omega\\ R_2=150k\Omega$, da sie den nächsten Größen in der E12 Reihe entsprechen.
+Leider kann ein solcher Filter nur mit erheblichen Aufwendungen gebaut werden, da es keine fertigen Widerstände in den Größen $\SI{2579}{\ohm}\\$ und $\SI{146079}{\ohm}$ gibt. 
+Da jedoch alle Widerstände der E12 Reihe vor Ort vorhanden sind, werden die realen Werte wie folgt gewählt: $R_1=\SI{2,7}{\kilo\ohm}\\ R_2=\SI{150}{\kilo\ohm}$, da sie den nächsten Größen in der E12 Reihe entsprechen.
 
 
 In der folgenden Abbildung ist die Simulation des Filters mit den realen Bauteilwerten(blau) im Vergleich zum idealen Filter(rot) zu sehen.
-Die Grenzfrequenz des Filters (-3dB) liegt diesmal mit 104Hz etwas über den ursprünglichen 100Hz. Da wir die Werte von $R_5$ und $R_6$ nicht verändert haben, 
-liegt die Verstärkung bei 10Hz immer noch bei exakt 33,6dB. Bei 3,9 kHz, im Diagramm gut zu erkennen wird trotz der höheren Grenzfrequenz eine höhere Dämpfung als vorher erreicht.
-Diese liegt bei 33,7dB. Daran kann man erkennen, dass es sich nicht mehr um einen idealen Butterworth-Filter handelt. 
+Die Grenzfrequenz des Filters (\SI{-3}{\decibel}) liegt diesmal mit \SI{104}{\hertz} etwas über den ursprünglichen \SI{100}{\hertz}. Da wir die Werte von $R_5$ und $R_6$ nicht verändert haben, 
+liegt die Verstärkung bei \SI{10}{\hertz} immer noch bei exakt \SI{33,6}{\decibel}. Bei \SI{3,9}{\kilo\hertz}, im Diagramm gut zu erkennen wird trotz der höheren Grenzfrequenz eine höhere Dämpfung als vorher erreicht.
+Diese liegt bei \SI{33,7}{\decibel}. Daran kann man erkennen, dass es sich nicht mehr um einen idealen Butterworth-Filter handelt. 
 
 %%Verstärkung: 33,6dB gewünscht:
 %%20*log(1/48)=-33,6
@@ -598,9 +598,9 @@ Diese liegt bei 33,7dB. Daran kann man erkennen, dass es sich nicht mehr um eine
 \label{plott:filter_freq_real}
 \end{figure}
 
-In der folgenden \cref{plott:filter_sprungantwort} ist 
-die Antwort des Filters auf ein Rechtecksignal mit 3,9kHz, einem Tastverhältnis von 0,5 und einer Amplitude von 50mV zu sehen. Das Überschwingen im Bereich
-von 7ms ist charakteristisch für den Butterworth-Filter und wirkt sich negativ auf die Messung des Stroms aus. Allerdings werden solch große Sprünge in der Praxis nicht auftreten,
+In der folgenden \ref{plott:filter_sprungantwort} ist 
+die Antwort des Filters auf ein Rechtecksignal mit \SI{3,9}{\kilo\hertz}, einem Tastverhältnis von 0,5 und einer Amplitude von \SI{50}{\milli\volt} zu sehen. Das Überschwingen im Bereich
+von \SI{7}{\milli\second} ist charakteristisch für den Butterworth-Filter und wirkt sich negativ auf die Messung des Stroms aus. Allerdings werden solch große Sprünge in der Praxis nicht auftreten,
 da der Strom durch die große Induktivität des Motors nur langsam ansteigt.
 \begin{figure}[H]
 \centering
@@ -616,10 +616,10 @@ da der Strom durch die große Induktivität des Motors nur langsam ansteigt.
 \end{figure}
 
 
-Die in \cref{plott:ripple} gut zu erkennende Restwelligkeit (Ripple) beträgt 3,36mV und liegt damit deutlich unter den geforderten 4,88mV. 
-Als Eingangssignal dient hier ein Rechtecksignal mit 3,9kHz und einem Tastverhältnis von 0,5, die Amplitude liegt bei 50mV. 
-Die Tatsache, dass das Signal 240mV über den rechnerischen 2,40V  ($0,5V \cdot 48 $) liegt, rührt daher, dass LT-Spice die Steig- und Fallzeiten in den low-Bereich des Rechtecksignals legt, 
-wodurch der Mittelwert des Signals bei 2,64V liegt.
+Die in \ref{plott:ripple} gut zu erkennende Restwelligkeit (Ripple) beträgt \SI{3,36}{\milli\volt} und liegt damit deutlich unter den geforderten \SI{4,88}{\milli\volt}. 
+Als Eingangssignal dient hier ein Rechtecksignal mit \SI{3,9}{\kilo\hertz} und einem Tastverhältnis von 0,5, die Amplitude liegt bei \SI{50}{\milli\volt}. 
+Die Tatsache, dass das Signal \SI{240}{\milli\volt} über den rechnerischen \SI{2,40}{\volt}  ($\SI{0,5}{\volt} \cdot 48 $) liegt, rührt daher, dass LT-Spice die Steig- und Fallzeiten in den low-Bereich des Rechtecksignals legt, 
+wodurch der Mittelwert des Signals bei \SI{2,64}{\volt} liegt.
  
 %% Ripple: 0,003358
 %% zu hoher Spannungswert durch Steig und Fallzeiten im low bereich des Rechtecksignals
@@ -667,7 +667,7 @@ exakt eingehalten werden muss, ist die Software zur Ansteuerung in Assembler ges
 Die LEDs werden wie folgt angesteuert:\\
 Jede LED wird mit einem 24Bit Datenwort angesprochen, welches die Helligkeitsstufen für jede der drei Grundfarben enthält. 
 Die Reihenfolge der Daten ist dabei grün, rot und dann blau. Das höchstwertige Bit wird zuerst übertragen.
-Die Daten werden ohne Pause gesendet, bis alle LEDs im Strang die nötigen Daten erhalten haben. Nach jeder Übertragung muss eine Pause von mindestens 50\textmu s eingehalten
+Die Daten werden ohne Pause gesendet, bis alle LEDs im Strang die nötigen Daten erhalten haben. Nach jeder Übertragung muss eine Pause von mindestens \SI{50}{\micro\second} eingehalten
 werden, damit die LEDs die Daten übernehmen. Die einzelnen Bits der Übertragung sind dabei folgendermaßen codiert:
 
 \begin{figure}[H]
@@ -684,11 +684,11 @@ Die genauen Signallängen können \cref{tab:led_timing} entnommen werden.
   \begin{tabularx}{\textwidth}{|r|X|r|r|}
     \hline
     Abschnitt & Beschreibung & Dauer & Abweichung \\ \hline
-    T0H & 0 Code, high Zeit & $0,35\mu s$ & \textpm 150ns\\ \hline
-    T1H & 1 Code, high Zeit & $0,7\mu s$ & \textpm 150ns\\ \hline
-    T0L & 0 Code, low Zeit & $0,8\mu s$ & \textpm 150ns\\ \hline
-    T1L & 0 Code, low Zeit & $0,6\mu s$ & \textpm 150 ns\\ \hline
-    RES & Reset Code, low Zeit & über $50\mu s$ & \\ \hline
+    T0H & 0 Code, high Zeit & $\SI{0,35}{\micro\second}$ & \textpm \SI{150}{\nano\second}\\ \hline
+    T1H & 1 Code, high Zeit & $\SI{0,7}{\micro\second}$ & \textpm \SI{150}{\nano\second}\\ \hline
+    T0L & 0 Code, low Zeit & $\SI{0,8}{\micro\second}$ & \textpm \SI{150}{\nano\second}\\ \hline
+    T1L & 0 Code, low Zeit & $\SI{0,6}{\micro\second}$ & \textpm \SI{150}{\nano\second}\\ \hline
+    RES & Reset Code, low Zeit & über $\SI{50}{\micro\second}$ & \\ \hline
   \end{tabularx}
   \caption{Signallängen}%
   \label{tab:led_timing}
@@ -733,7 +733,7 @@ entstehen, wie in \cref{fig:IR_spikes} zu sehen.
 \label{fig:IR_spikes}
 \end{figure}
 
-Nach der Entstörung mit einem 82 nF Kondensator direkt am Sensor zwischen VCC und GND sind die Störungen bereits stark vermindert.
+Nach der Entstörung mit einem \SI{82}{\nano\farad} Kondensator direkt am Sensor zwischen VCC und GND sind die Störungen bereits stark vermindert.
 
 \begin{figure}[H]
 \centering
@@ -742,7 +742,7 @@ Nach der Entstörung mit einem 82 nF Kondensator direkt am Sensor zwischen VCC u
 \label{fig:IR_lessspikes}
 \end{figure}
 
-Zusätzlich zum Kondensator direkt am Sensor werden diese noch mit einem \SI{47}{\uF} Kondensator auf der Platine entkoppelt.
+Zusätzlich zum Kondensator direkt am Sensor werden diese noch mit einem \SI{47}{\micro\farad} Kondensator auf der Platine entkoppelt.
 
 \subsection{Auswertung des Messsignales}
 Das Messsignal vom Sensor wird über einen ADC-Eingang des AVR Mikrocontrollers ausgelesen. Angeschlossen werden die Sensoren über die PH-Connector Reihe des Herstellers JST, welche auch an den Sensoren verbaut sind.
@@ -802,18 +802,18 @@ Diese wird durch einen Sharp GP1A30R Sensor ausgewertet, welcher ein Drehzahlsig
 
 Die Scheibe ist dabei mit 120 Strichmarkierungen versehen. Eine Motorumdrehung entspricht also 120 Impulsen, im folgenden Motorticks genannt. Über das Übersetzungsverhältnis des Getriebes und dem Radumfang kann dann 
 der zurückgelegte Weg berechnet werden. Das Übersetzungsverhältnis des Fahrzeugs ist abhängig von drei Komponenten, dem Stirnrad, dem Motorritzel sowie einer festen internen Übersetzung. Das verwendete Stirnrad hat
-61 Zähne, das Motorritzel 19. Damit ergibt sich ein Verhältnis von 61:19 zusammen mit der internen Übersetzung von 2,6 \cite{uebersetzung}
-haben wir ein Übersetzungsverhältnis von 8,35. Der Radumfang beträgt ca. \SI{21}{\cm}.
+61 Zähne, das Motorritzel 19. Damit ergibt sich ein Verhältnis von 61:19 zusammen mit der internen Übersetzung von \num{2,6} \cite{uebersetzung}
+haben wir ein Übersetzungsverhältnis von \num{8,35}. Der Radumfang beträgt ca. \SI{21}{\centi\meter}.
 
 \begin{align}
-\frac{120*8,35}{0,21m}=\frac{ticks}{m}=4760
+\frac{120*8,35}{\SI{0,21}{\meter}}=\frac{ticks}{\si{\meter}}=4760
 \end{align}
 
 Mit dieser Größe lassen sich die Motorticks einfach in Meter umrechnen. 
 
 \section{Auslegung der Stromversorgung}
 
-Um das Layout der Platine möglichst simpel zu halten und damit kostengünstig zu bleiben, wurden alle Komponenten so ausgewählt, dass diese über eine einzige 5V Spannungsquelle mit Energie versorgt werden können.
+Um das Layout der Platine möglichst simpel zu halten und damit kostengünstig zu bleiben, wurden alle Komponenten so ausgewählt, dass diese über eine einzige \SI{5}{\volt} Spannungsquelle mit Energie versorgt werden können.
 Es ist wichtig den Stromverbrauch aller Komponenten abzuschätzen, um die Spannungsversorgung sinnvoll dimensionieren zu kön\-nen. Eine zu schwache Spannungsquelle kann zu Instabilitäten führen,
 während eine überdimensionierte Geld verschenkt.
 
@@ -833,67 +833,67 @@ Im Artikel werden mehrere Servomotoren vermessen, der Motor der dem verwendeten 
 
 Technische Daten ``Graupner 4421'' \cite{website-servo-vergleich-dat}:
 \begin{itemize}
- \item Stellzeit(60°): 0,11s
- \item Stellmoment: 88Ncm 
+ \item Stellzeit(\SI{60}{\degree}): \SI{0,11}{\second}
+ \item Stellmoment: \SI{88}{\newton\centi\meter} 
 \end{itemize}
 
 
 Technische Daten des verwendeten Servomotors \cite{website-servo-dat}:
 \begin{itemize}
- \item Stellzeit(60°): 0,13s (4,8V) / 0,16s (6,0V)
- \item Stellmoment: 92Ncm (4,8V) / 78Ncm (6,0V)
+ \item Stellzeit(\SI{60}{\degree}): \SI{0,13}{\second} (\SI{4,8}{\volt}) / \SI{0,16}{\second} (\SI{6,0}{\volt})
+ \item Stellmoment: \SI{92}{\newton\centi\meter} (\SI{4,8}{\volt}) / \SI{78}{\newton\centi\meter} (\SI{6,0}{\volt})
 \end{itemize}
 
 
 
-Dieser hat laut des Artikels eine maximale Stromaufnahme von 1,2A. Um noch Luft nach oben zu haben wird hier ein Verbrauch von 
-1,8A angenommen.
+Dieser hat laut des Artikels eine maximale Stromaufnahme von \SI{1,2}{\ampere}. Um noch Luft nach oben zu haben wird hier ein Verbrauch von 
+\SI{1,8}{\ampere} angenommen.
 
 \subsubsection{Pandaboard ES}
 Leider gibt es vom Hersteller des Pandaboards keine konkreten Angaben zum Stromverbrauch. Der Hersteller empfiehlt jedoch ein
-Netzteil mit 4A\cite{website-panda-supply}, wobei auch ein Betrieb an USB mit Hilfe eines Y-Kabels möglich ist. Die USB-2.0 Spezifikation\cite{website-usb-spec} sieht eine maximale 
-Stromabgabe von 500mA vor.
+Netzteil mit \SI{4}{\ampere}\cite{website-panda-supply}, wobei auch ein Betrieb an USB mit Hilfe eines Y-Kabels möglich ist. Die USB-2.0 Spezifikation\cite{website-usb-spec} sieht eine maximale 
+Stromabgabe von \SI{500}{\milli\ampere} vor.
 
-Der Stromverbrauch des normalen Pandaboards (ohne ES) beträgt ca. 800mA \cite{website-panda-power}.
+Der Stromverbrauch des normalen Pandaboards (ohne ES) beträgt ca. \SI{800}{\milli\ampere} \cite{website-panda-power}.
 Nähere Angaben zum Stromverbrauch des normalen Pandaboards (ohne ES) finden sich in \cite{website-panda-power}.
 Der Verbrauch des Pandaboard ES dürfte durch den schnelleren Prozessor minimal darüber liegen. 
 Durch Anschluss von USB-Geräten an das Board kann der Stromverbrauch jedoch noch steigen. Die USB-Spezifikation \cite{website-usb-spec}
-sieht pro Port eine maximale Stromentnahme von 500mA vor. Da das Pandaboard über 2 USB-Ports verfügt liegt der maximale zusätzliche Verbrauch bei 1A,
-so dass hier ein Gesamtverbrauch von 2A veranschlagt wird.
+sieht pro Port eine maximale Stromentnahme von \SI{500}{\milli\ampere} vor. Da das Pandaboard über 2 USB-Ports verfügt, liegt der maximale zusätzliche Verbrauch bei \SI{1}{\ampere},
+so dass hier ein Gesamtverbrauch von \SI{2}{\ampere} veranschlagt wird.
 
 \paragraph{Hinweis:}
-Das Pandaboard ES wurde im Laufe des Projekts durch einen Intel NUC ersetzt, welcher jedoch nicht über die 5V Schiene versorgt wird.
+Das Pandaboard ES wurde im Laufe des Projekts durch einen Intel NUC ersetzt, welcher jedoch nicht über die \SI{5}{\volt} Schiene versorgt wird.
 Daher entfällt der Verbrauch des Boards in den Messungen der Evaluierung.
 
 \subsubsection{LED Beleuchtung}
 Auch wenn LEDs den Ruf haben besonders energieeffizient zu sein, ist der Stromverbrauch bei einer größeren Anzahl nicht zu
 unterschätzen. Da wir RBG-LEDs einsetzen besteht ein LED-Modul aus 3 LEDs in den Grundfarben rot, blau und grün.
-Laut Datenblatt \cite{ds-WS2812} haben die LEDs eine Stromaufnahme von 20mA, also 60mA pro Modul.
+Laut Datenblatt \cite{ds-WS2812} haben die LEDs eine Stromaufnahme von \SI{20}{\milli\ampere}, also \SI{60}{\milli\ampere} pro Modul.
 Um regelwerkkonform zu sein, werden folgende Beleuchtungen benötigt: Blinker rechts und links jeweils vorne und hinten.
 Sowie eine Leuchte, welche den RC-Modus anzeigt. Zusätzlich zu den im Regelwerk vorgeschriebenen Beleuchtungen werden noch je
 zwei Frontscheinwerfer und drei Rück-/Bremslichter integriert, so dass sich eine Anzahl von 10 LED-Modulen ergibt.
-Der maximale durch die LEDs verursachte Strom liegt somit bei 600mA. 
+Der maximale durch die LEDs verursachte Strom liegt somit bei \SI{600}{\milli\ampere}. 
 
 \subsubsection{Mikrocontroller}
-Der maximale Stromverbrauch des AVR Mikrocontrollers liegt laut Datenblatt\cite{ds-at90can} bei 200mA, wenn IO-Pins belastet werden
-Der Mikrocontroller selber braucht jedoch bei 5V Betriebsspannung und 16MHz nur 29mA. Da die IO-Pins des Controllers nur wenig belastet werden,
-wird hier nur ein Verbrauch von 100mA veranschlagt.
+Der maximale Stromverbrauch des AVR Mikrocontrollers liegt laut Datenblatt\cite{ds-at90can} bei \SI{200}{\milli\ampere}, wenn IO-Pins belastet werden
+Der Mikrocontroller selber braucht jedoch bei \SI{5}{\volt} Betriebsspannung und 16MHz nur \SI{29}{\milli\ampere}. Da die IO-Pins des Controllers nur wenig belastet werden,
+wird hier nur ein Verbrauch von \SI{100}{\milli\ampere} veranschlagt.
 
 \subsubsection{Sharp Sensoren}
-Die Sharp GP2D120 Distanzsensoren verbrauchen laut Datenblatt \cite{ds-sharp-GP2D120} 50mA, da zwei dieser Sensoren verbaut werden ergeben sich 100mA.
+Die Sharp GP2D120 Distanzsensoren verbrauchen laut Datenblatt \cite{ds-sharp-GP2D120} \SI{50}{\milli\ampere}, da zwei dieser Sensoren verbaut werden ergeben sich \SI{100}{\milli\ampere}.
 
 \subsubsection{Sonstige Peripherie}
-Da der Stromverbrauch der restlichen Komponenten minimal ist, werden hier pauschal 100mA veranschlagt.
+Da der Stromverbrauch der restlichen Komponenten minimal ist, werden hier pauschal \SI{100}{\milli\ampere} veranschlagt.
 
 \subsection{Auswahl des Reglers}
-Der Gesamtstromverbrauch der Komponenten beträgt 4800mA. Ein Linearregler ist hier nicht mehr praktikabel, da dieser bei einer Akkuspannung von 14,4V und 4800mA über 45 Watt Leistung in Wärme umwandeln würde.
+Der Gesamtstromverbrauch der Komponenten beträgt \SI{4800}{\milli\ampere}. Ein Linearregler ist hier nicht mehr praktikabel, da dieser bei einer Akkuspannung von \SI{14,4}{\volt} und \SI{4800}{\milli\ampere} über \SI{45}{\watt} Leistung in Wärme umwandeln würde.
 
 \begin{align*}
-P_{\text{linear}}=(\SI{14,4}{\V}-\SI{5}{\V})\cdot \SI{4,8}{\A}=\SI{45,120}{\W}
+P_{\text{linear}}=(\SI{14,4}{\volt}-\SI{5}{\volt})\cdot \SI{4,8}{\ampere}=\SI{45,120}{\watt}
 \end{align*}
 
 Schaltregler in Form von Abwärtswandlern haben hingegen einen sehr hohen Wirkungsgrad. Eine gute Wahl ist die Schaltregler-Reihe von Texas Instuments, da diese einfach zu bekommen sind,
-und nur wenig Außenbeschaltung benötigen. Ein Exemplar das unseren Anforderungen entspricht ist der LM2678 von Texas Instruments, dieser kann dauerhaft einen Strom von 5A liefern und sein Wirkungsgrad
+und nur wenig Außenbeschaltung benötigen. Ein Exemplar das unseren Anforderungen entspricht ist der LM2678 von Texas Instruments, dieser kann dauerhaft einen Strom von \SI{5}{\volt} liefern und sein Wirkungsgrad
 liegt selbst bei Maximallast bei über 80\%.
 Eine Übersicht dazu findet sich in \cref{fig:vreg-eff}.
 \begin{figure}[H]
@@ -902,7 +902,7 @@ Eine Übersicht dazu findet sich in \cref{fig:vreg-eff}.
 \caption{Regulator Wirkungsgrad \cite{ds-ti}}%
 \label{fig:vreg-eff}
 \end{figure}
-Ausgehend von ca. 24 Watt Leistungsaufnahme ($4,8A*5V$) und einem minimalen Wirkungsgrad von 80\%  ergibt sich damit eine überschauliche Verlustleistung von 6 Watt.
+Ausgehend von ca. \SI{24}{\watt} Leistungsaufnahme ($\SI{4,8}{\ampere}*\SI{5}{\volt}$) und einem minimalen Wirkungsgrad von 80\%  ergibt sich damit eine überschauliche Verlustleistung von \SI{6}{\watt}.
 
 
 \begin{figure}[H]
@@ -913,8 +913,8 @@ Ausgehend von ca. 24 Watt Leistungsaufnahme ($4,8A*5V$) und einem minimalen Wirk
 \end{figure}
 
 
-Die Beschaltung erfolgt dabei nach den Empfehlungen des Datenblattes. Die verwendeten \SI{180}{\uF} Kondensatoren sollen laut Datenblatt Low-ESR Kondensatoren sein. 
-Die verbauten Kondensatoren stammen aus Nichicons L8 Serie und haben einen Serienwiderstand von nur \SI{12}{\mohm}.
+Die Beschaltung erfolgt dabei nach den Empfehlungen des Datenblattes. Die verwendeten \SI{180}{\micro\farad} Kondensatoren sollen laut Datenblatt Low-ESR Kondensatoren sein. 
+Die verbauten Kondensatoren stammen aus Nichicons L8 Serie und haben einen Serienwiderstand von nur \SI{12}{\milli\ohm}.
 
 \textbf{Low-ESR Kondensatoren:\\}
 
@@ -949,7 +949,7 @@ In \cref{fig:layout} ist das fertige Platinenlayout zu sehen. Bei der Entwicklun
 \label{fig:car_struc}
 \end{figure}
 
-Die Lücke hat Maße von \SI{13,0}{\cm} mal \SI{5,4}{\cm}. Das Platinenlayout hat eine Größe von  \SI{13,0}{\cm} mal \SI{5,05}{\cm} und passt somit in die Lücke ohne dabei zu viel Spielraum zu haben, 
+Die Lücke hat Maße von \SI{13,0}{\centi\meter} mal \SI{5,4}{\centi\meter}. Das Platinenlayout hat eine Größe von  \SI{13,0}{\centi\meter} mal \SI{5,05}{\centi\meter} und passt somit in die Lücke ohne dabei zu viel Spielraum zu haben, 
 was in einem festen Sitz der Platine resultiert. 
 
 \begin{figure}[H]
@@ -964,7 +964,7 @@ Auf dem Layout sind folgende Komponenten zu sehen:
 \begin{itemize}
 \setlength{\parskip}{0pt}
  \item [1] H-Brücke mit Motoranschluss
- \item [2] \SI{5}{\A} Schaltregler
+ \item [2] \SI{5}{\ampere} Schaltregler
  \item [3] Allegro Mosfettreiber
  \item [4] Atmel Mikrocontroller
  \item [5] Sparkfun Inertialsensor (Anschluss und Position)
@@ -1050,7 +1050,7 @@ Das Programm hört auf folgende ROS-Topics:\\
 
 \subsection{Übertragungsprotokoll}
 Da die Übertragung der Daten via ROS-Serial im ersten Prototypen zu vielen Problemen geführt hat, wurde ein neues Übertragungsprotokoll entwickelt.
-Dabei wurde auf Fehlertoleranz und niedrigen Ressourcenverbrauch geachtet. Der Datendurchsatz muss hier ausreichend sein, um alle Daten stabil mit 100Hz
+Dabei wurde auf Fehlertoleranz und niedrigen Ressourcenverbrauch geachtet. Der Datendurchsatz muss hier ausreichend sein, um alle Daten stabil mit \SI{100}{\hertz}
 übertragen zu können.
 Der grundlegende Ablauf der Datenübertragung ist in \cref{fig:uC_read} und \ref{fig:uC_write} zu sehen.
 
@@ -1074,7 +1074,7 @@ Nach dem Empfang der Topic ID erwartet er die nötigen Daten, samt Checksumme. D
 Bitfehler zu fatalen Folgen führen. Beispielsweise kann die Recheneinheit oder der Mikrocontroller abstürzen, wenn die Motorleistung plötzlich stark erhöht wird.
 Daher werden die Daten nur übernommen, wenn die Checksumme erfolgreich verifiziert wurde. Sollte die Checksumme nicht verifiziert werden, springt der Mikrocontroller
 erneut in den Startzustand und wartet auf ein Startsignal, ohne die Daten zu übernehmen. Der Client bekommt davon nichts mit, wenige einzelne Fehler können durch die
-hohe interne Datenrate von \SI{100}{\Hz} ignoriert werden. Häufige oder dauerhafte Fehlübertragungen können durch die Reaktion des Autos leicht identifiziert werden.
+hohe interne Datenrate von \SI{100}{\hertz} ignoriert werden. Häufige oder dauerhafte Fehlübertragungen können durch die Reaktion des Autos leicht identifiziert werden.
 Häufige oder dauerhafte Fehlübertragungen würden durch das fortlaufende Lesen und Schreiben auf dem Mikrocontroller so oder so zu Fehlern in beiden Richtungen führen.
 
 \begin{figure}[ht]
