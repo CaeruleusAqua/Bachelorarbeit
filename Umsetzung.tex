@@ -1,11 +1,5 @@
 \chapter{Umsetzung}
 
-
-\todo{Text verbessern.....oder entfernen}
-In diesem Kapitel werden die technischen Hintergründe der einzelnen Komponenten erläutert und ihre Umsetzung beschrieben.
-....
-
-
 \section{Motoransteuerung}
 Wie bereits im Konzept beschrieben, wird der Motorteiber als diskreter Vierquadrantensteller ausgeführt. Auf Grund der hohen Belastbarkeit
 und leistungslosen Ansteuerung werden meist p-Kanal-Mosfets als Halbleiterschalter genutzt. Um die beiden oberen Mosfets (T1/T3) durchzuschalten
@@ -20,8 +14,6 @@ welche das Schaltungsdesign enorm vereinfachen.
 \caption{Vierquadrantensteller \cite{vierquadrantensteller}}%
 \label{fig:Vierquadrantensteller}
 \end{figure}
-
-\todo{minimale Max Betriebsspannung im Anforderungsanalyse/Konzept festlegen}
 
 \subsection{Auswahl der Mosfets}
 Die Auswahl der Mosfets wird durch den geforderten Strom von 20A und der maximalen Betriebsspannung von 20V eingegrenzt. Weitere Kriterien wie die Gate-Source-Spannung, welche zum Durchschalten
@@ -274,9 +266,6 @@ einen invertierenden Verstärker, dieser invertiert das Messsignal. Da der Mikro
 negativen Referenzspannung arbeiten, was den Schaltungsaufwand unnötig vergrößern würde. Der Sallen-Key Tiefpass benutzt einen nicht invertierenden Verstärker, welcher diesen
 Nachteil nicht hat. Sodass ab dieser Stelle ein Sallen-Key Tiefpass entworfen wird.
 
-%TODO
-\todo{Quellen (verweise auf übliche Filtertypen)}
-
 \subsection{Die Filterschaltung}
 
 Wie im vorherigen Abschnitt diskutiert, wird hier ein Sallen-Key Tiefpass entworfen. Zum Entwurf der Schaltung wurde Eagle genutzt.
@@ -515,7 +504,7 @@ Dabei sind immer nur die positiven, reellen Lösungen zu verwenden.
 \subsubsection{Bestimmung der Bauteilwerte}
 
 Um die Übersicht zu wahren wird die Berechnung der Bauteilwerte hier nur auszugsweise aufgeführt. Zur Erinnerung,
-die gegebenen Werte sind $Q_P=0,707$, $\Omega_P=1$, $A_0=48$ und $\omega_g = 2 \cdot \pi \cdot 100Hz$.
+die gegebenen Werte sind $Q_P=0,707$ ; $\Omega_P=1$ ; $A_0=48$ und $\omega_g = 2 \cdot \pi \cdot 100Hz$.
 $A_0$ ist die Gleichspannungsverstärkung, sie beschreibt den gewünschten Verstärkungsfaktor der bereits in einem vorherigen
 Abschnitt mit 48 bestimmt wurde. Die Berechnungen wurden mit Hilfe eines Python-Scriptes ausgeführt, dabei wurden verschiedene
 Konfigurationen durchgerechnet. Hauptsächlich wurde dabei darauf geachtet, dass sich der Filter mit den vor Ort vorhandenen SMD-Bauteilen
@@ -611,8 +600,6 @@ Diese liegt bei 33,7dB. Daran kann man erkennen, dass es sich nicht mehr um eine
 \label{plott:filter_freq_real}
 \end{figure}
 
-\todo{Überall Kommas oder Punkte als Dezimaltrenner}
-
 In der folgenden Abbildung [\ref{plott:filter_sprungantwort}] ist 
 die Antwort des Filters auf ein Rechtecksignal mit 3,9kHz, einem Tastverhältnis von 0,5 und einer Amplitude von 50mV zu sehen. Das Überschwingen im Bereich
 von 7ms ist charakteristisch für den Butterworth-Filter und wirkt sich negativ auf die Messung des Stroms aus. Allerdings werden solch große Sprünge in der Praxis nicht auftreten,
@@ -653,10 +640,6 @@ wodurch der Mittelwert des Signals bei 2,64V liegt.
 \end{figure}
 
 Da der berechnete Filter den Anforderungen bestens genügt, wird dieser in die Schaltung übernommen.
-
-\todo{Zeilenumbruch/Seitenwechsel prüfen}
-
-
 
 
 \section{Beleuchtung}
@@ -821,7 +804,9 @@ Diese wird durch einen Sharp GP1A30R Sensor ausgewertet, welcher ein Drehzahlsig
 
 Die Scheibe ist dabei mit 120 Strichmarkierungen versehen. Eine Motorumdrehung entspricht also 120 Impulsen, im folgenden Motorticks genannt. Über das Übersetzungsverhältnis des Getriebes und dem Radumfang kann dann 
 der zurückgelegte Weg berechnet werden. Das Übersetzungsverhältnis des Fahrzeugs ist abhängig von drei Komponenten, dem Stirnrad, dem Motorritzel sowie einer festen internen Übersetzung. Das verwendete Stirnrad hat
-61 Zähne, das Motorritzel 19. Damit ergibt sich ein Verhältnis von 61:19 zusammen mit der internen Übersetzung von 2,6 \todo{Quelle raussuchen für interne Übersetzung} 
+61 Zähne, das Motorritzel 19. Damit ergibt sich ein Verhältnis von 61:19 zusammen mit der internen Übersetzung von 2,6 
+
+\todo{Quelle raussuchen für interne Übersetzung} 
 haben wir ein Übersetzungsverhältnis von 8,35. Der Radumfang beträgt ca. \SI{21}{\cm}.
 
 \begin{align}
@@ -960,7 +945,7 @@ Durch diese Eigenschaften ist ein ESR Kondensator hervorragend zur Störunterdr�
 
 
 \section{Das Layout}
-In Abbildung \ref{fig:layout} ist das fertige Platinenlayout zu sehen. Bei der Entwicklung des Layouts wurde darauf geachtet, dass die Platine in die vorgesehene Lücke des Fahrzeugs passt.
+In Abbildung \ref{fig:layout} ist das fertige Platinenlayout zu sehen. Bei der Entwicklung des Layouts wurde darauf geachtet, dass die Platine in die vorgesehene Lücke (zu sehen in \cref{fig:car_struc}) des Fahrzeugs passt.
 
 \begin{figure}[H]
 \centering
@@ -1028,7 +1013,7 @@ Das Programm stellt nach seinem Start folgende ROS-Topics zur Verfügung:\\
     /sensors/current		& std\_msgs/Float32														\\ \hline
     \multicolumn{2}{|X|}{Der aktuelle Motorstrom in Ampere}											\\ \hline\hline
     /sensors/imu/data\_raw	& ottocar\_msgs/simpleImu													\\ \hline
-    \multicolumn{2}{|X|}{Die Daten werden im ROS-Standartformat für Inertialsensoren zur Verfügung gestellt	}						\\ \hline\hline
+    \multicolumn{2}{|X|}{Die Daten werden im ROS-Standardformat für Inertialsensoren zur Verfügung gestellt	}						\\ \hline\hline
     /sensors/IR1		& std\_msgs/Float32										\\ \hline
      \multicolumn{2}{|X|}{Der aktuelle Spannungswert des Sensors in Volt}										\\ \hline\hline
     /sensors/IR2		& std\_msgs/Float32										\\ \hline
