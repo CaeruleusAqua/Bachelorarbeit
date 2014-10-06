@@ -6,7 +6,7 @@ Die Ausgangsposition der Arbeit stell sich folgendermaßen dar. Das Fahrzeug bas
 Auf Grund der Herkunft der Komponenten, dem Modellbau, ist keine
 Dokumentation der elektrischen Komponenten verfügbar.
 Aus diesem Grund kann der originale Motortreiber nicht verwendet werden.
-Da das Fahrzeug über bereits vorhandene 4-Zellen-Lithium-Polymer-Akkus (14,4V Nennspannung) versorgt werden soll, um die Anschaffung teurer Akkus zu vermeiden,
+Da das Fahrzeug über bereits vorhandene 4-Zellen-Lithium-Polymer-Akkus (\SI{14,4}{\volt} Nennspannung) versorgt werden soll, um die Anschaffung teurer Akkus zu vermeiden,
 hätte dieser so oder so nicht verwendet werden können. 
 Für das Fahrzeug wurde bereits eine Treiberplatine in Form eins Prototyps gefertigt.
 Diese verfügt über ein Crumb123 Mikrocontroller Modul (At90can128), welches einen Motortreiber vom Typ ``L298 DUAL FULL-BRIDGE DRIVER'' ansteuert.
@@ -43,8 +43,8 @@ technische Ausprägung ist ausschließlich die Achsschenkellenkung zugelassen.
 In Notsituationen muss es möglich sein das Fahrzeug mit Hilfe einer Funkfernbedienung anzuhalten und manuell zu steuern. Eine solche Notsituation tritt ein, wenn
 das Auto seine Aufgabe aufgrund eines Fahrfehlers oder anderem Fehlverhalten nicht mehr autonom fortführen kann.
 Der RC-Modus muss per Fernbedienung eingeschaltet und ausgeschaltet werden, bei Aktivierung des RC-Modus muss das Fahrzeug unverzüglich angehalten werden.
-Während des Wettbewerbs darf die Geschwindigkeit des Autos $0,3\frac{m}{s}$ nicht überschreiten.
-Da das 2,4-GHz Band bereits durch die vor Ort genutzte Kameratechnik belegt ist, können diese Frequenzen nicht für den RC-Modus genutzt werden.
+Während des Wettbewerbs darf die Geschwindigkeit des Autos \SI[per-mode=fraction]{0,3}{\meter\per\second} nicht überschreiten.
+Da das \SI{2,4}{\giga\hertz} Band bereits durch die vor Ort genutzte Kameratechnik belegt ist, können diese Frequenzen nicht für den RC-Modus genutzt werden.
 Der RC-Modus muss durch eine blaue Leuchte an der höchsten Stelle des Fahrzeuges angezeigt werden, welche mit einer Frequenz von 1-Hz blinkt.
 
 \subsection{Signalleuchten}
@@ -78,12 +78,12 @@ Des Weiteren muss die Platine in eine dafür vorgesehene Lücke des Fahrzeuges p
 
 
 \section{Zusammenfassung}
-Um den Anforderungen zu genügen, muss ein Motortreiber mit einer Belastbarkeit von mindestens 20 Ampere integriert werden. 
+Um den Anforderungen zu genügen, muss ein Motortreiber mit einer Belastbarkeit von mindestens \SI{20}{\ampere} integriert werden. 
 Ein Mikrocontroller zum Steuern der Aktorik inklusive des Motors, sowie zum Auslesen der Sensorsignale muss zur Verfügung gestellt werden. 
 Anschlüsse für zwei Sharp Sensoren vom Typ ``GP2D120'' oder ``GP2D12'' sowie weitere Anschlüsse für den Inertialsensor, Beleuchtung, Servomotor werden ebenfalls benötigt. 
 Es muss eine Odometrie zur Messung der Geschwindigkeit integriert werden.
 Es muss eine effiziente Energieversorgung aller Bauteile zur Verfügung gestellt werden, welche auch zwei Pandaboards stabil betreiben kann. Die maximale Eingangsspannung
-muss mindestens 20 Volt betragen, um das Auto auch über das Netzteil betreiben zu können.
+muss mindestens \SI{20}{\volt} betragen, um das Auto auch über das Netzteil betreiben zu können.
 Da das Fahrzeug energieeffizient arbeiten soll, ist eine Messung des Motorstromverbrauches essenziell, um das Fahrverhalten bezüglich der Effizienz bewerten zu können.
 Zu guter Letzt muss die Platine über eine Schnittstelle mit einem Pandaboard kommunizieren und seine Daten dort über ein ROS-Interface zur Verfügung zu stellen.
 
@@ -91,6 +91,6 @@ Zu guter Letzt muss die Platine über eine Schnittstelle mit einem Pandaboard ko
 Nach der erfolgreichen Teilnahme am ``Carolo-Cup Junior'' im Februar 2014, begann die Weiterentwicklung des Konzepts. Während der Entwicklung kamen jedoch
 einige Flaschenhälse zum Vorschein, so dass in der Projektphase die Hardwareplattform geändert werden musste. Die Rechenleistung der Pandaboards stellte sich
 als unzureichend heraus und es wurden mehr Distanzsensoren gewünscht. Die Pandaboards wurden nach der Absprache mit dem Team durch ein Intel NUC vom Typ
-D34010WYB ersetzt. Laut Datenblatt \cite{datasheet-nuc} besitzt der NUC einen Weitbereichseingang zur Spannungsversorgung, dieser ist für 12-24 Volt zugelassen.
+D34010WYB ersetzt. Laut Datenblatt \cite{datasheet-nuc} besitzt der NUC einen Weitbereichseingang zur Spannungsversorgung, dieser ist für \SIrange{12}{24}{\volt} zugelassen.
 Sodas der NUC direkt an den \SI{14,4}{\V} der Akkus und den \SI{20}{\V} des Netzteils betrieben werden kann. Um Verwirrungen zu vermeiden wird im Folgenden legendlich 
 von Recheneinheit gesprochen, wenn es nicht relevant ist ob es sich um NUC oder Pandaboard handelt.

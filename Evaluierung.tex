@@ -5,7 +5,7 @@
 \section{Strommessung}
 
 Zur Qualitätsbewertung der Strommessung wurde das Fahrzeug aufgebockt. 
-Das Fahrzeug befand sich während aller Messungen im Akkubetrieb, bei ca. 16,8V Akkuspannung.
+Das Fahrzeug befand sich während aller Messungen im Akkubetrieb, bei ca. \SI{16,8}{\volt} Akkuspannung.
 Während aller Messungen im Akkubetrieb wurden zwei Akkus parallel genutzt um den Innenwiderstand zu verringern.
 Der Motor wurde, soweit nicht anders beschrieben, mit einem PWM-Tastgrad von 30:256 angesteuert.
 Zur Beurteilung der Messergebnisse wurden Messungen an diversen Punkten vorgenommen und mit der Ausgabe des Mikrocontrollers verglichen.
@@ -54,13 +54,13 @@ Um die Tabellen nicht zu überladen wurde der Tastgrad nur unvollständig angege
   \centering
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
-    Tastgrad & Erwartungswert [A] & Standardabweichung [A]  \\ \hline \hline
-    10 & 0,0044 & 0,0212\\ \hline
-    20 & 0,0730 & 0,0214\\ \hline
-    30 & 0,1600 & 0,0215\\ \hline
-    40 & 0,2629 & 0,0214\\ \hline
-    50 & 0,3653 & 0,0185\\ \hline
-    60 & 0,4720 & 0,0231\\ \hline
+    Tastgrad & Erwartungswert [\si{\A}] & Standardabweichung [\si{\A}]  \\ \hline \hline
+    10 & \num{0,0044} & \num{0,0212}\\ \hline
+    20 & \num{0,0730} & \num{0,0214}\\ \hline
+    30 & \num{0,1600} & \num{0,0215}\\ \hline
+    40 & \num{0,2629} & \num{0,0214}\\ \hline
+    50 & \num{0,3653} & \num{0,0185}\\ \hline
+    60 & \num{0,4720} & \num{0,0231}\\ \hline
 
   \end{tabularx}
   \caption{Motorstrom im Leerlauf}%
@@ -74,13 +74,13 @@ die Messungen erneut unter Last durchgeführt, der Motor befand sich währenddes
   \centering
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
-    Tastgrad & Erwartungswert [A] & Standardabweichung [A]  \\ \hline \hline
-    10 & 0,0454 & 0,0183\\ \hline
-    20 & 0,4635 & 0,0243\\ \hline
-    30 & 1,1694 & 0,0338\\ \hline
-    40 & 1,9822 & 0,0563\\ \hline
-    50 & 3,8737 & 0,0477\\ \hline
-    60 & 4,7023 & 0,0706\\ \hline
+    Tastgrad & Erwartungswert [\si{\A}] & Standardabweichung [\si{\A}]  \\ \hline \hline
+    10 & \num{0,0454} & \num{0,0183}\\ \hline
+    20 & \num{0,4635} & \num{0,0243}\\ \hline
+    30 & \num{1,1694} & \num{0,0338}\\ \hline
+    40 & \num{1,9822} & \num{0,0563}\\ \hline
+    50 & \num{3,8737} & \num{0,0477}\\ \hline
+    60 & \num{4,7023} & \num{0,0706}\\ \hline
   \end{tabularx}
   \caption{Motorstrom unter Last}%
   \label{tab:current_load}
@@ -98,12 +98,12 @@ des Fahrzeuges untersucht.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{5V_supply.png}\\
-\caption{Störungen im 5V Netz}%
+\caption{Störungen im \SI{5}{\V} Netz}%
 \label{fig:5V Supply}
 \end{figure}
 
-Betrachtet man den Verlauf der Spannung im 5V-Netz lässt sich leicht erkennen, dass das Signal von einem dem Strom sehr ähnlichen Signal überlagert wird.
-Eine solche Störung kann nur von der Betriebsspannung kommen, da der Motor nicht an das 5V-Netz angeschlossen ist. Scheinbar ist der 5V-Schaltregler nicht in der
+Betrachtet man den Verlauf der Spannung im \SI{5}{\V}-Netz lässt sich leicht erkennen, dass das Signal von einem dem Strom sehr ähnlichen Signal überlagert wird.
+Eine solche Störung kann nur von der Betriebsspannung kommen, da der Motor nicht an das \SI{5}{\V}-Netz angeschlossen ist. Scheinbar ist der \SI{5}{\V}-Schaltregler nicht in der
 Lage diese Störungen vollständig auszugleichen.
 Daher wird nun die Betriebsspannung untersucht, um das Ausmaß der Störungen beurteilen zu können.
 Die Werte wurden in einer 1:10 Teilung gemessen, daher sind alle Spannungen mit dem Faktor 10 zu multiplizieren.
@@ -140,14 +140,14 @@ die hohe Belastung zu einer starken Wärmeentwicklung des Motors führte.
 \label{fig:akku_supply}
 \end{figure}
 
-Betrachtet man das 5V-Netz unter diesen Bedingungen (\cref{fig:5V_last}) zeigt sich die beeindruckende Leistung des 5V Schaltreglers.
-Das 5V-Netz scheint trotz der immensen Störung im Mittel noch stabil. Jedoch hat sich die Amplitude der Störungen
+Betrachtet man das \SI{5}{\V}-Netz unter diesen Bedingungen (\cref{fig:5V_last}) zeigt sich die beeindruckende Leistung des \SI{5}{\V} Schaltreglers.
+Das \SI{5}{\V}-Netz scheint trotz der immensen Störung im Mittel noch stabil. Jedoch hat sich die Amplitude der Störungen
 stark vergrößert.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{5V_LAST.png}\\
-\caption{Störungen des 5V Netzes unter Last}%
+\caption{Störungen des \SI{5}{\V} Netzes unter Last}%
 \label{fig:5V_last}
 \end{figure}
 
@@ -165,12 +165,12 @@ Die Messwerte wurden unter Last bei dem angegebenen Tastgrad aufgenommen. Um die
   \centering
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
-     Tastgrad & Erwartungswert [\SI{}{\metre\per\second\squared}] & Standardabweichung [\SI{}{\metre\per\second\squared}]  \\ \hline \hline
-     20 & -0,02034  & 0,00078 \\ \hline
-     30 & -0,02047  & 0,00225 \\ \hline
-     40 & -0,02035  & 0,00097 \\ \hline
-     50 & -0,02034  & 0,00074 \\ \hline
-     60 & -0,02028  & 0,00189 \\ \hline
+     Tastgrad & Erwartungswert [\si{\metre\per\second\squared}] & Standardabweichung [\si{\metre\per\second\squared}]  \\ \hline \hline
+     20 & \num{-0,02034}  & \num{0,00078} \\ \hline
+     30 & \num{-0,02047}  & \num{0,00225} \\ \hline
+     40 & \num{-0,02035}  & \num{0,00097} \\ \hline
+     50 & \num{-0,02034}  & \num{0,00074} \\ \hline
+     60 & \num{-0,02028}  & \num{0,00189} \\ \hline
   \end{tabularx}
   \caption{Accelerometer}%
   \label{tab:acc}
@@ -180,12 +180,12 @@ Die Messwerte wurden unter Last bei dem angegebenen Tastgrad aufgenommen. Um die
   \centering
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
-     Tastgrad & Erwartungswert [\SI{}{\radian\per\second}] & Standardabweichung [\SI{}{\radian\per\second}]  \\ \hline \hline
-     20 & 0,72961 & 0,27632\\ \hline
-     30 & 0,77174 & 0,30825\\ \hline
-     40 & 0,78556 & 0,27121\\ \hline
-     50 & 0,77792 & 0,27066\\ \hline
-     60 & 0,87919 & 0,23369\\ \hline
+     Tastgrad & Erwartungswert [\si{\radian\per\second}] & Standardabweichung [\si{\radian\per\second}]  \\ \hline \hline
+     20 & \num{0,72961} & \num{0,27632}\\ \hline
+     30 & \num{0,77174} & \num{0,30825}\\ \hline
+     40 & \num{0,78556} & \num{0,27121}\\ \hline
+     50 & \num{0,77792} & \num{0,27066}\\ \hline
+     60 & \num{0,87919} & \num{0,23369}\\ \hline
   \end{tabularx}
   \caption{Gyroskop}%
   \label{tab:gyro}
@@ -198,12 +198,12 @@ Sowohl beim Accelerometer als auch beim Gyroskop lässt sich anhand der Daten ke
   \centering
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
-     Tastgrad & Erwartungswert [\SI{}{\tesla}] & Standardabweichung [\SI{}{\tesla}]  \\ \hline \hline
-     20 & 0,06974 & 0,00436\\ \hline
-     30 & 0,07602 & 0,00715\\ \hline
-     40 & 0,07336 & 0,01154\\ \hline
-     50 & 0,06504 & 0,01366\\ \hline
-     60 & 0,06564 & 0,01894\\ \hline
+     Tastgrad & Erwartungswert [\si{\tesla}] & Standardabweichung [\si{\tesla}]  \\ \hline \hline
+     20 & \num{0,06974} & \num{0,00436}\\ \hline
+     30 & \num{0,07602} & \num{0,00715}\\ \hline
+     40 & \num{0,07336} & \num{0,01154}\\ \hline
+     50 & \num{0,06504} & \num{0,01366}\\ \hline
+     60 & \num{0,06564} & \num{0,01894}\\ \hline
   \end{tabularx}
   \caption{Magnetometer}%
   \label{tab:mag}
@@ -215,7 +215,7 @@ des Magnetometers beachtet werden.
 
 
 Weiter Störungen beim Magnetometer entstehen, wenn der Servomotor belastet wird (\cref{plott:ripple_mag}). Durch die Art und Weise wie der Servomotor arbeitet, treten starke Schwankungen im Stromverbrauch des Servomotors auf.
-Bei der Untersuchung des 5V-Netzes konnten allerdings keine Störungen in der Spannungsversorgung festgestellt werden.
+Bei der Untersuchung des \SI{5}{\V}-Netzes konnten allerdings keine Störungen in der Spannungsversorgung festgestellt werden.
 
 
   
@@ -242,7 +242,7 @@ Nach ausführlicher Untersuchung konnte der Fehler jedoch im Platinenlayout ausg
 \end{figure}
 
 Der Inertialsensor wurde bei der Entwicklung des Layouts zu nahe an die Filterspule des Schaltreglers gelegt. Da das Magnetfeld einer Spule proportional zum durchfließenden Strom ist, treten die Störungen
-besonders bei starken Lastwechseln im 5V-Netz auf. Die konstante Belastung belegt das Magnetometer nur mit einem Offset.
+besonders bei starken Lastwechseln im \SI{5}{\V}-Netz auf. Die konstante Belastung belegt das Magnetometer nur mit einem Offset.
 
 Durch die Verschiebung des Inertialsensors, mit Hilfe einer Lochrasterplatine, konnten die Störungen jedoch stark verringert werden (siehe \cref{plott:ripple_mag_new}).
 
@@ -260,17 +260,17 @@ Durch die Verschiebung des Inertialsensors, mit Hilfe einer Lochrasterplatine, k
 \end{figure}
 
 \section{Infrarotsensoren}
-Im Kapitel Umsetzung wurde bereits über die hohen Anforderungen der GP2D Sensoren berichtet. Da bei starker Motorlast kleine Störungen im 5V-Netz auftreten, wird nun
+Im Kapitel Umsetzung wurde bereits über die hohen Anforderungen der GP2D Sensoren berichtet. Da bei starker Motorlast kleine Störungen im \SI{5}{\V}-Netz auftreten, wird nun
 untersucht, wie groß der Einfluss der Störungen auf die Infrarotsensoren ist. Die Werte wurden dabei wieder in unterschiedlichen Lastszenarien aufgezeichnet.
 
 \begin{table}[H]
   \centering
   \begin{tabularx}{\textwidth}{|X|r|r|}
     \hline
-     Tastgrad & Erwartungswert [\SI{}{\V}] & Standardabweichung [\SI{}{\V}]  \\ \hline \hline
-     0 &  1,535 & 0,0243\\ \hline
-     30 & 1,533 & 0,0248\\ \hline
-     60 & 1,570 & 0,1185\\ \hline
+     Tastgrad & Erwartungswert [\si{\V}] & Standardabweichung [\si{\V}]  \\ \hline \hline
+     0  & \num{1,535} & \num{0,0243}\\ \hline
+     30 & \num{1,533} & \num{0,0248}\\ \hline
+     60 & \num{1,570} & \num{0,1185}\\ \hline
   \end{tabularx}
   \caption{Infrarotsensoren}%
   \label{tab:ir}
@@ -333,16 +333,16 @@ eine Strecke von 10m möglichst gerade zurücklegen musste. Dabei wurden Start- 
   \begin{tabularx}{\textwidth}{|X|r|r|r|}
     \hline
      Startwert & Endwert & Differenz  & pro Meter \\ \hline \hline
-    -1050	& 48839		& 49889	& 4988,9\\ \hline
-      919	& 50796		& 49877	& 4987,7\\ \hline
-    -3692	& 46145		& 49837	& 4983,7\\ \hline
-    78153	& 127970	& 49817	& 4981,7\\ \hline
-    73414	& 123348	& 49934	& 4993,4\\ \hline
-    118248	& 168199	& 49951	& 4995,1\\ \hline
-    195752	& 245667	& 49915	& 4991,5\\ \hline
-    255970	& 305846	& 49876	& 4987,6\\ \hline
-    349832	& 399721	& 49889	& 4988,9\\ \hline
-    418516	& 468432	& 49916	& 4991,6\\ \hline
+    \num{-1050}	& \num{48839}		& \num{49889}	& \num{4988,9}\\ \hline
+    \num{919}	  & \num{50796}		& \num{49877}	& \num{4987,7}\\ \hline
+    \num{-3692}	& \num{46145}		& \num{49837}	& \num{4983,7}\\ \hline
+    \num{78153}	& \num{127970}	& \num{49817}	& \num{4981,7}\\ \hline
+    \num{73414}	& \num{123348}	& \num{49934}	& \num{4993,4}\\ \hline
+    \num{118248}	& \num{168199}	& \num{49951}	& \num{4995,1}\\ \hline
+    \num{195752}	& \num{245667}	& \num{49915}	& \num{4991,5}\\ \hline
+    \num{255970}	& \num{305846}	& \num{49876}	& \num{4987,6}\\ \hline
+    \num{49832}	& \num{399721}	& \num{49889}	& \num{4988,9}\\ \hline
+    \num{418516}	& \num{468432}	& \num{49916}	& \num{4991,6}\\ \hline
   \end{tabularx}
   \caption{Magnetometer}%
   \label{tab:odom}
@@ -434,11 +434,11 @@ Abschnitt jedoch bereits evaluiert wurde ist dies nicht nötig.
 
 Der Stromverbrauch des Fahrzeugs ist ein wichtiges Kriterium in den statischen Disziplinen. Um den Stromverbrauch im laufenden Betrieb messen zu können, wird hier ein Versuchsaufbau verwendet welcher der Messung des
 Motorstromes ähnelt. Die Schaltung besteht dabei aus einem Shuntwiderstand, einer aktiven Filterschaltung und einem Arduino, welcher die Daten zum NUC weiterleitet. Der Vorteil dieser Methode ist, dass die Daten
-unter realen Bedingungen in Echtzeit aufgezeichnet werden können. \cref{fig:power_consumption} zeigt den Verlauf der Leistungsaufnahme während folgendem Szenario: Bis ca. 25s steht das Auto, sämtliche Software, des OttoCar-Projekts (inklusive
+unter realen Bedingungen in Echtzeit aufgezeichnet werden können. \cref{fig:power_consumption} zeigt den Verlauf der Leistungsaufnahme während folgendem Szenario: Bis ca. \SI{25}{\second} steht das Auto, sämtliche Software, des OttoCar-Projekts (inklusive
 der Bildverarbeitung), ist dabei auf 
-dem Fahrzeug aktiv. Ab 25s beschleunigt das Fahrzeug auf \SI{1,3}{\metre\per\second} und verharrt dort bis ca. Sekunde 57, in welcher es gegen eine Wand fährt. Der grüne Graph stellt dabei den Strom durch den Motor dar, während
+dem Fahrzeug aktiv. Ab \SI{25}{\second} beschleunigt das Fahrzeug auf \SI{1,3}{\metre\per\second} und verharrt dort bis ca. Sekunde 57, in welcher es gegen eine Wand fährt. Der grüne Graph stellt dabei den Strom durch den Motor dar, während
 der blaue Graph den Gesamtverbrauch des Fahrzeugs darstellt. Die roten Linien stellen einen gleitenden Mittelwert aus den letzten 200 Messwerten dar. Gut zu erkennen ist, dass der Stromverbrauch des Fahrzeugs im Stand unter 
-10 Watt liegt. Der Mittelwert des Verbrauches im Stand beträgt 7,9 Watt, während das Fahrzeug während der Fahrt knapp 13 Watt an Leistung aufnimmt. Nur während das Fahrzeug beschleunigt benötigt es für die Dauer
+\SI{10}{\watt} liegt. Der Mittelwert des Verbrauches im Stand beträgt \SI{7,9}{\watt}, während das Fahrzeug während der Fahrt knapp \SI{13}{\watt} an Leistung aufnimmt. Nur während das Fahrzeug beschleunigt benötigt es für die Dauer
 des Beschleunigungsvorganges mehr Leistung. Fährt das Fahrzeug gegen ein Hindernis, sodass die Räder blockieren, befindet sich der Motor im Kurzschlussbetrieb, dabei reduziert sich sein Widerstand auf den Ohmschen Widerstand
 des Motors, was zu einem hohen Stromfluss durch den Motor führt. Dauerhaft kann das durch Überhitzung zur Zerstörung des Motors oder der Treiberplatine führen.
 
