@@ -16,12 +16,12 @@ welche das Schaltungsdesign enorm vereinfachen.
 \end{figure}
 
 \subsection{Auswahl der Mosfets}
-Die Auswahl der Mosfets wird durch den geforderten Strom von 20A und der maximalen Betriebsspannung von 20V eingegrenzt. Weitere Kriterien wie die Gate-Source-Spannung, welche zum Durchschalten
+Die Auswahl der Mosfets wird durch den geforderten Strom von \SI{20}{\ampere} und der maximalen Betriebsspannung von \SI{20}{\volt} eingegrenzt. Weitere Kriterien wie die Gate-Source-Spannung, welche zum Durchschalten
 der Mosfets benötigt wird, sind auf Grund der Tatsache, dass ein Mosfettreiber verwendet werden soll nicht von Belang, da dieser die benötigten Spannungen generiert.
 Für die Anwendung in einem Vierquadrantensteller ist die wahrscheinlich wichtigste Größe der Drain-Source-Widerstand im Einschaltzustand $R_{\text{DS(ON)}}$.
 Ein kleiner $R_{\text{DS(ON)}}$ ist von Vorteil und führt zu einer kleinen Verlustleistung an den Mosfets.
 Mosfets mit einem hervorragenden $R_{\text{DS(ON)}}$ von nur \SI{12}{\mohm} sind die FDD6690A von Fairchild Semiconductor \cite{ds-fs}. Weitere Kenngrößen dieser sind
-eine maximale Drain-Source-Spannung von 30V sowie eine Belastbarkeit von 46A, eine gute Kühlung vorausgesetzt. Aufgrund der kleinen Gate Ladung von 13nC eignen
+eine maximale Drain-Source-Spannung von \SI{30}{\volt} sowie eine Belastbarkeit von \SI{46}{\ampere}, eine gute Kühlung vorausgesetzt. Aufgrund der kleinen Gate Ladung von \SI{13}{\nano\coulomb} eignen
 sie sich gut für hohe Schaltfrequenzen. Aufgrund ihres niedrigen $R_{\text{DS(ON)}}$ werden sie für die Platine genutzt.
 
 
