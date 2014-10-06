@@ -177,10 +177,10 @@ Da der Strom in VDSTH nur minimal ist (ca \SI{10}{\micro\ampere}), kann diese Sp
 Widerständen zu \SI{2}{\kilo\ohm} und \SI{32}{\kilo\ohm} erzeugt uns zusammen mit den \SI{5}{\volt} aus dem V5 Ausgang eine Spannung von $\frac{\SI{2}{\kilo\ohm}}{\SI{32}{\kilo\ohm}+\SI{2}{\kilo\ohm}}\cdot \SI{5}{\V} =\SI{0,24}{\V}$.
 Der Spannungsteiler wird durch R\textsubscript{VDSTH1} und R\textsubscript{VDSTH2} gebildet.\\
 
-Die Größe des C\textsubscript{REG} Kondensators hängt direkt mit der Größe der Bootstrapkondensatoren zusammen. Er soll ca 20 mal größer als
+Die Größe des C\textsubscript{REG} Kondensators hängt direkt mit der Größe der Bootstrapkondensatoren zusammen. Er soll ca. 20 mal größer als
 C\textsubscript{BOOTA} bzw C\textsubscript{BOOTB} gewählt werden, so dass hier ein \SI{470}{\nano\farad} Kondensator gewählt wird.\\
 
-Das Datenbatt empfiehlt \SI{100}{\nano\farad} entkoppelungs Kondensatoren zwischen Drain und Source eines jeden Mosfets. Diese wurden in Form von C\textsubscript{AH},C\textsubscript{AL},C\textsubscript{BH} und C\textsubscript{BL} 
+Das Datenbatt empfiehlt \SI{100}{\nano\farad} entkoppelungs Kondensatoren zwischen Drain und Source eines jeden Mosfets. Diese wurden in Form von C\textsubscript{AH}, C\textsubscript{AL}, C\textsubscript{BH} und C\textsubscript{BL} 
 verbaut. Alle restlichen Größen werden direkt dem Datenblatt entnommen.\\
 
 Da der verwendete AVR Mikrocontroller nur über begrenzte PWM fähige Anschlüsse verfügt, wird lediglich der PWM-Kanal für die oberen Mosfets (PWMH) an einen PWM Ausgang des AVR angeschlossen.
@@ -234,7 +234,7 @@ der Mittelwert des Stroms interessant ist, kann dieser mit Hilfe eines Tiefpasse
 Eine kostengünstige Variante den Strom zu messen ist den Spannungsabfall über einen Shuntwiderstand zu bestimmen. Die Größe des Shuntwiderstandes sollte nur so klein wie nötig gewählt werden.
 Ein zu kleiner Shuntwiderstand benötigt einen starken Messverstärker, um das Signal auswerten zu können. Die Qualität und Genauigkeit dieses Signals nimmt allerdings mit steigender Verstärkung ab.
 
-Nach kurzer Recherche wurde die Größe des Shuntwiderstands auf R2512(ca. \SI{6,35}{\milli\meter} x \SI{3,00}{\milli\meter}) begrenzt. Messshunts in dieser Größe gibt es problemlos bis zu einer Belastbarkeit von \SI{2}{\watt}. 
+Nach kurzer Recherche wurde die Größe des Shuntwiderstands auf R2512 (ca. \SI{6,35}{\milli\meter} x \SI{3,00}{\milli\meter}) begrenzt. Messshunts in dieser Größe gibt es problemlos bis zu einer Belastbarkeit von \SI{2}{\watt}. 
 Bei einem maximalen Motorstrom von \SI{20}{\ampere} ergibt sich somit ein maximaler Spannungsabfall von \SI{100}{\milli\volt}. Nach dem Ohmschen Gesetz ergibt sich so eine Shunt-Größe von
 $\frac{\SI{0,1}{\volt}}{\SI{20}{\ampere}}=\SI{0,005}{\ohm}$. Shuntwiderstände in der Größe sind problemlos zu bekommen.
 Da es sich hier um eine Worst Case Rechnung handelt, wird der zusätzliche Widerstand des Shuntwiderstandes und der damit verringerte Strom bewusst ignoriert.
@@ -329,7 +329,7 @@ Statt eine fixe Grenzfrequenz festzulegen und die benötigte Filterordnung zu be
 
 \subsubsection{Bestimmung der Filtercharakteristik}
 
-Die Charakteristik eins Filters entscheidet über seinen Frequenzgang. Es gibt viele dieser Filtercharakteristiken, eine Auswahl an häufig verwendeten Charakteristiken wird hier verglichen.
+Die Charakteristik eines Filters entscheidet über seinen Frequenzgang. Es gibt viele dieser Filtercharakteristiken, eine Auswahl an häufig verwendeten Charakteristiken wird hier verglichen.
 
 Der \emph{Butterworth}-Filter besitzt einen maximal flachen Verlauf des Frequenzganges im Durchlassbereich und eine monoton verlaufende Dämpfung im Sperrbereich.
 Leider hat der Butterworth-Filter nur eine geringe Flankensteilheit im Sperrbereich (\SI{20}{\decibel}/Dekade pro Ordnung). Ein Butterworth-Filter 1. Ordnung entspricht einen  einfachen RC-Filter.
@@ -428,7 +428,7 @@ verfügbar sind und daher am Schluss variiert werden müssen, wodurch sich die G
 
 
 
-Betrachten wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. Ordnung, wie in [\cref{fig:filter_polnul}]
+Betrachten wir das Polstellen-Nullstellendiagramm eines Butterworth Filters 2. Ordnung, wie in \cref{fig:filter_polnul}
 
 
 \begin{figure}[H]
@@ -828,9 +828,6 @@ Laut diesem hat eine Servomotor keinen konstanten Stromverbrauch. Der Stromfluss
 Nur wenn der Servomotor dauerhaft belastet wird, kommt es zu einem konstanten Stromfluss.
 Im Artikel werden mehrere Servomotoren vermessen, der Motor der dem verwendeten am nächsten kommt ist der ``Graupner 4421'' mit folgenden Daten:
 
-%TODO
-\todo{Servo Modell \cite{website-servo-dat} in Anforderungen mit aufnehmen}
-
 Technische Daten ``Graupner 4421'' \cite{website-servo-vergleich-dat}:
 \begin{itemize}
  \item Stellzeit(\SI{60}{\degree}): \SI{0,11}{\second}
@@ -917,7 +914,6 @@ Die Beschaltung erfolgt dabei nach den Empfehlungen des Datenblattes. Die verwen
 Die verbauten Kondensatoren stammen aus Nichicons L8 Serie und haben einen Serienwiderstand von nur \SI{12}{\milli\ohm}.
 
 \textbf{Low-ESR Kondensatoren:\\}
-
 Low-ESR Kondensatoren zeichnen sich durch einen niedrigen Serienwiderstand ($R_{ESR}$) aus.
 Dieser liegt in Reihe(Serie) zum idealen Kondensator (\cref{fig:esr}). 
 

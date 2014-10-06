@@ -87,7 +87,7 @@ die Messungen erneut unter Last durchgeführt, der Motor befand sich währenddes
 \end{table}
 
 Der Tabelle \ref{tab:current_load} kann leicht entnommen werden, dass die Ströme unter Last stark ansteigen. Die Standardabweichung steigt im Verhältnis zum Strom nur leicht.
-Sodass die Streuung der Messung mit steigendem Strom zwar zunimmt, die relative Abweichung der Werte jedoch nicht zunimmt.
+So dass die Streuung der Messung mit steigendem Strom zwar zunimmt, die relative Abweichung der Werte jedoch nicht zunimmt.
 
 
 \section{Spannungsversorgung}
@@ -98,7 +98,7 @@ des Fahrzeuges untersucht.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{5V_supply.png}\\
-\caption{Störungen im \SI{5}{\V} Netz}%
+\caption{Störungen im \SI{5}{\V}-Netz}%
 \label{fig:5V_Supply}
 \end{figure}
 
@@ -120,7 +120,7 @@ der PWM Frequenz von \SI{7812,5}{\hertz}.  Der Motor wurde währenddessen mit ei
 \end{figure}
 
 
-Vergleicht man die Messungen im Akkubetrieb (\cref{fig:akku_supply}) mit den Messungen im Netzbetrieb (\cref{fig:power_supply}), kann man erkennen das das Netzteil versucht die Schwankungen auszugleichen.
+Vergleicht man die Messungen im Akkubetrieb (\cref{fig:akku_supply}) mit den Messungen im Netzbetrieb (\cref{fig:power_supply}), kann man erkennen, dass das Netzteil versucht die Schwankungen auszugleichen.
 
 \begin{figure}[H]
 \centering
@@ -147,7 +147,7 @@ stark vergrößert.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{5V_LAST.png}\\
-\caption{Störungen des \SI{5}{\V} Netzes unter Last}%
+\caption{Störungen des \SI{5}{\V}-Netzes unter Last}%
 \label{fig:5V_last}
 \end{figure}
 
@@ -320,7 +320,7 @@ der Messwerte zu rechnen. \cref{plott:IR_signal_30} und \cref{plott:IR_signal_60
 %\end{figure}
 
 Trotz der Störungen bei hohen Tastgraden befinden sich die Störungen im akzeptablen Bereich, da die Distanzsensoren ausschließlich während des Einparkvorganges
-genutzt werden. Dieser findet jedoch nur bei niedrigen Geschwindigkeiten statt, sodass dort keine hohen Tastgrade von\-nö\-ten sind.
+genutzt werden. Dieser findet jedoch nur bei niedrigen Geschwindigkeiten statt, so dass dort keine hohen Tastgrade von\-nö\-ten sind.
 
 
 \section{Odometrie}
@@ -425,7 +425,7 @@ Während der Datenaufzeichnung fuhr das Fahrzeug den OttoCar-Rund\-kurs ab, es s
 Sobald das Auto beschleunigt hat fängt es an seine Orientierung zu ändern. Direkt nach dem 1. Sprung der Orientierung (von -Pi zu Pi)
 hat die Geschwindigkeit ihr Maximum. Währenddessen durchfährt das Fahrzeug die S-Kurve des Rundkurses, Der Kurvenradius der S-Kurve ist sehr gering, daher fährt das Fahrzeug
 beinahe gerade. Das Fahrzeug scheint also in Kurven bei gleicher Drehzahl langsamer zu fahren, was sich durch  den erhöhten Schlupf in den Kurven erklären lässt. Die Abweichungen 
-der Geschwindigkeit in den Kurven ist jedoch sehr gering, sodass diese nur wenig ins Gewicht fallen. Der Wert der Geschwindigkeit ist mit Hilfe des Trackings nicht verifizierbar,
+der Geschwindigkeit in den Kurven ist jedoch sehr gering, so dass diese nur wenig ins Gewicht fallen. Der Wert der Geschwindigkeit ist mit Hilfe des Trackings nicht verifizierbar,
 da eine Kalibrierung dessen auf Grund des Entwicklungsstandes nicht erfolgt ist. Das Tracking ist somit als Referenzsystem nicht geeignet, da die zurückgelegte Strecke im vorherigen
 Abschnitt jedoch bereits evaluiert wurde ist dies nicht nötig.
 
@@ -439,7 +439,7 @@ der Bildverarbeitung), ist dabei auf
 dem Fahrzeug aktiv. Ab \SI{25}{\second} beschleunigt das Fahrzeug auf \SI{1,3}{\metre\per\second} und verharrt dort bis ca. Sekunde 57, in welcher es gegen eine Wand fährt. Der grüne Graph stellt dabei den Strom durch den Motor dar, während
 der blaue Graph den Gesamtverbrauch des Fahrzeugs darstellt. Die roten Linien stellen einen gleitenden Mittelwert aus den letzten 200 Messwerten dar. Gut zu erkennen ist, dass der Stromverbrauch des Fahrzeugs im Stand unter 
 \SI{10}{\watt} liegt. Der Mittelwert des Verbrauches im Stand beträgt \SI{7,9}{\watt}, während das Fahrzeug während der Fahrt knapp \SI{13}{\watt} an Leistung aufnimmt. Nur während das Fahrzeug beschleunigt benötigt es für die Dauer
-des Beschleunigungsvorganges mehr Leistung. Fährt das Fahrzeug gegen ein Hindernis, sodass die Räder blockieren, befindet sich der Motor im Kurzschlussbetrieb, dabei reduziert sich sein Widerstand auf den Ohmschen Widerstand
+des Beschleunigungsvorganges mehr Leistung. Fährt das Fahrzeug gegen ein Hindernis, so dass die Räder blockieren, befindet sich der Motor im Kurzschlussbetrieb, dabei reduziert sich sein Widerstand auf den Ohmschen Widerstand
 des Motors, was zu einem hohen Stromfluss durch den Motor führt. Dauerhaft kann das durch Überhitzung zur Zerstörung des Motors oder der Treiberplatine führen.
 
 \begin{figure}[H]
@@ -495,5 +495,5 @@ Durch die stärkere Bremswirkung im SR-Modus spricht das Auto besonders gut auf 
 Ein direkter Vergleich des Stromverbrauchs mit anderen Teams des vergangenden „Carolo-Cup“ 2014 ist leider kaum möglich, da in den vorhandenen Quellen (Teampräsentationen) nur sehr selten
 angaben über die Bedingungen der Messung gemacht werden. Die Angaben variieren dabei von \SI{10}{\W} (Berlin-United-Racing Team \cite{cc-bu}) bis zu \SI{161}{\W}(Team CDLC \cite{cc-cdlc}).
 Team ``Tetrix''\cite{cc-tx} gibt ihren Stromverbrauch jedoch mit \SI{66,2}{\W} bei \SI{1}{\metre\per\second} und ist somit das einzige vergleichbare Team. Von diesem Wert entfallen
-laut der Präsentation \SI{47}{\W} auf den Motor. Dieser Wert scheint jedoch viel zu hoch, so dass hier von einer Fehlerhaften Messung des Team ``Tetrix'' ausgegangen wird.
+laut der Präsentation \SI{47}{\W} auf den Motor. Dieser Wert scheint jedoch viel zu hoch, so dass hier von einer fehlerhaften Messung des Team ``Tetrix'' ausgegangen wird.
 
